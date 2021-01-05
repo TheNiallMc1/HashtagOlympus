@@ -5,6 +5,7 @@ using UnityEngine;
 public class BekahClass : MonoBehaviour
 {
     //get out of my script
+    // make me bish
 
     // Start is called before the first frame update
     void Start()
