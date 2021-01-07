@@ -6,6 +6,7 @@ public class BekahsGM : MonoBehaviour
 {
     public int totalRespect;
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     public int activeGodCount;
     public Canvas selectorScreen;
@@ -16,6 +17,8 @@ public class BekahsGM : MonoBehaviour
     public Canvas selectorScreen;
 >>>>>>> main
 >>>>>>> main
+=======
+>>>>>>> parent of fae512e... bekah stuff
     
     private static BekahsGM _instance = null; // the private static singleton instance variable
     public static BekahsGM Instance { get { return _instance; } } // public getter property, anyone can access it!
@@ -38,6 +41,7 @@ public class BekahsGM : MonoBehaviour
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 <<<<<<< HEAD
@@ -58,6 +62,8 @@ public class BekahsGM : MonoBehaviour
 =======
 >>>>>>> main
 >>>>>>> main
+=======
+>>>>>>> parent of fae512e... bekah stuff
 
     void OnDestroy()
     {
@@ -86,6 +92,7 @@ public class BekahsGM : MonoBehaviour
     {
         currentGods.Add(selectedGod);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -101,6 +108,8 @@ public class BekahsGM : MonoBehaviour
 =======
 >>>>>>> main
 >>>>>>> main
+=======
+>>>>>>> parent of fae512e... bekah stuff
     }
     
     
