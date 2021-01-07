@@ -7,8 +7,8 @@ public class BekahsGM : MonoBehaviour
     public int totalRespect;
 
     
-    public int activeGodCount;
-    public Canvas selectorScreen;
+    //public int activeGodCount;
+    //public Canvas selectorScreen;
 
     public int activeGodCount;
     public Canvas selectorScreen;
