@@ -21,4 +21,9 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
     }
+
+    private void SelectGod(GodBehaviour godToSelect)
+    {
+        print(godToSelect.gameObject.name);
+    }
 }

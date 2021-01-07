@@ -8,10 +8,15 @@ public class TouristBehaviour : MonoBehaviour
     public int maxHealth;
     protected int currentHealth;
     protected int attackDamage;
+
+    [Header("AI Weights")] 
+    public CurrentState currentState;
     
-    [Header("AI Weights")]
-    public int attackGodChance;
-    public int attackStructureChance;
+    [Tooltip("Chance of tourist switching from attacking monument to attacking gods")]
+    [Range(0, 100)] public int attackGodChance;
+    
+    [Tooltip("Chance of tourist attacking a god monument when they reach one")]
+    [Range(0, 100)] public int attackStructureChance;
 
     [Header("Waypoint Scoring")]
     //public Waypoint currentWaypoint;
@@ -23,4 +28,11 @@ public class TouristBehaviour : MonoBehaviour
     
     public int godsNearby;
     public int touristsNearby;
+}
+
+public enum CurrentState
+{
+    idle,
+    walking,
+    attacking
 }
