@@ -6,6 +6,9 @@ public class BekahsGM : MonoBehaviour
 {
     public int totalRespect;
     
+    public int activeGodCount;
+    public Canvas selectorScreen;
+    
     private static BekahsGM _instance = null; // the private static singleton instance variable
     public static BekahsGM Instance { get { return _instance; } } // public getter property, anyone can access it!
 
@@ -24,6 +27,17 @@ public class BekahsGM : MonoBehaviour
                 // if this instance of GameManager is not the same as the initialized singleton instance, it is a second instance, so it must be destroyed!
                 Destroy(gameObject); // watch out, this can cause trouble!
             }
+        }
+    }
+
+    private GameObject _passedGameObject;
+    public GameObject PassedGameObject
+    {
+        get => _passedGameObject;
+        set
+        {
+            _passedGameObject = value;
+            Debug.Log ( $"Receiver[{name}] just received \'{_passedGameObject.name}\'" );
         }
     }
 
@@ -53,6 +67,13 @@ public class BekahsGM : MonoBehaviour
     public void AddGodToActiveList(GameObject selectedGod)
     {
         currentGods.Add(selectedGod);
+        Debug.Log("Added "+selectedGod.GetComponentInChildren<GodBehaviour>().godName+" to god list");
+        activeGodCount++;
+
+        if (activeGodCount == 3)
+        {
+            selectorScreen.gameObject.SetActive(false);
+        }
     }
     
     
