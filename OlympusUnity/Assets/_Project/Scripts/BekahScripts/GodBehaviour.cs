@@ -8,8 +8,13 @@ public class GodBehaviour : MonoBehaviour
     public string godName;
     public int maxHealth;
     public int currentHealth;
-    
-    // Start is called before the first frame update
+
+    public float attackDamage;
+
+    public float defence;
+
+    public float speed;
+  
     
     void Start()
     {
