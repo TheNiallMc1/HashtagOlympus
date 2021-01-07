@@ -5,19 +5,22 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera roamingCamera;
+
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float movementTime = 2f;
 
     [SerializeField] private float rotationAmount = 10f;
     [SerializeField] private float rotationTime = 2f;
 
-    [SerializeField] private Vector3 zoomAmount;
-
-    [SerializeField] private CinemachineVirtualCamera zoomedVirtualCamera;
-    [SerializeField] private CinemachineVirtualCamera defaultVirtualCamera;
+    private Vector3 zoomAmount;
+    public Vector3 newZoom;
+    public Vector3 maxZoomOut;
+    public Vector3 maxZoomIn;
 
     private Vector3 newPosition;
     private Quaternion newRotation;
+
 
     private CameraControls cameraControls;
 
@@ -74,10 +77,8 @@ public class CameraController : MonoBehaviour
         cameraControls.Camera.MoveCameraRight.started += ctx => movingCameraRight = true;
         cameraControls.Camera.RotateCameraLeft.started += ctx => rotatingCameraLeft = true;
         cameraControls.Camera.RotateCameraRight.started += ctx => rotatingCameraRight = true;
-
-        // cameraControls.Camera.ZoomIn.performed += ctx => ZoomIn();
-        // cameraControls.Camera.ZoomOut.performed += ctx => ZoomOut();
-        cameraControls.Camera.MouseScrollY.performed += x => mouseScrollY = x.ReadValue<float>();
+        
+        cameraControls.Camera.MouseScrollY.performed += ctx => mouseScrollY = ctx.ReadValue<float>();
 
         cameraControls.Camera.MoveCameraUp.canceled += ctx => movingCameraUp = false;
         cameraControls.Camera.MoveCameraDown.canceled += ctx => movingCameraDown = false;
@@ -92,6 +93,7 @@ public class CameraController : MonoBehaviour
     {
         newPosition = transform.position;
         newRotation = transform.rotation;
+        newZoom = roamingCamera.transform.localPosition;
     }
 
     private void Update()
@@ -146,29 +148,57 @@ public class CameraController : MonoBehaviour
     {
         if(mouseScrollY > 0)
         {
-            Debug.Log("Scrolled Up");
+            zoomAmount = new Vector3(0, -mouseScrollY / 45, mouseScrollY / 30);
+            if (newZoom.y > maxZoomIn.y || newZoom.z < maxZoomIn.z)
+            {
+                newZoom += zoomAmount;
+                print("zooming in");
+            }
+            // newZoom += zoomAmount;
         }
 
-        if(mouseScrollY < 0)
+        if (mouseScrollY < 0)
         {
-            Debug.Log("Scrolled Down");
+            zoomAmount = new Vector3(0, mouseScrollY / 45, -mouseScrollY / 30);
+            if(newZoom.y < maxZoomOut.y || newZoom.z > maxZoomOut.z)
+            {
+                newZoom -= zoomAmount;
+                print("zooming out");
+            }
+            // newZoom -= zoomAmount;
         }
+
+        roamingCamera.transform.localPosition = Vector3.Lerp(roamingCamera.transform.localPosition, newZoom, Time.deltaTime * movementTime);
+
+
+
+
+
+            // roamingCamera.transform.localPosition += new Vector3(0, 0, mouseScrollY * zoomSpeed / 120);
+
+            // zoomChange = new Vector3(mouseScrollY * zoomSpeed / 120, 0, mouseScrollY * zoomSpeed / 120);
+
+
+        //    if (mouseScrollY > 0)
+        //{
+        //    Debug.Log("Scrolled Up");
+        //    roamingCamera.transform.position = new Vector3(transform.position.x, transform.position.y - .3f, transform.position.z + .2f);
+        //}
+
+        //if(mouseScrollY < 0)
+        //{
+        //    Debug.Log("Scrolled Down");
+        //    roamingCamera.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z - .2f);
+        //}
+
+
+        //roamingCamera.transform.localPosition = Vector3.Lerp
+        //(roamingCamera.transform.localPosition,
+        //newZoom,
+        //Time.deltaTime * movementTime * mouseScrollY / 240);
     }
 
-    void ZoomIn()
-    {
-        //defaultVirtualCamera.Priority = 0;
-        //zoomedVirtualCamera.Priority = 1;
-        // scrollValue += 2;
-        
-    }
 
-    void ZoomOut()
-    {
-        //defaultVirtualCamera.Priority = 1;
-        //zoomedVirtualCamera.Priority = 0;
-        //scrollValue -= 1;
-    }
 
     public void MoveToSelected(Vector3 selectedPosition)
     {

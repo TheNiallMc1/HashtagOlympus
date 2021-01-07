@@ -456,7 +456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216626750}
   m_LocalRotation: {x: 0.29902673, y: -0.0018999521, z: 0.006062923, w: 0.95422363}
-  m_LocalPosition: {x: 25.05, y: 50.6, z: -49.93}
+  m_LocalPosition: {x: 25.05, y: 32.2, z: -23.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -525,13 +525,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5c9e9a87c2d5e4785695a26c1f2b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roamingCamera: {fileID: 1342732848}
   movementSpeed: 0.5
-  movementTime: 5
+  movementTime: 8
   rotationAmount: 0.5
-  rotationTime: 4
-  zoomAmount: {x: 0, y: 0, z: 0}
-  zoomedVirtualCamera: {fileID: 0}
-  defaultVirtualCamera: {fileID: 0}
+  rotationTime: 6
+  newZoom: {x: 10.4, y: 58.166668, z: -73}
+  maxZoomOut: {x: 11, y: 58, z: -70}
+  maxZoomIn: {x: 9, y: 24, z: -20}
   offset: {x: 0, y: 0, z: 0}
   mouseScrollY: 0
 --- !u!4 &606500088
@@ -1016,7 +1017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342732847}
   m_LocalRotation: {x: 0.29902673, y: -0.0018999521, z: 0.006062923, w: 0.95422363}
-  m_LocalPosition: {x: 10.4, y: 50.6, z: -61.4}
+  m_LocalPosition: {x: 10.4, y: 32.2, z: -34.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 77692696}
