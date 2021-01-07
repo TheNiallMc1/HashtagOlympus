@@ -8,6 +8,7 @@ public class BekahsGM : MonoBehaviour
 
     public int activeGodCount;
     public Canvas selectorScreen;
+    public Canvas placerScreen;
 
     private static BekahsGM _instance = null; // the private static singleton instance variable
     public static BekahsGM Instance { get { return _instance; } } // public getter property, anyone can access it!
@@ -75,6 +76,7 @@ public class BekahsGM : MonoBehaviour
         if (activeGodCount == 3)
         {
             selectorScreen.gameObject.SetActive(false);
+            placerScreen.gameObject.SetActive(true);
         }
     }
 

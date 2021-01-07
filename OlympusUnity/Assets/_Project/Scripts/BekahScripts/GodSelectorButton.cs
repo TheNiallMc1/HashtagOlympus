@@ -10,11 +10,15 @@ public class GodSelectorButton : MonoBehaviour
     
     private Button btn;
 
+
     void Start ( )
     {
         btn = GetComponent<Button> ( );
         
     }
+
+   
+    
     
     public void SendSelection()
     {
