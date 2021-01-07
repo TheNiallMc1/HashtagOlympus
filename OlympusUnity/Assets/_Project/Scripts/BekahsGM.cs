@@ -5,6 +5,11 @@ using UnityEngine;
 public class BekahsGM : MonoBehaviour
 {
     public int totalRespect;
+<<<<<<< HEAD
+=======
+    public int activeGodCount;
+    public Canvas selectorScreen;
+>>>>>>> main
     
     private static BekahsGM _instance = null; // the private static singleton instance variable
     public static BekahsGM Instance { get { return _instance; } } // public getter property, anyone can access it!
@@ -26,6 +31,20 @@ public class BekahsGM : MonoBehaviour
             }
         }
     }
+<<<<<<< HEAD
+=======
+    
+    private GameObject _passedGameObject;
+    public GameObject PassedGameObject
+    {
+        get => _passedGameObject;
+        set
+        {
+            _passedGameObject = value;
+            Debug.Log ( $"Receiver[{name}] just received \'{_passedGameObject.name}\'" );
+        }
+    }
+>>>>>>> main
 
     void OnDestroy()
     {
@@ -53,6 +72,16 @@ public class BekahsGM : MonoBehaviour
     public void AddGodToActiveList(GameObject selectedGod)
     {
         currentGods.Add(selectedGod);
+<<<<<<< HEAD
+=======
+        Debug.Log("Added "+selectedGod.GetComponentInChildren<GodBehaviour>().godName+" to god list");
+        activeGodCount++;
+
+        if (activeGodCount == 3)
+        {
+            selectorScreen.gameObject.SetActive(false);
+        }
+>>>>>>> main
     }
     
     
