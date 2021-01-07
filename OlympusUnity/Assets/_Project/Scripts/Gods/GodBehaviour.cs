@@ -3,12 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GodBehaviour : MonoBehaviour
 {
     public string godName;
+    public int maxHealth;
+    protected int currentHealth;
+    public int attackDamage;
+    
+    public Sprite portraitSprite;
+    
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
+    
+    
     public GameObject mouseDetectorCollider;
     
     public Material standardMaterial;
@@ -16,6 +25,7 @@ public class GodBehaviour : MonoBehaviour
 
     public void Awake()
     {
+        currentHealth = maxHealth;
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
     }

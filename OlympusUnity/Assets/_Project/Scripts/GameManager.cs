@@ -11,12 +11,16 @@ public class GameManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private Camera cam;
+    private UIManager uiManager;
     
-    // God Selection
+    // Gods and God Selection
+    public List<GodBehaviour> allPlayerGods;
     private bool godSelected;
-    private GodBehaviour currentlySelectedGod;
+    public GodBehaviour currentlySelectedGod;
     
-
+    // Respect
+    public int currentRespect;
+    
     private void Awake()
     {
         // Creating singleton
@@ -28,7 +32,8 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-        
+
+        uiManager = FindObjectOfType<UIManager>();
         cam = Camera.main;
         
         // Controls
@@ -44,29 +49,67 @@ public class GameManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            bool targetIsGod = hit.collider.CompareTag("God");
+            
             // Select a new god
-            if (!godSelected && hit.collider.CompareTag("God"))
+            if (!godSelected && targetIsGod)
             {
-                currentlySelectedGod = hit.collider.gameObject.GetComponentInParent<GodBehaviour>();
-                
-                godSelected = true;
-                currentlySelectedGod.ToggleSelection(godSelected);
-                
-                print("Selected: " + currentlySelectedGod.godName);
+                GodBehaviour thisGod = hit.collider.gameObject.GetComponentInParent<GodBehaviour>();
+                SelectGod(thisGod);
+
+                print("Selected: " + thisGod.godName);
             }
             
             // Move the currently selected god
-            if (godSelected && !hit.collider.CompareTag("God"))
+            if (godSelected && !targetIsGod)
             {
-                currentlySelectedGod.ToggleSelection(godSelected);
                 currentlySelectedGod.MoveToTarget(hit.point);
-                
+                DeselectGod();
+            
                 print("Moved: " + currentlySelectedGod.godName);
-
-                godSelected = false;
-                currentlySelectedGod.ToggleSelection(godSelected);
-                currentlySelectedGod = null;
             }
         }
-    }  
+    }
+
+    public void SelectGod(GodBehaviour godToSelect)
+    {
+        godSelected = true;
+        currentlySelectedGod = godToSelect;
+        currentlySelectedGod.ToggleSelection(true);
+        
+        uiManager.UpdateCurrentGodText();
+    }
+
+    public void DeselectGod()
+    {
+        godSelected = false;
+        currentlySelectedGod.ToggleSelection(false);
+        currentlySelectedGod = null;
+        
+        uiManager.UpdateCurrentGodText();
+    }
+
+    public void AddRespect(int valueToAdd)
+    {
+        currentRespect += valueToAdd;
+        
+        uiManager.UpdateCurrentGodText();
+    }
+    
+    public void RemoveRespect(int valueToRemove)
+    {
+        int newValue = currentRespect - valueToRemove;
+
+        if (newValue > 0)
+        {
+            currentRespect = newValue;
+            uiManager.UpdateCurrentGodText();
+        }
+        
+        if (newValue <= 0)
+        {
+            currentRespect = 0;
+            uiManager.UpdateCurrentGodText();
+        }
+    }
 }
