@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 606500087}
         m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: StopCameraFollow
+        m_MethodName: ReleaseCamera
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_FollowOffset: {x: 0, y: 24, z: -24}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -454,7 +454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216626750}
   m_LocalRotation: {x: 0.35972, y: 0, z: 0, w: 0.93306035}
-  m_LocalPosition: {x: 25.8, y: 32.2, z: -34.2}
+  m_LocalPosition: {x: 15.4, y: 32.2, z: -34.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -652,7 +652,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 606500087}
         m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: MoveToPlayerCharacter
+        m_MethodName: FollowPlayer
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 51486947}
@@ -829,11 +829,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3645193966571349051, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016054596
+      value: -0.000000016054596
       objectReference: {fileID: 0}
     - target: {fileID: 3645193966571349051, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000061894627
+      value: 0.0000000061894627
       objectReference: {fileID: 0}
     - target: {fileID: 3645193966571349051, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -842,6 +842,10 @@ PrefabInstance:
     - target: {fileID: 3645193966571349053, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
       propertyPath: m_Name
       value: playerCam3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645193966571349053, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
@@ -1021,7 +1025,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 606500087}
         m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: MoveToPlayerCharacter
+        m_MethodName: FollowPlayer
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 743320726}
@@ -1206,7 +1210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342732847}
   m_LocalRotation: {x: 0.35972, y: 0, z: 0, w: 0.93306035}
-  m_LocalPosition: {x: 10.4, y: 32.2, z: -34.9}
+  m_LocalPosition: {x: 0, y: 32.2, z: -34.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 77692696}
@@ -1668,7 +1672,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 606500087}
         m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: MoveToPlayerCharacter
+        m_MethodName: FollowPlayer
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 68010586}
@@ -1903,6 +1907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: playerCam2
       objectReference: {fileID: 0}
+    - target: {fileID: 3645193966571349053, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
 --- !u!1001 &3645193966583402990
@@ -1967,6 +1975,10 @@ PrefabInstance:
     - target: {fileID: 3645193966571349051, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.0000000061894627
+      objectReference: {fileID: 0}
+    - target: {fileID: 3645193966571349053, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}

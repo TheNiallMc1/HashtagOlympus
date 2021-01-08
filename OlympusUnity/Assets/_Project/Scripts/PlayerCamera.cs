@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    //[SerializeField] CinemachineVirtualCamera freeCam;
+    // [SerializeField] CinemachineVirtualCamera freeCam;
 
     //private CameraControls cameraControls;
 
