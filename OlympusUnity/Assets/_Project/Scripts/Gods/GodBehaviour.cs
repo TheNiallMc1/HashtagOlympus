@@ -13,6 +13,7 @@ public class GodBehaviour : MonoBehaviour
     public int attackDamage;
     
     public Sprite portraitSprite;
+    public Sprite portraitSpriteSelected;
     
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;

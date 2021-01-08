@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class GodPortrait : MonoBehaviour
 {
-    public Sprite defaultImage;
-    public Sprite selectedImage;
-
     private Image thisImage;
     
     public GodBehaviour correspondingGod;
@@ -23,6 +20,17 @@ public class GodPortrait : MonoBehaviour
 
     public void UpdateValues()
     {
-        thisImage.sprite = correspondingGod.portraitSprite;
+        if (GameManager.Instance.currentlySelectedGod == correspondingGod)
+        {
+            currentlySelected = true;
+        }
+
+        thisImage.sprite = currentlySelected ? correspondingGod.portraitSprite : correspondingGod.portraitSpriteSelected;
+    }
+
+    public void ClickToSelectGod()
+    {
+        print("clicked");
+        GameManager.Instance.SelectGod(correspondingGod);
     }
 }
