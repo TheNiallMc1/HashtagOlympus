@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6463283742746419013}
   - component: {fileID: 6463283742746419012}
   - component: {fileID: 6463283742746419035}
-  - component: {fileID: 6463283742746419034}
+  - component: {fileID: 1143199292338457706}
   m_Layer: 0
   m_Name: Demeter
   m_TagString: Untagged
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6463283742746419034
+--- !u!114 &1143199292338457706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,9 +105,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6463283742746419033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64abf6a9f1b646609cb12a7f04cbcf8, type: 3}
+  m_Script: {fileID: 11500000, guid: aee530f99467742308b92763c2eda933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   godName: Demeter
   maxHealth: 100
-  currentHealth: 0
+  attackDamage: 0
+  armour: 0
+  speed: 0
+  costToRespawn: 0
+  specialAbilities: []
+  portraitSprite: {fileID: 0}
+  portraitSpriteSelected: {fileID: 0}
+  mouseDetectorCollider: {fileID: 0}
+  standardMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}
