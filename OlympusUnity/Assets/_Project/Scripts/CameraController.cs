@@ -34,13 +34,12 @@ public class CameraController : MonoBehaviour
 
     public float mouseScrollY;
 
-    public bool cameraMovementDetected = false;
-    public bool playerCamActive = false;
+    //public bool cameraMovementDetected = false;
+    public bool freeCamActive = true;
 
     private static CameraController _instance = null; // the private static singleton instance variable
     public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
-
-    [SerializeField] GameObject[] playerCharacters;
+    
     public GameObject currentPlayer = null;
 
     void OnDestroy()
@@ -96,12 +95,25 @@ public class CameraController : MonoBehaviour
         newPosition = transform.position;
         newRotation = transform.rotation;
         freeCam = GetComponentInChildren<CinemachineVirtualCamera>();
-        newZoom = freeCam.transform.localPosition;
+        newZoom = transform.localPosition;
     }
 
     private void Update()
     {
         // Look I am aware this is ugly as all hell but the new input system is really awkward with detecting holding down inputs
+
+
+        //if (cameraMovementDetected)
+        //{
+        //    SwitchToFreeCam();
+        //}
+
+
+        if (!freeCamActive)
+        {
+            newPosition = currentPlayer.transform.position;
+        }
+
         MoveCamera();
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
 
@@ -110,10 +122,7 @@ public class CameraController : MonoBehaviour
 
         MouseScroll();
 
-        if (cameraMovementDetected && playerCamActive)
-        {
-            SwitchToFreeCam();
-        }
+
     }
 
     void MoveCamera()
@@ -121,25 +130,33 @@ public class CameraController : MonoBehaviour
         if (movingCameraUp)
         {
             newPosition += (transform.forward * movementSpeed);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
+            freeCamActive = true;
+            SwitchToFreeCam();
         }
 
         if (movingCameraDown)
         {
             newPosition += (transform.forward * -movementSpeed);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
+            freeCamActive = true;
+            SwitchToFreeCam();
         }
 
         if (movingCameraLeft)
         {
             newPosition += (transform.right * -movementSpeed);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
+            freeCamActive = true;
+            SwitchToFreeCam();
         }
 
         if (movingCameraRight)
         {
             newPosition += (transform.right * movementSpeed);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
+            freeCamActive = true;
+            SwitchToFreeCam();
         }
     }
 
@@ -148,13 +165,13 @@ public class CameraController : MonoBehaviour
         if (rotatingCameraLeft)
         {
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
         }
 
         if (rotatingCameraRight)
         {
             newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
-            cameraMovementDetected = true;
+            // cameraMovementDetected = true;
         }
     }
 
@@ -178,7 +195,7 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        freeCam.transform.localPosition = Vector3.Lerp(freeCam.transform.localPosition, newZoom, Time.deltaTime * movementTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
     
@@ -206,35 +223,38 @@ public class CameraController : MonoBehaviour
             currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
         }
         freeCam.m_Priority = 0;
+        freeCamActive = false;
 
         // Activate new player camera
         player.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 1;
-        playerCamActive = true;
 
         // Update current player
         currentPlayer = player;
 
         // Lock free cam controls
-        cameraMovementDetected = false;
+        // cameraMovementDetected = false;
     }
 
     public void SwitchToFreeCam()
     {
         // Reset bool
-        cameraMovementDetected = false;
+       //  cameraMovementDetected = false;
         
         // Update free cam position
-        freeCam.transform.position = currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().transform.position;
+        // freeCam.transform.position = currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().transform.position;
 
         // Deactivate current player cam
         if (currentPlayer != null)
         {
             currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
-            playerCamActive = false;
         }
 
+        currentPlayer = null;
         // Acitvate free cam
         freeCam.m_Priority = 1;
+
+        freeCamActive = true;
+        // Debug.Break();
     }
 
 
