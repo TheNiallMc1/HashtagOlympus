@@ -21,6 +21,13 @@ public class UIManager : MonoBehaviour
         for (int index = 0; index < godPortraits.Count; index++)
         {
             Button currentButton = godPortraits[index];
+            
+            currentButton.onClick.AddListener(delegate
+            {
+                UpdateAllPortraits();
+            }
+            );
+            
             UpdatePortraitValues(index);
         }
     }
@@ -34,6 +41,16 @@ public class UIManager : MonoBehaviour
         // Set the portrait script's god value equal to the player god at this same index
         portraitScript.correspondingGod = thisGod;
         portraitScript.UpdateValues();
+    }
+
+    private void UpdateAllPortraits()
+    {
+        for (int index = 0; index < godPortraits.Count; index++)
+        {
+            Button currentButton = godPortraits[index];
+            
+            UpdatePortraitValues(index);
+        }
     }
 
     public void UpdateCurrentGodText()
