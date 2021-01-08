@@ -20,11 +20,7 @@ public class GodPlacerButton : MonoBehaviour
 
     }
 
-    public void SendSelectionToPlacementManager()
-    {
-        PlacementManager.Instance.GetSelection(godIndex);
-        //Instantiate(_godToPlace);
-    }
+    
     
     public void SpawnBlueprint()
     {

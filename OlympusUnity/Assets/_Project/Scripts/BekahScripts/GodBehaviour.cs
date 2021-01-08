@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class GodBehaviour : MonoBehaviour
 {
-    
     public string godName;
+    
     public int maxHealth;
     public int currentHealth;
 
     public float attackDamage;
-
-    public float defence;
-
+    public float armour;
     public float speed;
-  
+
+    public int costToRespawn;
     
     void Start()
     {
@@ -33,12 +32,21 @@ public class GodBehaviour : MonoBehaviour
         
     }
 
-    public void ActivateAbility()
+    public void PassiveAbility()
+    {
+        
+    }
+
+    public void Ability1()
+    {
+        
+    }
+    public void Ability2()
     {
         
     }
     
-    public void SpecialAttack()
+    public void UltimateAbility()
     {
         
     }
