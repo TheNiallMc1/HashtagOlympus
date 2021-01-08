@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera roamingCamera;
+    private CinemachineVirtualCamera freeCam;
+    private CameraControls cameraControls;
 
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float movementTime = 2f;
@@ -21,9 +22,6 @@ public class CameraController : MonoBehaviour
     private Vector3 newPosition;
     private Quaternion newRotation;
 
-
-    private CameraControls cameraControls;
-
     private bool movingCameraUp;
     private bool movingCameraDown;
     private bool movingCameraLeft;
@@ -36,12 +34,14 @@ public class CameraController : MonoBehaviour
 
     public float mouseScrollY;
 
+    public bool cameraMovementDetected = false;
+    public bool playerCamActive = false;
+
     private static CameraController _instance = null; // the private static singleton instance variable
     public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
 
-    [SerializeField] GameObject player1;
-    [SerializeField] GameObject player2;
-    [SerializeField] GameObject player3;
+    [SerializeField] GameObject[] playerCharacters;
+    public GameObject currentPlayer = null;
 
     void OnDestroy()
     {
@@ -95,7 +95,8 @@ public class CameraController : MonoBehaviour
     {
         newPosition = transform.position;
         newRotation = transform.rotation;
-        newZoom = roamingCamera.transform.localPosition;
+        freeCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        newZoom = freeCam.transform.localPosition;
     }
 
     private void Update()
@@ -109,25 +110,10 @@ public class CameraController : MonoBehaviour
 
         MouseScroll();
 
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    MoveToPlayerCharacter(player1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    MoveToPlayerCharacter(player2);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    MoveToPlayerCharacter(player3);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    StopCameraFollow();
-        //}
+        if (cameraMovementDetected && playerCamActive)
+        {
+            SwitchToFreeCam();
+        }
     }
 
     void MoveCamera()
@@ -135,21 +121,25 @@ public class CameraController : MonoBehaviour
         if (movingCameraUp)
         {
             newPosition += (transform.forward * movementSpeed);
+            cameraMovementDetected = true;
         }
 
         if (movingCameraDown)
         {
             newPosition += (transform.forward * -movementSpeed);
+            cameraMovementDetected = true;
         }
 
         if (movingCameraLeft)
         {
             newPosition += (transform.right * -movementSpeed);
+            cameraMovementDetected = true;
         }
 
         if (movingCameraRight)
         {
             newPosition += (transform.right * movementSpeed);
+            cameraMovementDetected = true;
         }
     }
 
@@ -158,11 +148,13 @@ public class CameraController : MonoBehaviour
         if (rotatingCameraLeft)
         {
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
+            cameraMovementDetected = true;
         }
 
         if (rotatingCameraRight)
         {
             newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
+            cameraMovementDetected = true;
         }
     }
 
@@ -186,7 +178,7 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        roamingCamera.transform.localPosition = Vector3.Lerp(roamingCamera.transform.localPosition, newZoom, Time.deltaTime * movementTime);
+        freeCam.transform.localPosition = Vector3.Lerp(freeCam.transform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
     
@@ -202,13 +194,58 @@ public class CameraController : MonoBehaviour
     }
 
 
+
+
+
+
     public void MoveToPlayerCharacter(GameObject player)
     {
-        roamingCamera.m_Follow = player.transform;
+        // Deactivate other cameras
+        if (currentPlayer != null)
+        {
+            currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
+        }
+        freeCam.m_Priority = 0;
+
+        // Activate new player camera
+        player.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 1;
+        playerCamActive = true;
+
+        // Update current player
+        currentPlayer = player;
+
+        // Lock free cam controls
+        cameraMovementDetected = false;
     }
 
-    public void StopCameraFollow()
+    public void SwitchToFreeCam()
     {
-        roamingCamera.m_Follow = null;
+        // Reset bool
+        cameraMovementDetected = false;
+        
+        // Update free cam position
+        freeCam.transform.position = currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().transform.position;
+
+        // Deactivate current player cam
+        if (currentPlayer != null)
+        {
+            currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
+            playerCamActive = false;
+        }
+
+        // Acitvate free cam
+        freeCam.m_Priority = 1;
     }
+
+
+    //public void SwitchToFreeCam()
+    //{
+    //    // Activate Free Cam
+    //    freeCam.m_Priority = 1;
+
+    //    // Deactivate Player Cam
+    //    currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
+    //}
+
+
 }
