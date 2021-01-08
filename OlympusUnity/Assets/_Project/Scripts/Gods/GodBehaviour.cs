@@ -11,6 +11,8 @@ public class GodBehaviour : MonoBehaviour
     public int maxHealth;
     protected int currentHealth;
     public int attackDamage;
+
+    public TempAbilityClass[] specialAbilities;
     
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;

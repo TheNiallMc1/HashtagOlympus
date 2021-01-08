@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
 
@@ -10,13 +11,20 @@ public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI respectCounter;
     public TextMeshProUGUI currentGodName;
-
+    
+    // Abilities
+    public TextMeshProUGUI abilityInfo;
+    public GameObject abilityIconPrefab;
+    public GameObject[] abilityPanels;
+    
+    // Portraits
     public List<Button> godPortraits;
 
     public void Start()
     {
         UpdateRespectText();
         UpdateCurrentGodText();
+        AssignAbilitiesToUI();
 
         for (int index = 0; index < godPortraits.Count; index++)
         {
@@ -68,5 +76,36 @@ public class UIManager : MonoBehaviour
     public void UpdateRespectText()
     {
         respectCounter.text = String.Format("Respect: {0}", GameManager.Instance.currentRespect);
+    }
+
+    public void AssignAbilitiesToUI() // Reads the abilities the currently selected god has and updates the UI accordingly
+    {
+        GameObject[] abilityIcons;
+        
+        int numberOfGods = GameManager.Instance.allPlayerGods.Count;
+        
+        for (int i = 0; i < numberOfGods; i++)
+        {
+            GameObject thisAbilityPanel = abilityPanels[i];
+            GodBehaviour thisGod = GameManager.Instance.allPlayerGods[i];
+            print(thisGod.name);
+
+            for (int j = 0; j < thisAbilityPanel.transform.childCount; j++)
+            {
+                // Loop through each child, assigning the proper ability to them
+                GameObject thisIcon = thisAbilityPanel.transform.GetChild(j).gameObject;
+                AbilityIcon thisIconScript = thisIcon.GetComponent<AbilityIcon>();
+                
+                thisIconScript.correspondingGod = thisGod;
+                thisIconScript.ability = thisGod.specialAbilities[j];
+                
+                thisIconScript.InitialiseIcon();
+            }
+        }
+    }
+    
+    public void UpdateAbilityInfo(TempAbilityClass ability)
+    {
+        abilityInfo.text = String.Format("{0} - {1}", ability.abilityName, ability.abilityDescription);
     }
 }
