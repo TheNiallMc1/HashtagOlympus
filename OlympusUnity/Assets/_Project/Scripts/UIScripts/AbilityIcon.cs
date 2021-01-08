@@ -8,7 +8,7 @@ using TMPro;
 public class AbilityIcon : MonoBehaviour
 {
     public UIManager uiManager;
-    public TempAbilityClass ability;
+    public SpecialAbility ability;
     public GodBehaviour correspondingGod;
     public string abilityName;
     public string abilityDescription;

@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    public void UpdateAbilityInfo(TempAbilityClass ability)
+    public void UpdateAbilityInfo(SpecialAbility ability)
     {
         abilityInfo.text = String.Format("{0} - {1}", ability.abilityName, ability.abilityDescription);
     }

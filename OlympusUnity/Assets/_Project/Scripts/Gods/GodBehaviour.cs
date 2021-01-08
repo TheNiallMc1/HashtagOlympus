@@ -8,11 +8,17 @@ using UnityEngine.UI;
 public class GodBehaviour : MonoBehaviour
 {
     public string godName;
+   
     public int maxHealth;
     protected int currentHealth;
+    
     public int attackDamage;
+    public int armour;
+    public int speed;
 
-    public TempAbilityClass[] specialAbilities;
+    public int costToRespawn;
+
+    public SpecialAbility[] specialAbilities;
     
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
