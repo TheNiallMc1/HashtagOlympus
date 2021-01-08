@@ -40,6 +40,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GodSelection"",
+            ""id"": ""ff4b3db5-0ce3-411b-b2c0-ca7552ae84c3"",
+            ""actions"": [
+                {
+                    ""name"": ""CycleThroughGods"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8ac0f64-bf9d-408c-bc39-dc2de775c593"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4b41a8fc-81fb-45b4-8c7a-8fdf2df1ba25"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CycleThroughGods"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -47,6 +74,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_MouseClick = m_Movement.FindAction("MouseClick", throwIfNotFound: true);
+        // GodSelection
+        m_GodSelection = asset.FindActionMap("GodSelection", throwIfNotFound: true);
+        m_GodSelection_CycleThroughGods = m_GodSelection.FindAction("CycleThroughGods", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -125,8 +155,45 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // GodSelection
+    private readonly InputActionMap m_GodSelection;
+    private IGodSelectionActions m_GodSelectionActionsCallbackInterface;
+    private readonly InputAction m_GodSelection_CycleThroughGods;
+    public struct GodSelectionActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GodSelectionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CycleThroughGods => m_Wrapper.m_GodSelection_CycleThroughGods;
+        public InputActionMap Get() { return m_Wrapper.m_GodSelection; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GodSelectionActions set) { return set.Get(); }
+        public void SetCallbacks(IGodSelectionActions instance)
+        {
+            if (m_Wrapper.m_GodSelectionActionsCallbackInterface != null)
+            {
+                @CycleThroughGods.started -= m_Wrapper.m_GodSelectionActionsCallbackInterface.OnCycleThroughGods;
+                @CycleThroughGods.performed -= m_Wrapper.m_GodSelectionActionsCallbackInterface.OnCycleThroughGods;
+                @CycleThroughGods.canceled -= m_Wrapper.m_GodSelectionActionsCallbackInterface.OnCycleThroughGods;
+            }
+            m_Wrapper.m_GodSelectionActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @CycleThroughGods.started += instance.OnCycleThroughGods;
+                @CycleThroughGods.performed += instance.OnCycleThroughGods;
+                @CycleThroughGods.canceled += instance.OnCycleThroughGods;
+            }
+        }
+    }
+    public GodSelectionActions @GodSelection => new GodSelectionActions(this);
     public interface IMovementActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
+    }
+    public interface IGodSelectionActions
+    {
+        void OnCycleThroughGods(InputAction.CallbackContext context);
     }
 }

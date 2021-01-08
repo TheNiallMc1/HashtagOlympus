@@ -17,7 +17,6 @@ public class GodBehaviour : MonoBehaviour
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
     
-    
     public GameObject mouseDetectorCollider;
     
     public Material standardMaterial;

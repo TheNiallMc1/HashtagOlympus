@@ -15,17 +15,8 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        // foreach (Button b in godPortraits)
-        // {
-        //     
-        //     UpdatePortraitValues();
-        //     
-        //     b.onClick.AddListener(delegate
-        //     {
-        //         
-        //     }
-        //     );
-        // }
+        UpdateRespectText();
+        UpdateCurrentGodText();
 
         for (int index = 0; index < godPortraits.Count; index++)
         {
@@ -34,7 +25,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdatePortraitValues(int buttonIndex)
+    private void UpdatePortraitValues(int buttonIndex)
     {
         Button thisButton = godPortraits[buttonIndex];
         GodPortrait portraitScript = thisButton.GetComponent<GodPortrait>();
@@ -47,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentGodText()
     {
-        if (currentGodName != null)
+        if (GameManager.Instance.currentlySelectedGod != null)
         {
             currentGodName.text = GameManager.Instance.currentlySelectedGod.godName;
         }
