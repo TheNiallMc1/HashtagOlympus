@@ -73,14 +73,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""ZoomIn"",
-                    ""type"": ""Value"",
-                    ""id"": ""8f17beda-4b1e-480c-b2f3-65ef2d28eefb"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -160,17 +152,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
                     ""action"": ""MouseScrollY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""72f98257-494d-46df-8ded-41f2d5c923bb"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ZoomIn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,7 +167,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
         m_Camera_RotateCameraLeft = m_Camera.FindAction("RotateCameraLeft", throwIfNotFound: true);
         m_Camera_RotateCameraRight = m_Camera.FindAction("RotateCameraRight", throwIfNotFound: true);
         m_Camera_MouseScrollY = m_Camera.FindAction("MouseScrollY", throwIfNotFound: true);
-        m_Camera_ZoomIn = m_Camera.FindAction("ZoomIn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -243,7 +223,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Camera_RotateCameraLeft;
     private readonly InputAction m_Camera_RotateCameraRight;
     private readonly InputAction m_Camera_MouseScrollY;
-    private readonly InputAction m_Camera_ZoomIn;
     public struct CameraActions
     {
         private @CameraControls m_Wrapper;
@@ -255,7 +234,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
         public InputAction @RotateCameraLeft => m_Wrapper.m_Camera_RotateCameraLeft;
         public InputAction @RotateCameraRight => m_Wrapper.m_Camera_RotateCameraRight;
         public InputAction @MouseScrollY => m_Wrapper.m_Camera_MouseScrollY;
-        public InputAction @ZoomIn => m_Wrapper.m_Camera_ZoomIn;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -286,9 +264,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
                 @MouseScrollY.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
                 @MouseScrollY.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
                 @MouseScrollY.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
-                @ZoomIn.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
-                @ZoomIn.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoomIn;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -314,9 +289,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
                 @MouseScrollY.started += instance.OnMouseScrollY;
                 @MouseScrollY.performed += instance.OnMouseScrollY;
                 @MouseScrollY.canceled += instance.OnMouseScrollY;
-                @ZoomIn.started += instance.OnZoomIn;
-                @ZoomIn.performed += instance.OnZoomIn;
-                @ZoomIn.canceled += instance.OnZoomIn;
             }
         }
     }
@@ -330,6 +302,5 @@ public class @CameraControls : IInputActionCollection, IDisposable
         void OnRotateCameraLeft(InputAction.CallbackContext context);
         void OnRotateCameraRight(InputAction.CallbackContext context);
         void OnMouseScrollY(InputAction.CallbackContext context);
-        void OnZoomIn(InputAction.CallbackContext context);
     }
 }

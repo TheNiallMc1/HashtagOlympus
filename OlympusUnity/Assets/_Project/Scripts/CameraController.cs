@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     public Vector3 newZoom;
     public Vector3 maxZoomOut;
     public Vector3 maxZoomIn;
-
+    
     private Vector3 newPosition;
     private Quaternion newRotation;
 
@@ -39,7 +39,9 @@ public class CameraController : MonoBehaviour
     private static CameraController _instance = null; // the private static singleton instance variable
     public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
 
-
+    [SerializeField] GameObject player1;
+    [SerializeField] GameObject player2;
+    [SerializeField] GameObject player3;
 
     void OnDestroy()
     {
@@ -106,6 +108,26 @@ public class CameraController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * rotationTime);
 
         MouseScroll();
+
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    MoveToPlayerCharacter(player1);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    MoveToPlayerCharacter(player2);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    MoveToPlayerCharacter(player3);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    StopCameraFollow();
+        //}
     }
 
     void MoveCamera()
@@ -152,9 +174,7 @@ public class CameraController : MonoBehaviour
             if (newZoom.y > maxZoomIn.y || newZoom.z < maxZoomIn.z)
             {
                 newZoom += zoomAmount;
-                print("zooming in");
             }
-            // newZoom += zoomAmount;
         }
 
         if (mouseScrollY < 0)
@@ -163,43 +183,13 @@ public class CameraController : MonoBehaviour
             if(newZoom.y < maxZoomOut.y || newZoom.z > maxZoomOut.z)
             {
                 newZoom -= zoomAmount;
-                print("zooming out");
             }
-            // newZoom -= zoomAmount;
         }
 
         roamingCamera.transform.localPosition = Vector3.Lerp(roamingCamera.transform.localPosition, newZoom, Time.deltaTime * movementTime);
-
-
-
-
-
-            // roamingCamera.transform.localPosition += new Vector3(0, 0, mouseScrollY * zoomSpeed / 120);
-
-            // zoomChange = new Vector3(mouseScrollY * zoomSpeed / 120, 0, mouseScrollY * zoomSpeed / 120);
-
-
-        //    if (mouseScrollY > 0)
-        //{
-        //    Debug.Log("Scrolled Up");
-        //    roamingCamera.transform.position = new Vector3(transform.position.x, transform.position.y - .3f, transform.position.z + .2f);
-        //}
-
-        //if(mouseScrollY < 0)
-        //{
-        //    Debug.Log("Scrolled Down");
-        //    roamingCamera.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z - .2f);
-        //}
-
-
-        //roamingCamera.transform.localPosition = Vector3.Lerp
-        //(roamingCamera.transform.localPosition,
-        //newZoom,
-        //Time.deltaTime * movementTime * mouseScrollY / 240);
     }
 
-
-
+    
     public void MoveToSelected(Vector3 selectedPosition)
     {
 
@@ -209,5 +199,16 @@ public class CameraController : MonoBehaviour
         // ZoomIn();
 
         print("moving to " + newPosition);
+    }
+
+
+    public void MoveToPlayerCharacter(GameObject player)
+    {
+        roamingCamera.m_Follow = player.transform;
+    }
+
+    public void StopCameraFollow()
+    {
+        roamingCamera.m_Follow = null;
     }
 }
