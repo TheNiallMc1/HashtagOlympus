@@ -6,9 +6,11 @@ using System;
 
 public class CameraController : MonoBehaviour
 {
-    private CinemachineVirtualCamera freeCam;
+    private Camera freeCam;
     private CameraControls cameraControls;
     [SerializeField] GameObject ball;
+
+    public enum cameraMode { Free, Follow, Transition};
  
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float movementTime = 2f;
@@ -35,9 +37,13 @@ public class CameraController : MonoBehaviour
     private bool rotatingCameraRight;
 
     public float mouseScrollY;
-    
+
+    public float camSwitchDuration = 0.8f;
+
+
     public bool freeCamActive = true;
     public GameObject currentPlayer = null;
+    public GameObject lastPlayer = null;
 
     private static CameraController _instance = null; // the private static singleton instance variable
     public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
@@ -96,7 +102,7 @@ public class CameraController : MonoBehaviour
         newPosition = transform.position;
         newRotation = transform.rotation;
 
-        freeCam = GetComponentInChildren<CinemachineVirtualCamera>();
+        freeCam = GetComponentInChildren<Camera>();
         newZoom = freeCam.transform.localPosition;
     }
 
@@ -104,6 +110,10 @@ public class CameraController : MonoBehaviour
     {
         // Look I am aware this is ugly as all hell but the new input system is really awkward with detecting holding down inputs
 
+        //switch (cameraMode)
+        //{
+        //    case 
+        //}
 
         if (!freeCamActive)
         {
@@ -220,11 +230,30 @@ public class CameraController : MonoBehaviour
 
     public void FollowPlayer(GameObject player)
     {
-        freeCam.m_Follow = player.transform;
+        // freeCam.m_Follow = player.transform;
         // freeCam.m_LookAt = player.transform;
-        currentPlayer = player;
-        freeCamActive = false;
 
+        StartCoroutine(FollowPlayerRoutine(player));
+
+
+    }
+
+    IEnumerator FollowPlayerRoutine(GameObject player)
+    {
+        currentPlayer = player;
+        Vector3 originalPosition = transform.position;
+        float timeElapsed = 0;
+
+        while(timeElapsed < camSwitchDuration)
+        {
+            transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, timeElapsed / camSwitchDuration);
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.position = currentPlayer.transform.position;
+        freeCamActive = false;
     }
 
     public void ReleaseCamera()
@@ -236,7 +265,7 @@ public class CameraController : MonoBehaviour
 
         // freeCam.transform.position = maxZoomIn;
         freeCamActive = true;
-        freeCam.m_Follow = null;
+        // freeCam.m_Follow = null;
         // freeCam.m_LookAt = null;
     }
 
