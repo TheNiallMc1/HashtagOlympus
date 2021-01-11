@@ -12,24 +12,32 @@ public class GodBehaviour : MonoBehaviour
     public int maxHealth;
     protected int currentHealth;
     
+    public int awarenessRadius;
+    public int attackRadius;
     public int attackDamage;
     public int armour;
     public int speed;
 
     public int costToRespawn;
 
-    public SpecialAbility[] specialAbilities;
+    protected int currentLevel;
+    protected int currentExp;
+    protected int expToNextLevel;
     
-    public Sprite portraitSprite;
-    public Sprite portraitSpriteSelected;
+    public SpecialAbility[] specialAbilities;
     
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
     
     public GameObject mouseDetectorCollider;
     
+    [Header("Testing Variables")]
     public Material standardMaterial;
     public Material selectedMaterial;
+    public Material attackMaterial;
+    
+    public Sprite portraitSprite;
+    public Sprite portraitSpriteSelected;
 
     public void Awake()
     {
