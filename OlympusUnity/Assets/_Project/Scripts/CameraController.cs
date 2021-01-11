@@ -2,12 +2,14 @@
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using System;
 
 public class CameraController : MonoBehaviour
 {
     private CinemachineVirtualCamera freeCam;
     private CameraControls cameraControls;
-
+    [SerializeField] GameObject ball;
+ 
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float movementTime = 2f;
 
@@ -93,6 +95,7 @@ public class CameraController : MonoBehaviour
     {
         newPosition = transform.position;
         newRotation = transform.rotation;
+
         freeCam = GetComponentInChildren<CinemachineVirtualCamera>();
         newZoom = freeCam.transform.localPosition;
     }
@@ -104,6 +107,7 @@ public class CameraController : MonoBehaviour
 
         if (!freeCamActive)
         {
+            transform.position = currentPlayer.transform.position;
             newPosition = currentPlayer.transform.position;
         }
 
@@ -116,6 +120,8 @@ public class CameraController : MonoBehaviour
         MouseScroll();
 
 
+        // ball.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
+
     }
 
     void MoveCamera()
@@ -123,6 +129,8 @@ public class CameraController : MonoBehaviour
         if (movingCameraUp)
         {
             newPosition += (transform.forward * movementSpeed);
+            ReleaseCamera();
+
             // cameraMovementDetected = true;
             //freeCamActive = true;
             //SwitchToFreeCam();
@@ -131,6 +139,8 @@ public class CameraController : MonoBehaviour
         if (movingCameraDown)
         {
             newPosition += (transform.forward * -movementSpeed);
+            ReleaseCamera();
+
             // cameraMovementDetected = true;
             // freeCamActive = true;
             //SwitchToFreeCam();
@@ -139,6 +149,8 @@ public class CameraController : MonoBehaviour
         if (movingCameraLeft)
         {
             newPosition += (transform.right * -movementSpeed);
+            ReleaseCamera();
+
             // cameraMovementDetected = true;
             //freeCamActive = true;
             //SwitchToFreeCam();
@@ -147,6 +159,8 @@ public class CameraController : MonoBehaviour
         if (movingCameraRight)
         {
             newPosition += (transform.right * movementSpeed);
+            ReleaseCamera();
+
             // cameraMovementDetected = true;
             //freeCamActive = true;
             //SwitchToFreeCam();
@@ -207,8 +221,10 @@ public class CameraController : MonoBehaviour
     public void FollowPlayer(GameObject player)
     {
         freeCam.m_Follow = player.transform;
+        // freeCam.m_LookAt = player.transform;
         currentPlayer = player;
         freeCamActive = false;
+
     }
 
     public void ReleaseCamera()
@@ -218,8 +234,10 @@ public class CameraController : MonoBehaviour
             currentPlayer = null;
         }
 
+        // freeCam.transform.position = maxZoomIn;
         freeCamActive = true;
         freeCam.m_Follow = null;
+        // freeCam.m_LookAt = null;
     }
 
 
