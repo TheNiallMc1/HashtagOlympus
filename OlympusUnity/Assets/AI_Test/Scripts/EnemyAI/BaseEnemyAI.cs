@@ -38,7 +38,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     protected ePriority priority { get { return _priority; } set { _priority = value; } }
     protected eState state { get { return _state; } set { _state = value; } }
-    protected float health { get { return _health; } set { _health = value; } }
+    public float health { get { return _health; } set { _health = value; } }
 
 
     void Start()
@@ -81,61 +81,76 @@ public class BaseEnemyAI : MonoBehaviour
         {
             case eState.Moving:
                 StopAllCoroutines();
-                if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
-                {
-                    FindClosestMonument(transform.position);
-                    var near = 5;
-
-                    if ((monument.transform.position - transform.position).magnitude < near)
-                    {
-                        _state = eState.Attacking;
-                        _priority = ePriority.Monument;
-                    }
-                    else
-                    {
-                        waypoints.Add(Path[0]);
-                        Path.RemoveAt(0);
-                        FindNextWaypoint(waypoints[waypoints.Count - 1]);
-                        MoveToNextWaypoint();
-                    }
-
-                }
+                Moving();
                 break;
             case eState.Attacking:
                 Attack();
                 break;
         }
     }
+    protected virtual void Moving()
+    {
+        if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
+        {
+            FindClosestMonument(transform.position);
+            var near = 5;
+
+            if ((monument.transform.position - transform.position).magnitude < near)
+            {
+                _state = eState.Attacking;
+                _priority = ePriority.Monument;
+            }
+            else
+            {
+                waypoints.Add(Path[0]);
+                Path.RemoveAt(0);
+                FindNextWaypoint(waypoints[waypoints.Count - 1]);
+                MoveToNextWaypoint();
+            }
+
+        }
+    }
 
     protected virtual void Attack()
     {
-                if (_priority == ePriority.God)
+        if (_priority == ePriority.God)
+        {
+            nav.stoppingDistance = 0.1f;
+            if (attackTarget != null)
+            {
+                nav.SetDestination(attackTarget.transform.position);
+                if (!nav.pathPending && nav.remainingDistance < 0.1)
                 {
-
+                    StartCoroutine(AttackingMonumentCoroutine());
                 }
-                if (_priority == ePriority.Monument)
+
+            }
+            else
+            {
+                _priority = ePriority.Moving;
+                _state = eState.Moving;
+
+            }
+        }
+        if (_priority == ePriority.Monument)
+        {
+            nav.stoppingDistance = 0.1f;
+            if (monument != null)
+            {
+                nav.SetDestination(monument.transform.position);
+                if (!nav.pathPending && nav.remainingDistance < 0.1)
                 {
-                    nav.stoppingDistance = 0.1f;
-                    if (monument != null)
-                    {
-                        nav.SetDestination(monument.transform.position);
-                        if (!nav.pathPending && nav.remainingDistance < 0.02)
-                        {
-                            StartCoroutine(AttackingMonumentCoroutine());
-                        }
-
-                    }
-                    else
-                    {
-                        _priority = ePriority.Moving;
-                        _state = eState.Moving;
-
-                    }
+                    StartCoroutine(AttackingMonumentCoroutine());
                 }
-                if (_priority == ePriority.Moving)
-                {
-                    
-                }
+
+            }
+            else
+            {
+                _priority = ePriority.Moving;
+                _state = eState.Moving;
+
+            }
+        }
     }
 
     /*
