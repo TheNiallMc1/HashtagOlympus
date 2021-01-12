@@ -22,7 +22,7 @@ public class BlueprintBehaviour : MonoBehaviour
         _playerControls.Enable();
 
         _playerControls.Player.MouseClick.performed += ctx => SetDown();
-        prefab = BekahsGM.Instance.currentGods[ImprovedPlacementManager.Instance.currentGodIndex];
+        // prefab = BekahsGM.Instance.currentGods[ImprovedPlacementManager.Instance.currentGodIndex];
     }
 
     private void Start()

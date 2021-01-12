@@ -14,7 +14,7 @@ public class GodPlacerButton : MonoBehaviour
 
     void Awake ( )
     {
-        _godToPlace = BekahsGM.Instance.currentGods[godIndex];
+        _godToPlace = GameManager.Instance.allPlayerGods[godIndex].gameObject;
         _btn = GetComponent<Button> ( );
         _btn.GetComponentInChildren<TMP_Text>().text = _godToPlace.GetComponent<GodBehaviour>().godName;
 

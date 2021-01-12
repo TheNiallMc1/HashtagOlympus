@@ -23,8 +23,8 @@ public class GodSelectorButton : MonoBehaviour
     public void SendSelection()
     {
        
-        BekahsGM.Instance.AddGodToActiveList(this.selectedGod);
-        BekahsGM.Instance.PassedGameObject = selectedGod;
+        //GameManager.Instance.AddGodToActiveList(this.selectedGod);
+        //BekahsGM.Instance.PassedGameObject = selectedGod;
         btn.gameObject.SetActive(false);
     }
 }
