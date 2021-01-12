@@ -42,8 +42,8 @@ public class CameraController : MonoBehaviour
     public float camSwitchSpeed = 1f;
 
     // min/max is the lowest/largest distance used for camera speed transition calculations
-    public float minCamSpeed = 0.2f;
-    public float maxCamSpeed = 2.5f;
+    public float minCamDuration = 0.2f;
+    public float maxCamDuration = 2.5f;
 
     public float yZoomAdjust = 45;
     public float zZoomAdjust = 30;
@@ -249,7 +249,7 @@ public class CameraController : MonoBehaviour
         float distanceToMove = Vector3.Distance(originalPosition, currentPlayer.transform.position);
         float duration = distanceToMove * camSwitchSpeed;
         
-        duration = Mathf.Clamp(duration, minCamSpeed, maxCamSpeed);
+        duration = Mathf.Clamp(duration, minCamDuration, maxCamDuration);
 
         while (timeElapsed < duration)
         {
@@ -260,7 +260,7 @@ public class CameraController : MonoBehaviour
 
                 yield break;
             }
-            transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, timeElapsed * duration);
+            transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, Mathf.SmoothStep(0.0f, 1.0f, timeElapsed * duration));
             timeElapsed += Time.deltaTime;
 
             if (transform.position == currentPlayer.transform.position)

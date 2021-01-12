@@ -729,23 +729,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f5c9e9a87c2d5e4785695a26c1f2b45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camMode: 0
+  camMode: 1
   movementSpeed: 0.5
   movementTime: 8
   rotationAmount: 0.5
   rotationTime: 6
-  newZoom: {x: 10.4, y: 58.166668, z: -73}
+  newZoom: {x: 0, y: 32.2, z: -34.9}
   maxZoomOut: {x: 11, y: 58, z: -70}
   maxZoomIn: {x: 9, y: 24, z: -20}
   offset: {x: 0, y: 0, z: 0}
   movingCameraActive: 0
   mouseScrollY: 0
   camSwitchSpeed: 1
-  minCamSpeed: 0.2
-  maxCamSpeed: 2.5
+  minCamDuration: 0.5
+  maxCamDuration: 1.2
   yZoomAdjust: 45
   zZoomAdjust: 30
-  currentPlayer: {fileID: 0}
+  currentPlayer: {fileID: 743320726}
   lastPlayer: {fileID: 0}
 --- !u!4 &606500088
 Transform:
