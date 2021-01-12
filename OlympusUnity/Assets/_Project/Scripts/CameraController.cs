@@ -39,7 +39,8 @@ public class CameraController : MonoBehaviour
     public float mouseScrollY;
 
     public float camSwitchDuration = 0.8f;
-
+    public float yZoomAdjust = 45;
+    public float zZoomAdjust = 30;
 
     public bool freeCamActive = true;
     public GameObject currentPlayer = null;
@@ -196,19 +197,19 @@ public class CameraController : MonoBehaviour
     {
         if(mouseScrollY > 0)
         {
-            zoomAmount = new Vector3(0, -mouseScrollY / 45, mouseScrollY / 30);
+            zoomAmount = new Vector3(0, -mouseScrollY / yZoomAdjust, mouseScrollY / zZoomAdjust);
             if (newZoom.y > maxZoomIn.y || newZoom.z < maxZoomIn.z)
             {
-                newZoom += zoomAmount;
+                newZoom += zoomAmount + offset;
             }
         }
 
         if (mouseScrollY < 0)
         {
-            zoomAmount = new Vector3(0, mouseScrollY / 45, -mouseScrollY / 30);
+            zoomAmount = new Vector3(0, mouseScrollY / yZoomAdjust, -mouseScrollY / zZoomAdjust);
             if(newZoom.y < maxZoomOut.y || newZoom.z > maxZoomOut.z)
             {
-                newZoom -= zoomAmount;
+                newZoom -= zoomAmount - offset;
             }
         }
 
@@ -240,20 +241,27 @@ public class CameraController : MonoBehaviour
 
     IEnumerator FollowPlayerRoutine(GameObject player)
     {
+        freeCamActive = false;
         currentPlayer = player;
         Vector3 originalPosition = transform.position;
         float timeElapsed = 0;
 
         while(timeElapsed < camSwitchDuration)
         {
+            if(currentPlayer == null)
+            {
+                newPosition = transform.position;
+
+                yield break;
+            }
             transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, timeElapsed / camSwitchDuration);
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.position = currentPlayer.transform.position;
-        freeCamActive = false;
+        // transform.position = currentPlayer.transform.position;
+        
     }
 
     public void ReleaseCamera()
