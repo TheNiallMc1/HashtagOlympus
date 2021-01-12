@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     {
         Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
+        // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             bool targetIsGod = hit.collider.CompareTag("God");
@@ -79,11 +80,10 @@ public class GameManager : MonoBehaviour
                 print("Selected: " + thisGod.godName);
             }
             
-            if (!targetIsGod && currentlySelectedGod != null)
+            if (currentlySelectedGod != null)
             {
-                currentlySelectedGod.MoveToTarget(hit.point);
-
-                print("Moved: " + currentlySelectedGod.godName);
+                currentlySelectedGod.lastClickedPosition = hit.point;
+                currentlySelectedGod.SwitchState(GodState.moveToArea);
             }
         }
     }
