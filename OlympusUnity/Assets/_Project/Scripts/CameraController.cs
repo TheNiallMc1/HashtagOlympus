@@ -8,7 +8,6 @@ public class CameraController : MonoBehaviour
 {
     private Camera freeCam;
     private CameraControls cameraControls;
-    [SerializeField] GameObject ball;
 
     public enum cameraMode { Free, Follow, Transition};
     public cameraMode camMode;
@@ -23,7 +22,8 @@ public class CameraController : MonoBehaviour
     public Vector3 newZoom;
     public Vector3 maxZoomOut;
     public Vector3 maxZoomIn;
-    
+    public Vector3 offset;
+
     private Vector3 newPosition;
     private Quaternion newRotation;
 
@@ -33,19 +33,21 @@ public class CameraController : MonoBehaviour
     private bool movingCameraDown;
     private bool movingCameraLeft;
     private bool movingCameraRight;
-
-    public Vector3 offset;
-
+    
     private bool rotatingCameraLeft;
     private bool rotatingCameraRight;
 
     public float mouseScrollY;
 
-    public float camSwitchDuration = 0.8f;
+    public float camSwitchSpeed = 1f;
+
+    // min/max is the lowest/largest distance used for camera speed transition calculations
+    public float minCamSpeed = 0.2f;
+    public float maxCamSpeed = 2.5f;
+
     public float yZoomAdjust = 45;
     public float zZoomAdjust = 30;
-
-    // public bool freeCamActive = true;
+    
     public GameObject currentPlayer = null;
     public GameObject lastPlayer = null;
 
@@ -112,8 +114,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        // Look I am aware this is ugly as all hell but the new input system is really awkward with detecting holding down inputs
-
+       
         if(currentPlayer != null && movingCameraActive)
         {
             camMode = cameraMode.Free;
@@ -156,23 +157,6 @@ public class CameraController : MonoBehaviour
                 break;
         }
 
-        //if (!freeCamActive)
-        //{
-        //    transform.position = currentPlayer.transform.position;
-        //    newPosition = currentPlayer.transform.position;
-        //}
-
-        //MoveCamera();
-        //transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-
-        //RotateCamera();
-        //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * rotationTime);
-
-        //MouseScroll();
-
-
-        // ball.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
-
     }
 
     void MoveCamera()
@@ -182,10 +166,6 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.forward * movementSpeed);
             ReleaseCamera();
             movingCameraActive = true;
-
-            // cameraMovementDetected = true;
-            //freeCamActive = true;
-            //SwitchToFreeCam();
         }
 
         if (movingCameraDown)
@@ -193,10 +173,6 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.forward * -movementSpeed);
             ReleaseCamera();
             movingCameraActive = true;
-
-            // cameraMovementDetected = true;
-            // freeCamActive = true;
-            //SwitchToFreeCam();
         }
 
         if (movingCameraLeft)
@@ -204,10 +180,6 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.right * -movementSpeed);
             ReleaseCamera();
             movingCameraActive = true;
-
-            // cameraMovementDetected = true;
-            //freeCamActive = true;
-            //SwitchToFreeCam();
         }
 
         if (movingCameraRight)
@@ -215,10 +187,6 @@ public class CameraController : MonoBehaviour
             newPosition += (transform.right * movementSpeed);
             ReleaseCamera();
             movingCameraActive = true;
-
-            // cameraMovementDetected = true;
-            //freeCamActive = true;
-            //SwitchToFreeCam();
         }
     }
 
@@ -227,13 +195,11 @@ public class CameraController : MonoBehaviour
         if (rotatingCameraLeft)
         {
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
-            // cameraMovementDetected = true;
         }
 
         if (rotatingCameraRight)
         {
             newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
-            // cameraMovementDetected = true;
         }
     }
 
@@ -260,24 +226,10 @@ public class CameraController : MonoBehaviour
         freeCam.transform.localPosition = Vector3.Lerp(freeCam.transform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
-    
-    //public void MoveToSelected(Vector3 selectedPosition)
-    //{
 
-    //    Vector3 testPosition = new Vector3(1185, 39, 291);
-    //    offset = new Vector3(1.4f, 125.2f, 45.3f);
-    //    newPosition = selectedPosition + offset;
-    //    // ZoomIn();
-
-    //    print("moving to " + newPosition);
-    //}
-
-
+    // Called when the a player icon is clicked to move over to that position
     public void FollowPlayer(GameObject player)
     {
-        // freeCam.m_Follow = player.transform;
-        // freeCam.m_LookAt = player.transform;
-
         lastPlayer = currentPlayer;
         currentPlayer = player;
         if (lastPlayer == null || currentPlayer != lastPlayer)
@@ -291,12 +243,15 @@ public class CameraController : MonoBehaviour
 
     IEnumerator FollowPlayerRoutine(GameObject player)
     {
-        // freeCamActive = false;
-        
         Vector3 originalPosition = transform.position;
         float timeElapsed = 0;
 
-        while(timeElapsed < camSwitchDuration)
+        float distanceToMove = Vector3.Distance(originalPosition, currentPlayer.transform.position);
+        float duration = distanceToMove * camSwitchSpeed;
+        
+        duration = Mathf.Clamp(duration, minCamSpeed, maxCamSpeed);
+
+        while (timeElapsed < duration)
         {
             if(currentPlayer == null)
             {
@@ -305,19 +260,22 @@ public class CameraController : MonoBehaviour
 
                 yield break;
             }
-            transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, timeElapsed / camSwitchDuration);
+            transform.position = Vector3.Lerp(originalPosition, currentPlayer.transform.position, timeElapsed * duration);
             timeElapsed += Time.deltaTime;
+
+            if (transform.position == currentPlayer.transform.position)
+            {
+                break;
+            }
 
             yield return null;
         }
 
-        camMode = cameraMode.Follow;
-
-        // freeCamActive = false;
         // transform.position = currentPlayer.transform.position;
-
+        camMode = cameraMode.Follow;
     }
 
+    // To move back to free roam
     public void ReleaseCamera()
     {
 
@@ -327,66 +285,22 @@ public class CameraController : MonoBehaviour
             currentPlayer = null;
         }
         camMode = cameraMode.Free;
-
-        // freeCam.transform.position = maxZoomIn;
-        // freeCamActive = true;
-        // freeCam.m_Follow = null;
-        // freeCam.m_LookAt = null;
     }
 
 
 
 
+    // Polish
+
+    // Use distance as a variable for camera transition speed (clamp speed) DONE
+    // Acceleration for camera transition
+    // Camera trailing behind player in follow mode
+    // Camera always centered on the screen in free mode
 
 
 
 
-
-
-
-
-
-    //public void MoveToPlayerCharacter(GameObject player)
-    //{
-    //    // Deactivate other cameras
-    //    if (currentPlayer != null)
-    //    {
-    //        currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
-    //    }
-    //    freeCam.m_Priority = 0;
-    //    freeCamActive = false;
-
-    //    // Activate new player camera
-    //    player.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 1;
-
-    //    // Update current player
-    //    currentPlayer = player;
-
-    //    // Lock free cam controls
-    //}
-
-    //public void SwitchToFreeCam()
-    //{
-    //    // Reset bool
-    //   //  cameraMovementDetected = false;
-        
-    //    // Update free cam position
-    //    // freeCam.transform.position = currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().transform.position;
-
-    //    // Deactivate current player cam
-    //    //if (currentPlayer != null)
-    //    //{
-    //    //    currentPlayer.GetComponentInChildren<CinemachineVirtualCamera>().m_Priority = 0;
-    //    //}
-
-    //    //currentPlayer = null;
-    //    //// Acitvate free cam
-    //    //freeCam.m_Priority = 1;
-
-    //    //freeCamActive = true;
-    //    // Debug.Break();
-    //}
-
+    
 
 
 
