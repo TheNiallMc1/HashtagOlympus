@@ -22,9 +22,13 @@ public class GodBehaviour : MonoBehaviour
 
     public int costToRespawn;
     
+    [Header("Attacking")]
     [SerializeField] protected List<TouristBehaviour> enemiesSeen;
     [SerializeField] protected List<TouristBehaviour> enemiesInAttackRange;
-
+    
+    protected TouristBehaviour currentAttackTarget;
+    protected Coroutine currentAttackCoroutine;
+    
     [SerializeField] protected GodState currentState;
 
     [HideInInspector] public Vector3 lastClickedPosition;
@@ -161,6 +165,7 @@ public class GodBehaviour : MonoBehaviour
         switch (newState)
         {
             case GodState.idle:
+                CancelAutoAttack(); // Cancel any currently running auto attack
                 IdleState();
                 break;
             
@@ -169,10 +174,12 @@ public class GodBehaviour : MonoBehaviour
                 break;
             
             case GodState.moveToArea:
+                CancelAutoAttack();
                 MoveToAreaState();
                 break;
             
             case GodState.moveToEnemy:
+                CancelAutoAttack();
                 MoveToEnemyState();
                 break;
         }
@@ -214,9 +221,60 @@ public class GodBehaviour : MonoBehaviour
         
         currentState = GodState.attacking;
         print(godName + ": attacking");
+        currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }
     
     #endregion
+
+    private IEnumerator AutoAttackCoroutine()
+    {        
+        // Determine and store current target
+        currentAttackTarget = enemiesInAttackRange[0];
+        
+        // If the current target is null (usually because it died) remove it from the lists
+        if (currentAttackTarget == null)
+        {
+            UpdateAttackList(false, currentAttackTarget);
+            UpdateAwarenessList(false, currentAttackTarget);
+            // Determine and store a new target if the last one was null 
+            currentAttackTarget = enemiesInAttackRange[0];
+        }
+        
+        currentAttackTarget.TakeDamage(attackDamage);
+        
+        // If the current target is now null because it died remove it from the lists
+        if (currentAttackTarget == null)
+        {
+            UpdateAttackList(false, currentAttackTarget);
+            UpdateAwarenessList(false, currentAttackTarget);
+            // Determine and store a new target if the last one was null 
+            currentAttackTarget = enemiesInAttackRange[0];
+        }
+        
+        yield return new WaitForSecondsRealtime(2f);
+        
+        // If any more enemies remain in range, loop the coroutine
+        if (enemiesInAttackRange.Any())
+        {
+            currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
+        }
+        else
+        {
+            currentAttackCoroutine = null;
+            SwitchState(GodState.idle);
+            yield break; // If there are no enemies left, end the coroutine
+        }
+        
+    }
+
+    private void CancelAutoAttack()
+    {
+        // Stop the auto attack coroutine if it exists
+        if (currentAttackCoroutine != null)
+        {
+            StopCoroutine(currentAttackCoroutine);
+        }
+    }
 }
 
 public enum GodState

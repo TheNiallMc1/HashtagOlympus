@@ -28,6 +28,38 @@ public class TouristBehaviour : MonoBehaviour
     
     public int godsNearby;
     public int touristsNearby;
+
+    public void Awake()
+    {
+        Initialise();
+    }
+    
+    public void Initialise()
+    {
+        currentHealth = maxHealth;
+    }
+    
+    public void TakeDamage(int damageAmount)
+    {
+        int newHealth = currentHealth -= damageAmount;
+        
+        if (newHealth <= 0)
+        {
+            Die();
+        }
+        
+        else
+        {
+            currentHealth = newHealth;
+            print(name + " took " + damageAmount + " damage");
+        }
+    }
+
+    public void Die()
+    {
+        print(name + " died");
+        Destroy(gameObject);
+    }
 }
 
 public enum CurrentState
