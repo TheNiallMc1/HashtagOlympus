@@ -10,9 +10,9 @@ public class LineDrawer : MonoBehaviour
 
     private LineRenderer _lineR;
 
-    private Vector2 _mousePos;
+    private Vector3 _mousePos;
 
-    private Vector2 _startMousePos;
+    private Vector3 _startMousePos;
 
     private float _distance;
     private PlayerControls playerControls;
@@ -56,8 +56,8 @@ public class LineDrawer : MonoBehaviour
         if (clickCount == 2)
         {
             _mousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            _lineR.SetPosition(0, new Vector3(_startMousePos.x, _startMousePos.y, 0f));
-            _lineR.SetPosition(1, new Vector3(_mousePos.x,_mousePos.y,0f));
+            _lineR.SetPosition(0, new Vector3(_startMousePos.x, 100f, _startMousePos.z));
+            _lineR.SetPosition(1, new Vector3(_mousePos.x,100f, _mousePos.z));
             _distance = (_mousePos - _startMousePos).magnitude;
             Debug.Log("distance: "+_distance);
         }
@@ -65,6 +65,8 @@ public class LineDrawer : MonoBehaviour
         if (clickCount > 2)
         {
             clickCount = 0;
+            _lineR.SetPosition(0, new Vector3());
+            _lineR.SetPosition(1, new Vector3());
         }
     }
 }
