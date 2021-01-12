@@ -8,44 +8,47 @@ using UnityEngine.AI;
 public class BaseEnemyAI : MonoBehaviour
 {
 
-    public enum ePriority      { Moving, Monument, God}
-    public enum eState         {  idle, Moving, Attacking, Ability}
+    protected enum ePriority { Moving, Monument, God }
+    protected enum eState { idle, Moving, Attacking, Ability }
 
     [Header("Inscribed")]
     [SerializeField]
-    List<Waypoint>       waypoints;
+    protected List<Waypoint> waypoints;
     [SerializeField]
-    List<Waypoint>       Path;
-    private float       _health;
-    private float       _damage = 50;
-    private float       _speed;
-    public Transform    _destination;
-    public float rdist = 2;
+    protected List<Waypoint> Path;
+
+    protected float _health;
+    protected float _damage = 50;
+    protected float _speed;
+    protected Transform _destination;
+    protected float rdist = 2;
 
     [Header("Dynamic")]
     [SerializeField]
-    private ePriority _priority = ePriority.Moving;
+    protected ePriority _priority = ePriority.Moving;
     [SerializeField]
-    private eState  _state = eState.idle;
-    public int         wpNum    = 0;
-    public int test = 0;
-    MonumentHealth monument;
+    protected eState _state = eState.idle;
 
+    protected int wpNum = 0;
+    protected int test = 0;
+
+    protected GameObject attackTarget;
+    MonumentHealth monument;
     protected NavMeshAgent nav;
 
-    public ePriority priority { get { return _priority; } set { _priority = value; } }
-    public eState state { get { return _state; } set { _state = value; } }
+    protected ePriority priority { get { return _priority; } set { _priority = value; } }
+    protected eState state { get { return _state; } set { _state = value; } }
     public float health { get { return _health; } set { _health = value; } }
 
-    // Use this for initialization
+
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
-       // nav.stoppingDistance = 0.01f;
+
 
         wpNum = 0;
         FindClosestWaypoint(transform.position);
-        
+
     }
 
     void MoveToNextWaypoint()
@@ -63,74 +66,97 @@ public class BaseEnemyAI : MonoBehaviour
 
     void MoveToWaypoint(int num)
     {
-        //Debug.Log(Path.Count);
+
         nav.SetDestination(Path[0].pos);
-        //nav.isStopped = true;
-        //nav.updatePosition = false;
-        
+
+
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
-        // Debug.Log(Path.Count);
-        //StopAllCoroutines();
+
+        StopAllCoroutines();
         switch (_state)
         {
             case eState.Moving:
                 StopAllCoroutines();
-                if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
-                {
-                    FindClosestMonument(transform.position);
-                    var near = 5;
-                   // Debug.Log(monument.name);
-                    if ((monument.transform.position - transform.position).magnitude < near)
-                    {
-                        _state = eState.Attacking;
-                        _priority = ePriority.Monument;
-                    }
-                    else
-                    {
-                        waypoints.Add(Path[0]);
-                        Path.RemoveAt(0);
-                        FindNextWaypoint(waypoints[waypoints.Count - 1]);
-                        MoveToNextWaypoint();
-                    }
-                    
-                }
+                Moving();
                 break;
             case eState.Attacking:
-                if (_priority == ePriority.Monument)
-                {
-                    nav.stoppingDistance = 0.1f;
-                    if (monument != null)
-                    {                   
-                        nav.SetDestination(monument.transform.position);
-                        if (!nav.pathPending && nav.remainingDistance < 0.02)
-                        {
-                            Debug.Log("I wasnt supposed to be here today");
-                            StartCoroutine(AttackingCoroutine());
-                        }
-                        
-                    }
-                    else
-                        {
-                            //StopCoroutine(AttackingCoroutine());
-                            _priority = ePriority.Moving;
-                            _state = eState.Moving;
-                            
-                        }
- 
-
-                    
-                }
+                Attack();
                 break;
+        }
+    }
+    protected virtual void Moving()
+    {
+        if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
+        {
+            FindClosestMonument(transform.position);
+            var near = 5;
+
+            if ((monument.transform.position - transform.position).magnitude < near)
+            {
+                _state = eState.Attacking;
+                _priority = ePriority.Monument;
+            }
+            else
+            {
+                waypoints.Add(Path[0]);
+                Path.RemoveAt(0);
+                FindNextWaypoint(waypoints[waypoints.Count - 1]);
+                MoveToNextWaypoint();
+            }
 
         }
-        
     }
 
-    IEnumerator AttackingCoroutine()
+    protected virtual void Attack()
+    {
+        if (_priority == ePriority.God)
+        {
+            nav.stoppingDistance = 0.1f;
+            if (attackTarget != null)
+            {
+                nav.SetDestination(attackTarget.transform.position);
+                if (!nav.pathPending && nav.remainingDistance < 0.1)
+                {
+                    StartCoroutine(AttackingMonumentCoroutine());
+                }
+
+            }
+            else
+            {
+                _priority = ePriority.Moving;
+                _state = eState.Moving;
+
+            }
+        }
+        if (_priority == ePriority.Monument)
+        {
+            nav.stoppingDistance = 0.1f;
+            if (monument != null)
+            {
+                nav.SetDestination(monument.transform.position);
+                if (!nav.pathPending && nav.remainingDistance < 0.1)
+                {
+                    StartCoroutine(AttackingMonumentCoroutine());
+                }
+
+            }
+            else
+            {
+                _priority = ePriority.Moving;
+                _state = eState.Moving;
+
+            }
+        }
+    }
+
+    /*
+     Handles AI while it is attacking a monument. 
+    */
+    protected IEnumerator AttackingMonumentCoroutine()
     {
         while (monument != null || _state == eState.Attacking)
         {
@@ -145,8 +171,6 @@ public class BaseEnemyAI : MonoBehaviour
             else
             {
                 monument.Health = monument.Health - _damage;
-                //Debug.Log(monument.Health);
-                
             }
                 
            yield return new WaitForSeconds(5);
@@ -155,66 +179,84 @@ public class BaseEnemyAI : MonoBehaviour
         yield break;
     }
 
+    /*
+    Handles AI while it is targetting a God. 
+    */
+    protected IEnumerator AttackingGodCoroutine()
+    {
+        yield break;
+    }
+
+
+    /*
+    *****************************************************
+                        May be deleted
+    *****************************************************
+    */
     IEnumerator MonumentStateCoroutine()
     {
         yield return new WaitForSeconds(10);
         
     }
 
-
-    private Waypoint FindNextWaypoint(Waypoint obj)
+    /*
+    Once a waypoint has been found, Add that waypoint to a list,
+    that list is a track of visited waypoints.
+    Then add it to another list which is the way point path to follow.
+    */
+    protected Waypoint FindNextWaypoint(Waypoint obj)
     {
-        //Debug.Log(waypoints.Count);
+       
         Waypoint next = null;
         int key;
         waypoints.Add(obj);
-        int length = obj.neighbors.Count;
-       // Debug.Log(length);
+        int length = obj.neighbors.Count;     // list of a waypoints neighbooring waypoints.
+     
         key = UnityEngine.Random.Range(0, length);
-       // Debug.Log(key);
-
+       
+        //  add a randomly selected waypoint to the path list from the waypoints neighboor list.
         if (key < obj.neighbors.Count)
         {
             next = obj.neighbors[key];
-           // Debug.Log(next.name);
             Path.Add(next);
-           // Debug.Log(Path.Count);
 
             if(test == 0)
             {
                 test++;
                 MoveToNextWaypoint();
             }
-           // return next;
         }
         return null;
         
     }
-
-    private Waypoint FindClosestWaypoint(Vector3 target)
+    /*
+    Search the area to find the closest waypoint to the AI.
+    */
+    protected Waypoint FindClosestWaypoint(Vector3 target)
     {
         Waypoint closestWaypoint = null;
         float closestDist = Mathf.Infinity;
         foreach (var waypoint in GameObject.FindGameObjectsWithTag("Waypoint"))
         {
+
             var dist = (waypoint.transform.position - target).magnitude;
             if (dist < closestDist)
             {
                 closestWaypoint = waypoint.GetComponent<Waypoint>();
-                //Debug.Log(closest.name);
                 closestDist = dist;
             }
         }
         if (closestWaypoint != null)
-        {
-           // Debug.Log(closest);
-            //return closest;
-         
+        {         
             FindNextWaypoint(closestWaypoint);
         }
         return null;
     }
-    private MonumentHealth FindClosestMonument(Vector3 target)
+    /*
+    Search the area to find the around a waypoint to find the
+    closest monument to that waypoint AI, set the monument as the next target.
+    */
+    protected MonumentHealth FindClosestMonument(Vector3 target)
     {
         MonumentHealth closestMonument = null;
         float closestDist = Mathf.Infinity;
@@ -224,16 +266,13 @@ public class BaseEnemyAI : MonoBehaviour
             if (dist < closestDist)
             {
                 closestMonument = monument.GetComponent<MonumentHealth>();
-                //Debug.Log(closest.name);
                 closestDist = dist;
             }
         }
         if (closestMonument != null)
         {
-            // Debug.Log(closest);
-            //return closest;
+            attackTarget = closestMonument.gameObject;
             monument = closestMonument;
-           // Debug.Log(monument.name);
             return closestMonument;
         }
         return null;
