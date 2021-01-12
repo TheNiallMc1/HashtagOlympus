@@ -141,8 +141,9 @@ public class CameraController : MonoBehaviour
                 MoveCamera();
                 if(currentPlayer != null)
                 {
-                    transform.position = currentPlayer.transform.position;
-                    newPosition = currentPlayer.transform.position;
+                    transform.position = Vector3.Lerp(transform.position, currentPlayer.transform.position, Time.deltaTime * 0.95f);
+                    // transform.position = currentPlayer.transform.position;
+                    // newPosition = currentPlayer.transform.position;
                 }
 
                 RotateCamera();
@@ -293,9 +294,9 @@ public class CameraController : MonoBehaviour
     // Polish
 
     // Use distance as a variable for camera transition speed (clamp speed) DONE
-    // Acceleration for camera transition
+    // Acceleration for camera transition DONE
     // Camera trailing behind player in follow mode
-    // Camera always centered on the screen in free mode
+    // Camera always centered on the screen in free mode DONE (kind-of)
 
 
 
