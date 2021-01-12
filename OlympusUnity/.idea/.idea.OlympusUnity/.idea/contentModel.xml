@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\User\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\User\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_OlympusUnity.934417865.00" t="ExcludeRecursive" />
-    <e p="E:\Pixel Mill\Olympus\HashtagOlympus\OlympusUnity" t="IncludeRecursive">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="_Project" t="Include">
           <e p="Inputs" t="Include">
+            <e p="CameraControls.cs" t="Include" />
             <e p="PlayerControls.cs" t="Include" />
           </e>
           <e p="Scripts" t="Include">
@@ -15,7 +14,6 @@
               <e p="BekahInputs" t="Include">
                 <e p="PlayerInput.cs" t="Include" />
               </e>
-              <e p="BekahsGM.cs" t="Include" />
               <e p="BlueprintBehaviour.cs" t="Include" />
               <e p="GodAbility.cs" t="Include" />
               <e p="GodPlacerButton.cs" t="Include" />
@@ -24,6 +22,7 @@
               <e p="LineDrawer.cs" t="Include" />
               <e p="PauseMapButton.cs" t="Include" />
             </e>
+            <e p="CameraController.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
             <e p="Gods" t="Include">
               <e p="AresAbility.cs" t="Include" />
@@ -31,6 +30,7 @@
               <e p="GodBehaviour.cs" t="Include" />
               <e p="GodColliders.cs" t="Include" />
             </e>
+            <e p="PlayerCamera.cs" t="Include" />
             <e p="SpecialAbility.cs" t="Include" />
             <e p="TouristBehaviour.cs" t="Include" />
             <e p="UIScripts" t="Include">
@@ -41,10 +41,17 @@
           </e>
         </e>
         <e p="AI_Test" t="Include">
+          <e p="Scenes" t="Include">
+            <e p="blank.cs" t="Include" />
+          </e>
           <e p="Scripts" t="Include">
             <e p="EnemyAI" t="Include">
               <e p="AITestManager.cs" t="Include" />
               <e p="BaseEnemyAI.cs" t="Include" />
+              <e p="Defender.cs" t="Include" />
+              <e p="Influencer.cs" t="Include" />
+              <e p="Jock.cs" t="Include" />
+              <e p="Nerd.cs" t="Include" />
               <e p="Reference" t="Include">
                 <e p="PathManager.cs" t="Include" />
                 <e p="PathNavTest.cs" t="Include" />
@@ -89,7 +96,9 @@
       <e p="obj" t="ExcludeRecursive" />
       <e p="OlympusUnity.sln" t="IncludeFlat" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
     </e>
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_OlympusUnity.591748789.00" t="ExcludeRecursive" />
   </component>
 </project>

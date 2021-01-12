@@ -19,23 +19,22 @@ public class PauseMapButton : MonoBehaviour
 
     public void PauseShowMap()
     {
-        //sTime.timeScale = 0;
+        Time.timeScale = 0;
         
         playModeUI.gameObject.SetActive(false);
         pauseModeUI.gameObject.SetActive(true);
         
-        //mainCam.gameObject.SetActive(false);
         pauseMapCam.gameObject.SetActive(true);
     }
 
     public void UnpauseHideMap()
     {
-       // Time.timeScale = 1;
+       Time.timeScale = 1;
         
         pauseModeUI.gameObject.SetActive(false);
         playModeUI.gameObject.SetActive(true);
         
         pauseMapCam.gameObject.SetActive(false);
-        //mainCam.gameObject.SetActive(true);
+        
     }
 }
