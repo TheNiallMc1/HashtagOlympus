@@ -12,17 +12,16 @@ public class CameraController : MonoBehaviour
     public enum cameraMode { Free, Follow, Transition};
     public cameraMode camMode;
  
-    [SerializeField] private float movementSpeed = 2f;
-    [SerializeField] private float movementTime = 2f;
+    [SerializeField] private float movementSpeed = 0.2f;
+    [SerializeField] private float movementTime = 10f;
 
-    [SerializeField] private float rotationAmount = 10f;
-    [SerializeField] private float rotationTime = 2f;
+    [SerializeField] private float rotationAmount = 0.7f;
+    [SerializeField] private float rotationTime = 6f;
 
     private Vector3 zoomAmount;
     public Vector3 newZoom;
-    public Vector3 maxZoomOut;
-    public Vector3 maxZoomIn;
-    public Vector3 offset;
+    public Vector3 maxZoomOut = new Vector3(11, 58, -70);
+    public Vector3 maxZoomIn = new Vector3(9, 24, -20);
 
     private Vector3 newPosition;
     private Quaternion newRotation;
@@ -37,16 +36,20 @@ public class CameraController : MonoBehaviour
     private bool rotatingCameraLeft;
     private bool rotatingCameraRight;
 
+    private bool quickFocus;
+
     public float mouseScrollY;
 
     public float camSwitchSpeed = 1f;
 
     // min/max is the lowest/largest distance used for camera speed transition calculations
-    public float minCamDuration = 0.2f;
-    public float maxCamDuration = 2.5f;
+    public float minCamDuration = 0.5f;
+    public float maxCamDuration = 1.2f;
 
     public float yZoomAdjust = 45;
-    public float zZoomAdjust = 30;
+    public float zZoomAdjust = 40;
+
+    public float followSpeed = 10f;
     
     public GameObject currentPlayer = null;
     public GameObject lastPlayer = null;
@@ -91,6 +94,7 @@ public class CameraController : MonoBehaviour
         cameraControls.Camera.MoveCameraRight.started += ctx => movingCameraRight = true;
         cameraControls.Camera.RotateCameraLeft.started += ctx => rotatingCameraLeft = true;
         cameraControls.Camera.RotateCameraRight.started += ctx => rotatingCameraRight = true;
+        cameraControls.Camera.QuickFocus.started += ctx => quickFocus = true;
         
         cameraControls.Camera.MouseScrollY.performed += ctx => mouseScrollY = ctx.ReadValue<float>();
 
@@ -100,6 +104,7 @@ public class CameraController : MonoBehaviour
         cameraControls.Camera.MoveCameraRight.canceled += ctx => movingCameraRight = false;
         cameraControls.Camera.RotateCameraLeft.canceled += ctx => rotatingCameraLeft = false;
         cameraControls.Camera.RotateCameraRight.canceled += ctx => rotatingCameraRight = false;
+        cameraControls.Camera.QuickFocus.canceled += ctx => quickFocus = false;
 
     }
 
@@ -135,15 +140,17 @@ public class CameraController : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * rotationTime);
 
                 MouseScroll();
+
+                QuickFocus();
+
                 break;
 
             case cameraMode.Follow:
                 MoveCamera();
                 if(currentPlayer != null)
                 {
-                    transform.position = Vector3.Lerp(transform.position, currentPlayer.transform.position, Time.deltaTime * 0.95f);
-                    // transform.position = currentPlayer.transform.position;
-                    // newPosition = currentPlayer.transform.position;
+                    transform.position = Vector3.MoveTowards(transform.position, currentPlayer.transform.position, Time.deltaTime * followSpeed);
+                    newPosition = currentPlayer.transform.position;
                 }
 
                 RotateCamera();
@@ -159,6 +166,7 @@ public class CameraController : MonoBehaviour
         }
 
     }
+
 
     void MoveCamera()
     {
@@ -211,7 +219,7 @@ public class CameraController : MonoBehaviour
             zoomAmount = new Vector3(0, -mouseScrollY / yZoomAdjust, mouseScrollY / zZoomAdjust);
             if (newZoom.y > maxZoomIn.y || newZoom.z < maxZoomIn.z)
             {
-                newZoom += zoomAmount + offset;
+                newZoom += zoomAmount;
             }
         }
 
@@ -220,11 +228,19 @@ public class CameraController : MonoBehaviour
             zoomAmount = new Vector3(0, mouseScrollY / yZoomAdjust, -mouseScrollY / zZoomAdjust);
             if(newZoom.y < maxZoomOut.y || newZoom.z > maxZoomOut.z)
             {
-                newZoom -= zoomAmount - offset;
+                newZoom -= zoomAmount;
             }
         }
 
         freeCam.transform.localPosition = Vector3.Lerp(freeCam.transform.localPosition, newZoom, Time.deltaTime * movementTime);
+    }
+
+    private void QuickFocus()
+    {
+        if (quickFocus)
+        {
+            FollowPlayer(lastPlayer);
+        }
     }
 
 
@@ -238,6 +254,7 @@ public class CameraController : MonoBehaviour
             camMode = cameraMode.Transition;
         }
 
+        lastPlayer = null;
         StartCoroutine(FollowPlayerRoutine(player));
 
     }
@@ -271,8 +288,7 @@ public class CameraController : MonoBehaviour
 
             yield return null;
         }
-
-        // transform.position = currentPlayer.transform.position;
+        
         camMode = cameraMode.Follow;
     }
 
@@ -287,22 +303,6 @@ public class CameraController : MonoBehaviour
         }
         camMode = cameraMode.Free;
     }
-
-
-
-
-    // Polish
-
-    // Use distance as a variable for camera transition speed (clamp speed) DONE
-    // Acceleration for camera transition DONE
-    // Camera trailing behind player in follow mode
-    // Camera always centered on the screen in free mode DONE (kind-of)
-
-
-
-
-    
-
 
 
 }

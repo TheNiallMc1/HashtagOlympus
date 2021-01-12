@@ -73,6 +73,14 @@ public class @CameraControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""QuickFocus"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ccce6f2-0fcb-4a3e-826c-d695aa66ed06"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -152,6 +160,17 @@ public class @CameraControls : IInputActionCollection, IDisposable
                     ""action"": ""MouseScrollY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c76810f-267d-4a76-a60f-c7e132d8694c"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuickFocus"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -167,6 +186,7 @@ public class @CameraControls : IInputActionCollection, IDisposable
         m_Camera_RotateCameraLeft = m_Camera.FindAction("RotateCameraLeft", throwIfNotFound: true);
         m_Camera_RotateCameraRight = m_Camera.FindAction("RotateCameraRight", throwIfNotFound: true);
         m_Camera_MouseScrollY = m_Camera.FindAction("MouseScrollY", throwIfNotFound: true);
+        m_Camera_QuickFocus = m_Camera.FindAction("QuickFocus", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -223,6 +243,7 @@ public class @CameraControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Camera_RotateCameraLeft;
     private readonly InputAction m_Camera_RotateCameraRight;
     private readonly InputAction m_Camera_MouseScrollY;
+    private readonly InputAction m_Camera_QuickFocus;
     public struct CameraActions
     {
         private @CameraControls m_Wrapper;
@@ -234,6 +255,7 @@ public class @CameraControls : IInputActionCollection, IDisposable
         public InputAction @RotateCameraLeft => m_Wrapper.m_Camera_RotateCameraLeft;
         public InputAction @RotateCameraRight => m_Wrapper.m_Camera_RotateCameraRight;
         public InputAction @MouseScrollY => m_Wrapper.m_Camera_MouseScrollY;
+        public InputAction @QuickFocus => m_Wrapper.m_Camera_QuickFocus;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +286,9 @@ public class @CameraControls : IInputActionCollection, IDisposable
                 @MouseScrollY.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
                 @MouseScrollY.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
                 @MouseScrollY.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouseScrollY;
+                @QuickFocus.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnQuickFocus;
+                @QuickFocus.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnQuickFocus;
+                @QuickFocus.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnQuickFocus;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +314,9 @@ public class @CameraControls : IInputActionCollection, IDisposable
                 @MouseScrollY.started += instance.OnMouseScrollY;
                 @MouseScrollY.performed += instance.OnMouseScrollY;
                 @MouseScrollY.canceled += instance.OnMouseScrollY;
+                @QuickFocus.started += instance.OnQuickFocus;
+                @QuickFocus.performed += instance.OnQuickFocus;
+                @QuickFocus.canceled += instance.OnQuickFocus;
             }
         }
     }
@@ -302,5 +330,6 @@ public class @CameraControls : IInputActionCollection, IDisposable
         void OnRotateCameraLeft(InputAction.CallbackContext context);
         void OnRotateCameraRight(InputAction.CallbackContext context);
         void OnMouseScrollY(InputAction.CallbackContext context);
+        void OnQuickFocus(InputAction.CallbackContext context);
     }
 }
