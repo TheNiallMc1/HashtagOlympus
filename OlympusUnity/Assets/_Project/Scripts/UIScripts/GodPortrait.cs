@@ -28,6 +28,7 @@ public class GodPortrait : MonoBehaviour
     public void ClickToSelectGod()
     {
         print("clicked");
+        //GameManager.Instance.SelectGod(correspondingGod);
         GameManager.Instance.SelectGod(correspondingGod);
     }
 }

@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAllPortraits()
     {
-        for (int index = 0; index < godPortraits.Count; index++)
+        for (int index = 0; index < 3; index++)
         {
             Button currentButton = godPortraits[index];
             
@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
         
         for (int i = 0; i < numberOfGods; i++)
         {
-            GameObject thisAbilityPanel = abilityPanels[i];
+            GameObject thisAbilityPanel = abilityPanels[0];
             GodBehaviour thisGod = GameManager.Instance.allPlayerGods[i];
             print(thisGod.name);
 

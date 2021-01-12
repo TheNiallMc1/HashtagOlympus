@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            Debug.Log("check for raycast");
             bool targetIsGod = hit.collider.CompareTag("God");
             
             // Select a new god
@@ -78,9 +79,10 @@ public class GameManager : MonoBehaviour
 
                 print("Selected: " + thisGod.godName);
             }
-            
+
             if (!targetIsGod && currentlySelectedGod != null)
             {
+                Debug.Log("moving");
                 currentlySelectedGod.MoveToTarget(hit.point);
 
                 print("Moved: " + currentlySelectedGod.godName);
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectGod(GodBehaviour godToSelect)
     {
+        Debug.Log("selected god");
         DeselectGod();
         
         godSelected = true;
