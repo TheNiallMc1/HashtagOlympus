@@ -1836,6 +1836,9 @@ MonoBehaviour:
   godName: Ares
   maxHealth: 0
   attackDamage: 0
+  armour: 0
+  speed: 0
+  costToRespawn: 0
   specialAbilities:
   - {fileID: 2354711487122890304, guid: 7b4b912dbd53f4c45a00d59bdcf30419, type: 3}
   - {fileID: 2354711487122890304, guid: 7b4b912dbd53f4c45a00d59bdcf30419, type: 3}
@@ -1855,7 +1858,6 @@ GameObject:
   - component: {fileID: 1292189090}
   - component: {fileID: 1292189089}
   - component: {fileID: 1292189088}
-  - component: {fileID: 1292189091}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1872,16 +1874,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1292189087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &1292189089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,33 +1921,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1292189091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292189087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
 --- !u!1 &1297397110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2091,9 @@ MonoBehaviour:
   godName: Artemis
   maxHealth: 0
   attackDamage: 0
+  armour: 0
+  speed: 0
+  costToRespawn: 0
   specialAbilities: []
   portraitSprite: {fileID: 21300000, guid: f502ec0ac48af884693df78e11392c62, type: 3}
   portraitSpriteSelected: {fileID: 21300000, guid: 214d6aa31a3590244941eef938465860, type: 3}
@@ -2260,6 +2246,9 @@ MonoBehaviour:
   godName: Dionysus
   maxHealth: 0
   attackDamage: 0
+  armour: 0
+  speed: 0
+  costToRespawn: 0
   specialAbilities:
   - {fileID: 0}
   - {fileID: 0}
@@ -2531,13 +2520,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883549485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4e7841cca70ad46b506e1c801667e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fa80bdb7d505eb42a4a3876350fe88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allPlayerGods:
-  - {fileID: 1258470345}
-  - {fileID: 1478687211}
-  - {fileID: 1305484613}
+  allPlayerGods: []
   currentlySelectedGod: {fileID: 0}
   currentRespect: 0
 --- !u!4 &1883549487

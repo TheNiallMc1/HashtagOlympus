@@ -57,7 +57,7 @@ public class BlueprintBehaviour : MonoBehaviour
           
             if (gameObject != null)
             {
-                _playerControls.Player.MouseClick.performed -= ctx => SetDown();
+               // _playerControls.Player.MouseClick.performed -= ctx => SetDown();
                 _playerControls.Disable();
                 Destroy(gameObject);
             }
