@@ -17,7 +17,6 @@ public class GodPlacerButton : MonoBehaviour
         _godToPlace = GameManager.Instance.allPlayerGods[godIndex].gameObject;
         _btn = GetComponent<Button> ( );
         _btn.GetComponentInChildren<TMP_Text>().text = _godToPlace.GetComponent<GodBehaviour>().godName;
-
     }
 
     
