@@ -23,13 +23,14 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
     
     [Header("Attacking")]
-    [SerializeField] protected List<TouristBehaviour> enemiesSeen;
-    [SerializeField] protected List<TouristBehaviour> enemiesInAttackRange;
+    [SerializeField] protected internal List<TouristBehaviour> enemiesSeen;
+    [SerializeField] protected internal List<TouristBehaviour> enemiesInAttackRange;
     
     protected TouristBehaviour currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
-    
-    [SerializeField] protected GodState currentState;
+
+    [Header("States")] 
+    [SerializeField] protected internal GodState currentState;
 
     [HideInInspector] public Vector3 lastClickedPosition;
     
@@ -40,8 +41,8 @@ public class GodBehaviour : MonoBehaviour
     protected int currentSkillPoints;
 
     [Header("Abilities")]
-    public SpecialAbility[] specialAbilities;
-    public SpecialAbility[] passiveAbilities;
+    public List<SpecialAbility> specialAbilities;
+    //public List<SpecialAbility> passiveAbilities;
     
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
@@ -64,7 +65,7 @@ public class GodBehaviour : MonoBehaviour
         currentHealth = maxHealth;
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
-
+        
         currentState = GodState.idle;
         
         // Initialise collider radius
@@ -81,9 +82,9 @@ public class GodBehaviour : MonoBehaviour
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
         bool attacking = currentState == GodState.attacking;
-
+    
         bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
-
+    
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
         if (!movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
         {
@@ -95,7 +96,7 @@ public class GodBehaviour : MonoBehaviour
         {
             SwitchState(GodState.attacking);
         }
-
+    
         // If the god reaches their target destination, and is not attacking, switch to idle state
         else if (currentState != GodState.idle && !attacking && closeToTargetPosition)
         {
@@ -193,7 +194,7 @@ public class GodBehaviour : MonoBehaviour
         currentState = GodState.idle;
         print(godName + ": idling");
     }
-
+    
     private void MoveToAreaState()
     {
         // Material for testing
@@ -203,7 +204,7 @@ public class GodBehaviour : MonoBehaviour
         MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
         print(godName + ": moving to area");
     }
-
+    
     private void MoveToEnemyState()
     {
         // Material for testing
@@ -213,7 +214,7 @@ public class GodBehaviour : MonoBehaviour
         MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
         print(godName + ": moving to enemy");
     }
-
+    
     private void AttackingState()
     {
         // Material for testing
@@ -226,7 +227,7 @@ public class GodBehaviour : MonoBehaviour
     
     #endregion
 
-    private IEnumerator AutoAttackCoroutine()
+    protected IEnumerator AutoAttackCoroutine()
     {        
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
@@ -267,7 +268,7 @@ public class GodBehaviour : MonoBehaviour
         
     }
 
-    private void CancelAutoAttack()
+    protected void CancelAutoAttack()
     {
         // Stop the auto attack coroutine if it exists
         if (currentAttackCoroutine != null)
@@ -275,6 +276,14 @@ public class GodBehaviour : MonoBehaviour
             StopCoroutine(currentAttackCoroutine);
         }
     }
+
+    
+    // may need to be public for ui implementation
+    public void UseAbility(int abilityIndex)
+    {
+        specialAbilities[abilityIndex].ExecuteAbility();
+    }
+    
 }
 
 public enum GodState

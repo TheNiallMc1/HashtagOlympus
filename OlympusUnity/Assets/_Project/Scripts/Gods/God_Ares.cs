@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class God_Ares : GodBehaviour
 {
+    private int currentRageCount;
+    private int maxRageCount;
+    
     
 }
