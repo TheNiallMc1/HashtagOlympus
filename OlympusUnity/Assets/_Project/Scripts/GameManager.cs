@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
         uiManager = FindObjectOfType<UIManager>();
         cam = Camera.main;
+        currentCam = cam;
         
         // Controls
         playerControls = new PlayerControls();
@@ -71,12 +72,11 @@ public class GameManager : MonoBehaviour
         Ray ray;
 
         if (currentCam == cam)
-        { Debug.Log("using main cam");
+        { 
             ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         }
         else
         {
-            Debug.Log("using map");
             Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x,Mouse.current.position.ReadValue().y, 0); 
             ray = currentCam.ScreenPointToRay(scrPoint); 
         }
