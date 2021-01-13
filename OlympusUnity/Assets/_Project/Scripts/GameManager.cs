@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private Camera cam;
+    private Camera currentCam;
+    public Camera overViewCam; 
     private UIManager uiManager;
     
     // Gods and God Selection
@@ -64,7 +66,20 @@ public class GameManager : MonoBehaviour
     
     private void ClickSelect()
     {
-        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //consideration for ortho camera here
+
+        Ray ray;
+
+        if (currentCam == cam)
+        { Debug.Log("using main cam");
+            ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        }
+        else
+        {
+            Debug.Log("using map");
+            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x,Mouse.current.position.ReadValue().y, 0); 
+            ray = currentCam.ScreenPointToRay(scrPoint); 
+        }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -85,6 +100,7 @@ public class GameManager : MonoBehaviour
             {
                 currentlySelectedGod.lastClickedPosition = hit.point;
                 currentlySelectedGod.SwitchState(GodState.moveToArea);
+                DeselectGod();
             }
         }
     }
@@ -92,7 +108,7 @@ public class GameManager : MonoBehaviour
     public void SelectGod(GodBehaviour godToSelect)
     {
         Debug.Log("selected god");
-        DeselectGod();
+        //DeselectGod();
         
         godSelected = true;
         currentlySelectedGod = godToSelect;
@@ -135,5 +151,10 @@ public class GameManager : MonoBehaviour
             currentRespect = 0;
             uiManager.UpdateCurrentGodText();
         }
+    }
+
+    public void SwitchCam(Camera cameraToChangeTo)
+    {
+        currentCam = cameraToChangeTo;
     }
 }

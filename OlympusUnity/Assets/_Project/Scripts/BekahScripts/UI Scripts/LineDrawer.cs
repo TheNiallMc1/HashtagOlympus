@@ -46,27 +46,30 @@ public class LineDrawer : MonoBehaviour
 
     void SetMousePos()
     {
-        clickCount++;
-
-        if (clickCount == 1)
+        if (GameManager.Instance.currentlySelectedGod != null)
         {
-            _startMousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        }
+            clickCount++;
 
-        if (clickCount == 2)
-        {
-            _mousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            _lineR.SetPosition(0, new Vector3(_startMousePos.x, 100f, _startMousePos.z));
-            _lineR.SetPosition(1, new Vector3(_mousePos.x,100f, _mousePos.z));
-            _distance = (_mousePos - _startMousePos).magnitude;
-            Debug.Log("distance: "+_distance);
-        }
+            if (clickCount == 1)
+            {
+                _startMousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            }
 
-        if (clickCount > 2)
-        {
-            clickCount = 0;
-            _lineR.SetPosition(0, new Vector3());
-            _lineR.SetPosition(1, new Vector3());
+            if (clickCount == 2)
+            {
+                _mousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                _lineR.SetPosition(0, new Vector3(_startMousePos.x, 100f, _startMousePos.z));
+                _lineR.SetPosition(1, new Vector3(_mousePos.x, 100f, _mousePos.z));
+                _distance = (_mousePos - _startMousePos).magnitude;
+                Debug.Log("distance: " + _distance);
+            }
+
+            if (clickCount > 2)
+            {
+                clickCount = 0;
+                _lineR.SetPosition(0, new Vector3());
+                _lineR.SetPosition(1, new Vector3());
+            }
         }
     }
 }
