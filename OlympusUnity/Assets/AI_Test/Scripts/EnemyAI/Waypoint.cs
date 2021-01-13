@@ -5,7 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
 	public List<Waypoint> neighbors;
-
+	public GameObject monument;
 
 	private void Awake()
 	{

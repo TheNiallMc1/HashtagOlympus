@@ -435,7 +435,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: c01d28c24dc90483e88fd4744a680965, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -504,6 +504,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 691128498}
   - {fileID: 1913590679}
+  monument: {fileID: 0}
 --- !u!1 &226215412
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,12 +641,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &248074084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1006,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 1459003860}
   - {fileID: 1223891343}
+  monument: {fileID: 0}
 --- !u!1 &319088334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1069,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 1459003860}
   - {fileID: 1223891343}
+  monument: {fileID: 0}
 --- !u!4 &448242046
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,12 +1220,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &513335402
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,12 +2092,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &691128496
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2141,7 @@ MonoBehaviour:
   - {fileID: 1115052935}
   - {fileID: 191020271}
   - {fileID: 1913590679}
+  monument: {fileID: 0}
 --- !u!1 &691581054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,12 +2278,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &794946638
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,12 +2451,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &932954750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +2885,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 691128498}
   - {fileID: 1913590679}
+  monument: {fileID: 0}
 --- !u!4 &1115052936
 Transform:
   m_ObjectHideFlags: 0
@@ -2947,6 +2932,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 691128498}
   - {fileID: 1115052935}
+  monument: {fileID: 0}
 --- !u!4 &1223891344
 Transform:
   m_ObjectHideFlags: 0
@@ -3042,6 +3028,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 691128498}
   - {fileID: 191020271}
+  monument: {fileID: 1020723665}
 --- !u!1 &1459003858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3088,6 +3075,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 1368875711}
   - {fileID: 1223891343}
+  monument: {fileID: 0}
 --- !u!1 &1561258912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,6 +3433,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 1368875711}
   - {fileID: 1459003860}
+  monument: {fileID: 0}
 --- !u!1 &1785981839
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,12 +3679,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!114 &1913590679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1887681570211139116, guid: 3249bc8e3cd6f334db6fbb3a5aafbebf, type: 3}
@@ -3778,6 +3763,7 @@ MonoBehaviour:
   neighbors:
   - {fileID: 1368875711}
   - {fileID: 1459003860}
+  monument: {fileID: 0}
 --- !u!4 &1975244881
 Transform:
   m_ObjectHideFlags: 0
@@ -3928,12 +3914,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Path: []
-  _destination: {fileID: 0}
-  rdist: 2
   _priority: 0
   _state: 0
-  wpNum: 0
-  test: 0
 --- !u!1 &2069793393
 GameObject:
   m_ObjectHideFlags: 0
