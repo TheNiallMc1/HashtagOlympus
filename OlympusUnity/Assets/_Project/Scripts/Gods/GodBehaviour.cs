@@ -9,10 +9,14 @@ using UnityEngine.UI;
 public class GodBehaviour : MonoBehaviour
 {
     public string godName;
-   
+    protected int indexInGodList;
+    
     [Header("Combat Stats")]
     public int maxHealth;
     protected int currentHealth;
+    protected GodHealthBar healthBar;
+
+    public bool usesSpecialResource;
     
     public int awarenessRadius;
     public int attackRadius;
@@ -23,10 +27,10 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
     
     [Header("Attacking")]
-    [SerializeField] protected internal List<TouristBehaviour> enemiesSeen;
-    [SerializeField] protected internal List<TouristBehaviour> enemiesInAttackRange;
+    [SerializeField] protected internal List<TouristStats> enemiesSeen;
+    [SerializeField] protected internal List<TouristStats> enemiesInAttackRange;
     
-    protected TouristBehaviour currentAttackTarget;
+    protected TouristStats currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
     [Header("States")] 
@@ -51,6 +55,8 @@ public class GodBehaviour : MonoBehaviour
     public GameObject mouseDetectorCollider;
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
+
+    protected UIManager uiManager;
     
     [Header("Testing Variables")]
     public Material standardMaterial;
@@ -60,9 +66,27 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
-    public void Awake()
+    public virtual void Start()
     {
+        // Give this god a reference to itself in the playerGods list
+        for (int i = 0; i < GameManager.Instance.allPlayerGods.Count; i++)
+        {
+            if (GameManager.Instance.allPlayerGods[i] == this)
+            {
+                print("god found in player god list");
+                indexInGodList = i;
+            }
+        }
+        
+        uiManager = FindObjectOfType<UIManager>();
+        
+        healthBar = uiManager.healthBars[indexInGodList];
+        healthBar.Initialise();
+        
+        healthBar.SetValue(50);
+        
         currentHealth = maxHealth;
+        
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
         
@@ -124,7 +148,7 @@ public class GodBehaviour : MonoBehaviour
         navMeshAgent.destination = navDestination;
     }
 
-    public void UpdateAwarenessList(bool addToList, TouristBehaviour tourist)
+    public void UpdateAwarenessList(bool addToList, TouristStats tourist)
     {
         bool alreadyInList = enemiesSeen.Contains(tourist);
 
@@ -141,7 +165,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
     
-    public void UpdateAttackList(bool addToList, TouristBehaviour tourist)
+    public void UpdateAttackList(bool addToList, TouristStats tourist)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(tourist);
 
@@ -277,6 +301,26 @@ public class GodBehaviour : MonoBehaviour
         }
     }
 
+    public virtual void TakeDamage(int damageAmount)
+    {
+        int newHealth = currentHealth -= damageAmount;
+        
+        if (newHealth <= 0)
+        {
+            Die();
+        }
+        
+        else
+        {
+            currentHealth = newHealth;
+            print(name + " took " + damageAmount + " damage");
+        }
+    }
+
+    protected virtual void Die()
+    {
+        print("dead");
+    }
     
     // may need to be public for ui implementation
     public void UseAbility(int abilityIndex)

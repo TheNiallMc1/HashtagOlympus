@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Jock : BaseEnemyAI
+public class Jock : AI_Movement
 {
     void Start()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Nerd : BaseEnemyAI
+public class Nerd : AI_Movement
 {
     void Start()
     {

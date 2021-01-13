@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Influencer : BaseEnemyAI
+public class Influencer : AI_Movement
 {
     void Start()
     {
