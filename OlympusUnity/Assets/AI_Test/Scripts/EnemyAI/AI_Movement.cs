@@ -24,7 +24,6 @@ public class AI_Movement : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
-
         wpNum = 0;
         FindClosestWaypoint(transform.position);
 
@@ -72,9 +71,18 @@ public class AI_Movement : MonoBehaviour
 
     public Waypoint GetPath()
     {
-        if (Path[0].transform.parent.gameObject.tag == "Monument")
+
+        Debug.Log(waypoints.Count);
+        if (waypoints.Count > 0)
         {
-            return Path[0];
+            if (waypoints[waypoints.Count - 1].transform.parent.gameObject.tag == "Monument")
+            {
+                return waypoints[waypoints.Count - 1];
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {

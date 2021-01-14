@@ -25,10 +25,11 @@ public class AI_Brain : MonoBehaviour
     [SerializeField]
     protected eState _state = eState.idle;
 
-
+    public bool InRange = false;
     public bool initMove = true;
     protected GameObject attackTarget;
     MonumentHealth monument;
+    Waypoint waypoint;
 
 
     protected ePriority priority { get { return _priority; } set { _priority = value; } }
@@ -46,8 +47,23 @@ public class AI_Brain : MonoBehaviour
         
     }
 
-    void FixedUpdate()
+    private void Update()
     {
+        targetInRange();
+        if (InRange)
+        {
+            _state = eState.Attacking;
+        }
+    }
+
+    void FixedUpdate()
+    { 
+        waypoint = movementMotor.GetPath();
+        if (waypoint != null)
+        {
+            attackTarget = waypoint.transform.parent.gameObject;
+        }
+                
         switch (_state)
         {
             case eState.Moving:
@@ -56,12 +72,9 @@ public class AI_Brain : MonoBehaviour
                     movementMotor.Moving();
                 }
                 break;
-            case eState.Attacking: 
-                if (movementMotor.GetPath() != null)
-                {
-                    attackTarget = movementMotor.GetPath().gameObject;
-                }
-                break;
+            case eState.Attacking:
+               // Attack();
+               break;
         }
       
     }
@@ -107,6 +120,16 @@ public class AI_Brain : MonoBehaviour
 
         }
         yield break;
+    }
+    protected void targetInRange()
+    {
+        if(attackTarget != null)
+        {
+            if((transform.position - attackTarget.transform.position).magnitude < 2)
+            {
+                InRange = true;
+            }
+        }
     }
 
     /*
