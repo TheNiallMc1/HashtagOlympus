@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
-    private bool godSelected;
+    public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
     

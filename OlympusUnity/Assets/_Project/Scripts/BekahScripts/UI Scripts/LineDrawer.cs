@@ -18,6 +18,7 @@ public class LineDrawer : MonoBehaviour
     private PlayerControls playerControls;
     public Camera mapCam;
     public int clickCount;
+    private Ray ray;
     
     // Start is called before the first frame update
     void Start()
@@ -46,30 +47,35 @@ public class LineDrawer : MonoBehaviour
 
     void SetMousePos()
     {
-        if (GameManager.Instance.currentlySelectedGod != null)
+        if (GameManager.Instance.godSelected)
         {
             clickCount++;
+            //Debug.Log("cc: "+clickCount);
 
-            if (clickCount == 1)
-            {
-                _startMousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            }
-
-            if (clickCount == 2)
-            {
+            //check if 0, Vector3.zero
+            //if (clickCount == 2)
+            //{
+                //Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().y,300f, Mouse.current.position.ReadValue().x); 
+                //ray = mapCam.ScreenPointToRay(scrPoint); 
+                
                 _mousePos = mapCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                _lineR.SetPosition(0, new Vector3(_startMousePos.x, 100f, _startMousePos.z));
+                _lineR.SetPosition(0, new Vector3(GameManager.Instance.currentlySelectedGod.gameObject.transform.position.x, 100f, GameManager.Instance.currentlySelectedGod.gameObject.transform.position.z));
                 _lineR.SetPosition(1, new Vector3(_mousePos.x, 100f, _mousePos.z));
+                //_lineR.SetPosition(1, new Vector3(Mouse.current.position.ReadValue().x,Mouse.current.position.ReadValue().y, 0f));
                 _distance = (_mousePos - _startMousePos).magnitude;
-                Debug.Log("distance: " + _distance);
-            }
+                Debug.Log("doing line");
+           // }
 
-            if (clickCount > 2)
+           /* if (clickCount > 2)
             {
+                
+                Debug.Log("killing line");
                 clickCount = 0;
-                _lineR.SetPosition(0, new Vector3());
-                _lineR.SetPosition(1, new Vector3());
+                _lineR.SetPosition(0, new Vector3(0,0,0));
+                _lineR.SetPosition(1, new Vector3(0,0,0));
             }
+            */
+            
         }
     }
 }

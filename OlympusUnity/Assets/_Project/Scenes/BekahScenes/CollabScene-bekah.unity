@@ -460,7 +460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &128794663
 Transform:
   m_ObjectHideFlags: 0
@@ -1085,6 +1085,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9144653604124115656, guid: ea12c889cf6f74c4aa3af9221b5279eb, type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144653605334110212, guid: ea12c889cf6f74c4aa3af9221b5279eb, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9144653605334110218, guid: ea12c889cf6f74c4aa3af9221b5279eb, type: 3}
@@ -2497,6 +2501,7 @@ MonoBehaviour:
   overViewCam: {fileID: 0}
   allPlayerGods:
   - {fileID: 1094357581}
+  godSelected: 0
   currentlySelectedGod: {fileID: 0}
   currentRespect: 25
 --- !u!4 &1056081913
@@ -3314,6 +3319,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ec36a47d2c5a48409a8a1450e6f1ecd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ec36a47d2c5a48409a8a1450e6f1ecd, type: 3}
 --- !u!1 &1433603333
@@ -3890,6 +3899,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: df5a66d2d98f8ee4f8a0c0a82479fccc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1651075730068775060, guid: df5a66d2d98f8ee4f8a0c0a82479fccc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5319
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: df5a66d2d98f8ee4f8a0c0a82479fccc, type: 3}
       propertyPath: m_Name
@@ -4710,6 +4723,10 @@ PrefabInstance:
     - target: {fileID: 6330318327043632156, guid: 8640d3c31d53d38448fe7d4a6e057fcf, type: 3}
       propertyPath: m_Name
       value: PauseModeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330318327043632156, guid: 8640d3c31d53d38448fe7d4a6e057fcf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6330318327130972929, guid: 8640d3c31d53d38448fe7d4a6e057fcf, type: 3}
       propertyPath: mapCam
