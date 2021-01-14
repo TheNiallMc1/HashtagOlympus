@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouristBehaviour : MonoBehaviour
+public class TouristStats : MonoBehaviour
 {
     [Header("Character Stats")]
     public int maxHealth;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 137998977589943468}
   - component: {fileID: 137998977589943469}
   - component: {fileID: 137998977589943470}
+  - component: {fileID: 8055487632596141253}
   - component: {fileID: -5785828546316613266}
   m_Layer: 0
   m_Name: Drone
@@ -120,6 +121,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8055487632596141253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137998977589943456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751dcc2d5dd0a6443b52e8dab47e2001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _priority: 0
+  _state: 0
+  initMove: 1
 --- !u!114 &-5785828546316613266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,9 +149,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ca82d5bf2f7b146b374a5ff24b8455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  _destination: {fileID: 1887681570211139107, guid: 3249bc8e3cd6f334db6fbb3a5aafbebf,
-    type: 3}
-  _priority: 0
-  wpNum: 0
-  test: 0

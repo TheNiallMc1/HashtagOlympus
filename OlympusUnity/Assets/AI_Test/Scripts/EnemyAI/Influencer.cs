@@ -4,21 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Influencer : AI_Movement
+public class Influencer : AI_Brain
 {
-    void Start()
+    protected override void Start()
     {
-        nav = GetComponent<NavMeshAgent>();
-
-
-        wpNum = 0;
-        FindClosestWaypoint(transform.position);
+ 
 
     }
         // Update is called once per frame
         void Update()
     {
-        Attack();
+        
     }
 
     void SpawnDrones()
