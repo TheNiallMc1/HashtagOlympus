@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class AreaOverEffect : MonoBehaviour
 {
     public float radius = 3f;
-    List<Combatant> targets = new List<Combatant>();
+    // List<Combatant> targets = new List<Combatant>();
+    HashSet<Combatant> targets = new HashSet<Combatant>();
 
     private DanielTestingKeys testKeys;
     private bool key1;
@@ -86,7 +87,7 @@ public class AreaOverEffect : MonoBehaviour
 
     // This might be a bad idea and unneccesary so blame it on it being 6pm in that case 
 
-    public List<Combatant> GetTargets()
+    public HashSet<Combatant> GetTargets()
     {
         return targets;
     }

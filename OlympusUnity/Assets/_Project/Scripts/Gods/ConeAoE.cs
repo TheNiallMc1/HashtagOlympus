@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ConeAoE : MonoBehaviour
 {
-    List<Combatant> combatantsInCone = new List<Combatant>();
-    List<Combatant> targets = new List<Combatant>();
+    //List<Combatant> combatantsInCone = new List<Combatant>();
+    //List<Combatant> targets = new List<Combatant>();
+
+    HashSet<Combatant> combatantsInCone = new HashSet<Combatant>();
+    HashSet<Combatant> targets = new HashSet<Combatant>();
+
+    public Combatant.TargetType[] targetTypes;
 
     private DanielTestingKeys testKeys;
     private bool key1;
@@ -29,7 +34,8 @@ public class ConeAoE : MonoBehaviour
     // Start is called before the first frame update 
     void Start()
     {
-        transform.rotation = Quaternion.Euler(90f, 0, 0);
+        // transform.rotation = Quaternion.Euler(90f, 0, 0);
+        StartCoroutine(GetTargetsRoutine());
     }
 
     // Update is called once per frame 
@@ -37,15 +43,17 @@ public class ConeAoE : MonoBehaviour
     {
         if (key1)
         {
-            IncludeType(Combatant.TargetType.Enemy);
-            IncludeType(Combatant.TargetType.EMonument);
-            GetTargets();
+            GetAllTargets();
+
             key1 = false;
         }
 
         if (key2)
         {
-
+            foreach (Combatant combatant in combatantsInCone)
+            {
+                print(combatant.gameObject.name);
+            }
             key2 = false;
         }
 
@@ -59,10 +67,25 @@ public class ConeAoE : MonoBehaviour
 
         if (combatant != null)
         {
+            //combatantsInCone.Add(combatant);
             combatantsInCone.Add(combatant);
         }
 
         // return targets; 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Combatant combatant = other.gameObject.GetComponent<Combatant>();
+
+        // print(targets.)
+
+        if (combatant != null && targets.Contains(combatant))
+        {
+            // targets.Remove(combatant);
+            targets.Remove(combatant);
+            combatantsInCone.Remove(combatant);
+        }
     }
 
     public void IncludeType(Combatant.TargetType tType)
@@ -74,10 +97,9 @@ public class ConeAoE : MonoBehaviour
                 targets.Add(combatant);
             }
         }
-
     }
 
-    public List<Combatant> GetTargets()
+    public HashSet<Combatant> GetTargets()
     {
         foreach (Combatant combatant in targets)
         {
@@ -88,4 +110,19 @@ public class ConeAoE : MonoBehaviour
     }
 
 
+    public void GetAllTargets()
+    {
+        foreach(Combatant.TargetType type in targetTypes)
+        {
+            IncludeType(type);
+        }
+
+        GetTargets();
+    }
+
+    IEnumerator GetTargetsRoutine()
+    {
+        yield return null;
+        GetAllTargets();
+    }
 }
