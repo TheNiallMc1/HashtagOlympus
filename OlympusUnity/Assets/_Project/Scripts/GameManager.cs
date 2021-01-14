@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
+
+    public LineDrawer lD;
+
+    public bool posOneSet;
     
     // Respect
     public int currentRespect;
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
         cam = Camera.main;
         currentCam = cam;
+        posOneSet = false;
         
         // Controls
         playerControls = new PlayerControls();
@@ -87,6 +92,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("check for raycast");
             bool targetIsGod = hit.collider.CompareTag("God");
             
+            Debug.Log(""+hit.point.x+", "+hit.point.y+", "+hit.point.z);
+            
             // Select a new god
             if (targetIsGod)
             {
@@ -99,8 +106,11 @@ public class GameManager : MonoBehaviour
             if (currentlySelectedGod != null)
             {
                 currentlySelectedGod.lastClickedPosition = hit.point;
+                
                 currentlySelectedGod.SwitchState(GodState.moveToArea);
+                lD.SetEndPos(hit.point);
                 DeselectGod();
+              
             }
         }
     }
