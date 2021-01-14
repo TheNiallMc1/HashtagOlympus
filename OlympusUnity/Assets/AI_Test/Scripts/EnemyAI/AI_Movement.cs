@@ -18,7 +18,8 @@ public class AI_Movement : MonoBehaviour
     protected float rdist = 2;
 
     protected int wpNum = 0;
-    protected int test = 0;
+    public int test = 0;
+
 
     void Start()
     {
@@ -47,15 +48,21 @@ public class AI_Movement : MonoBehaviour
 
         nav.SetDestination(Path[0].pos);
         aiBrain.initMove = false;
-        Debug.Log(aiBrain.initMove);
+     //   Debug.Log(aiBrain.initMove);
 
     }
 
-
-    void FixedUpdate()
+    private void Update()
     {
-
+        if(Path[0] != null)
+        {
+            if(Path[0].touristsNearby.Count > 5 && !IsMe())
+            {
+                Moving();
+            }
+        }
     }
+
     public virtual void Moving()
     {
         if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
@@ -64,7 +71,30 @@ public class AI_Movement : MonoBehaviour
             waypoints.Add(Path[0]);
             Path.RemoveAt(0);
             FindNextWaypoint(waypoints[waypoints.Count - 1]);
-            MoveToNextWaypoint();
+            if (Path[0].touristsNearby.Count > 5)
+            {
+                int num = UnityEngine.Random.Range(0, 10);
+                if (num > 7)
+                {
+
+                    Debug.Log("nearby");
+                    aiBrain.wieghtCheck = true;
+                    waypoints.Add(Path[0]);
+                    Path.RemoveAt(0);
+                    FindNextWaypoint(waypoints[waypoints.Count - 1]);
+                }
+                else
+                {
+                    aiBrain.wieghtCheck = false;
+                    MoveToNextWaypoint();
+                }
+            }
+            else
+            { 
+                aiBrain.wieghtCheck = false;
+                MoveToNextWaypoint();
+               
+            }
 
         }
     }
@@ -72,7 +102,7 @@ public class AI_Movement : MonoBehaviour
     public Waypoint GetPath()
     {
 
-        Debug.Log(waypoints.Count);
+       // Debug.Log(waypoints.Count);
         if (waypoints.Count > 0)
         {
             if (waypoints[waypoints.Count - 1].transform.parent.gameObject.tag == "Monument")
@@ -91,6 +121,18 @@ public class AI_Movement : MonoBehaviour
         
     }
 
+    public bool IsMe()
+    {
+        foreach (AI_Brain tourist in Path[0].touristsNearby)
+        {
+            if(tourist == aiBrain)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /*
     Once a waypoint has been found, Add that waypoint to a list,
     that list is a track of visited waypoints.
@@ -104,7 +146,7 @@ public class AI_Movement : MonoBehaviour
         
         if (obj != null)
         {
-            Debug.Log("Add Waypoint: " + obj);
+         //   Debug.Log("Add Waypoint: " + obj);
             waypoints.Add(obj);
            
         }
@@ -130,8 +172,10 @@ public class AI_Movement : MonoBehaviour
     /*
     Search the area to find the closest waypoint to the AI.
     */
-    protected Waypoint FindClosestWaypoint(Vector3 target)
+    public Waypoint FindClosestWaypoint(Vector3 target)
     {
+        aiBrain.priority = AI_Brain.ePriority.Moving;
+        aiBrain.state = AI_Brain.eState.Moving;
         Waypoint closestWaypoint = null;
         float closestDist = Mathf.Infinity;
         foreach (var waypoint in GameObject.FindGameObjectsWithTag("Waypoint"))
@@ -146,7 +190,7 @@ public class AI_Movement : MonoBehaviour
         }
         if (closestWaypoint != null)
         {
-            Debug.Log("Waypoint Found");
+        //    Debug.Log("Waypoint Found");
             FindNextWaypoint(closestWaypoint);
         }
         return null;

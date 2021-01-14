@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,4 +14,6 @@ public class MonumentHealth : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+   
 }
