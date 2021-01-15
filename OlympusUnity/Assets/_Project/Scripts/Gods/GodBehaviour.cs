@@ -12,7 +12,7 @@ public class GodBehaviour : MonoBehaviour
    
     [Header("Combat Stats")]
     public int maxHealth;
-    protected int currentHealth;
+    public int currentHealth;
     
     public int awarenessRadius;
     public int attackRadius;
@@ -21,6 +21,7 @@ public class GodBehaviour : MonoBehaviour
     public int speed;
 
     public int costToRespawn;
+    public bool isKOed;
     
     [Header("Attacking")]
     [SerializeField] protected List<TouristBehaviour> enemiesSeen;
@@ -81,25 +82,32 @@ public class GodBehaviour : MonoBehaviour
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
         bool attacking = currentState == GodState.attacking;
+        bool isKnockedOut = currentState == GodState.knockedOut;
 
         bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
 
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
-        if (!movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
+        if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
         {
             SwitchState(GodState.moveToEnemy);
         }
         
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!attacking && !attackRangeEmpty)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty)
         {
             SwitchState(GodState.attacking);
         }
 
         // If the god reaches their target destination, and is not attacking, switch to idle state
-        else if (currentState != GodState.idle && !attacking && closeToTargetPosition)
+        if (!isKnockedOut && currentState != GodState.idle && !attacking && closeToTargetPosition)
         {
             SwitchState(GodState.idle);
+        }
+        
+        // If health reduced to 0, switch to knocked out state
+        else if (currentHealth<=0)
+        {
+            SwitchState((GodState.knockedOut));
         }
     }
     
@@ -181,6 +189,13 @@ public class GodBehaviour : MonoBehaviour
             case GodState.moveToEnemy:
                 CancelAutoAttack();
                 MoveToEnemyState();
+                break;
+            
+            case GodState.knockedOut:
+                CancelAutoAttack(); // Cancel any currently running auto attack
+                IdleState();
+                isKOed = true;
+                Debug.Log(godName+" is knocked out!!");
                 break;
         }
     }
@@ -275,6 +290,14 @@ public class GodBehaviour : MonoBehaviour
             StopCoroutine(currentAttackCoroutine);
         }
     }
+
+    public void Revive()
+    {
+        Debug.Log("Reviving "+godName);
+        SwitchState(GodState.idle);
+        currentHealth = maxHealth;
+        isKOed = false;
+    }
 }
 
 public enum GodState
@@ -282,5 +305,6 @@ public enum GodState
     idle,
     moveToArea,
     moveToEnemy,
-    attacking
+    attacking,
+    knockedOut
 }

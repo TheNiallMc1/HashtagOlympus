@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour
 
     // Respect
     public int currentRespect;
+    public TMP_Text respectDisplay;
+    private String respectText;
+    public int summonRespectThreshold;
+    private bool canSummon;
     
     private void Awake()
     {
@@ -49,6 +54,10 @@ public class GameManager : MonoBehaviour
 
         playerControls.Movement.MouseClick.performed += context => ClickSelect();
         playerControls.GodSelection.CycleThroughGods.performed += context => CycleSelect();
+
+        respectText = respectDisplay.text;
+        respectDisplay.text = respectText+currentRespect;
+        canSummon = false;
     }
 
     private void CycleSelect()
@@ -138,6 +147,8 @@ public class GameManager : MonoBehaviour
         currentRespect += valueToAdd;
         
         uiManager.UpdateCurrentGodText();
+        respectDisplay.text = respectText + currentRespect;
+        CheckForSummon();
     }
     
     public void RemoveRespect(int valueToRemove)
@@ -147,14 +158,34 @@ public class GameManager : MonoBehaviour
         if (newValue > 0)
         {
             currentRespect = newValue;
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
         
         if (newValue <= 0)
         {
             currentRespect = 0;
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
+        respectDisplay.text = respectText + currentRespect;
+        //CheckForSummon();
+    }
+
+    public void CheckForSummon()
+    {
+        if (currentRespect >= summonRespectThreshold)
+        {
+            canSummon = true;
+        }
+        else
+        {
+            canSummon = false;
+        }
+
+        if (canSummon)
+        {
+            //turn on UI summon option
+        }
+        
     }
 
     public void SwitchCam(Camera cameraToChangeTo)
