@@ -9,6 +9,9 @@ public class Combatant : MonoBehaviour
 
     public TargetType targetType;
 
+    public int health = 100;
+    public int attackStat = 10;
+
     // Start is called before the first frame update 
     void Start()
     {
@@ -19,5 +22,22 @@ public class Combatant : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void TakeDamage(int damageTaken)
+    {
+        health -= damageTaken;
+        print("current health is " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        print(gameObject.name + " has been defeated");
+        Destroy(gameObject);
     }
 }

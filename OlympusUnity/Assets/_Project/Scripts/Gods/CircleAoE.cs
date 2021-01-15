@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AreaOverEffect : MonoBehaviour
+public class CircleAoE : MonoBehaviour
 {
     public float radius = 3f;
     // List<Combatant> targets = new List<Combatant>();

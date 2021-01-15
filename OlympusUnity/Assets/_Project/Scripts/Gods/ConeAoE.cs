@@ -11,7 +11,7 @@ public class ConeAoE : MonoBehaviour
     HashSet<Combatant> targets = new HashSet<Combatant>();
 
     public Combatant.TargetType[] targetTypes;
-    public float lifeTime = 5f;
+    public float lifeTime = 10f;
 
     private DanielTestingKeys testKeys;
     private bool key1;

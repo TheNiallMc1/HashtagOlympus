@@ -6,6 +6,7 @@ using UnityEngine;
 public class DanielPlayerScript : MonoBehaviour
 {
     public ConeAoE coneAoePrefab;
+    Camera mainCam;
 
     private DanielTestingKeys testKeys;
     private bool key1;
@@ -19,7 +20,9 @@ public class DanielPlayerScript : MonoBehaviour
 
     public bool selectionModeActive = false;
 
-    public Combatant.TargetType abilityHitCheck;
+    // public Combatant.TargetType abilityHitCheck;
+    AbilityExampleST singleTargetAbility;
+    Combatant playerCombatant;
 
     private void Awake()
     {
@@ -44,7 +47,9 @@ public class DanielPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCam = Camera.main;
+        playerCombatant = transform.GetComponent<Combatant>();
+        singleTargetAbility = transform.GetComponent<AbilityExampleST>();
     }
 
     // Update is called once per frame
@@ -52,7 +57,7 @@ public class DanielPlayerScript : MonoBehaviour
     {
         if (selectionModeActive)
         {
-            GraphicAssist(abilityHitCheck);
+            GraphicAssist(singleTargetAbility);
 
 
             if (rightClick)
@@ -60,27 +65,33 @@ public class DanielPlayerScript : MonoBehaviour
                 leftClick = false;
                 rightClick = false;
 
-                Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+                Ray ray = mainCam.ScreenPointToRay(mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    Combatant combatant = hit.transform.gameObject.GetComponent<Combatant>();
+                    Combatant enemyCombatant = hit.transform.gameObject.GetComponent<Combatant>();
 
-                    if (combatant != null && combatant.targetType == abilityHitCheck)
+                    if (enemyCombatant != null && enemyCombatant.targetType == singleTargetAbility.abilityCanHit)
                     {
                         Debug.Log("Attacked " + hit.transform.gameObject.name);
+                        enemyCombatant.TakeDamage(singleTargetAbility.damage + playerCombatant.attackStat);
                         selectionModeActive = false;
                     }
                 }
                 
             }
-            
+        }
+
+        if (key1)
+        {
+            key1 = false;
+            ConeAoE coneAoE = Instantiate(coneAoePrefab, transform.position, Quaternion.identity, transform);
         }
 
     }
 
-    private void GraphicAssist(Combatant.TargetType targetType)
+    private void GraphicAssist(AbilityExampleST STability)
     {
         // Makes things with this TargetType stand out visually
     }
