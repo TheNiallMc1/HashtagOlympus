@@ -12,7 +12,8 @@ public class Skill : ScriptableObject
 
     public Sprite skillIcon;
 
-    public bool isUnlocked;
+    public bool isLocked;
+    public bool isPurchased;
 
     public int skillPointsRequired;
 }
