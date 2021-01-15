@@ -9,10 +9,14 @@ using UnityEngine.UI;
 public class GodBehaviour : MonoBehaviour
 {
     public string godName;
-   
+    protected int indexInGodList;
+    
     [Header("Combat Stats")]
     public int maxHealth;
     protected int currentHealth;
+    protected GodHealthBar healthBar;
+
+    public bool usesSpecialResource;
     
     public int awarenessRadius;
     public int attackRadius;
@@ -23,13 +27,14 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
     
     [Header("Attacking")]
-    [SerializeField] protected List<TouristBehaviour> enemiesSeen;
-    [SerializeField] protected List<TouristBehaviour> enemiesInAttackRange;
+    [SerializeField] protected internal List<TouristStats> enemiesSeen;
+    [SerializeField] protected internal List<TouristStats> enemiesInAttackRange;
     
-    protected TouristBehaviour currentAttackTarget;
+    protected TouristStats currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
-    
-    [SerializeField] protected GodState currentState;
+
+    [Header("States")] 
+    [SerializeField] protected internal GodState currentState;
 
     [HideInInspector] public Vector3 lastClickedPosition;
     
@@ -40,8 +45,8 @@ public class GodBehaviour : MonoBehaviour
     protected int currentSkillPoints;
 
     [Header("Abilities")]
-    public SpecialAbility[] specialAbilities;
-    public SpecialAbility[] passiveAbilities;
+    public List<SpecialAbility> specialAbilities;
+    //public List<SpecialAbility> passiveAbilities;
     
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
@@ -50,6 +55,8 @@ public class GodBehaviour : MonoBehaviour
     public GameObject mouseDetectorCollider;
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
+
+    protected UIManager uiManager;
     
     [Header("Testing Variables")]
     public Material standardMaterial;
@@ -59,12 +66,30 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
-    public void Awake()
+    public virtual void Start()
     {
+        // Give this god a reference to itself in the playerGods list
+        for (int i = 0; i < GameManager.Instance.allPlayerGods.Count; i++)
+        {
+            if (GameManager.Instance.allPlayerGods[i] == this)
+            {
+                print("god found in player god list");
+                indexInGodList = i;
+            }
+        }
+        
+        uiManager = FindObjectOfType<UIManager>();
+        
+        healthBar = uiManager.healthBars[indexInGodList];
+        healthBar.Initialise();
+        
+        healthBar.SetValue(50);
+        
         currentHealth = maxHealth;
+        
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
-
+        
         currentState = GodState.idle;
         
         // Initialise collider radius
@@ -81,9 +106,9 @@ public class GodBehaviour : MonoBehaviour
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
         bool attacking = currentState == GodState.attacking;
-
+    
         bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
-
+    
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
         if (!movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
         {
@@ -95,7 +120,7 @@ public class GodBehaviour : MonoBehaviour
         {
             SwitchState(GodState.attacking);
         }
-
+    
         // If the god reaches their target destination, and is not attacking, switch to idle state
         else if (currentState != GodState.idle && !attacking && closeToTargetPosition)
         {
@@ -123,7 +148,7 @@ public class GodBehaviour : MonoBehaviour
         navMeshAgent.destination = navDestination;
     }
 
-    public void UpdateAwarenessList(bool addToList, TouristBehaviour tourist)
+    public void UpdateAwarenessList(bool addToList, TouristStats tourist)
     {
         bool alreadyInList = enemiesSeen.Contains(tourist);
 
@@ -140,7 +165,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
     
-    public void UpdateAttackList(bool addToList, TouristBehaviour tourist)
+    public void UpdateAttackList(bool addToList, TouristStats tourist)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(tourist);
 
@@ -193,7 +218,7 @@ public class GodBehaviour : MonoBehaviour
         currentState = GodState.idle;
         print(godName + ": idling");
     }
-
+    
     private void MoveToAreaState()
     {
         // Material for testing
@@ -203,7 +228,7 @@ public class GodBehaviour : MonoBehaviour
         MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
         print(godName + ": moving to area");
     }
-
+    
     private void MoveToEnemyState()
     {
         // Material for testing
@@ -213,7 +238,7 @@ public class GodBehaviour : MonoBehaviour
         MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
         print(godName + ": moving to enemy");
     }
-
+    
     private void AttackingState()
     {
         // Material for testing
@@ -226,7 +251,7 @@ public class GodBehaviour : MonoBehaviour
     
     #endregion
 
-    private IEnumerator AutoAttackCoroutine()
+    protected IEnumerator AutoAttackCoroutine()
     {        
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
@@ -267,7 +292,7 @@ public class GodBehaviour : MonoBehaviour
         
     }
 
-    private void CancelAutoAttack()
+    protected void CancelAutoAttack()
     {
         // Stop the auto attack coroutine if it exists
         if (currentAttackCoroutine != null)
@@ -275,6 +300,34 @@ public class GodBehaviour : MonoBehaviour
             StopCoroutine(currentAttackCoroutine);
         }
     }
+
+    public virtual void TakeDamage(int damageAmount)
+    {
+        int newHealth = currentHealth -= damageAmount;
+        
+        if (newHealth <= 0)
+        {
+            Die();
+        }
+        
+        else
+        {
+            currentHealth = newHealth;
+            print(name + " took " + damageAmount + " damage");
+        }
+    }
+
+    protected virtual void Die()
+    {
+        print("dead");
+    }
+    
+    // may need to be public for ui implementation
+    public void UseAbility(int abilityIndex)
+    {
+        specialAbilities[abilityIndex].ExecuteAbility();
+    }
+    
 }
 
 public enum GodState

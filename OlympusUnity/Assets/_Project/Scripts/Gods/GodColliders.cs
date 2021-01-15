@@ -14,7 +14,7 @@ public class GodColliders : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Tourist"))
         {
-            TouristBehaviour tourist = other.GetComponent<TouristBehaviour>();
+            TouristStats tourist = other.GetComponent<TouristStats>();
             
             switch (colliderType)
             {
@@ -34,7 +34,7 @@ public class GodColliders : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Tourist"))
         {
-            TouristBehaviour tourist = other.GetComponent<TouristBehaviour>();
+            TouristStats tourist = other.GetComponent<TouristStats>();
             
             switch (colliderType)
             {

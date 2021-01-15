@@ -12,12 +12,16 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI respectCounter;
     public TextMeshProUGUI currentGodName;
     
-    // Abilities
+    [Header("Abilities")]
     public TextMeshProUGUI abilityInfo;
     public GameObject abilityIconPrefab;
     public GameObject[] abilityPanels;
+
+    [Header("Bars")] 
+    public List<GodHealthBar> healthBars;
+    public List<GodSpecialBar> specialBars; // Used for special abilities, such as Ares Rage meter
     
-    // Portraits
+    [Header("Portraits")]
     public List<Button> godPortraits;
 
     public void Start()
@@ -38,6 +42,17 @@ public class UIManager : MonoBehaviour
             
             UpdatePortraitValues(index);
         }
+
+        for (int index = 0; index < godPortraits.Count; index++)
+        {
+            GodSpecialBar thisSpecialBar = specialBars[index];
+            
+            // If the god at this index doesnt have a special resource, disable the bar
+            if (GameManager.Instance.allPlayerGods[index].usesSpecialResource == false)
+            {
+                thisSpecialBar.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void UpdatePortraitValues(int buttonIndex)
@@ -56,7 +71,7 @@ public class UIManager : MonoBehaviour
         for (int index = 0; index < 3; index++)
         {
             Button currentButton = godPortraits[index];
-            
+
             UpdatePortraitValues(index);
         }
     }
