@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
+using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +12,8 @@ public class SkillNode : MonoBehaviour
     // The SO for this skill
     [HideInInspector] public Skill skillInfo;
 
+    public TooltipTrigger tooltipTrigger;
+    
     [Header("UI Elements")] 
     public Image skillIconImage;
     public TextMeshProUGUI skillCostText;
@@ -19,6 +23,8 @@ public class SkillNode : MonoBehaviour
     private string skillDescription;
     private Sprite skillIcon;
     private int skillCost;
+    private bool isUnlocked;
+    private bool isPurchased;
     
     public void Start()
     {
@@ -29,6 +35,8 @@ public class SkillNode : MonoBehaviour
 
         skillIconImage.sprite = skillIcon;
         skillCostText.text = String.Format("{0}", skillCost);
-    }
 
+        tooltipTrigger.header = skillName;
+        tooltipTrigger.content = skillDescription;
+    }
 }

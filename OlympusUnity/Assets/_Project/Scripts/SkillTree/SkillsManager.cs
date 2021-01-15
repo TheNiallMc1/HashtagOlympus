@@ -13,6 +13,7 @@ public class SkillsManager : MonoBehaviour
     private List<SkillBranch> branchList;
 
     public GameObject skillBranchPrefab;
+    public GameObject tooltipObj;
 
     [Header("UI Elements")] 
     public GameObject skillBranchContainer;
@@ -35,5 +36,14 @@ public class SkillsManager : MonoBehaviour
             // Set the SO reference in this new branch to the SkillBranch asset at this index
             branchScript.branchInfo = branchInfo;
         }
+    }
+
+    public void CreateTooltip()
+    {
+    }
+
+    public void HideTooltip()
+    {
+        
     }
 }
