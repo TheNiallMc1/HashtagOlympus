@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,16 +13,24 @@ public class GameManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private Camera cam;
+    private Camera currentCam;
+    public Camera overViewCam; 
     private UIManager uiManager;
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
-    private bool godSelected;
+    public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
-    
+
+    public LineDrawer lD;
+
     // Respect
     public int currentRespect;
+    public TMP_Text respectDisplay;
+    private String respectText;
+    public int summonRespectThreshold;
+    private bool canSummon;
     
     private void Awake()
     {
@@ -37,13 +46,18 @@ public class GameManager : MonoBehaviour
 
         uiManager = FindObjectOfType<UIManager>();
         cam = Camera.main;
-        
+        currentCam = cam;
+
         // Controls
         playerControls = new PlayerControls();
         playerControls.Enable();
 
         playerControls.Movement.MouseClick.performed += context => ClickSelect();
         playerControls.GodSelection.CycleThroughGods.performed += context => CycleSelect();
+
+        respectText = respectDisplay.text;
+        respectDisplay.text = respectText+currentRespect;
+        canSummon = false;
     }
 
     private void CycleSelect()
@@ -64,7 +78,19 @@ public class GameManager : MonoBehaviour
     
     private void ClickSelect()
     {
-        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        //consideration for ortho camera here
+
+        Ray ray;
+
+        if (currentCam == cam)
+        { 
+            ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        }
+        else
+        {
+            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x,Mouse.current.position.ReadValue().y, 0); 
+            ray = currentCam.ScreenPointToRay(scrPoint); 
+        }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -84,7 +110,11 @@ public class GameManager : MonoBehaviour
             if (currentlySelectedGod != null)
             {
                 currentlySelectedGod.lastClickedPosition = hit.point;
+                
                 currentlySelectedGod.SwitchState(GodState.moveToArea);
+                lD.SetEndPos(hit.point);
+                DeselectGod();
+              
             }
         }
     }
@@ -92,7 +122,6 @@ public class GameManager : MonoBehaviour
     public void SelectGod(GodBehaviour godToSelect)
     {
         Debug.Log("selected god");
-        DeselectGod();
         
         godSelected = true;
         currentlySelectedGod = godToSelect;
@@ -118,6 +147,8 @@ public class GameManager : MonoBehaviour
         currentRespect += valueToAdd;
         
         uiManager.UpdateCurrentGodText();
+        respectDisplay.text = respectText + currentRespect;
+        CheckForSummon();
     }
     
     public void RemoveRespect(int valueToRemove)
@@ -127,13 +158,38 @@ public class GameManager : MonoBehaviour
         if (newValue > 0)
         {
             currentRespect = newValue;
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
         
         if (newValue <= 0)
         {
             currentRespect = 0;
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
+        respectDisplay.text = respectText + currentRespect;
+        //CheckForSummon();
+    }
+
+    public void CheckForSummon()
+    {
+        if (currentRespect >= summonRespectThreshold)
+        {
+            canSummon = true;
+        }
+        else
+        {
+            canSummon = false;
+        }
+
+        if (canSummon)
+        {
+            //turn on UI summon option
+        }
+        
+    }
+
+    public void SwitchCam(Camera cameraToChangeTo)
+    {
+        currentCam = cameraToChangeTo;
     }
 }

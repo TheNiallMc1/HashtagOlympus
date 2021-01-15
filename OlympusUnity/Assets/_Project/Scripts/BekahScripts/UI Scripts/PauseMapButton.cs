@@ -25,6 +25,8 @@ public class PauseMapButton : MonoBehaviour
         pauseModeUI.gameObject.SetActive(true);
         
         pauseMapCam.gameObject.SetActive(true);
+        
+        GameManager.Instance.SwitchCam(pauseMapCam);
     }
 
     public void UnpauseHideMap()
@@ -35,6 +37,8 @@ public class PauseMapButton : MonoBehaviour
         playModeUI.gameObject.SetActive(true);
         
         pauseMapCam.gameObject.SetActive(false);
+        
+        GameManager.Instance.SwitchCam(mainCam);
         
     }
 }
