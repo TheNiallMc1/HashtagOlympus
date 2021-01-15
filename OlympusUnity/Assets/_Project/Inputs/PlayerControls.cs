@@ -67,6 +67,33 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Mouse"",
+            ""id"": ""248a7339-ad67-4075-9847-f5dc36802958"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""539aec00-c7a3-44ce-a0ab-6923234fd568"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6176ad73-6378-436c-bde3-bda3ec6a281d"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -77,6 +104,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // GodSelection
         m_GodSelection = asset.FindActionMap("GodSelection", throwIfNotFound: true);
         m_GodSelection_CycleThroughGods = m_GodSelection.FindAction("CycleThroughGods", throwIfNotFound: true);
+        // Mouse
+        m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
+        m_Mouse_MousePos = m_Mouse.FindAction("MousePos", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -188,6 +218,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         }
     }
     public GodSelectionActions @GodSelection => new GodSelectionActions(this);
+
+    // Mouse
+    private readonly InputActionMap m_Mouse;
+    private IMouseActions m_MouseActionsCallbackInterface;
+    private readonly InputAction m_Mouse_MousePos;
+    public struct MouseActions
+    {
+        private @PlayerControls m_Wrapper;
+        public MouseActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePos => m_Wrapper.m_Mouse_MousePos;
+        public InputActionMap Get() { return m_Wrapper.m_Mouse; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MouseActions set) { return set.Get(); }
+        public void SetCallbacks(IMouseActions instance)
+        {
+            if (m_Wrapper.m_MouseActionsCallbackInterface != null)
+            {
+                @MousePos.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
+                @MousePos.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
+                @MousePos.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
+            }
+            m_Wrapper.m_MouseActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MousePos.started += instance.OnMousePos;
+                @MousePos.performed += instance.OnMousePos;
+                @MousePos.canceled += instance.OnMousePos;
+            }
+        }
+    }
+    public MouseActions @Mouse => new MouseActions(this);
     public interface IMovementActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
@@ -195,5 +258,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IGodSelectionActions
     {
         void OnCycleThroughGods(InputAction.CallbackContext context);
+    }
+    public interface IMouseActions
+    {
+        void OnMousePos(InputAction.CallbackContext context);
     }
 }
