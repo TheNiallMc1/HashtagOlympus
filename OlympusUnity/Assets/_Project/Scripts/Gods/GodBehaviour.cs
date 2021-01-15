@@ -21,6 +21,8 @@ public class GodBehaviour : MonoBehaviour
     public int armour;
     public int speed;
 
+    public bool usesSpecialResource;
+    
     public int costToRespawn;
     public bool isKOed;
     
@@ -54,6 +56,8 @@ public class GodBehaviour : MonoBehaviour
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
 
+    [Header("UI Elements")] 
+    public GodHealthBar healthBar;
     protected UIManager uiManager;
     
     [Header("Testing Variables")]
