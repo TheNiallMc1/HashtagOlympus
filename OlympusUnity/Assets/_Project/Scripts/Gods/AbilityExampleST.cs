@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaOverEffect : MonoBehaviour
+public class AbilityExampleST : MonoBehaviour
 {
-    GameObject[] targets;
-
+    public Combatant.TargetType abilityCanHit;
+    public int damage = 50;
 
     
     // Start is called before the first frame update
