@@ -33,21 +33,12 @@
             <e p="GameManager.cs" t="Include" />
             <e p="Gods" t="Include">
               <e p="AreaOverEffect.cs" t="Include" />
-              <e p="AresAbility.cs" t="Include" />
               <e p="God_Ares.cs" t="Include" />
               <e p="God_Ares2.cs" t="Include" />
               <e p="GodBehaviour.cs" t="Include" />
               <e p="GodColliders.cs" t="Include" />
             </e>
             <e p="PlayerCamera.cs" t="Include" />
-<<<<<<< HEAD
-            <e p="SpecialAbilities" t="Include">
-              <e p="AbilityArea.cs" t="Include" />
-              <e p="AbilitySingleTarget.cs" t="Include" />
-              <e p="SpecialAbility.cs" t="Include" />
-            </e>
-            <e p="TouristStats.cs" t="Include" />
-=======
             <e p="SkillTree" t="Include">
               <e p="CharacterSkillSet.cs" t="Include" />
               <e p="Skill.cs" t="Include" />
@@ -56,20 +47,20 @@
               <e p="SkillNode.cs" t="Include" />
               <e p="SkillsManager.cs" t="Include" />
             </e>
-            <e p="SpecialAbility.cs" t="Include" />
-            <e p="TouristBehaviour.cs" t="Include" />
->>>>>>> SkillTreeSystem
+            <e p="SpecialAbilities" t="Include">
+              <e p="AbilityArea.cs" t="Include" />
+              <e p="AbilitySingleTarget.cs" t="Include" />
+              <e p="SpecialAbility.cs" t="Include" />
+            </e>
+            <e p="TouristStats.cs" t="Include" />
             <e p="UIScripts" t="Include">
               <e p="AbilityIcon.cs" t="Include" />
               <e p="GodHealthBar.cs" t="Include" />
               <e p="GodPortrait.cs" t="Include" />
-<<<<<<< HEAD
               <e p="GodSpecialBar.cs" t="Include" />
-=======
               <e p="Tooltip.cs" t="Include" />
               <e p="TooltipSystem.cs" t="Include" />
               <e p="TooltipTrigger.cs" t="Include" />
->>>>>>> SkillTreeSystem
               <e p="UIManager.cs" t="Include" />
             </e>
           </e>
@@ -77,11 +68,13 @@
         <e p="AI_Test" t="Include">
           <e p="Scripts" t="Include">
             <e p="EnemyAI" t="Include">
+              <e p="AI_Brain.cs" t="Include" />
               <e p="AI_Movement.cs" t="Include" />
               <e p="AITestManager.cs" t="Include" />
               <e p="Defender.cs" t="Include" />
               <e p="Influencer.cs" t="Include" />
               <e p="Jock.cs" t="Include" />
+              <e p="MonumentCollider.cs" t="Include" />
               <e p="Nerd.cs" t="Include" />
               <e p="Reference" t="Include">
                 <e p="PathManager.cs" t="Include" />
@@ -90,6 +83,7 @@
               <e p="Scenes" t="Include">
                 <e p="blank.cs" t="Include" />
               </e>
+              <e p="TouristColliders.cs" t="Include" />
               <e p="Waypoint.cs" t="Include" />
             </e>
             <e p="MonumentHealth.cs" t="Include" />
