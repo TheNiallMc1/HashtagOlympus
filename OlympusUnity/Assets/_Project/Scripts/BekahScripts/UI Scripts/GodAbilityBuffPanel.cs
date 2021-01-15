@@ -14,7 +14,8 @@ public class GodAbilityBuffPanel : MonoBehaviour
     public TMP_Text godHealthDisplay;
 
     public Button reviveButton;
-    public BoomBoom boom;
+    public Button strButton;
+    
 
 
     private void Awake()
@@ -49,13 +50,35 @@ public class GodAbilityBuffPanel : MonoBehaviour
 
     public void ReviveButton()
     {
-        
-        boom.PrintBoom();
-        
         currentGod.Revive();
         reviveButton.gameObject.SetActive(false);
         GameManager.Instance.RemoveRespect(currentGod.costToRespawn);
         Debug.Log("revive pressed");
+    }
+
+    public void StrengthBuff()
+    {
+        Debug.Log("buffing");
+        currentGod.attackDamage += 10;
+        GameManager.Instance.RemoveRespect(50);
+        StartCoroutine(BuffCoolDown());
+    }
+
+    public void StrengthDebuf()
+    {
+        Debug.Log("debuffing");
+        currentGod.attackDamage -= 10;
+    }
+
+    IEnumerator BuffCoolDown()
+    {
+        yield return new WaitForSeconds(2f);
+        StrengthDebuf();
+
+    }
+    
+    public void HealBuff()
+    {
         
     }
 }
