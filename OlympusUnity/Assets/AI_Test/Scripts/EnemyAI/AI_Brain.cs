@@ -58,7 +58,14 @@ public class AI_Brain : MonoBehaviour
 
     private void Update()
     {
-        if(enemiesInAttackRange.Count == 0 && monumentsInAttackRange.Count == 0)
+        if(monumentsInAttackRange[0].state == MonumentHealth.eState.Tourist)
+        {
+            _state = eState.Moving;
+            _priority = ePriority.Moving;
+            InRange = false;
+        }
+
+        if((enemiesInAttackRange.Count == 0 && monumentsInAttackRange.Count == 0) || (enemiesInAttackRange[0] == null && monumentsInAttackRange[0] == null))
         {
             _state = eState.Moving;
             _priority = ePriority.Moving;
