@@ -6,20 +6,40 @@ using UnityEngine;
 
 public abstract class SpecialAbility : ScriptableObject
 {
+    
     public string abilityName;
     public string abilityDescription;
 
-    [SerializeField] protected int abilityDamage;
+    public List<Combatant.eTargetType> abilityCanHit;
+    
+    public enum eSelectionType
+    {
+        Single,
+        CircleAoE,
+        ConeAoE,
+        Self
+    }
+
+    [SerializeField] private eSelectionType _selectionType;
+    public eSelectionType selectionType { get { return _selectionType; } set { _selectionType = value; } }
+
+    public int abilityDamage = 50;
     [SerializeField] protected int abilityCooldown;
     [SerializeField] protected int abilityRange;
 
-    [SerializeField] protected List<GameObject> listOfTargets;
+
+
+
+
     // Status Effects
 
-    
-    
+
+
     // Target Selection
-    protected abstract void EnterTargetSelectionMode();
-    
-    public abstract void ExecuteAbility();
+
+    //public void ExecuteAbility()
+    //{
+
+    //}
+
 }

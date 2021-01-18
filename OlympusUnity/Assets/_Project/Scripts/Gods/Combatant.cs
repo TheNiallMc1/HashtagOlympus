@@ -5,10 +5,17 @@ using UnityEngine;
 public class Combatant : MonoBehaviour
 {
 
-    public enum TargetType { Player, Enemy, PMonument, EMonument };
+    public enum eTargetType
+    {
+        Player,
+        Enemy,
+        PMonument,
+        EMonument
+    };
 
-    public TargetType targetType;
-
+    [SerializeField] private eTargetType _targetType;
+    public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
+    
     public int health = 100;
     public int attackStat = 10;
 

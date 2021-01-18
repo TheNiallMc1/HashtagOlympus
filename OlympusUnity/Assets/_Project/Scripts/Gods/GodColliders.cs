@@ -12,10 +12,10 @@ public class GodColliders : MonoBehaviour
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Tourist"))
+        Combatant tourist = other.GetComponent<Combatant>();
+
+        if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
         {
-            TouristStats tourist = other.GetComponent<TouristStats>();
-            
             switch (colliderType)
             {
                 case ColliderType.attackRadius:
@@ -32,10 +32,10 @@ public class GodColliders : MonoBehaviour
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Tourist"))
+        Combatant tourist = other.GetComponent<Combatant>();
+
+        if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
         {
-            TouristStats tourist = other.GetComponent<TouristStats>();
-            
             switch (colliderType)
             {
                 case ColliderType.attackRadius:

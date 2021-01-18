@@ -79,6 +79,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""a3ac163c-effc-491f-a1ae-9ff475bfe06c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Value"",
+                    ""id"": ""7c3fb4a3-5b32-4abd-be93-ae2705e8fe98"",
+                    ""expectedControlType"": ""Integer"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -90,6 +106,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b63d5ac3-6452-4935-a036-edea23187979"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2837f743-0ab8-49f1-aa04-31fbcc2fd798"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -107,6 +145,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_MousePos = m_Mouse.FindAction("MousePos", throwIfNotFound: true);
+        m_Mouse_LeftClick = m_Mouse.FindAction("LeftClick", throwIfNotFound: true);
+        m_Mouse_RightClick = m_Mouse.FindAction("RightClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -223,11 +263,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Mouse;
     private IMouseActions m_MouseActionsCallbackInterface;
     private readonly InputAction m_Mouse_MousePos;
+    private readonly InputAction m_Mouse_LeftClick;
+    private readonly InputAction m_Mouse_RightClick;
     public struct MouseActions
     {
         private @PlayerControls m_Wrapper;
         public MouseActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePos => m_Wrapper.m_Mouse_MousePos;
+        public InputAction @LeftClick => m_Wrapper.m_Mouse_LeftClick;
+        public InputAction @RightClick => m_Wrapper.m_Mouse_RightClick;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -240,6 +284,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePos.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
                 @MousePos.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
                 @MousePos.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePos;
+                @LeftClick.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnLeftClick;
+                @LeftClick.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnLeftClick;
+                @LeftClick.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnLeftClick;
+                @RightClick.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightClick;
+                @RightClick.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightClick;
+                @RightClick.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnRightClick;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -247,6 +297,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MousePos.started += instance.OnMousePos;
                 @MousePos.performed += instance.OnMousePos;
                 @MousePos.canceled += instance.OnMousePos;
+                @LeftClick.started += instance.OnLeftClick;
+                @LeftClick.performed += instance.OnLeftClick;
+                @LeftClick.canceled += instance.OnLeftClick;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
             }
         }
     }
@@ -262,5 +318,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IMouseActions
     {
         void OnMousePos(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
     }
 }
