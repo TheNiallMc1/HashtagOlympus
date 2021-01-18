@@ -20,8 +20,11 @@ public class GodAbilityBuffPanel : MonoBehaviour
 
     private void Awake()
     {
-        godNameDisplay.text = currentGod.godName;
-        godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
+        if(currentGod != null)
+        {
+            godNameDisplay.text = currentGod.godName;
+            godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
+        }
         reviveButton.gameObject.SetActive(false);
     }
 
@@ -34,12 +37,15 @@ public class GodAbilityBuffPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        godNameDisplay.text = currentGod.godName;
-        godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
-
-        if (currentGod.isKOed)
+        if(currentGod != null)
         {
-            ShowReviveButton();
+            godNameDisplay.text = currentGod.godName;
+            godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
+
+            if (currentGod.isKOed)
+            {
+                ShowReviveButton();
+            }
         }
     }
 

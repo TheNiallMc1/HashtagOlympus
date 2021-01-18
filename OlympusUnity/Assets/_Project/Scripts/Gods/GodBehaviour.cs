@@ -82,10 +82,10 @@ public class GodBehaviour : MonoBehaviour
         
         uiManager = FindObjectOfType<UIManager>();
         
-        healthBar = uiManager.healthBars[indexInGodList];
-        healthBar.Initialise();
+        //healthBar = uiManager.healthBars[indexInGodList];
+        //healthBar.Initialise();
         
-        healthBar.SetValue(50);
+        //healthBar.SetValue(50);
         
         currentHealth = maxHealth;
         

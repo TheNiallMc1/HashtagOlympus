@@ -15,8 +15,8 @@ public class God_Ares : GodBehaviour
         base.Start();
 
         // Set rage bar equal to the relevant special bar
-        rageBar = uiManager.specialBars[indexInGodList];
-        rageBar.Initialise(0);
+        //rageBar = uiManager.specialBars[indexInGodList];
+        //rageBar.Initialise(0);
     }
     
     public override void TakeDamage(int damageAmount)
