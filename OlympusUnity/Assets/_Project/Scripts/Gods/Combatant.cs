@@ -27,10 +27,10 @@ public class Combatant : MonoBehaviour
     public void TakeDamage(int damageTaken)
     {
         health -= damageTaken;
-        print("current health is " + health);
 
         if (health <= 0)
         {
+            health = 0;
             Die();
         }
     }
