@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class GodBehaviour : MonoBehaviour
 {
+    // I AM ALIVE
+
     public string godName;
     protected int indexInGodList;
     
