@@ -18,6 +18,7 @@ public class CharacterDock : MonoBehaviour
     public Button reviveButton;
     public Button strButton;
     public HealthBar healthBar;
+    public RespectBuff respectBuff;
 
     private void Awake()
     {
@@ -65,4 +66,19 @@ public class CharacterDock : MonoBehaviour
         GameManager.Instance.RemoveRespect(currentGod.costToRespawn);
         Debug.Log("revive pressed");
     }
+
+    public void StrengthBuff()
+    {
+        respectBuff.ApplyBuff(currentGod, 30, ref currentGod.attackDamage, 10);
+        StartCoroutine(StrengthBuffCoolDown());
+    }
+    
+    IEnumerator StrengthBuffCoolDown()
+    {
+        yield return new WaitForSeconds(2f);
+        respectBuff.RemoveBuff(currentGod, 0, ref currentGod.attackDamage, 10);
+
+    }
+    
+    
 }

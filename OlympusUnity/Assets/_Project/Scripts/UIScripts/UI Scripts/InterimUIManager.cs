@@ -18,11 +18,6 @@ public class InterimUIManager : MonoBehaviour
 
     public GodBehaviour currentGod;
     public RespectBuff respectBuff;
-    public TMP_Text godNameDisplay;
-    public TMP_Text godHealthDisplay;
-
-    public Button reviveButton;
-    public Button strButton;
 
     private void Awake()
     {
@@ -142,16 +137,5 @@ public class InterimUIManager : MonoBehaviour
         //Debug.Log("revive pressed");
     }
 
-    public void StrengthBuff()
-    {
-        respectBuff.ApplyBuff(currentGod, 30, ref currentGod.attackDamage, 10);
-        StartCoroutine(StrengthBuffCoolDown());
-    }
-    
-    IEnumerator StrengthBuffCoolDown()
-    {
-        yield return new WaitForSeconds(2f);
-        respectBuff.RemoveBuff(currentGod, 0, ref currentGod.attackDamage, 10);
-
-    }
+ 
 }
