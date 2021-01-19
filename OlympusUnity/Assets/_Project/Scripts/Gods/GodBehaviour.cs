@@ -71,8 +71,7 @@ public class GodBehaviour : MonoBehaviour
     // Animation parameters
     Animator animator;
     float animSpeed;
-    float vertical_f;
-
+    private int lastNumber = 0;
 
     public virtual void Start()
     {
@@ -149,6 +148,10 @@ public class GodBehaviour : MonoBehaviour
         // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
+        if(navMeshAgent.destination != null)
+        {
+            // animator.SetLookAtPosition(navMeshAgent.destination);
+        }
     }
     
     public void ToggleSelection(bool isSelected)
@@ -295,18 +298,36 @@ public class GodBehaviour : MonoBehaviour
             currentAttackTarget = enemiesInAttackRange[0];
         }
 
-        animator.SetTrigger("AutoAttack01");
+
+        transform.LookAt(currentAttackTarget.transform.position);
         
+        int animNumber = randomNumber();
+
+        animator.ResetTrigger("AutoAttack0" + lastNumber);
+
+        animator.SetTrigger("AutoAttack0" + animNumber);
+
+        lastNumber = animNumber;
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
         {
+            animator.ResetTrigger("AutoAttack0" + animNumber);
+
             UpdateAttackList(false, currentAttackTarget);
             UpdateAwarenessList(false, currentAttackTarget);
             // Determine and store a new target if the last one was null 
             currentAttackTarget = enemiesInAttackRange[0];
+
+
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(2.5f);
         }
         
-        yield return new WaitForSecondsRealtime(2f);
         
         // If any more enemies remain in range, loop the coroutine
         if (enemiesInAttackRange.Any())
@@ -364,6 +385,23 @@ public class GodBehaviour : MonoBehaviour
     public void UseAbility(int abilityIndex)
     {
         specialAbilities[abilityIndex].ExecuteAbility();
+    }
+
+    private int randomNumber()
+    {
+        int randomNumber = UnityEngine.Random.Range(1, 4);
+        if (randomNumber == lastNumber)
+        {
+            if (randomNumber < 4)
+            {
+                randomNumber++;
+            }
+            else
+            {
+                randomNumber--;
+            }
+        }
+        return randomNumber;
     }
     
 }
