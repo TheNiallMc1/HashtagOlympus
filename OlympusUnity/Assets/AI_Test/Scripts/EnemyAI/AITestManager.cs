@@ -29,7 +29,7 @@ public class AITestManager : MonoBehaviour
     void Update()
     {
         StartCoroutine("timer");
-        while (i < 800)
+        while (i < 500)
         {
             if (enter == true)
             {
