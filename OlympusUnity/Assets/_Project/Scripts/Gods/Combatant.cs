@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Combatant : MonoBehaviour
 {
-
     public enum eTargetType
     {
         Player,
@@ -15,6 +14,9 @@ public class Combatant : MonoBehaviour
 
     [SerializeField] private eTargetType _targetType;
     public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
+    
+    public Dictionary<StatusEffect, StatusEffectManager> activeStatusEffects = new Dictionary<StatusEffect, StatusEffectManager>(); 
+    // Dictionary of statuses this combatant has had inflicted on them
     
     public int health = 100;
     public int attackStat = 10;
@@ -30,6 +32,49 @@ public class Combatant : MonoBehaviour
     {
 
     }
+
+    #region Status Effects
+
+    public void ApplyStatus(StatusEffect status)
+    {
+        // If the status we are trying to apply already exists on this combatant, dont add it
+        if (activeStatusEffects.ContainsKey(status))
+        {
+            Debug.LogWarning("The status of " + status.name + " already exists on this entity");
+        }
+        else
+        {
+            StatusEffectManager newStatusManager = gameObject.AddComponent<StatusEffectManager>();
+        
+            activeStatusEffects.Add(status, newStatusManager); 
+            // Add an entry in the dictionary, with this type of status as the key and the new manager component as the value
+        
+            newStatusManager.enabled = true;
+            newStatusManager.statusEffect = status;
+        }       
+    }
+
+    public void RemoveStatus(StatusEffect status)
+    {
+        // If the status already exists on this entity, remove it
+        if (activeStatusEffects.ContainsKey(status))
+        {
+            // Get the value by its key (the status type) and then end the status
+            activeStatusEffects.TryGetValue(status, out StatusEffectManager manager);
+            manager?.EndStatus();
+
+            // Remove from dictionary
+            activeStatusEffects.Remove(status);
+        }
+        
+        else
+        {
+            Debug.LogWarning("The status of " + status.name + " does not exist on this entity");
+        }
+    }
+
+    #endregion
+    
 
     public void TakeDamage(int damageTaken)
     {

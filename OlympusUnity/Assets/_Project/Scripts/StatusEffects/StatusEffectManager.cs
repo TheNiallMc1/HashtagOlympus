@@ -7,55 +7,86 @@ using UnityEngine;
 [RequireComponent(typeof(Combatant))]
 public class StatusEffectManager : MonoBehaviour
 {
+    public StatusEffect statusEffect;
+    public float remainingDuration;
+    
+    private Coroutine tickCoroutine;
+    private Coroutine durationCoroutine;
+
+    private bool effectInitialised;
+    
     [HideInInspector]
     public Combatant thisCombatant;
-    public List<StatusEffect> activeEffects;
 
-    private void Update()
+    private void Start()
     {
+        thisCombatant = GetComponent<Combatant>();
         
-    }
-
-    public void AddStatusEffect(StatusEffect effect)
-    {
-        
-        if (activeEffects.Contains(effect))
-        {
-            Debug.LogWarning("AddStatusEffect(): The effect " + effect.name + " already exists on this entity");
-        }
-        else
-        {
-            effect.affectedCombatant = thisCombatant; // Set the effect's combatant
-            activeEffects.Add(effect);
-        }
+        InitialiseStatus();
     }
     
-    public void RemoveStatusEffect(StatusEffect effect)
+    // We initialise each new effect that is added, starting its tick cycle and activating the entry effect
+    private void InitialiseStatus()
     {
-        if (activeEffects.Contains(effect))
+        if (statusEffect.isTickType)
         {
-            activeEffects.Remove(effect);
+            tickCoroutine = StartCoroutine(TickEffectCoroutine());
         }
-        else
-        {
-            Debug.LogWarning("RemoveStatusEffect(): The effect " + effect.name + " does not exist on this entity");
-        }
+
+        durationCoroutine = StartCoroutine(DurationCoroutine());
+        
+        ActivateEntryEffect();
+        effectInitialised = true;
     }
 
+    public void EndStatus()
+    {
+        if (durationCoroutine != null)
+        {
+            StopCoroutine(durationCoroutine);
+        }
+
+        if (tickCoroutine != null)
+        {
+            StopCoroutine(tickCoroutine); 
+        }
+        
+        ActivateExitEffect();
+        
+        thisCombatant.RemoveStatus(statusEffect);
+        
+        Destroy(this);
+    }
+    
+    
     private void ActivateTickEffect()
     {
-        
+        statusEffect.TickEffect();
+        tickCoroutine = StartCoroutine(TickEffectCoroutine());
     }
 
     private void ActivateEntryEffect()
     {
-        
+        statusEffect.EntryEffect();
     }
 
     private void ActivateExitEffect()
     {
-        
+        statusEffect.ExitEffect();
+        Debug.Log("Status effect ended");
+    }
+
+    private IEnumerator TickEffectCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(statusEffect.tickInterval);
+        ActivateTickEffect();
     }
     
+    private IEnumerator DurationCoroutine()
+    {
+        Debug.Log("duration coroutine started");
+        yield return new WaitForSecondsRealtime(statusEffect.statusDuration);
+        EndStatus();
+    }
     
 }

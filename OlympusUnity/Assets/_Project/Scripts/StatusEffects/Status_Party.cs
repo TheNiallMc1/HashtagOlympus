@@ -3,30 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Used for Dionysus' Ultimate ability, this causes every enemy to follow him and then take damage when the ability ends
-[CreateAssetMenu(fileName = "Party Status Effect", menuName = "Status Effect/Party", order = 1)]
+[CreateAssetMenu(fileName = "PartyStatus", menuName = "Status Effect/Party", order = 1)]
 public class Status_Party : StatusEffect
 {
-    protected override void TickEffect()
+    [Header("Party Variables")]
+    [SerializeField] [Tooltip("The damage this effect inflicts when it ends")] protected int burstDamage;
+    
+    public override void TickEffect()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("testing tick status effect");
     }
 
-    protected override void PersistentEffect()
+    public override void EntryEffect()
     {
-        // Constantly set navDestination to position of combatant who inflicted this effect
         
-        // affectedCombatant.navDestination = inflictedBy.navDestination
     }
 
-    protected override void EntryEffect()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void ExitEffect()
+    public override void ExitEffect()
     {
         // Deal damage to everyone afflicted
-        
-        // affectedCombatant.takeDamage(damageAmount)
+        Debug.Log("party damage");
+        // affectedCombatant.takeDamage(burstDamage)
     }
 }
