@@ -43,13 +43,16 @@ public class LineDrawer : MonoBehaviour
 
     public void SetEndPos(Vector3 endPos)
     {
-        Debug.Log("receiving coords");
-        _lineR.SetPosition(0,
-            new Vector3(GameManager.Instance.currentlySelectedGod.gameObject.transform.position.x, 100f,
-                GameManager.Instance.currentlySelectedGod.gameObject.transform.position.z));
-        _lineR.SetPosition(1,
-            new Vector3(endPos.x, 100f, endPos.z));
+        if (GameManager.Instance.godSelected)
+        {
+            Debug.Log("receiving coords");
+            _lineR.SetPosition(0,
+                new Vector3(GameManager.Instance.currentlySelectedGod.gameObject.transform.position.x, 100f,
+                    GameManager.Instance.currentlySelectedGod.gameObject.transform.position.z));
+            _lineR.SetPosition(1,
+                new Vector3(endPos.x, 100f, endPos.z));
 
-        clickCount = 0;
+            clickCount = 0;
+        }
     }
 }

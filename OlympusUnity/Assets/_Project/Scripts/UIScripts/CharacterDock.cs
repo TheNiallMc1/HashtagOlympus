@@ -22,7 +22,7 @@ public class CharacterDock : MonoBehaviour
     private void Awake()
     {
         reviveButton.gameObject.SetActive(false);
-        UpdateCharacterDock();
+       // UpdateCharacterDock();
         
     }
 

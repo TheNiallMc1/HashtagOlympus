@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -108,11 +109,15 @@ public class GameManager : MonoBehaviour
         }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (!EventSystem.current.IsPointerOverGameObject())    // to ignore UI
+        {
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            // if (Physics.Raycast(ray, out hit))
         {
             Debug.Log("check for raycast");
             bool targetIsGod = hit.collider.CompareTag("God");
-            
+
             // Select a new god
             if (targetIsGod)
             {
@@ -121,17 +126,19 @@ public class GameManager : MonoBehaviour
 
                 print("Selected: " + thisGod.godName);
             }
-            
+
             if (currentlySelectedGod != null)
             {
                 currentlySelectedGod.lastClickedPosition = hit.point;
-                
+
                 currentlySelectedGod.SwitchState(GodState.moveToArea);
                 lD.SetEndPos(hit.point);
                 DeselectGod();
-              
+
             }
         }
+        }
+        
     }
 
     public void SelectGod(GodBehaviour godToSelect)
