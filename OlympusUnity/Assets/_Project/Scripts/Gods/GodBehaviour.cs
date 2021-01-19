@@ -8,15 +8,13 @@ using UnityEngine.UI;
 
 public class GodBehaviour : MonoBehaviour
 {
-    // I AM ALIVE
-
     public string godName;
     protected int indexInGodList;
-    
+
     [Header("Combat Stats")]
     public int maxHealth;
     public int currentHealth;
-    
+
     public int awarenessRadius;
     public int attackRadius;
     public int attackDamage;
@@ -24,10 +22,10 @@ public class GodBehaviour : MonoBehaviour
     public int speed;
 
     public bool usesSpecialResource;
-    
+
     public int costToRespawn;
     public bool isKOed;
-    
+
     [Header("Attacking")]
     [SerializeField] protected internal List<Combatant> enemiesSeen;
     [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
@@ -35,11 +33,11 @@ public class GodBehaviour : MonoBehaviour
     protected Combatant currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
-    [Header("States")] 
+    [Header("States")]
     [SerializeField] protected internal GodState currentState;
 
     [HideInInspector] public Vector3 lastClickedPosition;
-    
+
     [Header("Levelling and EXP")]
     protected int currentLevel;
     protected int currentExp;
@@ -50,7 +48,6 @@ public class GodBehaviour : MonoBehaviour
 
     //public List<SpecialAbility> passiveAbilities;
 
-    protected Animator anim;
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
 
@@ -59,15 +56,15 @@ public class GodBehaviour : MonoBehaviour
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
 
-    [Header("UI Elements")] 
+    [Header("UI Elements")]
     public GodHealthBar healthBar;
     protected UIManager uiManager;
-    
+
     [Header("Testing Variables")]
     public Material standardMaterial;
     public Material selectedMaterial;
     public Material attackMaterial;
-    
+
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
@@ -86,21 +83,21 @@ public class GodBehaviour : MonoBehaviour
                 indexInGodList = i;
             }
         }
-        
+
         uiManager = FindObjectOfType<UIManager>();
-        
+
         //healthBar = uiManager.healthBars[indexInGodList];
         //healthBar.Initialise();
-        
+
         //healthBar.SetValue(50);
-        
+
         currentHealth = maxHealth;
-        
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         // meshRenderer = GetComponentInChildren<MeshRenderer>();
-        
+
         currentState = GodState.idle;
-        
+
         // Initialise collider radius
         // awarenessRadiusCollider.radius = awarenessRadius;
         // attackRadiusCollider.radius = attackRadius;
@@ -114,34 +111,34 @@ public class GodBehaviour : MonoBehaviour
         // Booleans used for determining different states
         bool attackRangeEmpty = !enemiesInAttackRange.Any();
         bool awarenessRangeEmpty = !enemiesSeen.Any();
-        
+
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
         bool attacking = currentState == GodState.attacking;
         bool isKnockedOut = currentState == GodState.knockedOut;
 
         bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
-    
+
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
         if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
         {
             SwitchState(GodState.moveToEnemy);
         }
-        
+
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
         if (!isKnockedOut && !attacking && !attackRangeEmpty)
         {
             SwitchState(GodState.attacking);
         }
-    
+
         // If the god reaches their target destination, and is not attacking, switch to idle state
         if (!isKnockedOut && currentState != GodState.idle && !attacking && closeToTargetPosition)
         {
             SwitchState(GodState.idle);
         }
-        
+
         // If health reduced to 0, switch to knocked out state
-        else if (currentHealth<=0)
+        else if (currentHealth <= 0)
         {
             SwitchState((GodState.knockedOut));
         }
@@ -150,12 +147,12 @@ public class GodBehaviour : MonoBehaviour
         // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
-        if(navMeshAgent.destination != null)
+        if (navMeshAgent.destination != null)
         {
             // animator.SetLookAtPosition(navMeshAgent.destination);
         }
     }
-    
+
     public void ToggleSelection(bool isSelected)
     {
         if (isSelected)
@@ -163,14 +160,14 @@ public class GodBehaviour : MonoBehaviour
             // meshRenderer.material = selectedMaterial;
             mouseDetectorCollider.SetActive(false);
         }
-        
+
         if (!isSelected)
         {
             // meshRenderer.material = standardMaterial;
             mouseDetectorCollider.SetActive(true);
         }
     }
-    
+
     public void MoveToTarget(Vector3 navDestination)
     {
         navMeshAgent.destination = navDestination;
@@ -212,7 +209,7 @@ public class GodBehaviour : MonoBehaviour
 
 
     #region State Behaviours
-    
+
     public void SwitchState(GodState newState) // Call this and pass in a state to switch states
     {
         switch (newState)
@@ -221,26 +218,26 @@ public class GodBehaviour : MonoBehaviour
                 CancelAutoAttack(); // Cancel any currently running auto attack
                 IdleState();
                 break;
-            
+
             case GodState.attacking:
                 AttackingState();
                 break;
-            
+
             case GodState.moveToArea:
                 CancelAutoAttack();
                 MoveToAreaState();
                 break;
-            
+
             case GodState.moveToEnemy:
                 CancelAutoAttack();
                 MoveToEnemyState();
                 break;
-            
+
             case GodState.knockedOut:
                 CancelAutoAttack(); // Cancel any currently running auto attack
                 IdleState();
                 isKOed = true;
-                Debug.Log(godName+" is knocked out!!");
+                Debug.Log(godName + " is knocked out!!");
                 break;
         }
     }
@@ -249,48 +246,48 @@ public class GodBehaviour : MonoBehaviour
     {
         // Material for testing
         // meshRenderer.material = standardMaterial;
-        
+
         currentState = GodState.idle;
         print(godName + ": idling");
     }
-    
+
     private void MoveToAreaState()
     {
         // Material for testing
         // meshRenderer.material = standardMaterial;
-        
+
         currentState = GodState.moveToArea;
         MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
         print(godName + ": moving to area");
     }
-    
+
     private void MoveToEnemyState()
     {
         // Material for testing
         // meshRenderer.material = standardMaterial;
-        
+
         currentState = GodState.moveToEnemy;
         MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
         print(godName + ": moving to enemy");
     }
-    
+
     private void AttackingState()
     {
         // Material for testing
         // meshRenderer.material = attackMaterial;
-        
+
         currentState = GodState.attacking;
         print(godName + ": attacking");
         currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }
-    
+
     #endregion
 
     protected IEnumerator AutoAttackCoroutine()
-    {        
+    {
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
-        
+
         // If the current target is null (usually because it died) remove it from the lists
         if (currentAttackTarget == null)
         {
@@ -302,7 +299,7 @@ public class GodBehaviour : MonoBehaviour
 
 
         transform.LookAt(currentAttackTarget.transform.position);
-        
+
         int animNumber = randomNumber();
 
         animator.ResetTrigger("AutoAttack0" + lastNumber);
@@ -329,8 +326,8 @@ public class GodBehaviour : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(2.5f);
         }
-        
-        
+
+
         // If any more enemies remain in range, loop the coroutine
         if (enemiesInAttackRange.Any())
         {
@@ -342,7 +339,7 @@ public class GodBehaviour : MonoBehaviour
             SwitchState(GodState.idle);
             yield break; // If there are no enemies left, end the coroutine
         }
-        
+
     }
 
     protected void CancelAutoAttack()
@@ -356,7 +353,7 @@ public class GodBehaviour : MonoBehaviour
 
     public void Revive()
     {
-        Debug.Log("Reviving "+godName);
+        Debug.Log("Reviving " + godName);
         SwitchState(GodState.idle);
         currentHealth = maxHealth;
         isKOed = false;
@@ -365,12 +362,12 @@ public class GodBehaviour : MonoBehaviour
     public virtual void TakeDamage(int damageAmount)
     {
         int newHealth = currentHealth -= damageAmount;
-        
+
         if (newHealth <= 0)
         {
             Die();
         }
-        
+
         else
         {
             currentHealth = newHealth;
@@ -382,13 +379,30 @@ public class GodBehaviour : MonoBehaviour
     {
         print("dead");
     }
-    
+
     // may need to be public for ui implementation
-    //public void UseAbility(int abilityIndex)
-    //{
-    //    // .InitiateAbility();
-    //}
-    
+    public void UseAbility(int abilityIndex)
+    {
+        specialAbilities[abilityIndex].ExecuteAbility();
+    }
+
+    private int randomNumber()
+    {
+        int randomNumber = UnityEngine.Random.Range(1, 4);
+        if (randomNumber == lastNumber)
+        {
+            if (randomNumber < 4)
+            {
+                randomNumber++;
+            }
+            else
+            {
+                randomNumber--;
+            }
+        }
+        return randomNumber;
+    }
+
 }
 
 
