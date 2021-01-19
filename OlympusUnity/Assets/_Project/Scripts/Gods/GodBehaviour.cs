@@ -51,7 +51,6 @@ public class GodBehaviour : MonoBehaviour
     //public List<SpecialAbility> passiveAbilities;
 
     public int ultimateCharge; // current ultimate charge percentage
-    public float remainingUltimateTime;
     public bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;

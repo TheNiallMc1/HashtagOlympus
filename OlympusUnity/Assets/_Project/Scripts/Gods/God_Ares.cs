@@ -58,7 +58,7 @@ public class God_Ares : GodBehaviour
 
     public override void ActivateUltimate()
     {
-        if (ultimateCharge > 0 && ultimateCharge < 100) // If charged but not full
+        if (ultimateCharge > 0 && ultimateCharge < 100 && !usingUltimate) // If charged but not full
         {
             thisCombatant.ApplyStatus(rageStatus);
             lastActivatedRageType = rageStatus;
@@ -68,7 +68,7 @@ public class God_Ares : GodBehaviour
             usingUltimate = true;
         }
         
-        if (ultimateCharge >= 100)
+        if (ultimateCharge >= 100 && !usingUltimate)
         {
             thisCombatant.ApplyStatus(maxRageStatus);
             lastActivatedRageType = maxRageStatus;
