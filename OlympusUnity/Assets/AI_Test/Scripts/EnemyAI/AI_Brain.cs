@@ -130,9 +130,13 @@ public class AI_Brain : MonoBehaviour
         if (god != null)
         {
             movementMotor.MoveToTarget(target);
-            if((transform.position - target.transform.position).magnitude < 2)
+            if((transform.position - target.transform.position).magnitude < 5)
             {
                 //StartCoroutine(AttackingCoroutine);
+            }
+            else
+            {
+                enemiesInAttackRange.Remove(god);
             }
         
         }
@@ -201,7 +205,7 @@ public class AI_Brain : MonoBehaviour
         if (!addToList && alreadyInList)
         {
             
-            enemiesInAttackRange.Remove(god);
+            //enemiesInAttackRange.Remove(god);
             _priority = AI_Brain.ePriority.Moving;
             _state = AI_Brain.eState.Moving;
             //  movementMotor.test = 0;

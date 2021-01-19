@@ -20,6 +20,7 @@ public class AI_Movement : MonoBehaviour
     protected float rdist = 2;
 
     protected int wpNum = 0;
+    [SerializeField]
     protected int wpIndex = 0;
     public int test = 0;
 
@@ -43,25 +44,14 @@ public class AI_Movement : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        if (waypoints[wpIndex].touristsNearby != null)
-        {
-            if (waypoints[wpIndex].touristsNearby.Count > 5 && !IsMe())
-            {
-                Moving();
-    }
-}
-    }
+
 
     public virtual void Moving()
     {
         if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 7)
         {
             
-            //FindNextWaypoint(waypoints[wpIndex]);
-            if (waypoints[wpIndex].touristsNearby.Count > 5)
-            {
+
                 int num = UnityEngine.Random.Range(0, 10);
                 if (num > 7)
                 {
@@ -83,7 +73,6 @@ public class AI_Movement : MonoBehaviour
                
             }
 
-        }
     }
 
     public Waypoint GetPath()
@@ -172,35 +161,6 @@ public class AI_Movement : MonoBehaviour
         FindNextWaypoint(closestWaypoint);
     }
 
-
-    ///*
-    //Search the area to find the first waypoint to the AI.
-    //*/
-    //public Waypoint FindInitialWaypoint(Vector3 target)
-    //{
-    //    aiBrain.priority = AI_Brain.ePriority.Moving;
-    //    aiBrain.state = AI_Brain.eState.Moving;
-    //    Waypoint closestWaypoint = null;
-    //    float closestDist = Mathf.Infinity;
-    //    foreach (var waypoint in GameObject.FindGameObjectsWithTag("Waypoint"))
-    //    {
-
-    //        var dist = (waypoint.transform.position - target).magnitude;
-    //        if (dist < closestDist)
-    //        {
-    //            closestWaypoint = waypoint.GetComponent<Waypoint>();
-    //            closestDist = dist;
-    //        }
-    //    }
-        
-    //    if (closestWaypoint != null)
-    //    {
-    //        waypoints = closestWaypoint.wayPoints;
-    //    //    Debug.Log("Waypoint Found");
-    //        FindNextWaypoint(closestWaypoint);
-    //    }
-    //    return null;
-    //}
 
     public void MoveToTarget(GameObject target)
     {
