@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class God_Ares : GodBehaviour
 {
+    [Header("Ares")]
     [SerializeField] private int currentRageCount;
     private int maxRageCount;
 
@@ -14,6 +15,8 @@ public class God_Ares : GodBehaviour
     [SerializeField] private StatusEffect rageStatus;
     [SerializeField] private StatusEffect maxRageStatus;
 
+    [SerializeField] private float rageReductionRate;
+    
     private Coroutine ultimateCoroutine;
 
     private GodSpecialBar rageBar;
@@ -28,8 +31,6 @@ public class God_Ares : GodBehaviour
         base.Start();
         
         // Set rage bar equal to the relevant special bar
-        //rageBar = uiManager.specialBars[indexInGodList];
-        //rageBar.Initialise(0);
 
         currentRageCount = 0;
         maxRageCount = 100;
@@ -38,7 +39,11 @@ public class God_Ares : GodBehaviour
     public override void TakeDamage(int damageAmount)
     {
         base.TakeDamage(damageAmount);
-        RageUpdate(damageAmount);
+
+        if (!usingUltimate)
+        {
+            RageUpdate(damageAmount);
+        }
     }
 
     private void RageUpdate(int amountToAdd)
@@ -59,6 +64,8 @@ public class God_Ares : GodBehaviour
             lastActivatedRageType = rageStatus;
 
             ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+
+            usingUltimate = true;
         }
         
         if (ultimateCharge >= 100)
@@ -67,13 +74,15 @@ public class God_Ares : GodBehaviour
             lastActivatedRageType = maxRageStatus;
             
             ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            
+            usingUltimate = true;
         }
     }
 
     public override IEnumerator UltimateDurationCoroutine()
     {
         // Every second, reduce Rage count by 1
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(rageReductionRate);
         RageUpdate(-1);
 
         // When rage hits zero, end the Ultimate
@@ -82,7 +91,8 @@ public class God_Ares : GodBehaviour
             currentRageCount = 0; // Just adjusting in case it falls below zero somehow
             
             thisCombatant.RemoveStatus(lastActivatedRageType);
-            
+
+            usingUltimate = false;    
             ultimateCoroutine = null;
         }
         else

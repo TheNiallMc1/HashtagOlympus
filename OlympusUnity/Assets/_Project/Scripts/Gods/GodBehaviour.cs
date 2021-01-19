@@ -52,6 +52,7 @@ public class GodBehaviour : MonoBehaviour
 
     public int ultimateCharge; // current ultimate charge percentage
     public float remainingUltimateTime;
+    public bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
