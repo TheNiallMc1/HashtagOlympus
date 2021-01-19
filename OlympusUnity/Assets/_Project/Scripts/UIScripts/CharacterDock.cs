@@ -17,16 +17,20 @@ public class CharacterDock : MonoBehaviour
 
     public Button reviveButton;
     public Button strButton;
+    public HealthBar healthBar;
 
     private void Awake()
     {
         reviveButton.gameObject.SetActive(false);
+        UpdateCharacterDock();
+        
     }
 
     public void UpdateCharacterDock()
     {
         godNameDisplay.text = currentGod.godName;
         godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
+        healthBar.healthValue = currentGod.currentHealth;
 
         if (currentGod.isKOed)
         {
@@ -40,6 +44,12 @@ public class CharacterDock : MonoBehaviour
         currentGod = assignedGod;
         godNameDisplay.text = currentGod.godName;
         godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
+        healthBar.healthValue = currentGod.currentHealth;
+
+        if (currentGod.isKOed)
+        {
+            ShowReviveButton();
+        }
         //adding correct ability buttons
     }
     
