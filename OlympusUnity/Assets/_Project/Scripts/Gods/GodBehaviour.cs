@@ -30,7 +30,7 @@ public class GodBehaviour : MonoBehaviour
     [SerializeField] protected internal List<Combatant> enemiesSeen;
     [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
     
-    protected Combatant currentAttackTarget;
+    public Combatant currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
     [Header("States")]
@@ -46,6 +46,7 @@ public class GodBehaviour : MonoBehaviour
 
     [Header("Abilities")]
 
+    public List<SpecialAbility> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
     protected NavMeshAgent navMeshAgent;
@@ -69,6 +70,10 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSpriteSelected;
 
     public PlayerAbilities playerAbilites;
+
+    public Animator animator;
+    private float lastNumber;
+
 
     public virtual void Start()
     {
@@ -143,7 +148,7 @@ public class GodBehaviour : MonoBehaviour
             SwitchState((GodState.knockedOut));
         }
 
-        animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+        float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
         // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);

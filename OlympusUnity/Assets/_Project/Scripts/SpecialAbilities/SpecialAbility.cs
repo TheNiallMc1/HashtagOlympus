@@ -35,9 +35,9 @@ public abstract class SpecialAbility : ScriptableObject
 
     // Target Selection
 
-    //public void ExecuteAbility()
-    //{
+    public void ExecuteAbility()
+    {
 
-    //}
+    }
 
 }
