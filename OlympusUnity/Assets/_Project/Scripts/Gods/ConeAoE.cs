@@ -10,7 +10,7 @@ public class ConeAoE : MonoBehaviour
     HashSet<Combatant> combatantsInCone = new HashSet<Combatant>();
     HashSet<Combatant> targets = new HashSet<Combatant>();
 
-    public Combatant.TargetType[] targetTypes;
+    public Combatant.eTargetType[] targetTypes;
     public float lifeTime = 10f;
 
     private DanielTestingKeys testKeys;
@@ -89,7 +89,7 @@ public class ConeAoE : MonoBehaviour
 
 
 
-    public void IncludeType(Combatant.TargetType tType)
+    public void IncludeType(Combatant.eTargetType tType)
     {
         foreach (Combatant combatant in combatantsInCone)
         {
@@ -111,7 +111,7 @@ public class ConeAoE : MonoBehaviour
 
     public HashSet<Combatant> GetTargets()
     {
-        foreach(Combatant.TargetType type in targetTypes)
+        foreach(Combatant.eTargetType type in targetTypes)
         {
             IncludeType(type);
         }

@@ -27,10 +27,10 @@ public class GodBehaviour : MonoBehaviour
     public bool isKOed;
     
     [Header("Attacking")]
-    [SerializeField] protected internal List<TouristStats> enemiesSeen;
-    [SerializeField] protected internal List<TouristStats> enemiesInAttackRange;
+    [SerializeField] protected internal List<Combatant> enemiesSeen;
+    [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
     
-    public TouristStats currentAttackTarget;
+    protected Combatant currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
     [Header("States")] 
@@ -45,7 +45,7 @@ public class GodBehaviour : MonoBehaviour
     protected int currentSkillPoints;
 
     [Header("Abilities")]
-    public List<SpecialAbility> specialAbilities;
+
     //public List<SpecialAbility> passiveAbilities;
 
     protected Animator anim;
@@ -69,13 +69,12 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
-    // Animation parameters
-    Animator animator;
-    float animSpeed;
-    private int lastNumber = 0;
+    public PlayerAbilities playerAbilites;
 
     public virtual void Start()
     {
+        playerAbilites = GetComponent<PlayerAbilities>();
+
         // Give this god a reference to itself in the playerGods list
         for (int i = 0; i < GameManager.Instance.allPlayerGods.Count; i++)
         {
@@ -175,7 +174,7 @@ public class GodBehaviour : MonoBehaviour
         navMeshAgent.destination = navDestination;
     }
 
-    public void UpdateAwarenessList(bool addToList, TouristStats tourist)
+    public void UpdateAwarenessList(bool addToList, Combatant tourist)
     {
         bool alreadyInList = enemiesSeen.Contains(tourist);
 
@@ -192,7 +191,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
     
-    public void UpdateAttackList(bool addToList, TouristStats tourist)
+    public void UpdateAttackList(bool addToList, Combatant tourist)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(tourist);
 
@@ -383,27 +382,10 @@ public class GodBehaviour : MonoBehaviour
     }
     
     // may need to be public for ui implementation
-    public void UseAbility(int abilityIndex)
-    {
-        specialAbilities[abilityIndex].ExecuteAbility();
-    }
-
-    private int randomNumber()
-    {
-        int randomNumber = UnityEngine.Random.Range(1, 4);
-        if (randomNumber == lastNumber)
-        {
-            if (randomNumber < 4)
-            {
-                randomNumber++;
-            }
-            else
-            {
-                randomNumber--;
-            }
-        }
-        return randomNumber;
-    }
+    //public void UseAbility(int abilityIndex)
+    //{
+    //    // .InitiateAbility();
+    //}
     
 }
 
