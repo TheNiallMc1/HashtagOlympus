@@ -30,7 +30,7 @@ public class GodBehaviour : MonoBehaviour
     [SerializeField] protected internal List<TouristStats> enemiesSeen;
     [SerializeField] protected internal List<TouristStats> enemiesInAttackRange;
     
-    protected TouristStats currentAttackTarget;
+    public TouristStats currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
     [Header("States")] 
@@ -68,6 +68,12 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
+    // Animation parameters
+    Animator animator;
+    float animSpeed;
+    float vertical_f;
+
+
     public virtual void Start()
     {
         // Give this god a reference to itself in the playerGods list
@@ -90,13 +96,16 @@ public class GodBehaviour : MonoBehaviour
         currentHealth = maxHealth;
         
         navMeshAgent = GetComponent<NavMeshAgent>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        // meshRenderer = GetComponentInChildren<MeshRenderer>();
         
         currentState = GodState.idle;
         
         // Initialise collider radius
-        awarenessRadiusCollider.radius = awarenessRadius;
-        attackRadiusCollider.radius = attackRadius;
+        // awarenessRadiusCollider.radius = awarenessRadius;
+        // attackRadiusCollider.radius = attackRadius;
+
+        // Get animation parameters
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void FixedUpdate()
@@ -135,19 +144,24 @@ public class GodBehaviour : MonoBehaviour
         {
             SwitchState((GodState.knockedOut));
         }
+
+        animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+        // animSpeed = navMeshAgent.speed;
+
+        animator.SetFloat("Vertical_f", animSpeed);
     }
     
     public void ToggleSelection(bool isSelected)
     {
         if (isSelected)
         {
-            meshRenderer.material = selectedMaterial;
+            // meshRenderer.material = selectedMaterial;
             mouseDetectorCollider.SetActive(false);
         }
         
         if (!isSelected)
         {
-            meshRenderer.material = standardMaterial;
+            // meshRenderer.material = standardMaterial;
             mouseDetectorCollider.SetActive(true);
         }
     }
@@ -229,7 +243,7 @@ public class GodBehaviour : MonoBehaviour
     private void IdleState()
     {
         // Material for testing
-        meshRenderer.material = standardMaterial;
+        // meshRenderer.material = standardMaterial;
         
         currentState = GodState.idle;
         print(godName + ": idling");
@@ -238,7 +252,7 @@ public class GodBehaviour : MonoBehaviour
     private void MoveToAreaState()
     {
         // Material for testing
-        meshRenderer.material = standardMaterial;
+        // meshRenderer.material = standardMaterial;
         
         currentState = GodState.moveToArea;
         MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
@@ -248,7 +262,7 @@ public class GodBehaviour : MonoBehaviour
     private void MoveToEnemyState()
     {
         // Material for testing
-        meshRenderer.material = standardMaterial;
+        // meshRenderer.material = standardMaterial;
         
         currentState = GodState.moveToEnemy;
         MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
@@ -258,7 +272,7 @@ public class GodBehaviour : MonoBehaviour
     private void AttackingState()
     {
         // Material for testing
-        meshRenderer.material = attackMaterial;
+        // meshRenderer.material = attackMaterial;
         
         currentState = GodState.attacking;
         print(godName + ": attacking");
@@ -280,8 +294,8 @@ public class GodBehaviour : MonoBehaviour
             // Determine and store a new target if the last one was null 
             currentAttackTarget = enemiesInAttackRange[0];
         }
-        
-        currentAttackTarget.TakeDamage(attackDamage);
+
+        animator.SetTrigger("AutoAttack01");
         
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
@@ -353,6 +367,7 @@ public class GodBehaviour : MonoBehaviour
     }
     
 }
+
 
 public enum GodState
 {
