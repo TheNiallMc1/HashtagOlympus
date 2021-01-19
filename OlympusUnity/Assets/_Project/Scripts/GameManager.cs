@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
+    public InterimUIManager iUIManager;
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
@@ -58,10 +59,24 @@ public class GameManager : MonoBehaviour
         respectText = respectDisplay.text;
         respectDisplay.text = respectText+currentRespect;
         canSummon = false;
+        
+        GodListToDictionary();
+    }
+
+    private void GodListToDictionary()
+    {
+        Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
+
+        for (int i = 0; i < allPlayerGods.Count; i++)
+        { godDict.Add(i, allPlayerGods[i]);
+        }
+
+        InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
     private void CycleSelect()
     {
+        
         currentGodIndex += 1;
         
         if (currentGodIndex > allPlayerGods.Count - 1)
@@ -121,13 +136,16 @@ public class GameManager : MonoBehaviour
 
     public void SelectGod(GodBehaviour godToSelect)
     {
-        Debug.Log("selected god");
-        
         godSelected = true;
         currentlySelectedGod = godToSelect;
+        Debug.Log("selected god : "+currentlySelectedGod.godName);
         currentlySelectedGod.ToggleSelection(true);
         
-        uiManager.UpdateCurrentGodText();
+        //uiManager.UpdateCurrentGodText();
+        
+        
+        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
+        
     }
 
     public void DeselectGod()
@@ -138,7 +156,7 @@ public class GameManager : MonoBehaviour
             currentlySelectedGod.ToggleSelection(false);
             currentlySelectedGod = null;
         
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
     }
 
