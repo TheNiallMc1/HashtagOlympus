@@ -10,6 +10,7 @@ public class GodBehaviour : MonoBehaviour
 {
     public string godName;
     protected int indexInGodList;
+    protected Combatant thisCombatant;
 
     [Header("Combat Stats")]
     public int maxHealth;
@@ -49,6 +50,9 @@ public class GodBehaviour : MonoBehaviour
     public List<SpecialAbility> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
+    public int ultimateCharge; // current ultimate charge percentage
+    public float remainingUltimateTime;
+
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
 
@@ -77,6 +81,7 @@ public class GodBehaviour : MonoBehaviour
 
     public virtual void Start()
     {
+        thisCombatant = GetComponent<Combatant>();
         playerAbilites = GetComponent<PlayerAbilities>();
 
         // Give this god a reference to itself in the playerGods list
@@ -389,6 +394,17 @@ public class GodBehaviour : MonoBehaviour
     public void UseAbility(int abilityIndex)
     {
         specialAbilities[abilityIndex].ExecuteAbility();
+    }
+
+    public virtual void ActivateUltimate()
+    {
+        // Override in sub class
+    }
+
+    public virtual IEnumerator UltimateDurationCoroutine()
+    {
+        yield return null;
+        // Override in sub class
     }
 
     private int randomNumber()

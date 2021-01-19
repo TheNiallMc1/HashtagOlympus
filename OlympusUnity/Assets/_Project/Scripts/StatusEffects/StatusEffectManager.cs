@@ -38,7 +38,7 @@ public class StatusEffectManager : MonoBehaviour
             ActivateEntryEffect();
         }
         
-        if (statusEffect.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
+        else if (statusEffect.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
         {
             ActivateEntryEffect();
             EndStatus();
