@@ -12,16 +12,10 @@ public class AresAnimations : MonoBehaviour
         godBehaviour = GetComponentInParent<GodBehaviour>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // Animation Events
     public void TakeDamageAnimation()
     {
-        Debug.Log("target attacked");
         godBehaviour.currentAttackTarget.TakeDamage(godBehaviour.attackDamage);
     }
 }
