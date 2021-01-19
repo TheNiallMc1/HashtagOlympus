@@ -15,8 +15,9 @@ public class Combatant : MonoBehaviour
 
     [SerializeField] private eTargetType _targetType;
     public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
-    
-    public int health = 100;
+
+    public int maxHealth = 100;
+    public int currentHealth = 100;
     public int attackStat = 10;
 
     // Start is called before the first frame update 
@@ -31,13 +32,19 @@ public class Combatant : MonoBehaviour
 
     }
 
+    public void RestoreHealth(int healthRecovered)
+    {
+        currentHealth += healthRecovered;
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+    }
+
     public void TakeDamage(int damageTaken)
     {
-        health -= damageTaken;
+        currentHealth -= damageTaken;
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
-            health = 0;
+            currentHealth = 0;
             Die();
         }
     }

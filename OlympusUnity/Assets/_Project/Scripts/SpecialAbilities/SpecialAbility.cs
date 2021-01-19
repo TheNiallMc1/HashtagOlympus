@@ -24,10 +24,8 @@ public abstract class SpecialAbility : ScriptableObject
     public eSelectionType selectionType { get { return _selectionType; } set { _selectionType = value; } }
 
     public int abilityDamage = 50;
-    [SerializeField] protected int abilityCooldown;
+    public int abilityCooldown;
     [SerializeField] protected int abilityRange;
-
-
 
 
 
