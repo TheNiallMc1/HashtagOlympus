@@ -5,12 +5,19 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
 	private int								_health;
+	public int								index;
+
+	public List<Waypoint>					wayPoints;
 	public List<Waypoint>					neighbors;
-	public GameObject						monument;
 	public List<AI_Brain>					touristsNearby;
-	public	List<GodBehaviour>				godsNearby;
+	public List<GodBehaviour>				godsNearby;
+
+	public GameObject						monument;
+
+
 	[SerializeField] private Vector3		finalLocation;
 	public Vector3							distanceToFinal;
+
 	public enum eState						{ God, Tourist}
 
 	private eState _currentState = eState.God;

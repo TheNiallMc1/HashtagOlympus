@@ -14,15 +14,20 @@ public class AI_Movement : MonoBehaviour
     public List<Waypoint> waypoints;
     public List<Waypoint> Path;
 
+    public Waypoint waypointListHolder;
+
     protected Transform _destination;
     protected float rdist = 2;
 
     protected int wpNum = 0;
+    [SerializeField]
+    protected int wpIndex = 0;
     public int test = 0;
 
 
     void Start()
     {
+        waypoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
@@ -30,73 +35,44 @@ public class AI_Movement : MonoBehaviour
 
     }
 
-    void MoveToNextWaypoint()
+    void MoveToWaypoint()
     {
 
-
-        int wpNum1 = 0;
-        if (wpNum1 > Path.Count)
-        {
-            return;
-        }
-
-        MoveToWaypoint(wpNum1);
-    }
-
-    void MoveToWaypoint(int num)
-    {
-
-        nav.SetDestination(Path[0].pos);
+        nav.SetDestination(waypoints[wpIndex].pos);
         aiBrain.initMove = false;
      //   Debug.Log(aiBrain.initMove);
 
     }
 
-    private void Update()
-    {
-        if(Path[0] != null)
-        {
-            if(Path[0].touristsNearby.Count > 5 && !IsMe())
-            {
-                Moving();
-            }
-        }
-    }
+
 
     public virtual void Moving()
     {
-        if (!nav.pathPending && nav.remainingDistance < rdist && Path[0].name != "Waypoint (9)")
+        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 7)
         {
             
-            waypoints.Add(Path[0]);
-            Path.RemoveAt(0);
-            FindNextWaypoint(waypoints[waypoints.Count - 1]);
-            if (Path[0].touristsNearby.Count > 5)
-            {
+
                 int num = UnityEngine.Random.Range(0, 10);
                 if (num > 7)
                 {
 
                     Debug.Log("nearby");
                     aiBrain.wieghtCheck = true;
-                    waypoints.Add(Path[0]);
-                    Path.RemoveAt(0);
-                    FindNextWaypoint(waypoints[waypoints.Count - 1]);
+                    FindNextWaypoint(waypoints[wpIndex]);
                 }
                 else
                 {
                     aiBrain.wieghtCheck = false;
-                    MoveToNextWaypoint();
+                    MoveToWaypoint();
                 }
             }
             else
             { 
                 aiBrain.wieghtCheck = false;
-                MoveToNextWaypoint();
+                MoveToWaypoint();
                
             }
 
-        }
     }
 
     public Waypoint GetPath()
@@ -105,9 +81,9 @@ public class AI_Movement : MonoBehaviour
        // Debug.Log(waypoints.Count);
         if (waypoints.Count > 0)
         {
-            if (waypoints[waypoints.Count - 1].transform.parent.gameObject.tag == "Monument")
+            if (waypoints[wpIndex].transform.parent.gameObject.tag == "Monument")
             {
-                return waypoints[waypoints.Count - 1];
+                return waypoints[wpIndex];
             }
             else
             {
@@ -123,7 +99,7 @@ public class AI_Movement : MonoBehaviour
 
     public bool IsMe()
     {
-        foreach (AI_Brain tourist in Path[0].touristsNearby)
+        foreach (AI_Brain tourist in waypoints[wpIndex].touristsNearby)
         {
             if(tourist == aiBrain)
             {
@@ -144,12 +120,6 @@ public class AI_Movement : MonoBehaviour
         Waypoint next = null;
         int key;
         
-        if (obj != null)
-        {
-         //   Debug.Log("Add Waypoint: " + obj);
-            waypoints.Add(obj);
-           
-        }
         int length = obj.neighbors.Count;     // list of a waypoints neighbooring waypoints.
 
         key = UnityEngine.Random.Range(0, length);
@@ -158,43 +128,39 @@ public class AI_Movement : MonoBehaviour
         if (key < obj.neighbors.Count)
         {
             next = obj.neighbors[key];
-            Path.Add(next);
+            wpIndex = next.index;
 
             if (test == 0)
             {
                 test++;
-                MoveToNextWaypoint();
+                MoveToWaypoint();
             }
         }
         return null;
 
     }
-    /*
-    Search the area to find the closest waypoint to the AI.
-    */
-    public Waypoint FindClosestWaypoint(Vector3 target)
-    {
-        aiBrain.priority = AI_Brain.ePriority.Moving;
-        aiBrain.state = AI_Brain.eState.Moving;
+
+    public void FindClosestWaypoint(Vector3 target)
+    {  
         Waypoint closestWaypoint = null;
         float closestDist = Mathf.Infinity;
-        foreach (var waypoint in GameObject.FindGameObjectsWithTag("Waypoint"))
-        {
 
-            var dist = (waypoint.transform.position - target).magnitude;
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+          
+
+            var dist = (waypoints[i].transform.position - target).magnitude;
             if (dist < closestDist)
             {
-                closestWaypoint = waypoint.GetComponent<Waypoint>();
+                closestWaypoint = waypoints[i];
                 closestDist = dist;
             }
         }
-        if (closestWaypoint != null)
-        {
-        //    Debug.Log("Waypoint Found");
-            FindNextWaypoint(closestWaypoint);
-        }
-        return null;
+
+        wpIndex = closestWaypoint.index;
+        FindNextWaypoint(closestWaypoint);
     }
+
 
     public void MoveToTarget(GameObject target)
     {

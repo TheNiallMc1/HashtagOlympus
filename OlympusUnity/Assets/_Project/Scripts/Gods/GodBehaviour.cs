@@ -47,7 +47,8 @@ public class GodBehaviour : MonoBehaviour
     [Header("Abilities")]
     public List<SpecialAbility> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
-    
+
+    protected Animator anim;
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
 
