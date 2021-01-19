@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class StatusEffect : ScriptableObject
 {
     [Header("Duration")]
-    public bool hasDuration;
-    [SerializeField] public float statusDuration;
+    [SerializeField] [Tooltip("Set to zero to make an instant cast status, like Heal")]
+    public float statusDuration;
     public bool isInfinite;
 
     [Header("Tick Behaviour")] 

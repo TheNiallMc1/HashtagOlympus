@@ -10,10 +10,8 @@ public class StatusEffectManager : MonoBehaviour
     public StatusEffect statusEffect;
     public float remainingDuration;
     
-    private Coroutine tickCoroutine;
-    private Coroutine durationCoroutine;
-
-    private bool effectInitialised;
+    private Coroutine tickCoroutine = null;
+    private Coroutine durationCoroutine = null;
     
     [HideInInspector]
     public Combatant thisCombatant;
@@ -28,15 +26,29 @@ public class StatusEffectManager : MonoBehaviour
     // We initialise each new effect that is added, starting its tick cycle and activating the entry effect
     private void InitialiseStatus()
     {
+        // Tick
         if (statusEffect.isTickType)
         {
-            tickCoroutine = StartCoroutine(TickEffectCoroutine());
+            ActivateTickEffect();
         }
-
-        durationCoroutine = StartCoroutine(DurationCoroutine());
         
-        ActivateEntryEffect();
-        effectInitialised = true;
+        // Duration
+        if (statusEffect.isInfinite) // If infinite, call enter event and wait to be removed to do exit
+        {
+            ActivateEntryEffect();
+        }
+        
+        if (statusEffect.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
+        {
+            ActivateEntryEffect();
+            EndStatus();
+        }
+        
+        else // Start the duration coroutine 
+        {
+            durationCoroutine = StartCoroutine(DurationCoroutine());
+            ActivateEntryEffect();
+        }
     }
 
     public void EndStatus()
@@ -45,15 +57,15 @@ public class StatusEffectManager : MonoBehaviour
         {
             StopCoroutine(durationCoroutine);
         }
-
+        
         if (tickCoroutine != null)
         {
-            StopCoroutine(tickCoroutine); 
+            StopCoroutine(tickCoroutine);
         }
         
         ActivateExitEffect();
         
-        thisCombatant.RemoveStatus(statusEffect);
+        thisCombatant.RemoveStatusFromList(statusEffect);
         
         Destroy(this);
     }

@@ -73,6 +73,25 @@ public class Combatant : MonoBehaviour
         }
     }
 
+    // Same as remove status, but doesnt call "EndStatus", to avoid a loop for status effects like Heal
+    public void RemoveStatusFromList(StatusEffect status) 
+    {
+        // If the status already exists on this entity, remove it
+        if (activeStatusEffects.ContainsKey(status))
+        {
+            // Get the value by its key (the status type) and then end the status
+            activeStatusEffects.TryGetValue(status, out StatusEffectManager manager);
+
+            // Remove from dictionary
+            activeStatusEffects.Remove(status);
+        }
+        
+        else
+        {
+            Debug.LogWarning("The status of " + status.name + " does not exist on this entity");
+        }
+    }
+
     #endregion
     
 
