@@ -22,7 +22,6 @@ public class AI_Brain : MonoBehaviour
     protected float _damage = 50;
     protected float _speed;
 
-
     [Header("Dynamic")]
     [SerializeField]
     protected ePriority _priority = ePriority.Moving;
@@ -32,6 +31,7 @@ public class AI_Brain : MonoBehaviour
     public bool InRange = false;
     public bool initMove = true;
     public bool wieghtCheck = false;
+
     protected GodBehaviour god;
     protected MonumentHealth monument;
     //MonumentHealth monument;
@@ -58,13 +58,15 @@ public class AI_Brain : MonoBehaviour
 
     private void Update()
     {
-        if(monumentsInAttackRange[0].state == MonumentHealth.eState.Tourist && enemiesInAttackRange.Count == 0)
+        if (monumentsInAttackRange.Count > 0)
         {
-            _state = eState.Moving;
-            _priority = ePriority.Moving;
-            InRange = false;
+            if (monumentsInAttackRange[0].state == MonumentHealth.eState.Tourist && enemiesInAttackRange.Count == 0)
+            {
+                _state = eState.Moving;
+                _priority = ePriority.Moving;
+                InRange = false;
+            }
         }
-
         if((enemiesInAttackRange.Count == 0 && monumentsInAttackRange.Count == 0))
         {
             _state = eState.Moving;
@@ -72,11 +74,7 @@ public class AI_Brain : MonoBehaviour
             InRange = false;
         }
 
-        targetInRange();
-        if (InRange)
-        {
-            _state = eState.Attacking;
-        }
+      
     }
 
     void FixedUpdate()
@@ -118,7 +116,12 @@ public class AI_Brain : MonoBehaviour
                 }
                break;
         }
-      
+        targetInRange();
+        if (InRange)
+        {
+            _state = eState.Attacking;
+        }
+
     }
 
     protected virtual void Attack(GameObject target)
@@ -139,30 +142,30 @@ public class AI_Brain : MonoBehaviour
     /*
     Handles AI while it is attacking a monument. 
    */
-    protected IEnumerator AttackingCoroutine()
-    {
-        while (god != null || _state == eState.Attacking)
-        {
+    //protected IEnumerator AttackingCoroutine()
+    //{
+    //    while (god != null || _state == eState.Attacking)
+    //    {
 
-            if (god == null || monument.Health <= 0)
-            {
-                // yield return new WaitForSeconds(10);
-                if (god != null) 
-                { 
-                    //attackTarget.RemoveObject();
-                }
+    //        if (god == null || monument.Health <= 0)
+    //        {
+    //            // yield return new WaitForSeconds(10);
+    //            if (god != null) 
+    //            { 
+    //                //attackTarget.RemoveObject();
+    //            }
 
-            }
-            else
-            {
-              //  monument.Health = monument.Health - _damage;
-            }
+    //        }
+    //        else
+    //        {
+    //          //  monument.Health = monument.Health - _damage;
+    //        }
 
-            yield return new WaitForSeconds(5);
+    //        yield return new WaitForSeconds(5);
 
-        }
-        yield break;
-    }
+    //    }
+    //    yield break;
+    //}
     protected void targetInRange()
     {
         if(god != null)
