@@ -19,7 +19,7 @@ public class AI_Movement : MonoBehaviour
     public Waypoint closestWaypoint = null;
 
     protected Transform _destination;
-    protected float rdist = 0.2f;
+    protected float rdist = 2f;
 
     protected int wpNum = 0;
     [SerializeField]
@@ -34,7 +34,7 @@ public class AI_Movement : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
-        FindClosestWaypoint(transform.position);
+        FindNextWaypoint(spawn);
 
     }
 
@@ -51,7 +51,7 @@ public class AI_Movement : MonoBehaviour
 
     public virtual void Moving()
     {
-        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 13)
+        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 12)
         {
             
 
