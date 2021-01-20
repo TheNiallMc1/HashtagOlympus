@@ -10,6 +10,7 @@ public class GodBehaviour : MonoBehaviour
 {
     public string godName;
     protected int indexInGodList;
+    protected Combatant thisCombatant;
 
     [Header("Combat Stats")]
     public int maxHealth;
@@ -25,6 +26,8 @@ public class GodBehaviour : MonoBehaviour
 
     public int costToRespawn;
     public bool isKOed;
+
+    public bool attackingLocked;
 
     [Header("Attacking")]
     [SerializeField] protected internal List<Combatant> enemiesSeen;
@@ -49,6 +52,9 @@ public class GodBehaviour : MonoBehaviour
     public List<SpecialAbility> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
+    public int ultimateCharge; // current ultimate charge percentage
+    public bool usingUltimate;
+
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
 
@@ -72,11 +78,11 @@ public class GodBehaviour : MonoBehaviour
     public PlayerAbilities playerAbilites;
 
     public Animator animator;
-    private float lastNumber;
-
+    private int lastNumber;
 
     public virtual void Start()
     {
+        thisCombatant = GetComponent<Combatant>();
         playerAbilites = GetComponent<PlayerAbilities>();
 
         // Give this god a reference to itself in the playerGods list
@@ -111,7 +117,7 @@ public class GodBehaviour : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         // Booleans used for determining different states
         bool attackRangeEmpty = !enemiesInAttackRange.Any();
@@ -131,7 +137,7 @@ public class GodBehaviour : MonoBehaviour
         }
 
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
         {
             SwitchState(GodState.attacking);
         }
@@ -391,6 +397,17 @@ public class GodBehaviour : MonoBehaviour
         specialAbilities[abilityIndex].ExecuteAbility();
     }
 
+    public virtual void ActivateUltimate()
+    {
+        // Override in sub class
+    }
+
+    public virtual IEnumerator UltimateDurationCoroutine()
+    {
+        yield return null;
+        // Override in sub class
+    }
+
     private int randomNumber()
     {
         int randomNumber = UnityEngine.Random.Range(1, 4);
@@ -417,5 +434,6 @@ public enum GodState
     moveToArea,
     moveToEnemy,
     attacking,
-    knockedOut
+    knockedOut,
+    abilityAction
 }
