@@ -21,7 +21,7 @@ public class Ability_TestAbility : SpecialAbility
         foreach(Combatant target in targets)
         {
             DealDamage(target);
-            Debug.Log("Attacked " + target.gameObject.name);
+            Debug.Log(target.gameObject.name + " took " + abilityDamage + " damage, has " + target.currentHealth + " remaining");
         }
         targets.Clear();
     }

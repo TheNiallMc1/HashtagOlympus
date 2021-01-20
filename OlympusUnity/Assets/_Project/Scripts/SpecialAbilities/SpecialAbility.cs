@@ -41,6 +41,8 @@ public abstract class SpecialAbility : ScriptableObject
 
     [Header("Cone AoE")]
     public ConeAoE coneAoE;
+    public bool coneAlreadyExists;
+    public float coneBuffer;
 
 
     public abstract void InitiateAbility();

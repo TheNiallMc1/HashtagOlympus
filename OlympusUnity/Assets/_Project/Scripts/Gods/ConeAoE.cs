@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ConeAoE : MonoBehaviour
 {
-    //List<Combatant> combatantsInCone = new List<Combatant>();
-    //List<Combatant> targets = new List<Combatant>();
+    List<Combatant> combatantsInCone = new List<Combatant>();
+    public List<Combatant> targetsInCone = new List<Combatant>();
 
-    HashSet<Combatant> combatantsInCone = new HashSet<Combatant>();
-    HashSet<Combatant> targets = new HashSet<Combatant>();
+    // HashSet<Combatant> combatantsInCone = new HashSet<Combatant>();
+    // HashSet<Combatant> targets = new HashSet<Combatant>();
 
-    public Combatant.eTargetType[] targetTypes;
-    public float lifeTime = 10f;
+    public List<Combatant.eTargetType> targetTypes;
+    public float lifeTime = 10;
 
     private DanielTestingKeys testKeys;
     private bool key1;
@@ -40,6 +40,7 @@ public class ConeAoE : MonoBehaviour
         transform.rotation = Quaternion.Euler(90f, 0, 0);
         StartCoroutine(GetTargetsRoutine());
         StartCoroutine(DestroyCone());
+        
     }
 
     // Update is called once per frame 
@@ -47,7 +48,7 @@ public class ConeAoE : MonoBehaviour
     {
         if (key1)
         {
-            GetTargets();
+            // GetTargets();
 
             key1 = false;
         }
@@ -60,7 +61,7 @@ public class ConeAoE : MonoBehaviour
             }
             key2 = false;
         }
-
+        
     }
 
 
@@ -80,9 +81,8 @@ public class ConeAoE : MonoBehaviour
     {
         Combatant combatant = other.gameObject.GetComponent<Combatant>();
 
-        if (combatant != null && targets.Contains(combatant))
+        if (combatant != null && targetsInCone.Contains(combatant))
         {
-            targets.Remove(combatant);
             combatantsInCone.Remove(combatant);
         }
     }
@@ -95,43 +95,47 @@ public class ConeAoE : MonoBehaviour
         {
             if (combatant.targetType == tType)
             {
-                targets.Add(combatant);
+                targetsInCone.Add(combatant);
             }
         }
     }
 
     public void PrintTargets()
     {
-        foreach (Combatant combatant in targets)
-        {
-            print(combatant.gameObject.name);
-        }
+    //    foreach (Combatant combatant in targetsInCone)
+    //    {
+    //        print(combatant.gameObject.name);
+    //    }
     }
 
 
-    public HashSet<Combatant> GetTargets()
+    public List<Combatant> GetTargets()
     {
-        foreach(Combatant.eTargetType type in targetTypes)
+
+        foreach (Combatant.eTargetType type in targetTypes)
         {
             IncludeType(type);
         }
-
         PrintTargets();
-        return targets;
+
+
+        return targetsInCone;
     }
 
 
 
 
 
-    IEnumerator GetTargetsRoutine()
+    public IEnumerator GetTargetsRoutine()
     {
         yield return new WaitForSeconds(0.1f);
         GetTargets();
+        yield return null;
     }
 
     IEnumerator DestroyCone()
     {
+        yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }

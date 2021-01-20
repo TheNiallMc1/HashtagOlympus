@@ -24,6 +24,8 @@ public class AbilityManager : MonoBehaviour
     private Vector2 mousePosition;
     public Camera mainCam;
 
+    ConeAoE coneAoE;
+
     [Header("Testing")]
     public Text cooldownText;
 
@@ -124,11 +126,6 @@ public class AbilityManager : MonoBehaviour
         {
             cooldownCoroutine = StartCoroutine(CooldownCoroutine());
         }
-
-
-        //onCooldown = true;
-        //yield return new WaitForSecondsRealtime(ability.abilityCooldown);
-        //onCooldown = false;
     }
 
 
@@ -157,17 +154,6 @@ public class AbilityManager : MonoBehaviour
 
     }
 
-    private void AoEConeSelect()
-    {
-        // throw new NotImplementedException();
-    }
-
-    private void SelfSelect()
-    {
-        // throw new NotImplementedException();
-    }
-
-
     // POLISH - Allow flexibility to place the centre in the case of Artemis/Zeus
     public void AoECircleSelect()
     {
@@ -179,15 +165,54 @@ public class AbilityManager : MonoBehaviour
         {
             Combatant currentTarget = collider.gameObject.GetComponent<Combatant>();
 
-            if ( isTargetValid(currentTarget) )
+            if (isTargetValid(currentTarget))
             {
                 targets.Add(currentTarget);
             }
         }
 
-        
+
         ExecuteAbility();
     }
+
+
+    private void AoEConeSelect()
+    {
+
+        if (!ability.coneAlreadyExists)
+        {
+            ability.coneBuffer = 0.15f;
+            ability.coneAlreadyExists = true;
+
+            coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.colliderHolder.transform);
+            coneAoE.targetTypes = ability.abilityCanHit;
+        }
+        else
+        {
+            ability.coneBuffer -= Time.deltaTime;
+
+            if (ability.coneBuffer <= 0)
+            {
+                ability.coneBuffer = 0;
+                targets = coneAoE.targetsInCone;
+
+                ExecuteAbility();
+                ability.coneAlreadyExists = false;
+            }
+        }
+
+
+        // DestroyImmediate(coneAoE);
+    }
+
+    private void SelfSelect()
+    {
+        targets.Add(thisCombatant);
+        ExecuteAbility();
+    }
+
+
+
 
     public bool isTargetValid(Combatant currentTarget)
     {
