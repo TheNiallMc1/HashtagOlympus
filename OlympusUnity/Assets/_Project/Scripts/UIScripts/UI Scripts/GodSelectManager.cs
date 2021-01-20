@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,12 @@ public class GodSelectManager : MonoBehaviour
     public GameObject SelectionButtons;
     public GameObject FinalSelectionStuff;
     public TMP_Text finalSelectionText;
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -64,8 +71,6 @@ public class GodSelectManager : MonoBehaviour
     
     public void ConfirmFinalSelection()
     {
-        //show conf button
-        Debug.Log("Confirm final selection");
         SelectionButtons.gameObject.SetActive(false);
         FinalSelectionStuff.gameObject.SetActive(true);
         finalSelectionText.text = selectedGods[0].godName + "\n" + selectedGods[1].godName + "\n" +
@@ -77,6 +82,7 @@ public class GodSelectManager : MonoBehaviour
     {
         //send to game mananger
         Debug.Log("sending final selection");
+        UberManager.Instance.AddSelectedGodList(selectedGods);
     }
 
     public void Reselect()

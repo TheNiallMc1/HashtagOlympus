@@ -1,0 +1,98 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class UberManager : MonoBehaviour
+{
+
+    private static UberManager _instance;
+    public static UberManager Instance => _instance;
+    
+    public enum GameState
+    {
+        MainMenu,
+        LevelSelect,
+        GodSelect,
+        GodPlacement,
+        GamePlay,
+        GameOver
+    }
+
+    public GameState currentGameState;
+    
+    public int selectedLevel;
+    public List<GodBehaviour> selectedGods;
+    public int totalRespect;
+    
+    //structs for god stats, upgrades?
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Creating singleton
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        currentGameState = GameState.MainMenu;
+        SwitchGameState(currentGameState);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void SwitchGameState(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.MainMenu:
+                break;
+            case GameState.LevelSelect:
+                break;
+            case GameState.GodSelect:
+                break;
+            case GameState.GodPlacement: LoadGodPlacement();
+                break;
+            case GameState.GamePlay:
+                break;
+            case GameState.GameOver:
+                break;
+            
+            
+        }
+    }
+
+    public void LoadMainMenu()
+    {
+        
+    }
+
+    public void LoadGodSelect()
+    {
+        
+    }
+    
+    public void LoadGodPlacement()
+    {
+        Debug.Log("Loading placement scene");
+        //SceneManager.LoadScene("CollabScene-bekah");
+    }
+
+
+    public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
+    {
+        Debug.Log("adding selected gods to scene manager");
+        selectedGods = finalGodSelections;
+        currentGameState = GameState.GodPlacement;
+        SwitchGameState(currentGameState);
+    }
+}
