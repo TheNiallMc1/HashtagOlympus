@@ -509,6 +509,11 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!1 &580624841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6099437352785484029, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+  m_PrefabInstance: {fileID: 1465645126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &593624463
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,6 +627,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!114 &606500087 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4747961291031186049, guid: f6484da4d933a5f4b8f8cedfbc1ef093, type: 3}
@@ -746,6 +752,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1001 &720021228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -928,6 +935,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1 &743320726 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3645193965983497592, guid: c6d4f43286eb2154cbb97afabc66d50a, type: 3}
@@ -949,6 +957,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 30
+  colliderHolder: {fileID: 0}
 --- !u!114 &743320728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,7 +973,7 @@ MonoBehaviour:
   ability: {fileID: 0}
   targets: []
   targetSelectModeActive: 0
-  combatant: {fileID: 0}
+  thisCombatant: {fileID: 0}
   mainCam: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &743320732
@@ -1202,6 +1211,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1 &1152087687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1401,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1 &1389362879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,7 +1551,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 7
+  m_Text: 
 --- !u!222 &1436231967
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1570,6 +1581,10 @@ PrefabInstance:
       objectReference: {fileID: 1858460737}
     - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: usingUltimate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: attackDamage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
@@ -1731,6 +1746,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1 &1599157072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1860,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!224 &1754226371 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5282476636213667855, guid: f4a0ded6e654c524c9b9047df32a1349, type: 3}
@@ -1881,6 +1898,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 10
+  colliderHolder: {fileID: 580624841}
 --- !u!114 &1858460737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1893,10 +1911,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 663fe9127e5ad1743a40a501ce347b37, type: 2}
+  ability: {fileID: 11400000, guid: 45af1bbb7c93be746829f93292a2ad8e, type: 2}
   targets: []
   targetSelectModeActive: 0
-  combatant: {fileID: 0}
+  thisCombatant: {fileID: 0}
   mainCam: {fileID: 0}
   cooldownText: {fileID: 1436231966}
 --- !u!1 &1913361797
@@ -2012,6 +2030,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1 &1983650373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,6 +2240,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   attackStat: 50
+  colliderHolder: {fileID: 0}
 --- !u!1001 &2263547801984578440
 PrefabInstance:
   m_ObjectHideFlags: 0

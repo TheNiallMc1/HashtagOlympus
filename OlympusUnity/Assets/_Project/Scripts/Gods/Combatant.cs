@@ -21,6 +21,8 @@ public class Combatant : MonoBehaviour
     public int currentHealth = 100;
     public int attackStat = 10;
 
+    public GameObject colliderHolder;
+
     // Start is called before the first frame update 
     void Start()
     {

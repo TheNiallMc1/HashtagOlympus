@@ -17,7 +17,7 @@ public class AbilityManager : MonoBehaviour
     public bool targetSelectModeActive = false;
 
     [HideInInspector]
-    public Combatant combatant;
+    public Combatant thisCombatant;
     protected PlayerControls playerControls;
     private bool leftClick;
     private bool rightClick;
@@ -48,7 +48,7 @@ public class AbilityManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        combatant = GetComponent<Combatant>();
+        thisCombatant = GetComponent<Combatant>();
 
         
     }
@@ -93,6 +93,8 @@ public class AbilityManager : MonoBehaviour
 
     void ExecuteAbility()
     {
+        targetSelectModeActive = false;
+
         ability.targets = targets;
         ability.ExecuteAbility();
 
@@ -147,20 +149,12 @@ public class AbilityManager : MonoBehaviour
 
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
-                    targetSelectModeActive = false;
-
                     targets.Add(currentTarget);
                     ExecuteAbility();
                 }
             }
         }
 
-    }
-
-
-    private void AoECircleSelect()
-    {
-        // throw new NotImplementedException();
     }
 
     private void AoEConeSelect()
@@ -171,5 +165,47 @@ public class AbilityManager : MonoBehaviour
     private void SelfSelect()
     {
         // throw new NotImplementedException();
+    }
+
+
+    // POLISH - Allow flexibility to place the centre in the case of Artemis/Zeus
+    public void AoECircleSelect()
+    {
+        Vector3 centre = thisCombatant.colliderHolder.transform.position;
+
+        Collider[] colliders = Physics.OverlapSphere(centre, ability.radius);
+
+        foreach (Collider collider in colliders)
+        {
+            Combatant currentTarget = collider.gameObject.GetComponent<Combatant>();
+
+            if ( isTargetValid(currentTarget) )
+            {
+                targets.Add(currentTarget);
+            }
+        }
+
+        
+        ExecuteAbility();
+    }
+
+    public bool isTargetValid(Combatant currentTarget)
+    {
+        if(currentTarget != null)
+        {
+            bool isInList = targets.Contains(currentTarget);
+            bool canBeHit = ability.abilityCanHit.Contains(currentTarget.targetType);
+
+            return !isInList && canBeHit;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, ability.radius);
     }
 }

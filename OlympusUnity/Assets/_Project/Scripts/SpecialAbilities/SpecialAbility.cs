@@ -35,6 +35,13 @@ public abstract class SpecialAbility : ScriptableObject
 
     [SerializeField] protected int abilityRange;
 
+    [Header("Circle AoE")]
+    public Vector3 centre;
+    public float radius;
+
+    [Header("Cone AoE")]
+    public ConeAoE coneAoE;
+
 
     public abstract void InitiateAbility();
     public abstract void ExecuteAbility();
