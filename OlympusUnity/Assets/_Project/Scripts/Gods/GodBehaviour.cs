@@ -27,6 +27,8 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
     public bool isKOed;
 
+    public bool attackingLocked;
+
     [Header("Attacking")]
     [SerializeField] protected internal List<Combatant> enemiesSeen;
     [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
@@ -76,8 +78,7 @@ public class GodBehaviour : MonoBehaviour
     public PlayerAbilities playerAbilites;
 
     public Animator animator;
-    private float lastNumber;
-
+    private int lastNumber;
 
     public virtual void Start()
     {
@@ -116,7 +117,7 @@ public class GodBehaviour : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         // Booleans used for determining different states
         bool attackRangeEmpty = !enemiesInAttackRange.Any();
@@ -136,7 +137,7 @@ public class GodBehaviour : MonoBehaviour
         }
 
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
         {
             SwitchState(GodState.attacking);
         }
@@ -433,5 +434,6 @@ public enum GodState
     moveToArea,
     moveToEnemy,
     attacking,
-    knockedOut
+    knockedOut,
+    abilityAction
 }

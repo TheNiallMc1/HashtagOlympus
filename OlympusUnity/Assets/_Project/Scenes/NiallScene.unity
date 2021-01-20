@@ -235,11 +235,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!135 &122174595 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 4379296939689956054, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
-  m_PrefabInstance: {fileID: 4379296939811073621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &122848327
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage Ares '
+  m_text: Increase Ultimate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -554,11 +549,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &523197855 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4379296939289326538, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
-  m_PrefabInstance: {fileID: 4379296939811073621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &544444539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1018,11 +1008,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11de1a35c640a5343b4680f31efbea24, type: 3}
---- !u!135 &1066547659 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 4379296938763671454, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
-  m_PrefabInstance: {fileID: 4379296939811073621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1101755817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,72 +1091,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 42.586, y: 0, z: 0}
---- !u!1 &1258470339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4379296940700358038, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+--- !u!114 &1258470345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
   m_PrefabInstance: {fileID: 4379296939811073621}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1258470342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258470339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetType: 0
-  maxHealth: 100
-  currentHealth: 100
-  attackStat: 10
---- !u!114 &1258470345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258470339}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd17f9ec0391f07459f161a5ee67d0a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godName: 
-  maxHealth: 0
-  currentHealth: 0
-  awarenessRadius: 0
-  attackRadius: 0
-  attackDamage: 0
-  armour: 0
-  speed: 0
-  usesSpecialResource: 0
-  costToRespawn: 0
-  isKOed: 0
-  enemiesSeen: []
-  enemiesInAttackRange: []
-  currentAttackTarget: {fileID: 0}
-  currentState: 0
-  lastClickedPosition: {x: 0, y: 0, z: 0}
-  specialAbilities: []
-  ultimateCharge: 0
-  usingUltimate: 0
-  mouseDetectorCollider: {fileID: 523197855}
-  awarenessRadiusCollider: {fileID: 122174595}
-  attackRadiusCollider: {fileID: 1066547659}
-  healthBar: {fileID: 0}
-  standardMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
-  attackMaterial: {fileID: 0}
-  portraitSprite: {fileID: 0}
-  portraitSpriteSelected: {fileID: 0}
-  playerAbilites: {fileID: 0}
-  animator: {fileID: 0}
-  ultimatePartyStatus: {fileID: 0}
-  ultimateReductionRate: 0
-  ultimateCountText: {fileID: 0}
 --- !u!1 &1292189087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,6 +1220,7 @@ MonoBehaviour:
   usesSpecialResource: 0
   costToRespawn: 0
   isKOed: 0
+  attackingLocked: 0
   enemiesSeen: []
   enemiesInAttackRange: []
   currentAttackTarget: {fileID: 0}
@@ -1848,6 +1779,7 @@ MonoBehaviour:
   usesSpecialResource: 0
   costToRespawn: 0
   isKOed: 0
+  attackingLocked: 0
   enemiesSeen: []
   enemiesInAttackRange: []
   currentAttackTarget: {fileID: 0}
@@ -2922,17 +2854,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4379296940700358038, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
-      propertyPath: m_Name
-      value: God
-      objectReference: {fileID: 0}
-    - target: {fileID: 4379296940700358044, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+    - target: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
       propertyPath: ultimateCountText
       value: 
       objectReference: {fileID: 825334432}
-    - target: {fileID: 4379296940700358044, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
-      propertyPath: rageCountText
+    - target: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: godName
+      value: Dionysus
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258470345, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: ultimateReductionRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379296938763671448, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: parentBehaviour
       value: 
+      objectReference: {fileID: 1258470345}
+    - target: {fileID: 4379296939689956049, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: parentBehaviour
+      value: 
+      objectReference: {fileID: 1258470345}
+    - target: {fileID: 4379296940700358038, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+      propertyPath: m_Name
+      value: God
       objectReference: {fileID: 0}
     - target: {fileID: 4379296940700358045, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2978,8 +2930,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4379296940700358044, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f10f67bf393ffa2448dc4688f365e6d1, type: 3}
 --- !u!1001 &4402354209976329612
 PrefabInstance:

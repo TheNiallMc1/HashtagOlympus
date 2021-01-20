@@ -15,7 +15,7 @@ public class God_Dionysus : GodBehaviour
     public TextMeshProUGUI ultimateCountText;
     
     // KEEP LIST OF EVERY ENEMY AFFECTED BY PARTY-TIME
-
+    
     public void AddUltimateCharge(int chargeToAdd)
     {
         ultimateCharge += chargeToAdd;
@@ -34,6 +34,8 @@ public class God_Dionysus : GodBehaviour
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
             usingUltimate = true;
+
+            attackingLocked = true;
             
             // ADD PASSIVE ABILITY TO INFLICTS PARTY-TIME ON NEARBY ENEMIES
             // CHANGE STATE TO "DANCING" SO HE CANNOT ATTACK
@@ -54,6 +56,7 @@ public class God_Dionysus : GodBehaviour
             ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
 
             usingUltimate = false;    
+            attackingLocked = false;
             ultimateCoroutine = null;
         }
         else
