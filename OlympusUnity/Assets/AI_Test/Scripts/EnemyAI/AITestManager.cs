@@ -7,18 +7,18 @@ public class AITestManager : MonoBehaviour
 
     public Transform prefab;
     public Transform left;
-    public Transform right;
+   // public Transform right;
     public int i = 0;
     bool enter = false;
+    Coroutine timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
     }
 
-    IEnumerator timer()
+    IEnumerator timerCoroutine()
     {
         enter = true;
         yield return new WaitForSeconds(120.0f);
@@ -28,22 +28,19 @@ public class AITestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine("timer");
-        while (i < 100)
+        timer = StartCoroutine(timerCoroutine());
+        while (i < 20)
         {
             if (enter == true)
             {
-                if (i % 2 == 0)
-                {
-                    Instantiate(prefab, left.position, Quaternion.identity);
-
-                }
-                else
-                {
-                    Instantiate(prefab, right.position, Quaternion.identity);
-                }
+                Instantiate(prefab, left.position, Quaternion.identity);
                 i++;
             }
+            
+        }
+        if(enter == false)
+        {
+            StopCoroutine(timer);
         }
 
     }

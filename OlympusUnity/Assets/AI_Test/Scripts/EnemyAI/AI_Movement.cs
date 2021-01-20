@@ -14,7 +14,9 @@ public class AI_Movement : MonoBehaviour
     public List<Waypoint> waypoints;
     public List<Waypoint> Path;
 
-    public Waypoint waypointListHolder;
+    public Waypoint spawn;
+
+    public Waypoint closestWaypoint = null;
 
     protected Transform _destination;
     protected float rdist = 2;
@@ -28,10 +30,11 @@ public class AI_Movement : MonoBehaviour
     void Start()
     {
         waypoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
+        spawn = waypoints[0];
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
-        FindClosestWaypoint(transform.position);
+        FindNextWaypoint(spawn);
 
     }
 
@@ -48,7 +51,7 @@ public class AI_Movement : MonoBehaviour
 
     public virtual void Moving()
     {
-        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 7)
+        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 13)
         {
             
 
@@ -142,7 +145,6 @@ public class AI_Movement : MonoBehaviour
 
     public void FindClosestWaypoint(Vector3 target)
     {  
-        Waypoint closestWaypoint = null;
         float closestDist = Mathf.Infinity;
 
         for (int i = 0; i < waypoints.Count; i++)

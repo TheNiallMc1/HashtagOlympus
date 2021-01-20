@@ -102,7 +102,7 @@ public class AI_Brain : MonoBehaviour
             case eState.Moving:
                 if (!initMove)
                 {
-                    movementMotor.Moving();
+                   // movementMotor.Moving();
                 }
                 break;
             case eState.Attacking:
