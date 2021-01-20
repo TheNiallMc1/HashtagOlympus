@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerAbilities : MonoBehaviour
+[RequireComponent(typeof(Combatant))]
+public class AbilityManager : MonoBehaviour
 {
-    protected PlayerControls playerControls;
-    public bool leftClick;
-    public bool rightClick;
-    private Vector2 mousePosition;
+    public SpecialAbility ability;
+    
 
-    public GodBehaviour godBehaviour;
-    public Camera mainCam;
-    public SpecialAbility currentAbility;
+    bool onCooldown = false;
+    Coroutine cooldownCoroutine;
 
     public List<Combatant> targets = new List<Combatant>();
 
     public bool targetSelectModeActive = false;
 
-    public List<SpecialAbility> specialAbilities;
-    
+    [HideInInspector]
+    public Combatant combatant;
+    protected PlayerControls playerControls;
+    private bool leftClick;
+    private bool rightClick;
+    private Vector2 mousePosition;
+    public Camera mainCam;
+
+    [Header("Testing")]
+    public Text cooldownText;
 
     private void Awake()
     {
-        godBehaviour = GetComponent<GodBehaviour>();
+        ability = Instantiate(ability);
+
         mainCam = Camera.main;
 
         playerControls = new PlayerControls();
@@ -38,13 +45,19 @@ public class PlayerAbilities : MonoBehaviour
         playerControls.Mouse.RightClick.canceled += ctx => rightClick = false;
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        combatant = GetComponent<Combatant>();
 
-    // Update is called once per frame
+        
+    }
+
     void Update()
     {
         if (targetSelectModeActive)
         {
-            switch (currentAbility.selectionType)
+            switch (ability.selectionType)
             {
                 case SpecialAbility.eSelectionType.Single:
                     SingleTargetSelect();
@@ -65,28 +78,58 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
-
-    public void InitiateAbility(int abilityIndex)
+    public void UseAbility()
     {
-        currentAbility = specialAbilities[abilityIndex];
-
-        if(currentAbility != null)
+        if (!onCooldown && !targetSelectModeActive)
         {
             targetSelectModeActive = true;
         }
-    }
-    
-
-    private void ExecuteAbility()
-    {
-        foreach(Combatant target in targets)
+        else if (targetSelectModeActive)
         {
-            target.TakeDamage(currentAbility.abilityDamage);
+            targetSelectModeActive = false;
         }
-        targets.Clear();
-
     }
-    
+
+
+    void ExecuteAbility()
+    {
+        ability.targets = targets;
+        ability.ExecuteAbility();
+
+        onCooldown = true;
+        ability.remainingCooldownTime = ability.abilityCooldown;
+        cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+    }
+
+
+
+    IEnumerator CooldownCoroutine()
+    {
+
+        cooldownText.text = ability.remainingCooldownTime.ToString();
+        yield return new WaitForSecondsRealtime(1f);
+        ability.remainingCooldownTime -= 1;
+        
+
+        if(ability.remainingCooldownTime <= 0)
+        {
+            ability.remainingCooldownTime = 0;
+            onCooldown = false;
+            cooldownCoroutine = null;
+            cooldownText.text = "";
+        }
+        else
+        {
+            cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+        }
+
+
+        //onCooldown = true;
+        //yield return new WaitForSecondsRealtime(ability.abilityCooldown);
+        //onCooldown = false;
+    }
+
+
 
     void SingleTargetSelect()
     {
@@ -102,7 +145,7 @@ public class PlayerAbilities : MonoBehaviour
             {
                 currentTarget = hit.transform.gameObject.GetComponent<Combatant>();
 
-                if (currentTarget != null && currentAbility.abilityCanHit.Contains(currentTarget.targetType))
+                if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
                     targetSelectModeActive = false;
 
@@ -111,23 +154,22 @@ public class PlayerAbilities : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
 
     private void AoECircleSelect()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
     }
 
     private void AoEConeSelect()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
     }
 
     private void SelfSelect()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
     }
-
 }

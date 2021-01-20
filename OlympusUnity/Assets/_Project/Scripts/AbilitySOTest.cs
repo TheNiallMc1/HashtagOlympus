@@ -5,6 +5,8 @@ using UnityEngine;
 // Base class. Each ability in the game is a subclass of this
 public abstract class AbilitySOTest : ScriptableObject
 {
+    // add enum for target selection type
+
     public float abilityCooldown; // Cooldown in base class cuz everything has it
     public List<StatusEffect> statusEffects;
     

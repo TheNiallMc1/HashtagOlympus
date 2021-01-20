@@ -49,7 +49,7 @@ public class GodBehaviour : MonoBehaviour
 
     [Header("Abilities")]
 
-    public List<SpecialAbility> specialAbilities;
+    public List<AbilityManager> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
     public int ultimateCharge; // current ultimate charge percentage
@@ -394,7 +394,7 @@ public class GodBehaviour : MonoBehaviour
     // may need to be public for ui implementation
     public void UseAbility(int abilityIndex)
     {
-        specialAbilities[abilityIndex].ExecuteAbility();
+        specialAbilities[abilityIndex].UseAbility();
     }
 
     public virtual void ActivateUltimate()
