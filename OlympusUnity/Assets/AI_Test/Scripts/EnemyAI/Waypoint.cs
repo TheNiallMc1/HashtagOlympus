@@ -27,6 +27,7 @@ public class Waypoint : MonoBehaviour
 
 	private void Awake()
 	{
+		distanceToFinal = transform.position;
 		Renderer[] rends = GetComponentsInChildren<Renderer>();
 		foreach (Renderer rend in rends)
 		{

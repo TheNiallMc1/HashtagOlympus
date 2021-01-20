@@ -33,9 +33,10 @@ public class AI_Brain : MonoBehaviour
     public bool wieghtCheck = false;
 
     protected GodBehaviour god;
+    [SerializeField]
     protected MonumentHealth monument;
     //MonumentHealth monument;
-    Waypoint waypoint;
+    public Waypoint waypoint;
 
 
     public ePriority priority { get { return _priority; } set { _priority = value; } }
@@ -102,7 +103,7 @@ public class AI_Brain : MonoBehaviour
             case eState.Moving:
                 if (!initMove)
                 {
-                   // movementMotor.Moving();
+                    movementMotor.Moving();
                 }
                 break;
             case eState.Attacking:

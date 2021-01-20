@@ -19,7 +19,7 @@ public class AI_Movement : MonoBehaviour
     public Waypoint closestWaypoint = null;
 
     protected Transform _destination;
-    protected float rdist = 2;
+    protected float rdist = 0.2f;
 
     protected int wpNum = 0;
     [SerializeField]
@@ -34,7 +34,7 @@ public class AI_Movement : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
-        FindNextWaypoint(spawn);
+        FindClosestWaypoint(transform.position);
 
     }
 
@@ -80,23 +80,7 @@ public class AI_Movement : MonoBehaviour
 
     public Waypoint GetPath()
     {
-
-       // Debug.Log(waypoints.Count);
-        if (waypoints.Count > 0)
-        {
-            if (waypoints[wpIndex].transform.parent.gameObject.tag == "Monument")
-            {
                 return waypoints[wpIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        else
-        {
-            return null;
-        }
         
     }
 
