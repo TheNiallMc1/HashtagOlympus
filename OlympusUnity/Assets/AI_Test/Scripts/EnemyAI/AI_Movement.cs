@@ -29,13 +29,14 @@ public class AI_Movement : MonoBehaviour
 
     void Start()
     {
+        aiBrain = GetComponent<AI_Brain>();
+        animator = GetComponentInChildren<Animator>();
+
         waypoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
         spawn = waypoints[0];
         nav = GetComponent<NavMeshAgent>();
-        aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
         FindNextWaypoint(spawn);
-        animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
