@@ -14,9 +14,9 @@ public class CircleAoE : MonoBehaviour
     private bool key2;
     private bool key3;
 
-    public Combatant.TargetType[] onlyEnemies = new Combatant.TargetType[] { Combatant.TargetType.Enemy };
-    public Combatant.TargetType[] enemiesAndEMonuments = new Combatant.TargetType[] { Combatant.TargetType.Enemy, Combatant.TargetType.EMonument };
-    public Combatant.TargetType[] onlyGods = new Combatant.TargetType[] { Combatant.TargetType.Player };
+    public Combatant.eTargetType[] onlyEnemies = new Combatant.eTargetType[] { Combatant.eTargetType.Enemy };
+    public Combatant.eTargetType[] enemiesAndEMonuments = new Combatant.eTargetType[] { Combatant.eTargetType.Enemy, Combatant.eTargetType.EMonument };
+    public Combatant.eTargetType[] onlyGods = new Combatant.eTargetType[] { Combatant.eTargetType.Player };
 
 
     private void Awake()
@@ -50,25 +50,25 @@ public class CircleAoE : MonoBehaviour
         if (key1)
         {
             key1 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.TargetType.Enemy);
+            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.Enemy);
         }
 
         if (key2)
         {
             key2 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.TargetType.EMonument);
+            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.EMonument);
         }
 
         if (key3)
         {
             key3 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.TargetType.Player);
+            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.Player);
         }
 
     }
 
 
-    public void GetCircleAoETargets(Vector3 centre, float radius, Combatant.TargetType targetType)
+    public void GetCircleAoETargets(Vector3 centre, float radius, Combatant.eTargetType targetType)
     {
         Collider[] colliders = Physics.OverlapSphere(centre, radius);
 

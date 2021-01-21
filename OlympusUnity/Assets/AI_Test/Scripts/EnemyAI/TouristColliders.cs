@@ -24,7 +24,7 @@ public class TouristColliders : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Monument"))
         {
-            MonumentHealth monument = other.GetComponent<MonumentHealth>();
+            MonumentHealth monument = other.transform.parent.parent.GetComponent<MonumentHealth>();
 
             switch (colliderType)
             {
@@ -51,7 +51,7 @@ public class TouristColliders : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Monument"))
         {
-            MonumentHealth monument = other.GetComponent<MonumentHealth>();
+            MonumentHealth monument = other.transform.parent.parent.GetComponent<MonumentHealth>();
 
             switch (colliderType)
             {

@@ -1,50 +1,71 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AITestManager : MonoBehaviour
 {
+    public enum SpawnState { SPAWNING, WAITING, COUNTING}
+
+    public SpawnState state = SpawnState.COUNTING;
 
     public Transform prefab;
     public Transform left;
-    public Transform right;
-    public int i = 0;
-    bool enter = false;
+
+    public float timeBetweenWaves = 5f;
+    public float countDown = 2f;
+
+    [SerializeField]
+    private List<Transform> touristDrones;
+    
+    public int waveIndex = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+        StartCoroutine(Spawner());
     }
 
-    IEnumerator timer()
+    private IEnumerator Spawner()
     {
-        enter = true;
-        yield return new WaitForSeconds(120.0f);
-        enter = false;
-    }
+        yield return new WaitForSeconds(countDown);
 
-    // Update is called once per frame
-    void Update()
-    {
-        StartCoroutine("timer");
-        while (i < 50)
+        while (true)
         {
-            if (enter == true)
-            {
-                if (i % 2 == 0)
-                {
-                    Instantiate(prefab, left.position, Quaternion.identity);
+            state = SpawnState.SPAWNING;
 
-                }
-                else
-                {
-                    Instantiate(prefab, right.position, Quaternion.identity);
-                }
-                i++;
-            }
+            yield return SpawnWave();
+
+            state = SpawnState.WAITING;
+
+            yield return new WaitWhile(TouristsIsAlive);
+
+            state = SpawnState.COUNTING;
+
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
-
     }
+
+    private bool TouristsIsAlive()
+    {
+        touristDrones = touristDrones.Where(e => e != null).ToList();
+
+        return touristDrones.Count > 0;
+    }
+
+    private IEnumerator SpawnWave()
+    {
+        waveIndex++;
+        for (int i = 0; i < waveIndex; i++)
+        {
+            SpawnTourist();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void SpawnTourist()
+    {
+        touristDrones.Add(Instantiate(prefab, left.position, left.rotation));
+    }
+
 }

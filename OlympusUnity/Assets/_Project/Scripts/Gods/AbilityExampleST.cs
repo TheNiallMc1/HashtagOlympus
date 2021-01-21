@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AbilityExampleST : MonoBehaviour
 {
-    public Combatant.TargetType abilityCanHit;
+    
+    public Combatant.eTargetType[] abilityCanHit;
     public int damage = 50;
 
     

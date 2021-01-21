@@ -16,6 +16,10 @@ public class AresAnimations : MonoBehaviour
     // Animation Events
     public void TakeDamageAnimation()
     {
-        godBehaviour.currentAttackTarget.TakeDamage(godBehaviour.attackDamage);
+        Combatant target = godBehaviour.currentAttackTarget;
+        if (target != null)
+        {
+            target.TakeDamage(godBehaviour.attackDamage);
+        }
     }
 }

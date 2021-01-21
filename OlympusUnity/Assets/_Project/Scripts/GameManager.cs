@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     private Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
+    public InterimUIManager iUIManager;
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
@@ -58,10 +60,24 @@ public class GameManager : MonoBehaviour
         respectText = respectDisplay.text;
         respectDisplay.text = respectText+currentRespect;
         canSummon = false;
+        
+        GodListToDictionary();
+    }
+
+    private void GodListToDictionary()
+    {
+        Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
+
+        for (int i = 0; i < allPlayerGods.Count; i++)
+        { godDict.Add(i, allPlayerGods[i]);
+        }
+
+        InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
     private void CycleSelect()
     {
+        
         currentGodIndex += 1;
         
         if (currentGodIndex > allPlayerGods.Count - 1)
@@ -93,11 +109,15 @@ public class GameManager : MonoBehaviour
         }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (!EventSystem.current.IsPointerOverGameObject())    // to ignore UI
+        {
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            // if (Physics.Raycast(ray, out hit))
         {
             Debug.Log("check for raycast");
             bool targetIsGod = hit.collider.CompareTag("God");
-            
+
             // Select a new god
             if (targetIsGod)
             {
@@ -106,28 +126,33 @@ public class GameManager : MonoBehaviour
 
                 print("Selected: " + thisGod.godName);
             }
-            
+
             if (currentlySelectedGod != null)
             {
                 currentlySelectedGod.lastClickedPosition = hit.point;
-                
+
                 currentlySelectedGod.SwitchState(GodState.moveToArea);
                 lD.SetEndPos(hit.point);
                 DeselectGod();
-              
+
             }
         }
+        }
+        
     }
 
     public void SelectGod(GodBehaviour godToSelect)
     {
-        Debug.Log("selected god");
-        
         godSelected = true;
         currentlySelectedGod = godToSelect;
+        Debug.Log("selected god : "+currentlySelectedGod.godName);
         currentlySelectedGod.ToggleSelection(true);
         
-        uiManager.UpdateCurrentGodText();
+        //uiManager.UpdateCurrentGodText();
+        
+        
+        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
+        
     }
 
     public void DeselectGod()
@@ -138,7 +163,7 @@ public class GameManager : MonoBehaviour
             currentlySelectedGod.ToggleSelection(false);
             currentlySelectedGod = null;
         
-            uiManager.UpdateCurrentGodText();
+           // uiManager.UpdateCurrentGodText();
         }
     }
 

@@ -10,6 +10,7 @@ public class GodBehaviour : MonoBehaviour
 {
     public string godName;
     protected int indexInGodList;
+    protected Combatant thisCombatant;
 
     [Header("Combat Stats")]
     public int maxHealth;
@@ -26,11 +27,13 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
     public bool isKOed;
 
-    [Header("Attacking")]
-    [SerializeField] protected internal List<TouristStats> enemiesSeen;
-    [SerializeField] protected internal List<TouristStats> enemiesInAttackRange;
+    public bool attackingLocked;
 
-    public TouristStats currentAttackTarget;
+    [Header("Attacking")]
+    [SerializeField] protected internal List<Combatant> enemiesSeen;
+    [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
+    
+    public Combatant currentAttackTarget;
     protected Coroutine currentAttackCoroutine;
 
     [Header("States")]
@@ -45,8 +48,12 @@ public class GodBehaviour : MonoBehaviour
     protected int currentSkillPoints;
 
     [Header("Abilities")]
+
     public List<SpecialAbility> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
+
+    public int ultimateCharge; // current ultimate charge percentage
+    public bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
     protected MeshRenderer meshRenderer;
@@ -68,13 +75,16 @@ public class GodBehaviour : MonoBehaviour
     public Sprite portraitSprite;
     public Sprite portraitSpriteSelected;
 
-    // Animation parameters
-    Animator animator;
-    float animSpeed;
-    private int lastNumber = 0;
+    public PlayerAbilities playerAbilites;
+
+    public Animator animator;
+    private int lastNumber;
 
     public virtual void Start()
     {
+        thisCombatant = GetComponent<Combatant>();
+        playerAbilites = GetComponent<PlayerAbilities>();
+
         // Give this god a reference to itself in the playerGods list
         for (int i = 0; i < GameManager.Instance.allPlayerGods.Count; i++)
         {
@@ -107,7 +117,7 @@ public class GodBehaviour : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         // Booleans used for determining different states
         bool attackRangeEmpty = !enemiesInAttackRange.Any();
@@ -127,7 +137,7 @@ public class GodBehaviour : MonoBehaviour
         }
 
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
         {
             SwitchState(GodState.attacking);
         }
@@ -144,7 +154,7 @@ public class GodBehaviour : MonoBehaviour
             SwitchState((GodState.knockedOut));
         }
 
-        animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+        float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
         // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
@@ -174,7 +184,7 @@ public class GodBehaviour : MonoBehaviour
         navMeshAgent.destination = navDestination;
     }
 
-    public void UpdateAwarenessList(bool addToList, TouristStats tourist)
+    public void UpdateAwarenessList(bool addToList, Combatant tourist)
     {
         bool alreadyInList = enemiesSeen.Contains(tourist);
 
@@ -190,8 +200,8 @@ public class GodBehaviour : MonoBehaviour
             enemiesSeen.Remove(tourist);
         }
     }
-
-    public void UpdateAttackList(bool addToList, TouristStats tourist)
+    
+    public void UpdateAttackList(bool addToList, Combatant tourist)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(tourist);
 
@@ -387,6 +397,17 @@ public class GodBehaviour : MonoBehaviour
         specialAbilities[abilityIndex].ExecuteAbility();
     }
 
+    public virtual void ActivateUltimate()
+    {
+        // Override in sub class
+    }
+
+    public virtual IEnumerator UltimateDurationCoroutine()
+    {
+        yield return null;
+        // Override in sub class
+    }
+
     private int randomNumber()
     {
         int randomNumber = UnityEngine.Random.Range(1, 4);
@@ -413,5 +434,6 @@ public enum GodState
     moveToArea,
     moveToEnemy,
     attacking,
-    knockedOut
+    knockedOut,
+    abilityAction
 }
