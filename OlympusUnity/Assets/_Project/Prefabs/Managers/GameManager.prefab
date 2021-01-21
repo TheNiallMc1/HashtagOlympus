@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 461555623904182935}
   - component: {fileID: 461555623904182934}
+  - component: {fileID: 1350583989}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,12 +44,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa80bdb7d505eb42a4a3876350fe88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCam: {fileID: 0}
   overViewCam: {fileID: 0}
-  allPlayerGods:
-  - {fileID: 0}
+  allPlayerGods: []
   godSelected: 0
   currentlySelectedGod: {fileID: 0}
   lD: {fileID: 0}
   currentRespect: 25
   respectDisplay: {fileID: 0}
   summonRespectThreshold: 0
+--- !u!114 &1350583989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461555623904182937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688c4532cce60254ea803d33d65669cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 2
+  prefab: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
+  left: {fileID: 0}
+  timeBetweenWaves: 5
+  countDown: 2
+  touristDrones: []
+  waveIndex: 20
