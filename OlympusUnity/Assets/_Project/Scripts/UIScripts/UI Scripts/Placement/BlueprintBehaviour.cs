@@ -45,7 +45,7 @@ public class BlueprintBehaviour : MonoBehaviour
            if (Physics.Raycast(ray, out _hit))
             {
                
-                _newPosition = new Vector3(_hit.point.x, 1f, _hit.point.z);
+                _newPosition = new Vector3(_hit.point.x, 0f, _hit.point.z);
                 transform.position = _newPosition;
             }
     }
