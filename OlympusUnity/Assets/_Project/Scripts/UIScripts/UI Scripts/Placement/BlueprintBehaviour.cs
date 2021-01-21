@@ -44,20 +44,17 @@ public class BlueprintBehaviour : MonoBehaviour
            // if (Physics.Raycast(ray, out _hit, 50000.0f, (1 << 11)))
            if (Physics.Raycast(ray, out _hit))
             {
-                Debug.Log("doing the thhing");
-                _newPosition = new Vector3(_hit.point.x, 5f, _hit.point.z);
+               
+                _newPosition = new Vector3(_hit.point.x, 1f, _hit.point.z);
                 transform.position = _newPosition;
-                
-                
             }
-        
     }
 
     public void SetDown()
     {
         
         _newPosition.y = 0;
-            Debug.Log("Instantiating ");
+         
             //Instantiate(prefab, _hit.point, transform.rotation);
             godGO = PlacementManager.Instance.ReturnCurrentGod();
             godGO.transform.SetParent(null);

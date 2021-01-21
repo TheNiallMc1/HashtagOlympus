@@ -88,8 +88,7 @@ public class UberManager : MonoBehaviour
     
     public void LoadGodPlacement()
     {
-        Debug.Log("Loading placement scene");
-        SceneManager.LoadScene("CollabScene2 -bekah");
+        SceneManager.LoadScene("PlacementScene");
         GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
@@ -99,7 +98,6 @@ public class UberManager : MonoBehaviour
     }
     public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
     {
-        Debug.Log("adding selected gods to scene manager");
         selectedGods = finalGodSelections;
         currentGameState = GameState.GodPlacement;
         SwitchGameState(currentGameState);

@@ -32,6 +32,6 @@ public class GodPlacerButton : MonoBehaviour
         PlacementManager.Instance.ChangeCurrentGodIndex(godIndex);
         GameObject godGO = PlacementManager.Instance.ReturnCurrentGod();
         godGO.transform.position = new Vector3(0, -1000,0);
-        Instantiate(blueprint, new Vector3(0, 1000, 0), Quaternion.identity);
+        Instantiate(blueprint, new Vector3(0, 1000, 0), Quaternion.Euler(new Vector3(0, 180, 0)));
     }
 }
