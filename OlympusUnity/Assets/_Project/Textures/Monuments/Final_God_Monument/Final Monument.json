@@ -1,0 +1,97 @@
+{
+    "format": {
+        "version": "1.0"
+    },
+    "shaders": {
+        "Main shader": {
+            "parameters": {
+                "Common Parameters": {
+                    "ao_intensity": 0.75,
+                    "emissive_intensity": 1,
+                    "horizonFade": 1.2999999523162842,
+                    "nbSamples": 16
+                },
+                "Parallax Occlusion Mapping": {
+                    "maxPOMSamples": 16,
+                    "minPOMSamples": 4,
+                    "pomStrength": 1,
+                    "usePOM": false
+                },
+                "Subsurface Scattering Parameters": {
+                    "sssColor": [
+                        0.7009999752044678,
+                        0.3009999990463257,
+                        0.3050000071525574
+                    ],
+                    "sssEnabled": true,
+                    "sssScale": 0.5,
+                    "sssType": 1
+                }
+            },
+            "shader": "pbr-metal-rough",
+            "shaderInstance": "Main shader"
+        }
+    },
+    "texturesets": {
+        "Arch_Spears": {
+            "shader": "Main shader"
+        },
+        "Cylinder_stair_base": {
+            "shader": "Main shader"
+        },
+        "Final_Monument_defaultPolygonShader": {
+            "shader": "Main shader"
+        },
+        "Portal_Base": {
+            "shader": "Main shader"
+        },
+        "Portal_new_spears": {
+            "shader": "Main shader"
+        },
+        "Semi_circle": {
+            "shader": "Main shader"
+        },
+        "Star_Circles": {
+            "shader": "Main shader"
+        },
+        "Stars": {
+            "shader": "Main shader"
+        },
+        "base": {
+            "shader": "Main shader"
+        },
+        "body": {
+            "shader": "Main shader"
+        },
+        "face": {
+            "shader": "Main shader"
+        },
+        "framing_pillars": {
+            "shader": "Main shader"
+        },
+        "hair": {
+            "shader": "Main shader"
+        },
+        "lambert1": {
+            "shader": "Main shader"
+        },
+        "leaves": {
+            "shader": "Main shader"
+        },
+        "mini_pillars": {
+            "shader": "Main shader"
+        },
+        "pillar_spears": {
+            "shader": "Main shader"
+        },
+        "pillars": {
+            "shader": "Main shader"
+        },
+        "portal_secondary_spears": {
+            "shader": "Main shader"
+        },
+        "vines": {
+            "shader": "Main shader"
+        }
+    }
+}
