@@ -20,7 +20,7 @@ public class TouristColliders : MonoBehaviour
 
         if (target != null && target.targetType == Combatant.eTargetType.PMonument)
         {
-            parentBehaviour.UpdateAttackList(true, target);
+            parentBehaviour.UpdateMonumentList(true, target);
         }
     }
 
@@ -36,7 +36,7 @@ public class TouristColliders : MonoBehaviour
 
         if (target != null && target.targetType == Combatant.eTargetType.PMonument)
         {
-            parentBehaviour.UpdateAttackList(false, target);
+            parentBehaviour.UpdateMonumentList(false, target);
         }
     }
 }
