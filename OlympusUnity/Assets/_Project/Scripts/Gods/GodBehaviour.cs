@@ -49,7 +49,7 @@ public class GodBehaviour : MonoBehaviour
 
     [Header("Abilities")]
 
-    public List<SpecialAbility> specialAbilities;
+    public List<AbilityManager> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
     public int ultimateCharge; // current ultimate charge percentage
@@ -278,8 +278,17 @@ public class GodBehaviour : MonoBehaviour
         // meshRenderer.material = standardMaterial;
 
         currentState = GodState.moveToEnemy;
-        MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
-        print(godName + ": moving to enemy");
+
+        if(enemiesSeen[0] != null)
+        {
+            MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
+            print(godName + ": moving to enemy");
+        }
+        else
+        {
+            currentState = GodState.idle;
+        }
+
     }
 
     private void AttackingState()
@@ -296,6 +305,14 @@ public class GodBehaviour : MonoBehaviour
 
     protected IEnumerator AutoAttackCoroutine()
     {
+        //if(!enemiesInAttackRange.Any())
+        //{
+        //    currentAttackCoroutine = null;
+        //    SwitchState(GodState.idle);
+        //    yield break; // If there are no enemies left, end the coroutine
+        //}
+        
+
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
 
@@ -337,6 +354,7 @@ public class GodBehaviour : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(2.5f);
         }
+
 
 
         // If any more enemies remain in range, loop the coroutine
@@ -394,7 +412,7 @@ public class GodBehaviour : MonoBehaviour
     // may need to be public for ui implementation
     public void UseAbility(int abilityIndex)
     {
-        specialAbilities[abilityIndex].ExecuteAbility();
+        specialAbilities[abilityIndex].UseAbility();
     }
 
     public virtual void ActivateUltimate()
