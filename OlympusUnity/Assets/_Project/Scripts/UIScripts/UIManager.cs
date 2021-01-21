@@ -112,7 +112,7 @@ public class UIManager : MonoBehaviour
                 AbilityIcon thisIconScript = thisIcon.GetComponent<AbilityIcon>();
                 
                 thisIconScript.correspondingGod = thisGod;
-                thisIconScript.ability = thisGod.specialAbilities[j];
+                thisIconScript.ability = thisGod.playerAbilites.specialAbilities[j];
                 
                 thisIconScript.InitialiseIcon();
             }

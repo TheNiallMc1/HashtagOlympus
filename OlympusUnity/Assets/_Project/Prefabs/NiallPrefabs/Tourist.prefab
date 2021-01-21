@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3025225496321106116}
   - component: {fileID: 3025225496321106117}
   - component: {fileID: 3025225496321106138}
+  - component: {fileID: 6563321587912106437}
   m_Layer: 0
   m_Name: Tourist
   m_TagString: Tourist
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76f252575286d2458bd30693399b625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   currentState: 0
   attackGodChance: 0
   attackStructureChance: 0
@@ -158,6 +159,22 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6563321587912106437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3025225496321106115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetType: 1
+  maxHealth: 100
+  currentHealth: 100
+  attackStat: 10
 --- !u!1 &3025225497522214223
 GameObject:
   m_ObjectHideFlags: 0

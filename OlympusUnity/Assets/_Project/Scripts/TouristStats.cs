@@ -8,6 +8,7 @@ public class TouristStats : MonoBehaviour
     public int maxHealth;
     protected int currentHealth;
     protected int attackDamage;
+    
 
     [Header("AI Weights")] 
     public CurrentState currentState;

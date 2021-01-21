@@ -11,6 +11,7 @@
             <e p="PlayerControls.cs" t="Include" />
           </e>
           <e p="Scripts" t="Include">
+            <e p="AbilitySOTest.cs" t="Include" />
             <e p="BekahScripts" t="Include">
               <e p="BekahInputs" t="Include">
                 <e p="PlayerInput.cs" t="Include" />
@@ -28,9 +29,11 @@
               <e p="God_Ares.cs" t="Include" />
               <e p="God_Ares2.cs" t="Include" />
               <e p="God_Ares3.cs" t="Include" />
+              <e p="God_Dionysus.cs" t="Include" />
               <e p="GodBehaviour.cs" t="Include" />
               <e p="GodColliders.cs" t="Include" />
             </e>
+            <e p="PlayerAbilities.cs" t="Include" />
             <e p="PlayerCamera.cs" t="Include" />
             <e p="SkillTree" t="Include">
               <e p="CharacterSkillSet.cs" t="Include" />
@@ -45,6 +48,16 @@
               <e p="AbilitySingleTarget.cs" t="Include" />
               <e p="SpecialAbility.cs" t="Include" />
             </e>
+            <e p="StatusEffects" t="Include">
+              <e p="Status_Heal.cs" t="Include" />
+              <e p="Status_MaxRage.cs" t="Include" />
+              <e p="Status_Party.cs" t="Include" />
+              <e p="Status_Rage.cs" t="Include" />
+              <e p="StatusEffect.cs" t="Include" />
+              <e p="StatusEffectManager.cs" t="Include" />
+              <e p="TestScriptForAddingStatus.cs" t="Include" />
+            </e>
+            <e p="TestScript.cs" t="Include" />
             <e p="TouristStats.cs" t="Include" />
             <e p="UIScripts" t="Include">
               <e p="AbilityIcon.cs" t="Include" />
@@ -56,19 +69,31 @@
               <e p="TooltipSystem.cs" t="Include" />
               <e p="TooltipTrigger.cs" t="Include" />
               <e p="UI Scripts" t="Include">
-                <e p="BlueprintBehaviour.cs" t="Include" />
-                <e p="DockSwitcherButton.cs" t="Include" />
-                <e p="GodAbility.cs" t="Include" />
-                <e p="GodOverviewMapIcon.cs" t="Include" />
-                <e p="GodPlacerButton.cs" t="Include" />
-                <e p="GodSelectorButton.cs" t="Include" />
-                <e p="HealthBar.cs" t="Include" />
-                <e p="ImprovedPlacementManager.cs" t="Include" />
-                <e p="InterimUIManager.cs" t="Include" />
-                <e p="LineDrawer.cs" t="Include" />
-                <e p="MiniMapCamera.cs" t="Include" />
-                <e p="PauseMapButton.cs" t="Include" />
-                <e p="RespectBuff.cs" t="Include" />
+                <e p="GodDontDestroy.cs" t="Include" />
+                <e p="PauseMapUI" t="Include">
+                  <e p="GodOverviewMapIcon.cs" t="Include" />
+                  <e p="LineDrawer.cs" t="Include" />
+                  <e p="MiniMapCamera.cs" t="Include" />
+                  <e p="PauseMapButton.cs" t="Include" />
+                </e>
+                <e p="Placement" t="Include">
+                  <e p="BlueprintBehaviour.cs" t="Include" />
+                  <e p="GodPlacementInfo.cs" t="Include" />
+                  <e p="GodPlacerButton.cs" t="Include" />
+                  <e p="PlacementManager.cs" t="Include" />
+                  <e p="RespectBuff.cs" t="Include" />
+                </e>
+                <e p="PlayModeUI" t="Include">
+                  <e p="DockSwitcherButton.cs" t="Include" />
+                  <e p="GodAbility.cs" t="Include" />
+                  <e p="HealthBar.cs" t="Include" />
+                  <e p="InterimUIManager.cs" t="Include" />
+                </e>
+                <e p="Selection" t="Include">
+                  <e p="GodSelectManager.cs" t="Include" />
+                  <e p="GodSelectorButton.cs" t="Include" />
+                </e>
+                <e p="UberManager.cs" t="Include" />
               </e>
               <e p="UIManager.cs" t="Include" />
             </e>
@@ -95,9 +120,11 @@
               <e p="TouristColliders.cs" t="Include" />
               <e p="Waypoint.cs" t="Include" />
             </e>
+            <e p="FPSCounter.cs" t="Include" />
             <e p="MonumentHealth.cs" t="Include" />
           </e>
         </e>
+        <e p="AresAnimations.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />

@@ -68,18 +68,23 @@ public class DanielPlayerScript : MonoBehaviour
                 Ray ray = mainCam.ScreenPointToRay(mousePosition);
                 RaycastHit hit;
 
+
                 if (Physics.Raycast(ray, out hit, 100))
                 {
                     Combatant enemyCombatant = hit.transform.gameObject.GetComponent<Combatant>();
-
-                    if (enemyCombatant != null && enemyCombatant.targetType == singleTargetAbility.abilityCanHit)
+                    if(enemyCombatant != null)
                     {
-                        Debug.Log("Attacked " + hit.transform.gameObject.name);
-                        enemyCombatant.TakeDamage(singleTargetAbility.damage + playerCombatant.attackStat);
-                        selectionModeActive = false;
+                        foreach (Combatant.eTargetType eTargetType in singleTargetAbility.abilityCanHit)
+                        {
+                            if (enemyCombatant.targetType == eTargetType)
+                            {
+                                Debug.Log("Attacked " + hit.transform.gameObject.name);
+                                enemyCombatant.TakeDamage(singleTargetAbility.damage + playerCombatant.attackStat);
+                                selectionModeActive = false;
+                            }
+                        }
                     }
                 }
-                
             }
         }
 

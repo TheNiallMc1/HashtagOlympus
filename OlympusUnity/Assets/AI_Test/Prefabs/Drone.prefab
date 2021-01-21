@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 137998977589943470}
   - component: {fileID: 8055487632596141253}
   - component: {fileID: -5785828546316613266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Drone
   m_TagString: Tourist
   m_Icon: {fileID: 0}
@@ -135,11 +135,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInAttackRange: []
+  monumentsInAttackRange: []
   _health: 100
   _priority: 0
   _state: 0
   InRange: 0
   initMove: 1
+  wieghtCheck: 0
 --- !u!114 &-5785828546316613266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   Path: []
+  waypointListHolder: {fileID: 0}
+  test: 0
 --- !u!1 &1904221497872110840
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +170,7 @@ GameObject:
   - component: {fileID: 8171192777551806921}
   - component: {fileID: 6796904741912333112}
   - component: {fileID: 7650837381648531541}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: AttackRadius
   m_TagString: Tourist
   m_Icon: {fileID: 0}
