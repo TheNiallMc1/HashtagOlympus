@@ -67,7 +67,7 @@ public class UberManager : MonoBehaviour
                 break;
             case GameState.GodPlacement: LoadGodPlacement();
                 break;
-            case GameState.GamePlay:
+            case GameState.GamePlay: LoadGamePlay();
                 break;
             case GameState.GameOver:
                 break;
@@ -93,7 +93,10 @@ public class UberManager : MonoBehaviour
         GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
-
+    public void LoadGamePlay()
+    {
+        Debug.Log("Loading game play");
+    }
     public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
     {
         Debug.Log("adding selected gods to scene manager");

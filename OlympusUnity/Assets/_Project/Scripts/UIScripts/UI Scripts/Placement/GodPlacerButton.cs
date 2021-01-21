@@ -29,7 +29,9 @@ public class GodPlacerButton : MonoBehaviour
 
     public void SpawnBlueprint()
     {
-        //GodPlacementInfo.Instance.currentGodIndex = godIndex;
+        PlacementManager.Instance.ChangeCurrentGodIndex(godIndex);
+        GameObject godGO = PlacementManager.Instance.ReturnCurrentGod();
+        godGO.transform.position = new Vector3(0, -1000,0);
         Instantiate(blueprint, new Vector3(0, 1000, 0), Quaternion.identity);
     }
 }

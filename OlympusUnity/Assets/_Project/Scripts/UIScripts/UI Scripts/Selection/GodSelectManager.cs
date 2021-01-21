@@ -63,6 +63,7 @@ public class GodSelectManager : MonoBehaviour
     {
         selectedGods.Remove(selectedGod);
         //selectedGod.gameObject.GetComponentInParent<GodDontDestroy>().ChooseUnchooseThisGod(false);
+        selectedGod.gameObject.transform.SetParent(null);
         Debug.Log("removed :" + selectedGod.godName+" : "+selectedGods.Count);
     }
     

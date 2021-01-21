@@ -9,15 +9,16 @@ public class GodPlacementInfo : MonoBehaviour
 
     public int currentGodIndex;
 
-    public GodBehaviour god1;
+    public GameObject god1;
     public Vector3 god1Location;
     
-    public GodBehaviour god2;
+    public GameObject god2;
     public Vector3 god2Location;
     
-    public GodBehaviour god3;
+    public GameObject god3;
     public Vector3 god3Location;
-    
+
+    public List<GameObject> allGodsList;
     
     void OnDestroy()
     {
@@ -26,8 +27,7 @@ public class GodPlacementInfo : MonoBehaviour
             _instance = null; 
         }
     }
-
-
+    
     void Awake()
     {
         if (_instance == null)
@@ -45,12 +45,6 @@ public class GodPlacementInfo : MonoBehaviour
 
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        allGodsList = new List<GameObject>();
     }
 }

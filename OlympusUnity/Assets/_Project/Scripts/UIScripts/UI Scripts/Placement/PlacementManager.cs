@@ -7,29 +7,35 @@ using UnityEngine.UI;
 
 public class PlacementManager : MonoBehaviour
 {
+    private static PlacementManager _instance;
+    public static PlacementManager Instance => _instance;
 
-    public Button button1;
-    public TMP_Text button1Text;
-    public GodPlacerButton button1Script;
-    
-    public Button button2;
-    public TMP_Text button2Text;
-    public GodPlacerButton button2Script;
-    
-    public Button button3;
-    public TMP_Text button3Text;
-    public GodPlacerButton button3Script;
+    public int currentGodIndex;
+
+    public GameObject continueUI;
+    public GameObject chosenGods;
+
+    public bool allGodsPlaced;
+    public int placementCount;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        button1Script.selectedGod = UberManager.Instance.selectedGods[0];
-        button2Script.selectedGod = UberManager.Instance.selectedGods[1];
-        button3Script.selectedGod = UberManager.Instance.selectedGods[2];
+        // Creating singleton
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        
+        continueUI.gameObject.SetActive(false);
+        placementCount = 0;
 
-        //button1Text.text = UberManager.Instance.selectedGods[0].godName;
-
+        //chosenGods = GameObject.Find("ChosenGods");
     }
 
     // Update is called once per frame
@@ -37,4 +43,45 @@ public class PlacementManager : MonoBehaviour
     {
         
     }
+
+    public void ChangeCurrentGodIndex(int newIndex)
+    {
+        currentGodIndex = newIndex;
+    }
+    public GameObject ReturnCurrentGod()
+    {
+        GameObject godToReturn = UberManager.Instance.selectedGods[currentGodIndex].gameObject;
+        return godToReturn;
+    }
+
+    public void IncreaseCount()
+    {
+        placementCount++;
+
+        if (placementCount > 2)
+        {
+            CheckIfPlacementComplete();
+        }
+    }
+    public void CheckIfPlacementComplete()
+    {
+        placementCount = 0;
+        continueUI.gameObject.SetActive(true);
+        
+    }
+
+    public void TimeToGo()
+    {
+        GodPlacementInfo.Instance.god1 = UberManager.Instance.selectedGods[0].gameObject;
+        GodPlacementInfo.Instance.god1Location = UberManager.Instance.selectedGods[0].gameObject.transform.position;
+            
+        GodPlacementInfo.Instance.god2 = UberManager.Instance.selectedGods[1].gameObject;
+        GodPlacementInfo.Instance.god2Location = UberManager.Instance.selectedGods[1].gameObject.transform.position;
+            
+        GodPlacementInfo.Instance.god3 = UberManager.Instance.selectedGods[2].gameObject;
+        GodPlacementInfo.Instance.god3Location = UberManager.Instance.selectedGods[2].gameObject.transform.position;
+        
+        UberManager.Instance.SwitchGameState(UberManager.GameState.GamePlay);
+    }
+    
 }

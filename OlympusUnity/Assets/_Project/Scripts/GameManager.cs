@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private Camera cam;
-    private Camera currentCam;
+    public Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
     public InterimUIManager iUIManager;
