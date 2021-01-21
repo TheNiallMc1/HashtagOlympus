@@ -14,8 +14,6 @@ public class GodBehaviour : MonoBehaviour
     [Header("Combat Stats")]
     public int awarenessRadius;
     public int attackRadius;
-    
-    public int attackDamage;
 
     public int costToRespawn;
     public bool isKOed;

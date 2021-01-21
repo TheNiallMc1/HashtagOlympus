@@ -24,8 +24,6 @@ public class AI_Brain : MonoBehaviour
     [Header("Inscribed")]
     [SerializeField]
 
-
-    protected float _health;
     protected float _damage = 50;
     protected float _speed;
 
@@ -45,10 +43,9 @@ public class AI_Brain : MonoBehaviour
 
     public ePriority priority { get { return _priority; } set { _priority = value; } }
 
-   
-
     public eState state { get { return _state; } set { _state = value; } }
-    public float health { get { return _health; } set { _health = value; } }
+    
+    
 
     private void Awake()
     {

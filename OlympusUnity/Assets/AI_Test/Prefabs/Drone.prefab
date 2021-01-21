@@ -138,7 +138,7 @@ MonoBehaviour:
   enemiesInAttackRange: []
   monumentsInAttackRange: []
   currentAttackTarget: {fileID: 0}
-  _health: 100
+  _damage: 50
   _priority: 0
   _state: 0
   InRange: 0
@@ -175,10 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetType: 1
-  maxHealth: 100
+  targetType: 1
+  colliderHolder: {fileID: 0}
+  characterName: 
+  maxHealth: 0
   currentHealth: 100
-  attackStat: 10
+  attackDamage: 10
+  damageReduction: 0
 --- !u!1 &1904221497872110840
 GameObject:
   m_ObjectHideFlags: 0

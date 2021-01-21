@@ -12,7 +12,7 @@ public class Combatant : MonoBehaviour
         EMonument
     }
 
-    public eTargetType targetType { get; set; }
+    public eTargetType targetType;
 
     [HideInInspector]
     public Dictionary<StatusEffect, StatusEffectManager> activeStatusEffects = new Dictionary<StatusEffect, StatusEffectManager>(); 
@@ -23,10 +23,15 @@ public class Combatant : MonoBehaviour
     public string characterName;
     
     [Header("Combat Stats")]
-    public int maxHealth = 100;
-    [HideInInspector] public int currentHealth = 100;
-    public int attackDamage = 10;
+    public int maxHealth;
+    [HideInInspector] public int currentHealth;
+    public int attackDamage;
     public int damageReduction;
+
+    public void Start()
+    {
+        currentHealth = maxHealth;
+    }
     
     public void RestoreHealth(int healthRecovered)
     {

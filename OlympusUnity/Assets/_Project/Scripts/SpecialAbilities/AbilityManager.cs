@@ -22,7 +22,7 @@ public class AbilityManager : MonoBehaviour
     private bool rightClick;
     private Vector2 mousePosition;
     
-    public Camera mainCam;
+    private Camera mainCam;
 
     ConeAoE coneAoE;
 
