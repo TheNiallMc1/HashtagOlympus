@@ -721,11 +721,6 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
---- !u!1 &580624841 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6099437352785484029, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-  m_PrefabInstance: {fileID: 1465645126}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &593624463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,38 +1932,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1858460737, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: cooldownText
+      value: 
+      objectReference: {fileID: 1436231966}
+    - target: {fileID: 1858460738, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: cooldownText
+      value: 
+      objectReference: {fileID: 599686608}
+    - target: {fileID: 1858460743, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: cooldownText
+      value: 
+      objectReference: {fileID: 2135474419}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God
       objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: specialAbilities.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: specialAbilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 1858460737}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: usingUltimate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: attackDamage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: specialAbilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 1858460738}
-    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: specialAbilities.Array.data[2]
-      value: 
-      objectReference: {fileID: 1858460743}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.94
@@ -2381,93 +2360,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5282476636213667855, guid: f4a0ded6e654c524c9b9047df32a1349, type: 3}
   m_PrefabInstance: {fileID: 5282476635235272667}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1858460734 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-  m_PrefabInstance: {fileID: 1465645126}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1858460735 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
   m_PrefabInstance: {fileID: 1465645126}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858460734}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15f53cf8228ba4440a7a139e662dacd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1858460736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858460734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetType: 0
-  maxHealth: 100
-  currentHealth: 100
-  attackStat: 10
-  colliderHolder: {fileID: 580624841}
---- !u!114 &1858460737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858460734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 45af1bbb7c93be746829f93292a2ad8e, type: 2}
-  targets: []
-  targetSelectModeActive: 0
-  thisCombatant: {fileID: 0}
-  mainCam: {fileID: 0}
-  cooldownText: {fileID: 1436231966}
---- !u!114 &1858460738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858460734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 3d01e878fa97a5249984c8a12121ac04, type: 2}
-  targets: []
-  targetSelectModeActive: 0
-  thisCombatant: {fileID: 0}
-  mainCam: {fileID: 0}
-  cooldownText: {fileID: 599686608}
---- !u!114 &1858460743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858460734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 18beb5400447fe24f808bd0c2bee4aa0, type: 2}
-  targets: []
-  targetSelectModeActive: 0
-  thisCombatant: {fileID: 0}
-  mainCam: {fileID: 0}
-  cooldownText: {fileID: 2135474419}
 --- !u!1 &1913361797
 GameObject:
   m_ObjectHideFlags: 0
