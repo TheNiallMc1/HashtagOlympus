@@ -4551,9 +4551,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688c4532cce60254ea803d33d65669cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
+  state: 2
+  prefab: {fileID: 3013866662245613229, guid: fa0485d48bec7c34bb04bd6f8fc6511b, type: 3}
   left: {fileID: 1789951304}
-  i: 0
+  timeBetweenWaves: 5
+  countDown: 2
+  touristDrones: []
+  waveIndex: 0
 --- !u!1001 &1363636191
 PrefabInstance:
   m_ObjectHideFlags: 0
