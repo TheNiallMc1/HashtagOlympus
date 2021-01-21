@@ -1700,6 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4730e0bdc0728459f918cc8ea794cd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  godIndex: 1
   selectedGod: {fileID: 0}
   blueprint: {fileID: 7710412932085246202, guid: c5ebf04bf0cf14dd1b58c50f79c936e9, type: 3}
 --- !u!114 &727557054
@@ -1744,7 +1745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 727557055}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 727557053}
+        m_TargetAssemblyTypeName: GodPlacerButton, Assembly-CSharp
+        m_MethodName: SpawnBlueprint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &727557055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2581,6 +2594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4730e0bdc0728459f918cc8ea794cd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  godIndex: 0
   selectedGod: {fileID: 0}
   blueprint: {fileID: 7710412932085246202, guid: c5ebf04bf0cf14dd1b58c50f79c936e9, type: 3}
 --- !u!114 &1151343465
@@ -2625,7 +2639,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1151343466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1151343464}
+        m_TargetAssemblyTypeName: GodPlacerButton, Assembly-CSharp
+        m_MethodName: SpawnBlueprint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1151343466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3889,6 +3915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4730e0bdc0728459f918cc8ea794cd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  godIndex: 2
   selectedGod: {fileID: 0}
   blueprint: {fileID: 7710412932085246202, guid: c5ebf04bf0cf14dd1b58c50f79c936e9, type: 3}
 --- !u!114 &1735885564
@@ -3933,7 +3960,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1735885565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1735885563}
+        m_TargetAssemblyTypeName: GodPlacerButton, Assembly-CSharp
+        m_MethodName: SpawnBlueprint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1735885565
 MonoBehaviour:
   m_ObjectHideFlags: 0

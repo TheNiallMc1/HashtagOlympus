@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 public class GodPlacerButton : MonoBehaviour
 {
-
+    public int godIndex;
     public GodBehaviour selectedGod;
     private Button _btn;
     private GameObject _godToPlace;
@@ -16,9 +17,16 @@ public class GodPlacerButton : MonoBehaviour
     {
         //_godToPlace = selectedGod;
         _btn = GetComponent<Button>();
-        _btn.GetComponentInChildren<TMP_Text>().text = selectedGod.godName;
+        //_btn.GetComponentInChildren<TMP_Text>().text = selectedGod.godName;
         
     }
+
+    private void Start()
+    {
+        selectedGod = UberManager.Instance.selectedGods[godIndex];
+        _btn.GetComponentInChildren<TMP_Text>().text = selectedGod.godName;
+    }
+
     public void SpawnBlueprint()
     {
         //GodPlacementInfo.Instance.currentGodIndex = godIndex;

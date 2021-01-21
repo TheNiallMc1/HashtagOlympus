@@ -27,7 +27,9 @@ public class PlacementManager : MonoBehaviour
         button1Script.selectedGod = UberManager.Instance.selectedGods[0];
         button2Script.selectedGod = UberManager.Instance.selectedGods[1];
         button3Script.selectedGod = UberManager.Instance.selectedGods[2];
-        
+
+        //button1Text.text = UberManager.Instance.selectedGods[0].godName;
+
     }
 
     // Update is called once per frame
