@@ -29,6 +29,7 @@ public abstract class SpecialAbility : ScriptableObject
     public eSelectionType selectionType { get { return _selectionType; } set { _selectionType = value; } }
 
     public int abilityDamage = 50;
+    public int abilityHealAmount = 50;
 
     public int abilityCooldown;
     public int remainingCooldownTime;
@@ -48,7 +49,8 @@ public abstract class SpecialAbility : ScriptableObject
     public abstract void InitiateAbility();
     public abstract void ExecuteAbility();
     public abstract void DealDamage(Combatant target);
-    public abstract void InflictStatusEffects();
+    public abstract void RestoreHealth(Combatant target);
+    public abstract void InflictStatusEffects(Combatant target);
     public abstract void BeginCooldown();
 
 

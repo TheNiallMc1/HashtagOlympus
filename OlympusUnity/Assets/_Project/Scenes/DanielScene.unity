@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 148995944}
   - component: {fileID: 148995943}
   m_Layer: 5
-  m_Name: ST Ability Button (2)
+  m_Name: A3 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 170946642}
   - component: {fileID: 170946641}
   m_Layer: 5
-  m_Name: ST Ability Button
+  m_Name: A1 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 332458985}
   - component: {fileID: 332458984}
   m_Layer: 5
-  m_Name: Text
+  m_Name: A3 Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,7 +577,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cone
+  m_Text: A3
 --- !u!222 &332458985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 599686609}
   - component: {fileID: 599686608}
   m_Layer: 5
-  m_Name: Cooldown Number
+  m_Name: A2 Colldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 709709764}
   - component: {fileID: 709709763}
   m_Layer: 5
-  m_Name: Text
+  m_Name: A2 Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1114,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Circle
+  m_Text: A2
 --- !u!222 &709709764
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1784,7 +1784,7 @@ GameObject:
   - component: {fileID: 1389362882}
   - component: {fileID: 1389362881}
   m_Layer: 5
-  m_Name: Text
+  m_Name: A1 Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1842,7 +1842,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ST
+  m_Text: A1
 --- !u!222 &1389362882
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 1436231967}
   - component: {fileID: 1436231966}
   m_Layer: 5
-  m_Name: Cooldown Number
+  m_Name: A1 Cooldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1946,6 +1946,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: specialAbilities.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: specialAbilities.Array.data[0]
       value: 
       objectReference: {fileID: 1858460737}
@@ -1957,6 +1961,14 @@ PrefabInstance:
       propertyPath: attackDamage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: specialAbilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 1858460738}
+    - target: {fileID: 7196217159133631164, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: specialAbilities.Array.data[2]
+      value: 
+      objectReference: {fileID: 1858460743}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.94
@@ -2244,7 +2256,7 @@ GameObject:
   - component: {fileID: 1687083981}
   - component: {fileID: 1687083980}
   m_Layer: 5
-  m_Name: ST Ability Button (1)
+  m_Name: A2 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2321,7 +2333,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2414,7 +2426,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 8370ea5eec1997a47bf6428eb42fa2d2, type: 2}
+  ability: {fileID: 11400000, guid: 45af1bbb7c93be746829f93292a2ad8e, type: 2}
+  targets: []
+  targetSelectModeActive: 0
+  thisCombatant: {fileID: 0}
+  mainCam: {fileID: 0}
+  cooldownText: {fileID: 1436231966}
+--- !u!114 &1858460738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858460734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 11400000, guid: 3d01e878fa97a5249984c8a12121ac04, type: 2}
+  targets: []
+  targetSelectModeActive: 0
+  thisCombatant: {fileID: 0}
+  mainCam: {fileID: 0}
+  cooldownText: {fileID: 599686608}
+--- !u!114 &1858460743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858460734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 11400000, guid: 18beb5400447fe24f808bd0c2bee4aa0, type: 2}
   targets: []
   targetSelectModeActive: 0
   thisCombatant: {fileID: 0}
@@ -2756,7 +2804,7 @@ GameObject:
   - component: {fileID: 2135474420}
   - component: {fileID: 2135474419}
   m_Layer: 5
-  m_Name: Cooldown Number
+  m_Name: A3 Cooldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
