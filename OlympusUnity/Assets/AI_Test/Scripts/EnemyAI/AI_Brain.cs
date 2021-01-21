@@ -167,8 +167,11 @@ public class AI_Brain : MonoBehaviour
    */
     protected IEnumerator AttackingCoroutine()
     {
-        if(currentAttackTarget.currentHealth <= 0)
+        int animNumber = 1;
+        if(currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
         {
+            movementMotor.animator.SetBool("MonumentDestroyed", true);
+            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
             if (_priority == ePriority.God)
             {
                 UpdateAttackList(false, currentAttackTarget);
@@ -180,7 +183,7 @@ public class AI_Brain : MonoBehaviour
         }
 
         transform.LookAt(currentAttackTarget.transform.position);
-        int animNumber = 1;
+        
 
         if (_priority == ePriority.God)
         {
@@ -199,7 +202,9 @@ public class AI_Brain : MonoBehaviour
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
         {
+            movementMotor.animator.SetBool("MonumentDestroyed", true);
             movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+            yield return new WaitForSeconds(15.0f);
             if (_priority == ePriority.God)
             {
                 UpdateAttackList(false, currentAttackTarget);
@@ -222,6 +227,8 @@ public class AI_Brain : MonoBehaviour
         }
         else
         {
+            movementMotor.animator.SetBool("MonumentDestroyed", true);
+            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
             currentAttackCoroutine = null;
             // _state = eState.Moving;
             yield break; // If there are no enemies left, end the coroutine
