@@ -11,7 +11,7 @@ public class TouristColliders : MonoBehaviour
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        Combatant target = other.gameObject.GetComponentInParent<Combatant>();
+        Combatant target = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.Player)
         {
@@ -27,7 +27,7 @@ public class TouristColliders : MonoBehaviour
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        Combatant target = other.gameObject.GetComponentInParent<Combatant>();
+        Combatant target = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.Player)
         {

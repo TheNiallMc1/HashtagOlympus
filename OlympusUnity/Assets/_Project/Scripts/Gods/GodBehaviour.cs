@@ -109,7 +109,7 @@ public class GodBehaviour : MonoBehaviour
         }
 
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked && !movingToArea)
         {
             SwitchState(GodState.attacking);
         }
@@ -310,6 +310,7 @@ public class GodBehaviour : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(2.5f);
         }
+        
 
         // If any more enemies remain in range, loop the coroutine
         if (enemiesInAttackRange.Any())

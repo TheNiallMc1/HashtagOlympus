@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("<color=green> Click to Move: Selected position for player </color>");
                     currentlySelectedGod.lastClickedPosition = hit.point;
+                    // currentlySelectedGod.navMeshAgent.isStopped = false;
                     currentlySelectedGod.SwitchState(GodState.moveToArea);
                     lD.SetEndPos(hit.point);
                 }

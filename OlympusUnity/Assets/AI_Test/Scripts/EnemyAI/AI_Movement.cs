@@ -7,8 +7,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AI_Movement : MonoBehaviour
 {
-
-    protected NavMeshAgent nav;
+    public Animator animator;
+    public NavMeshAgent nav;
     private AI_Brain aiBrain;
 
     public List<Waypoint> waypoints;
@@ -35,12 +35,30 @@ public class AI_Movement : MonoBehaviour
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
         FindNextWaypoint(spawn);
+        animator = GetComponentInChildren<Animator>();
+    }
 
+    private void FixedUpdate()
+    {
+        float animSpeed = nav.velocity.magnitude / nav.speed;
+        bool closeToTargetPosition = nav.remainingDistance < rdist;
+
+        animator.SetFloat("Vertical_f", animSpeed);
+
+        if(aiBrain.currentAttackTarget == null)
+        {
+            transform.LookAt(_destination.position);
+        }
+
+        if (!closeToTargetPosition)
+        {
+            animator.SetLookAtPosition(nav.destination);
+        }
     }
 
     void MoveToWaypoint()
     {
-
+        _destination = waypoints[wpIndex].transform;
         nav.SetDestination(waypoints[wpIndex].pos);
         aiBrain.initMove = false;
      //   Debug.Log(aiBrain.initMove);
@@ -116,6 +134,7 @@ public class AI_Movement : MonoBehaviour
         {
             next = obj.neighbors[key];
             wpIndex = next.index;
+            closestWaypoint = next;
 
             if (test == 0)
             {
