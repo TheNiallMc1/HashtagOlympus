@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
-    public InterimUIManager iUIManager;
+    
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviour
         }
 
         uiManager = FindObjectOfType<UIManager>();
-        cam = Camera.main;
+        
+        cam = Camera.current;
         currentCam = cam;
 
         // Controls
@@ -57,22 +58,36 @@ public class GameManager : MonoBehaviour
         playerControls.Movement.MouseClick.performed += context => ClickSelect();
         playerControls.GodSelection.CycleThroughGods.performed += context => CycleSelect();
 
-        respectText = respectDisplay.text;
+        //respectText = respectDisplay.text+" ";
         respectDisplay.text = respectText+currentRespect;
         canSummon = false;
         
+        
+    }
+
+    private void Start()
+    {
+        PopulateAllPlayerGods();
+    }
+
+    public void PopulateAllPlayerGods()
+    {
+        allPlayerGods = UberManager.Instance.selectedGods;
         GodListToDictionary();
     }
 
     private void GodListToDictionary()
     {
+        Debug.Log("Just making sure i am running");
         Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
 
         for (int i = 0; i < allPlayerGods.Count; i++)
         { godDict.Add(i, allPlayerGods[i]);
         }
 
+        InterimUIManager.Instance.BoomBoom();
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
+        InterimUIManager.Instance.BoomBoom();
     }
 
     private void CycleSelect()

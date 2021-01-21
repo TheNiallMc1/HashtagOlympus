@@ -8,9 +8,24 @@ using UnityEngine.UI;
 
 public class InterimUIManager : MonoBehaviour
 {
-    
-    private static InterimUIManager _instance;
-    public static InterimUIManager Instance => _instance;
+    #region Singleton
+    public static InterimUIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType(typeof(InterimUIManager)) as InterimUIManager;
+ 
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    private static InterimUIManager instance;
+    #endregion
+   
 
     private Dictionary<int, GodBehaviour> allGods;
     private GameObject[] characterDocks;
@@ -21,17 +36,7 @@ public class InterimUIManager : MonoBehaviour
 
     private void Awake()
     {
-        // Creating singleton
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    
-       // reviveButton.gameObject.SetActive(false);
+        // reviveButton.gameObject.SetActive(false);
         allGods = new Dictionary<int, GodBehaviour>();
         characterDocks = GameObject.FindGameObjectsWithTag("CharacterDock");
 
@@ -43,31 +48,32 @@ public class InterimUIManager : MonoBehaviour
         switchButtons = GameObject.FindGameObjectsWithTag("DockSwitch");
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void BoomBoom()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Boom boom");
     }
 
     public void AssignCharacterDocks(Dictionary<int, GodBehaviour> activeGods)
     {
+        Debug.Log("i am printing the message");
         allGods = activeGods;
 
-        for (int i = 0; i <characterDocks.Length; i++)
-        {
-            characterDocks[i].GetComponent<CharacterDock>().DockSetUp(activeGods[i]);
-            Debug.Log("sending: "+activeGods[i].godName);
-        }
-        Debug.Log("dock set up complete");
+       // for (int i = 0; i <characterDocks.Length; i++)
+        //{
+        //    characterDocks[i].GetComponent<CharacterDock>().DockSetUp(activeGods[i]);
+       //     Debug.Log("sending: "+activeGods[i].godName);
+       // }
+       
+       characterDocks[0].GetComponent<CharacterDock>().DockSetUp(activeGods[0]);
+       characterDocks[1].GetComponent<CharacterDock>().DockSetUp(activeGods[1]);
+       characterDocks[2].GetComponent<CharacterDock>().DockSetUp(activeGods[2]);
+       
         
-        switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(1, activeGods[1].godName);
-        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2, activeGods[2].godName);
+        Debug.Log("dock set up complete");
+
+        switchButtons[0].GetComponent<DockSwitcherButton>()
+            .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName);
+        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2, activeGods[2].gameObject.GetComponent<Combatant>().characterName);
     }
 
     
@@ -84,10 +90,9 @@ public class InterimUIManager : MonoBehaviour
             }
             
             characterDocks[myKey].gameObject.SetActive(true);
-            
+            characterDocks[myKey].GetComponent<CharacterDock>().UpdateCharacterDock();
             ReOrderButtons(myKey);
-            
-        }
+    }
 
     public void UpdateHUD(int key)
     {
@@ -119,23 +124,7 @@ public class InterimUIManager : MonoBehaviour
         remainder.Remove(currentButtonOrder[0]);
         currentButtonOrder.Add(remainder[0]);
         
-        switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0], allGods[currentButtonOrder[0]].godName);
-        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], allGods[currentButtonOrder[1]].godName);
+        switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0], allGods[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
+        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], allGods[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
     }
-        
-
-    void ShowReviveButton()
-    {
-       // reviveButton.gameObject.SetActive(true);
-    }
-
-    public void ReviveButton()
-    {
-        //currentGod.Revive();
-        //reviveButton.gameObject.SetActive(false);
-        //GameManager.Instance.RemoveRespect(currentGod.costToRespawn);
-        //Debug.Log("revive pressed");
-    }
-
- 
 }

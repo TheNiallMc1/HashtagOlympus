@@ -37,12 +37,13 @@ public class CharacterDock : MonoBehaviour
         {
             ShowReviveButton();
         }
-        
     }
 
     public void DockSetUp(GodBehaviour assignedGod)
     {
+        Debug.Log("setting up docks");
         godBehaviour = assignedGod;
+        godCombatant = assignedGod.gameObject.GetComponent<Combatant>();
         godNameDisplay.text = godCombatant.characterName;
         godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
         healthBar.healthValue = godCombatant.currentHealth;

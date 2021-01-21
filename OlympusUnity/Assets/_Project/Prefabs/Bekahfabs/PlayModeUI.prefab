@@ -2094,11 +2094,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d32251b1527d40c49ebd0db538cce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGod: {fileID: 0}
+  godCombatant: {fileID: 0}
   godNameDisplay: {fileID: 1311026320}
   godHealthDisplay: {fileID: 1086738205}
   reviveButton: {fileID: 634735806}
   strButton: {fileID: 658576475}
+  healthBar: {fileID: 1442631220}
+  respectBuff: {fileID: 0}
 --- !u!1 &2026050318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,8 +2793,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2238409348072329703}
-  - component: {fileID: 610091282}
-  - component: {fileID: 610091283}
   m_Layer: 5
   m_Name: CharacterDock
   m_TagString: Untagged
@@ -2823,36 +2823,6 @@ RectTransform:
   m_AnchoredPosition: {x: 10, y: 38}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &610091282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1938970945418592658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a373ca5906d74a21a1f2427d86e071e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &610091283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1938970945418592658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9df728180f129434abfa46b119c2d292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGod: {fileID: 0}
-  respectBuff: {fileID: 610091282}
-  godNameDisplay: {fileID: 1311026320}
-  godHealthDisplay: {fileID: 1086738205}
-  reviveButton: {fileID: 634735806}
-  strButton: {fileID: 658576475}
 --- !u!1 &1957689667851020423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,11 +2917,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d32251b1527d40c49ebd0db538cce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGod: {fileID: 0}
+  godCombatant: {fileID: 0}
   godNameDisplay: {fileID: 2513113923095779208}
   godHealthDisplay: {fileID: 3657964865952419212}
   reviveButton: {fileID: 5252143899085688136}
   strButton: {fileID: 2512769627500462893}
+  healthBar: {fileID: 7691240311261727572}
+  respectBuff: {fileID: 0}
 --- !u!1 &2190136622584443196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4065,11 +4037,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d32251b1527d40c49ebd0db538cce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGod: {fileID: 0}
+  godCombatant: {fileID: 0}
   godNameDisplay: {fileID: 760912520408664163}
   godHealthDisplay: {fileID: 8892147777443911613}
   reviveButton: {fileID: 5167211694646043137}
   strButton: {fileID: 3724601317634413830}
+  healthBar: {fileID: 6057956158350873960}
+  respectBuff: {fileID: 0}
 --- !u!1 &7124521092117757286
 GameObject:
   m_ObjectHideFlags: 0
