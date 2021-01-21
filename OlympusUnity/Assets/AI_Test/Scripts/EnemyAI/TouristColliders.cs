@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,54 +11,32 @@ public class TouristColliders : MonoBehaviour
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("God"))
-        {
-            Combatant god = other.GetComponent<Combatant>();
+        Combatant target = other.GetComponent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateAttackList(true, god);
-                    break;
-            }
+        if (target != null && target.targetType == Combatant.eTargetType.Player)
+        {
+            parentBehaviour.UpdateAttackList(true, target);
         }
-        if (other.gameObject.CompareTag("Monument"))
-        {
-            Combatant monument = other.transform.parent.parent.GetComponent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateMonumentList(true, monument);
-                    break;
-            }
+        if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+        {
+            parentBehaviour.UpdateAttackList(true, target);
         }
     }
 
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("God"))
-        {
-            Combatant god = other.GetComponent<Combatant>();
+        Combatant target = other.GetComponent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateAttackList(false, god);
-                    break;
-            }
+        if (target != null && target.targetType == Combatant.eTargetType.Player)
+        {
+            parentBehaviour.UpdateAttackList(false, target);
         }
-        if (other.gameObject.CompareTag("Monument"))
-        {
-            Combatant monument = other.transform.parent.parent.GetComponent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateMonumentList(false, monument);
-                    break;
-            }
+        if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+        {
+            parentBehaviour.UpdateAttackList(false, target);
         }
     }
 }
