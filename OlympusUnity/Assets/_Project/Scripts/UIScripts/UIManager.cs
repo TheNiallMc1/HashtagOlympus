@@ -26,10 +26,6 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        UpdateRespectText();
-        UpdateCurrentGodText();
-        AssignAbilitiesToUI();
-
         for (int index = 0; index < godPortraits.Count; index++)
         {
             Button currentButton = godPortraits[index];
@@ -41,17 +37,6 @@ public class UIManager : MonoBehaviour
             );
             
             UpdatePortraitValues(index);
-        }
-
-        for (int index = 0; index < godPortraits.Count; index++)
-        {
-            GodSpecialBar thisSpecialBar = specialBars[index];
-            
-            // If the god at this index doesnt have a special resource, disable the bar
-            if (GameManager.Instance.allPlayerGods[index].usesSpecialResource == false)
-            {
-                thisSpecialBar.gameObject.SetActive(false);
-            }
         }
     }
 
@@ -73,49 +58,6 @@ public class UIManager : MonoBehaviour
             Button currentButton = godPortraits[index];
 
             UpdatePortraitValues(index);
-        }
-    }
-
-    public void UpdateCurrentGodText()
-    {
-        if (GameManager.Instance.currentlySelectedGod != null)
-        {
-            currentGodName.text = GameManager.Instance.currentlySelectedGod.godName;
-        }
-        else
-        {
-            currentGodName.text = " ";
-        }
-    }
-    
-    public void UpdateRespectText()
-    {
-        respectCounter.text = String.Format("Respect: {0}", GameManager.Instance.currentRespect);
-    }
-
-    public void AssignAbilitiesToUI() // Reads the abilities the currently selected god has and updates the UI accordingly
-    {
-        GameObject[] abilityIcons;
-        
-        int numberOfGods = GameManager.Instance.allPlayerGods.Count;
-        
-        for (int i = 0; i < numberOfGods; i++)
-        {
-            GameObject thisAbilityPanel = abilityPanels[0];
-            GodBehaviour thisGod = GameManager.Instance.allPlayerGods[i];
-            print(thisGod.name);
-
-            for (int j = 0; j < thisAbilityPanel.transform.childCount; j++)
-            {
-                // Loop through each child, assigning the proper ability to them
-                GameObject thisIcon = thisAbilityPanel.transform.GetChild(j).gameObject;
-                AbilityIcon thisIconScript = thisIcon.GetComponent<AbilityIcon>();
-                
-                thisIconScript.correspondingGod = thisGod;
-                thisIconScript.ability = thisGod.playerAbilites.specialAbilities[j];
-                
-                thisIconScript.InitialiseIcon();
-            }
         }
     }
     

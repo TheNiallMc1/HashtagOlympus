@@ -12,7 +12,7 @@ public class GodColliders : MonoBehaviour
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        Combatant tourist = other.GetComponent<Combatant>();
+        Combatant tourist = other.GetComponentInParent<Combatant>();
 
         if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
         {
@@ -32,7 +32,7 @@ public class GodColliders : MonoBehaviour
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        Combatant tourist = other.GetComponent<Combatant>();
+        Combatant tourist = other.GetComponentInParent<Combatant>();
 
         if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
         {

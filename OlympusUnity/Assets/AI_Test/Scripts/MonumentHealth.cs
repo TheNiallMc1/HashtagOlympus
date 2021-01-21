@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Combatant))]
 public class MonumentHealth : MonoBehaviour
 {
     public enum eState { God, Tourist}
 
     [SerializeField]
     private float _health = 2000;
+    private Combatant thisCombatant;
 
     public float Health { get { return _health; } set { _health = value; } }
 
@@ -16,10 +18,8 @@ public class MonumentHealth : MonoBehaviour
 
     public eState _state = eState.God;
 
-    public void RemoveObject() 
+    private void Start()
     {
-        Destroy(this.gameObject);
+        thisCombatant = GetComponent<Combatant>();
     }
-
-   
 }

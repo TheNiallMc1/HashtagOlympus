@@ -7,9 +7,6 @@ using UnityEngine.UI;
 public class God_Ares : GodBehaviour
 {
     [Header("Ares")]
-    [SerializeField] private int currentRageCount;
-    private int maxRageCount;
-
     private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
 
     [SerializeField] private StatusEffect rageStatus;
@@ -20,6 +17,8 @@ public class God_Ares : GodBehaviour
     private Coroutine ultimateCoroutine;
 
     private GodSpecialBar rageBar;
+
+    public GameObject rageParticles;
 
     [Header("Ares TESTING")] 
     public TextMeshProUGUI ultimateCountText;
@@ -32,27 +31,20 @@ public class God_Ares : GodBehaviour
         
         // Set rage bar equal to the relevant special bar
 
-        currentRageCount = 0;
-        maxRageCount = 100;
+        ultimateCharge = 0;
     }
-    
-    public override void TakeDamage(int damageAmount)
-    {
-        base.TakeDamage(damageAmount);
 
-        if (!usingUltimate)
-        {
-            RageUpdate(damageAmount);
-        }
+    public override void OnDamageEvent(int damageTaken)
+    {
+        RageUpdate(damageTaken);
     }
+
 
     private void RageUpdate(int amountToAdd)
     {
-        currentRageCount += amountToAdd;
-        ultimateCharge = currentRageCount;
+        ultimateCharge += amountToAdd;
 
-        ultimateCountText.text = ultimateCharge.ToString();
-        rageCountText.text = currentRageCount.ToString();
+        rageCountText.text = ultimateCharge.ToString();
         // For Ares, rage and ultimate charge are the same thing
     }
 
@@ -63,6 +55,8 @@ public class God_Ares : GodBehaviour
             thisCombatant.ApplyStatus(rageStatus);
             lastActivatedRageType = rageStatus;
 
+            rageParticles.SetActive(true);
+            
             ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
 
             usingUltimate = true;
@@ -79,6 +73,13 @@ public class God_Ares : GodBehaviour
         }
     }
 
+    public void EndUltimate()
+    {
+        ultimateCoroutine = null;
+        usingUltimate = false;
+        rageParticles.SetActive(false);
+    }
+
     public override IEnumerator UltimateDurationCoroutine()
     {
         // Every second, reduce Rage count by 1
@@ -86,14 +87,13 @@ public class God_Ares : GodBehaviour
         RageUpdate(-1);
 
         // When rage hits zero, end the Ultimate
-        if (currentRageCount <= 0)
+        if (ultimateCharge <= 0)
         {
-            currentRageCount = 0; // Just adjusting in case it falls below zero somehow
+            ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
             
             thisCombatant.RemoveStatus(lastActivatedRageType);
-
-            usingUltimate = false;    
-            ultimateCoroutine = null;
+            
+            EndUltimate();
         }
         else
         {

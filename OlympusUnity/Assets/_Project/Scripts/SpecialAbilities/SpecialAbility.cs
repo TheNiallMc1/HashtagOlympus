@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Compilation;
 using UnityEngine;
 
 
@@ -10,34 +11,37 @@ public abstract class SpecialAbility : ScriptableObject
     public string abilityName;
     public string abilityDescription;
 
+    public enum eSelectionType { Single, CircleAoE, ConeAoE, Self }
+    public eSelectionType selectionType { get; set; }
+
     public List<Combatant.eTargetType> abilityCanHit;
     
-    public enum eSelectionType
-    {
-        Single,
-        CircleAoE,
-        ConeAoE,
-        Self
-    }
-
-    [SerializeField] private eSelectionType _selectionType;
-    public eSelectionType selectionType { get { return _selectionType; } set { _selectionType = value; } }
-
+    [Header("Ability Effects")]
     public int abilityDamage = 50;
+    public int abilityHealAmount = 50;
+    public List<StatusEffect> statusEffects;
+    
+    [Header("Cooldown")]
     public int abilityCooldown;
-    [SerializeField] protected int abilityRange;
+    public int remainingCooldownTime;
 
+    [Header("Circle AoE")]
+    public float radius;
 
+    [Header("Cone AoE")]
+    public ConeAoE coneAoE;
+    public bool coneAlreadyExists;
+    public float coneBuffer;
+    
+    
+    [HideInInspector] public List<Combatant> targets;
+    [HideInInspector] public GodBehaviour thisGod;
 
-    // Status Effects
-
-
-
-    // Target Selection
-
-    public void ExecuteAbility()
-    {
-
-    }
+    public abstract void StartAbility();
+    public abstract void ExecuteAbility();
+    public abstract void DealDamage(Combatant target);
+    public abstract void RestoreHealth(Combatant target);
+    public abstract void InflictStatusEffects(Combatant target);
+    public abstract void EndAbility();
 
 }

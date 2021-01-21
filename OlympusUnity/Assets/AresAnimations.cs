@@ -5,11 +5,13 @@ using UnityEngine;
 public class AresAnimations : MonoBehaviour
 {
     GodBehaviour godBehaviour;
+    Combatant godCombatant;
     
     // Start is called before the first frame update
     void Start()
     {
         godBehaviour = GetComponentInParent<GodBehaviour>();
+        godCombatant = GetComponentInParent<Combatant>();
     }
 
 
@@ -19,7 +21,7 @@ public class AresAnimations : MonoBehaviour
         Combatant target = godBehaviour.currentAttackTarget;
         if (target != null)
         {
-            target.TakeDamage(godBehaviour.attackDamage);
+            target.TakeDamage(godCombatant.attackDamage);
         }
     }
 }

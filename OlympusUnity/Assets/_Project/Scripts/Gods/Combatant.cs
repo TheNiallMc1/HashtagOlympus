@@ -10,35 +10,34 @@ public class Combatant : MonoBehaviour
         Enemy,
         PMonument,
         EMonument
-    };
+    }
 
     public int respectOnKill =5;
 
     [SerializeField] private eTargetType _targetType;
     public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
     public Dictionary<StatusEffect, StatusEffectManager> activeStatusEffects = new Dictionary<StatusEffect, StatusEffectManager>(); 
-    // Dictionary of statuses this combatant has had inflicted on them
     
-    public int maxHealth = 100;
-    public int currentHealth = 100;
-    public int attackStat = 10;
+    public GameObject colliderHolder;
 
-    // Start is called before the first frame update 
-    void Start()
+    [Header("Character Info")] 
+    public string characterName;
+    
+    [Header("Combat Stats")]
+    public int maxHealth;
+    [HideInInspector] public int currentHealth;
+    public int attackDamage;
+    public int damageReduction;
+
+    public void Start()
     {
-
+        currentHealth = maxHealth;
     }
-
-    // Update is called once per frame 
-    void Update()
-    {
-
-    }
-
+    
     public void RestoreHealth(int healthRecovered)
     {
         currentHealth += healthRecovered;
-        currentHealth = Mathf.Min(currentHealth, maxHealth);
+        currentHealth = Mathf.Min(currentHealth, maxHealth); 
     }
 
     #region Status Effects
@@ -106,15 +105,33 @@ public class Combatant : MonoBehaviour
     {
         currentHealth -= damageTaken;
 
+        if (targetType == eTargetType.Player)
+        {
+            GetComponent<GodBehaviour>().OnDamageEvent(damageTaken);
+        }
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            if (targetType == eTargetType.Player || targetType == eTargetType.Enemy)
+            {
+                Die();
+            }
+            if(targetType == eTargetType.PMonument)
+            {
+                // state change
+            }
+
         }
     }
 
     public void Die()
     {
+        if (targetType == eTargetType.Player)
+        {
+            GetComponent<GodBehaviour>().OnDeathEvent();
+        }
+        
         print(gameObject.name + " has been defeated");
         GameManager.Instance.AddRespect(respectOnKill);
         Destroy(gameObject);

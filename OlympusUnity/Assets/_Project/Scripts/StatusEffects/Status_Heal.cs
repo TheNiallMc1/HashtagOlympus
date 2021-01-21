@@ -11,14 +11,14 @@ public class Status_Heal : StatusEffect
     
     public override void TickEffect()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void EntryEffect()
     {
         // Heal target
         Debug.Log("Healed target on entry");
-        // affectedCombatant.RestoreHealth(healAmount)
+        affectedCombatant.RestoreHealth(healAmount);
     }
 
     public override void ExitEffect()

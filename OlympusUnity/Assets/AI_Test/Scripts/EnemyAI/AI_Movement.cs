@@ -7,17 +7,19 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AI_Movement : MonoBehaviour
 {
-
-    protected NavMeshAgent nav;
+    public Animator animator;
+    public NavMeshAgent nav;
     private AI_Brain aiBrain;
 
     public List<Waypoint> waypoints;
     public List<Waypoint> Path;
 
-    public Waypoint waypointListHolder;
+    public Waypoint spawn;
+
+    public Waypoint closestWaypoint = null;
 
     protected Transform _destination;
-    protected float rdist = 2;
+    protected float rdist = 2f;
 
     protected int wpNum = 0;
     [SerializeField]
@@ -28,16 +30,35 @@ public class AI_Movement : MonoBehaviour
     void Start()
     {
         waypoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
+        spawn = waypoints[0];
         nav = GetComponent<NavMeshAgent>();
         aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
-        FindClosestWaypoint(transform.position);
+        FindNextWaypoint(spawn);
+        animator = GetComponentInChildren<Animator>();
+    }
 
+    private void FixedUpdate()
+    {
+        float animSpeed = nav.velocity.magnitude / nav.speed;
+        bool closeToTargetPosition = nav.remainingDistance < rdist;
+
+        animator.SetFloat("Vertical_f", animSpeed);
+
+        if(aiBrain.currentAttackTarget == null)
+        {
+            transform.LookAt(_destination.position);
+        }
+
+        if (!closeToTargetPosition)
+        {
+            animator.SetLookAtPosition(nav.destination);
+        }
     }
 
     void MoveToWaypoint()
     {
-
+        _destination = waypoints[wpIndex].transform;
         nav.SetDestination(waypoints[wpIndex].pos);
         aiBrain.initMove = false;
      //   Debug.Log(aiBrain.initMove);
@@ -48,7 +69,7 @@ public class AI_Movement : MonoBehaviour
 
     public virtual void Moving()
     {
-        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 7)
+        if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 12)
         {
             
 
@@ -77,23 +98,7 @@ public class AI_Movement : MonoBehaviour
 
     public Waypoint GetPath()
     {
-
-       // Debug.Log(waypoints.Count);
-        if (waypoints.Count > 0)
-        {
-            if (waypoints[wpIndex].transform.parent.gameObject.tag == "Monument")
-            {
                 return waypoints[wpIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-        else
-        {
-            return null;
-        }
         
     }
 
@@ -129,6 +134,7 @@ public class AI_Movement : MonoBehaviour
         {
             next = obj.neighbors[key];
             wpIndex = next.index;
+            closestWaypoint = next;
 
             if (test == 0)
             {
@@ -142,7 +148,6 @@ public class AI_Movement : MonoBehaviour
 
     public void FindClosestWaypoint(Vector3 target)
     {  
-        Waypoint closestWaypoint = null;
         float closestDist = Mathf.Infinity;
 
         for (int i = 0; i < waypoints.Count; i++)
@@ -162,7 +167,7 @@ public class AI_Movement : MonoBehaviour
     }
 
 
-    public void MoveToTarget(GameObject target)
+    public void MoveToTarget(Combatant target)
     {
         nav.SetDestination(target.transform.position);
     }

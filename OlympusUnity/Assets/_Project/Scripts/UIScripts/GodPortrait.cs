@@ -21,8 +21,6 @@ public class GodPortrait : MonoBehaviour
     public void UpdateValues()
     {
         currentlySelected = GameManager.Instance.currentlySelectedGod == correspondingGod;
-
-        thisImage.sprite = currentlySelected ? correspondingGod.portraitSpriteSelected : correspondingGod.portraitSprite;
     }
 
     public void ClickToSelectGod()
