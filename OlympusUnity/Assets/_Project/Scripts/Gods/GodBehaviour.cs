@@ -9,25 +9,19 @@ using UnityEngine.UI;
 public class GodBehaviour : MonoBehaviour
 {
     public string godName;
-    protected int indexInGodList;
     protected Combatant thisCombatant;
 
     [Header("Combat Stats")]
-    public int maxHealth;
-    public int currentHealth;
-
     public int awarenessRadius;
     public int attackRadius;
+    
     public int attackDamage;
-    public int armour;
-    public int speed;
-
-    public bool usesSpecialResource;
 
     public int costToRespawn;
     public bool isKOed;
 
     public bool attackingLocked;
+    public bool movementLocked;
 
     [Header("Attacking")]
     [SerializeField] protected internal List<Combatant> enemiesSeen;
@@ -52,11 +46,10 @@ public class GodBehaviour : MonoBehaviour
     public List<AbilityManager> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
-    public int ultimateCharge; // current ultimate charge percentage
-    public bool usingUltimate;
+    protected int ultimateCharge; // current ultimate charge percentage
+    protected bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
-    protected MeshRenderer meshRenderer;
 
     [Header("Detection Colliders")]
     public GameObject mouseDetectorCollider;
@@ -67,56 +60,37 @@ public class GodBehaviour : MonoBehaviour
     public GodHealthBar healthBar;
     protected UIManager uiManager;
 
-    [Header("Testing Variables")]
-    public Material standardMaterial;
-    public Material selectedMaterial;
-    public Material attackMaterial;
-
-    public Sprite portraitSprite;
-    public Sprite portraitSpriteSelected;
-
-    public PlayerAbilities playerAbilites;
-
     public Animator animator;
     private int lastNumber;
 
     public virtual void Start()
     {
         thisCombatant = GetComponent<Combatant>();
-        playerAbilites = GetComponent<PlayerAbilities>();
-
-        // Give this god a reference to itself in the playerGods list
-        for (int i = 0; i < GameManager.Instance.allPlayerGods.Count; i++)
-        {
-            if (GameManager.Instance.allPlayerGods[i] == this)
-            {
-                print("god found in player god list");
-                indexInGodList = i;
-            }
-        }
 
         uiManager = FindObjectOfType<UIManager>();
 
-        //healthBar = uiManager.healthBars[indexInGodList];
-        //healthBar.Initialise();
-
-        //healthBar.SetValue(50);
-
-        currentHealth = maxHealth;
-
         navMeshAgent = GetComponent<NavMeshAgent>();
-        // meshRenderer = GetComponentInChildren<MeshRenderer>();
 
         currentState = GodState.idle;
 
         // Initialise collider radius
-        // awarenessRadiusCollider.radius = awarenessRadius;
-        // attackRadiusCollider.radius = attackRadius;
+        awarenessRadiusCollider.radius = awarenessRadius;
+        attackRadiusCollider.radius = attackRadius;
 
-        // Get animation parameters
         animator = GetComponentInChildren<Animator>();
     }
 
+    public virtual void OnDamageEvent(int damageTaken)
+    {
+        // Override if needed
+    }
+
+    public virtual void OnDeathEvent()
+    {
+        // Call base and override if needed
+        SwitchState(GodState.knockedOut);
+    }
+    
     public virtual void FixedUpdate()
     {
         // Booleans used for determining different states
@@ -131,7 +105,7 @@ public class GodBehaviour : MonoBehaviour
         bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
 
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
-        if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty)
+        if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
         {
             SwitchState(GodState.moveToEnemy);
         }
@@ -148,19 +122,14 @@ public class GodBehaviour : MonoBehaviour
             SwitchState(GodState.idle);
         }
 
-        // If health reduced to 0, switch to knocked out state
-        else if (currentHealth <= 0)
-        {
-            SwitchState((GodState.knockedOut));
-        }
-
         float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
         // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
-        if (navMeshAgent.destination != null)
+        
+        if (!closeToTargetPosition)
         {
-            // animator.SetLookAtPosition(navMeshAgent.destination);
+            animator.SetLookAtPosition(navMeshAgent.destination);
         }
     }
 
@@ -179,7 +148,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
 
-    public void MoveToTarget(Vector3 navDestination)
+    private void MoveToTarget(Vector3 navDestination)
     {
         navMeshAgent.destination = navDestination;
     }
@@ -226,7 +195,7 @@ public class GodBehaviour : MonoBehaviour
         switch (newState)
         {
             case GodState.idle:
-                CancelAutoAttack(); // Cancel any currently running auto attack
+                CancelAutoAttack();
                 IdleState();
                 break;
 
@@ -245,57 +214,57 @@ public class GodBehaviour : MonoBehaviour
                 break;
 
             case GodState.knockedOut:
-                CancelAutoAttack(); // Cancel any currently running auto attack
-                IdleState();
-                isKOed = true;
-                Debug.Log(godName + " is knocked out!!");
+                CancelAutoAttack();
+                KnockedOutState();
+                break;
+            
+            case GodState.usingAbility:
+                CancelAutoAttack();
+                UsingAbility();
                 break;
         }
     }
 
     private void IdleState()
     {
-        // Material for testing
-        // meshRenderer.material = standardMaterial;
-
         currentState = GodState.idle;
-        print(godName + ": idling");
     }
 
+    private void KnockedOutState()
+    {
+        currentState = GodState.knockedOut;
+        isKOed = true;
+        attackingLocked = true;
+        movementLocked = true;
+    }
+
+    protected virtual void UsingAbility()
+    {
+        // Override in subclass
+    }
+    
     private void MoveToAreaState()
     {
-        // Material for testing
-        // meshRenderer.material = standardMaterial;
-
         currentState = GodState.moveToArea;
         MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
-        print(godName + ": moving to area");
     }
 
     private void MoveToEnemyState()
     {
-        // Material for testing
-        // meshRenderer.material = standardMaterial;
-
         currentState = GodState.moveToEnemy;
 
         if(enemiesSeen[0] != null)
         {
             MoveToTarget(enemiesSeen[0].transform.position); // Move to the first enemy in the awareness range list
-            print(godName + ": moving to enemy");
         }
         else
         {
             currentState = GodState.idle;
         }
-
     }
 
     private void AttackingState()
     {
-        // Material for testing
-        // meshRenderer.material = attackMaterial;
-
         currentState = GodState.attacking;
         print(godName + ": attacking");
         currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
@@ -305,14 +274,6 @@ public class GodBehaviour : MonoBehaviour
 
     protected IEnumerator AutoAttackCoroutine()
     {
-        //if(!enemiesInAttackRange.Any())
-        //{
-        //    currentAttackCoroutine = null;
-        //    SwitchState(GodState.idle);
-        //    yield break; // If there are no enemies left, end the coroutine
-        //}
-        
-
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
 
@@ -324,7 +285,6 @@ public class GodBehaviour : MonoBehaviour
             // Determine and store a new target if the last one was null 
             currentAttackTarget = enemiesInAttackRange[0];
         }
-
 
         transform.LookAt(currentAttackTarget.transform.position);
 
@@ -347,15 +307,11 @@ public class GodBehaviour : MonoBehaviour
             UpdateAwarenessList(false, currentAttackTarget);
             // Determine and store a new target if the last one was null 
             currentAttackTarget = enemiesInAttackRange[0];
-
-
         }
         else
         {
             yield return new WaitForSecondsRealtime(2.5f);
         }
-
-
 
         // If any more enemies remain in range, loop the coroutine
         if (enemiesInAttackRange.Any())
@@ -366,7 +322,6 @@ public class GodBehaviour : MonoBehaviour
         {
             currentAttackCoroutine = null;
             SwitchState(GodState.idle);
-            yield break; // If there are no enemies left, end the coroutine
         }
 
     }
@@ -384,35 +339,14 @@ public class GodBehaviour : MonoBehaviour
     {
         Debug.Log("Reviving " + godName);
         SwitchState(GodState.idle);
-        currentHealth = maxHealth;
+        thisCombatant.currentHealth = thisCombatant.maxHealth;
         isKOed = false;
-    }
-
-    public virtual void TakeDamage(int damageAmount)
-    {
-        int newHealth = currentHealth -= damageAmount;
-
-        if (newHealth <= 0)
-        {
-            Die();
-        }
-
-        else
-        {
-            currentHealth = newHealth;
-            print(name + " took " + damageAmount + " damage");
-        }
-    }
-
-    protected virtual void Die()
-    {
-        print("dead");
     }
 
     // may need to be public for ui implementation
     public void UseAbility(int abilityIndex)
     {
-        specialAbilities[abilityIndex].UseAbility();
+        specialAbilities[abilityIndex].EnterTargetSelectMode();
     }
 
     public virtual void ActivateUltimate()
@@ -445,7 +379,6 @@ public class GodBehaviour : MonoBehaviour
 
 }
 
-
 public enum GodState
 {
     idle,
@@ -453,5 +386,5 @@ public enum GodState
     moveToEnemy,
     attacking,
     knockedOut,
-    abilityAction
+    usingAbility
 }

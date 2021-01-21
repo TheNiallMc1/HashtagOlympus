@@ -6,22 +6,22 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Combatant))]
 public class AbilityManager : MonoBehaviour
 {
+    private Combatant thisCombatant;
+    
     public SpecialAbility ability;
     
+    private bool onCooldown = false;
+    private Coroutine cooldownCoroutine;
 
-    bool onCooldown = false;
-    Coroutine cooldownCoroutine;
+    private List<Combatant> targets = new List<Combatant>();
 
-    public List<Combatant> targets = new List<Combatant>();
-
-    public bool targetSelectModeActive = false;
-
-    [HideInInspector]
-    public Combatant thisCombatant;
+    private bool targetSelectModeActive = false;
+    
     protected PlayerControls playerControls;
     private bool leftClick;
     private bool rightClick;
     private Vector2 mousePosition;
+    
     public Camera mainCam;
 
     ConeAoE coneAoE;
@@ -47,12 +47,10 @@ public class AbilityManager : MonoBehaviour
         playerControls.Mouse.RightClick.canceled += ctx => rightClick = false;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         thisCombatant = GetComponent<Combatant>();
-
-        
+        ability.thisGod = GetComponent<GodBehaviour>();
     }
 
     void Update()
@@ -80,36 +78,33 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void UseAbility()
+    public void EnterTargetSelectMode()
     {
         if (!onCooldown && !targetSelectModeActive)
         {
             targetSelectModeActive = true;
         }
+        
         else if (targetSelectModeActive)
         {
             targetSelectModeActive = false;
         }
     }
 
-
-    void ExecuteAbility()
+    void StartAbility()
     {
         targetSelectModeActive = false;
 
         ability.targets = targets;
-        ability.ExecuteAbility();
+        ability.StartAbility();
 
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
         cooldownCoroutine = StartCoroutine(CooldownCoroutine());
     }
-
-
-
+    
     IEnumerator CooldownCoroutine()
     {
-
         cooldownText.text = ability.remainingCooldownTime.ToString();
         yield return new WaitForSecondsRealtime(1f);
         ability.remainingCooldownTime -= 1;
@@ -122,17 +117,23 @@ public class AbilityManager : MonoBehaviour
             cooldownCoroutine = null;
             cooldownText.text = "";
         }
+        
         else
         {
             cooldownCoroutine = StartCoroutine(CooldownCoroutine());
         }
     }
 
+    IEnumerator TickEffectCoroutine()
+    {
+        yield return null;
+    }
 
 
+    #region Target Selection
+    
     void SingleTargetSelect()
     {
-
         Combatant currentTarget;
 
         Ray ray = mainCam.ScreenPointToRay(playerControls.Mouse.MousePos.ReadValue<Vector2>());
@@ -147,34 +148,31 @@ public class AbilityManager : MonoBehaviour
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
                     targets.Add(currentTarget);
-                    ExecuteAbility();
+                    StartAbility();
                 }
             }
         }
-
     }
 
     // POLISH - Allow flexibility to place the centre in the case of Artemis/Zeus
-    public void AoECircleSelect()
+    private void AoECircleSelect()
     {
         Vector3 centre = thisCombatant.colliderHolder.transform.position;
 
         Collider[] colliders = Physics.OverlapSphere(centre, ability.radius);
 
-        foreach (Collider collider in colliders)
+        foreach (Collider targetCollider in colliders)
         {
-            Combatant currentTarget = collider.gameObject.GetComponent<Combatant>();
+            Combatant currentTarget = targetCollider.gameObject.GetComponent<Combatant>();
 
             if (isTargetValid(currentTarget))
             {
                 targets.Add(currentTarget);
             }
         }
-
-
-        ExecuteAbility();
+        
+        StartAbility();
     }
-
 
     private void AoEConeSelect()
     {
@@ -196,7 +194,7 @@ public class AbilityManager : MonoBehaviour
                 ability.coneBuffer = 0;
                 targets = coneAoE.targetsInCone;
 
-                ExecuteAbility();
+                StartAbility();
                 ability.coneAlreadyExists = false;
             }
         }
@@ -208,11 +206,8 @@ public class AbilityManager : MonoBehaviour
     private void SelfSelect()
     {
         targets.Add(thisCombatant);
-        ExecuteAbility();
+        StartAbility();
     }
-
-
-
 
     public bool isTargetValid(Combatant currentTarget)
     {
@@ -228,6 +223,8 @@ public class AbilityManager : MonoBehaviour
             return false;
         }
     }
+    
+    #endregion
 
     private void OnDrawGizmos()
     {

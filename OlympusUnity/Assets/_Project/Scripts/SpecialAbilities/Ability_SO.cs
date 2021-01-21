@@ -6,16 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AbilityExample", menuName = "Abilities/New Ability", order = 1)]
 public class Ability_SO : SpecialAbility
 {
-    public override void BeginCooldown()
+    public override void StartAbility()
     {
-        throw new System.NotImplementedException();
+        ExecuteAbility();
     }
-
-    public override void DealDamage(Combatant target)
-    {
-        target.TakeDamage(abilityDamage);
-    }
-
+    
     public override void ExecuteAbility()
     {
         Debug.Log(abilityName);
@@ -28,6 +23,16 @@ public class Ability_SO : SpecialAbility
         }
         targets.Clear();
     }
+    
+    public override void DealDamage(Combatant target)
+    {
+        target.TakeDamage(abilityDamage);
+    }
+    
+    public override void RestoreHealth(Combatant target)
+    {
+        target.RestoreHealth(abilityHealAmount);
+    }
 
     public override void InflictStatusEffects(Combatant target)
     {
@@ -37,14 +42,9 @@ public class Ability_SO : SpecialAbility
         //    Debug.Log(target.gameObject.name + " was infliced with " + statusEffect.name);
         //}
     }
-
-    public override void InitiateAbility()
+    
+    public override void EndAbility()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void RestoreHealth(Combatant target)
-    {
-        target.RestoreHealth(abilityHealAmount);
+        
     }
 }

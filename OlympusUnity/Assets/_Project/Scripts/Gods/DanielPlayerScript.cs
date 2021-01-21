@@ -79,7 +79,7 @@ public class DanielPlayerScript : MonoBehaviour
                             if (enemyCombatant.targetType == eTargetType)
                             {
                                 Debug.Log("Attacked " + hit.transform.gameObject.name);
-                                enemyCombatant.TakeDamage(singleTargetAbility.damage + playerCombatant.attackStat);
+                                enemyCombatant.TakeDamage(singleTargetAbility.damage + playerCombatant.attackDamage);
                                 selectionModeActive = false;
                             }
                         }

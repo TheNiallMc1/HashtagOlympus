@@ -33,16 +33,12 @@ public class God_Ares : GodBehaviour
 
         ultimateCharge = 0;
     }
-    
-    public override void TakeDamage(int damageAmount)
-    {
-        base.TakeDamage(damageAmount);
 
-        if (!usingUltimate)
-        {
-            RageUpdate(damageAmount);
-        }
+    public override void OnDamageEvent(int damageTaken)
+    {
+        RageUpdate(damageTaken);
     }
+
 
     private void RageUpdate(int amountToAdd)
     {

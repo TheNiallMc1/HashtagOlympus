@@ -11,7 +11,7 @@ public class RespectBuff : MonoBehaviour
       //  _isTimedOut = false;
     }
     
-    public void ApplyBuff(GodBehaviour currentGod, int costToUse, ref int statToBuff, int buffAmount)
+    public void ApplyBuff(Combatant currentGod, int costToUse, ref int statToBuff, int buffAmount)
     {
         
         //_isTimedOut = false;
@@ -23,7 +23,7 @@ public class RespectBuff : MonoBehaviour
             GameManager.Instance.RemoveRespect(costToUse);
     }
     
-    public void RemoveBuff(GodBehaviour currentGod, int costToUse, ref int statToBuff, int buffAmount)
+    public void RemoveBuff(Combatant currentGod, int costToUse, ref int statToBuff, int buffAmount)
     {
         Debug.Log("Removing buff");
         statToBuff -= buffAmount;

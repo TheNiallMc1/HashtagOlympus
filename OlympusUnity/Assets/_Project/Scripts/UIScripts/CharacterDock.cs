@@ -10,7 +10,8 @@ public class CharacterDock : MonoBehaviour
 {
     // Start is called before the first frame update
     
-    public GodBehaviour currentGod;
+    public Combatant godCombatant;
+    private GodBehaviour godBehaviour;
    // public RespectBuff respectBuff;
     public TMP_Text godNameDisplay;
     public TMP_Text godHealthDisplay;
@@ -24,16 +25,15 @@ public class CharacterDock : MonoBehaviour
     {
         reviveButton.gameObject.SetActive(false);
        // UpdateCharacterDock();
-        
     }
 
     public void UpdateCharacterDock()
     {
-        godNameDisplay.text = currentGod.godName;
-        godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
-        healthBar.healthValue = currentGod.currentHealth;
+        godNameDisplay.text = godCombatant.characterName;
+        godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
+        healthBar.healthValue = godCombatant.currentHealth;
 
-        if (currentGod.isKOed)
+        if (godBehaviour.isKOed)
         {
             ShowReviveButton();
         }
@@ -42,12 +42,12 @@ public class CharacterDock : MonoBehaviour
 
     public void DockSetUp(GodBehaviour assignedGod)
     {
-        currentGod = assignedGod;
-        godNameDisplay.text = currentGod.godName;
-        godHealthDisplay.text = currentGod.currentHealth + "/" + currentGod.maxHealth;
-        healthBar.healthValue = currentGod.currentHealth;
+        godBehaviour = assignedGod;
+        godNameDisplay.text = godCombatant.characterName;
+        godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
+        healthBar.healthValue = godCombatant.currentHealth;
 
-        if (currentGod.isKOed)
+        if (godBehaviour.isKOed)
         {
             ShowReviveButton();
         }
@@ -61,24 +61,21 @@ public class CharacterDock : MonoBehaviour
     
     public void ReviveButton()
     {
-        currentGod.Revive();
+        godBehaviour.Revive();
         reviveButton.gameObject.SetActive(false);
-        GameManager.Instance.RemoveRespect(currentGod.costToRespawn);
+        GameManager.Instance.RemoveRespect(godBehaviour.costToRespawn);
         Debug.Log("revive pressed");
     }
 
     public void StrengthBuff()
     {
-        respectBuff.ApplyBuff(currentGod, 30, ref currentGod.attackDamage, 10);
+        respectBuff.ApplyBuff(godCombatant, 30, ref godCombatant.attackDamage, 10);
         StartCoroutine(StrengthBuffCoolDown());
     }
     
     IEnumerator StrengthBuffCoolDown()
     {
         yield return new WaitForSeconds(2f);
-        respectBuff.RemoveBuff(currentGod, 0, ref currentGod.attackDamage, 10);
-
+        respectBuff.RemoveBuff(godCombatant, 0, ref godCombatant.attackDamage, 10);
     }
-    
-    
 }

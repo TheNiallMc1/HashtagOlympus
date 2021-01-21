@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
     {
         currentRespect += valueToAdd;
         
-        uiManager.UpdateCurrentGodText();
+        //uiManager.UpdateCurrentGodText();
         respectDisplay.text = respectText + currentRespect;
         CheckForSummon();
     }

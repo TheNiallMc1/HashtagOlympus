@@ -10,35 +10,28 @@ public class Combatant : MonoBehaviour
         Enemy,
         PMonument,
         EMonument
-    };
+    }
 
-    [SerializeField] private eTargetType _targetType;
-    public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
+    public eTargetType targetType { get; set; }
+
+    [HideInInspector]
     public Dictionary<StatusEffect, StatusEffectManager> activeStatusEffects = new Dictionary<StatusEffect, StatusEffectManager>(); 
-    // Dictionary of statuses this combatant has had inflicted on them
     
-    public int maxHealth = 100;
-    public int currentHealth = 100;
-    public int attackStat = 10;
-
     public GameObject colliderHolder;
 
-    // Start is called before the first frame update 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame 
-    void Update()
-    {
-
-    }
-
+    [Header("Character Info")] 
+    public string characterName;
+    
+    [Header("Combat Stats")]
+    public int maxHealth = 100;
+    [HideInInspector] public int currentHealth = 100;
+    public int attackDamage = 10;
+    public int damageReduction;
+    
     public void RestoreHealth(int healthRecovered)
     {
         currentHealth += healthRecovered;
-        currentHealth = Mathf.Min(currentHealth, maxHealth);
+        currentHealth = Mathf.Min(currentHealth, maxHealth); 
     }
 
     #region Status Effects
@@ -106,6 +99,11 @@ public class Combatant : MonoBehaviour
     {
         currentHealth -= damageTaken;
 
+        if (targetType == eTargetType.Player)
+        {
+            GetComponent<GodBehaviour>().OnDamageEvent(damageTaken);
+        }
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -123,6 +121,11 @@ public class Combatant : MonoBehaviour
 
     public void Die()
     {
+        if (targetType == eTargetType.Player)
+        {
+            GetComponent<GodBehaviour>().OnDeathEvent();
+        }
+        
         print(gameObject.name + " has been defeated");
         Destroy(gameObject);
     }
