@@ -13,7 +13,7 @@ public class TouristColliders : MonoBehaviour
     {
         if (other.gameObject.CompareTag("God"))
         {
-            Combatant god = other.GetComponent<Combatant>();
+            Combatant god = other.GetComponentInParent<Combatant>();
 
             switch (colliderType)
             {
@@ -24,7 +24,7 @@ public class TouristColliders : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Monument"))
         {
-            Combatant monument = other.transform.parent.parent.GetComponent<Combatant>();
+            Combatant monument = other.GetComponentInParent<Combatant>();
 
             switch (colliderType)
             {
@@ -40,7 +40,7 @@ public class TouristColliders : MonoBehaviour
     {
         if (other.gameObject.CompareTag("God"))
         {
-            Combatant god = other.GetComponent<Combatant>();
+            Combatant god = other.GetComponentInParent<Combatant>();
 
             switch (colliderType)
             {
@@ -51,7 +51,7 @@ public class TouristColliders : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Monument"))
         {
-            Combatant monument = other.transform.parent.parent.GetComponent<Combatant>();
+            Combatant monument = other.GetComponentInParent<Combatant>();
 
             switch (colliderType)
             {

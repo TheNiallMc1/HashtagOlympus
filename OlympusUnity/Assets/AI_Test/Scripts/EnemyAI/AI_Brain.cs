@@ -230,7 +230,7 @@ public class AI_Brain : MonoBehaviour
         yield break;
     }
 
-    public void UpdateAttackList(bool addToList, Combatant god)
+    internal void UpdateAttackList(bool addToList, Combatant god)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(god);
 
@@ -242,6 +242,7 @@ public class AI_Brain : MonoBehaviour
                 enemiesInAttackRange.Add(god);
                 this.currentAttackTarget = enemiesInAttackRange[0];
                 _priority = ePriority.God;
+                _state = eState.Attacking;
             }
         }
 
