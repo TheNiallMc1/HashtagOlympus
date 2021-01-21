@@ -28,7 +28,7 @@ public class BlueprintBehaviour : MonoBehaviour
 
     private void Start()
     {
-        _cam = GameManager.Instance.currentCam;
+        _cam = Camera.main;
         Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         
        // if (Physics.Raycast(ray, out _hit,50000.0f,(1<<11)))
