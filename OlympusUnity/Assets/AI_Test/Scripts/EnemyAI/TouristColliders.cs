@@ -11,12 +11,13 @@ public class TouristColliders : MonoBehaviour
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        Combatant target = other.GetComponent<Combatant>();
+        if (other.gameObject.CompareTag("God"))
+        {
+            Combatant god = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.Player)
         {
-            parentBehaviour.UpdateAttackList(true, target);
-        }
+            Combatant monument = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.PMonument)
         {
@@ -27,12 +28,13 @@ public class TouristColliders : MonoBehaviour
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        Combatant target = other.GetComponent<Combatant>();
+        if (other.gameObject.CompareTag("God"))
+        {
+            Combatant god = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.Player)
         {
-            parentBehaviour.UpdateAttackList(false, target);
-        }
+            Combatant monument = other.GetComponentInParent<Combatant>();
 
         if (target != null && target.targetType == Combatant.eTargetType.PMonument)
         {
