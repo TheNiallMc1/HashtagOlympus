@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UberManager : MonoBehaviour
 {
-
+    
     private static UberManager _instance;
     public static UberManager Instance => _instance;
     
@@ -26,6 +26,11 @@ public class UberManager : MonoBehaviour
     public int totalRespect;
     
     //structs for god stats, upgrades?
+    
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -84,7 +89,8 @@ public class UberManager : MonoBehaviour
     public void LoadGodPlacement()
     {
         Debug.Log("Loading placement scene");
-        //SceneManager.LoadScene("CollabScene-bekah");
+        SceneManager.LoadScene("CollabScene2 -bekah");
+        GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
 

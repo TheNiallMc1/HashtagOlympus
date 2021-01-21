@@ -19,11 +19,7 @@ public class GodSelectManager : MonoBehaviour
     public GameObject FinalSelectionStuff;
     public TMP_Text finalSelectionText;
 
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    public GameObject chosenGods;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +46,12 @@ public class GodSelectManager : MonoBehaviour
         
     }
 
-    
     public void AddGodToList(GodBehaviour selectedGod)
     {
         selectedGods.Add(selectedGod);
         Debug.Log("added :" + selectedGod.godName+" : "+selectedGods.Count);
+        //selectedGod.gameObject.GetComponentInParent<GodDontDestroy>().ChooseUnchooseThisGod(true);
+        selectedGod.gameObject.transform.SetParent(chosenGods.transform, true);
         
         if (selectedGods.Count == 3)
         {
@@ -65,6 +62,7 @@ public class GodSelectManager : MonoBehaviour
     public void RemoveGodFromList(GodBehaviour selectedGod)
     {
         selectedGods.Remove(selectedGod);
+        //selectedGod.gameObject.GetComponentInParent<GodDontDestroy>().ChooseUnchooseThisGod(false);
         Debug.Log("removed :" + selectedGod.godName+" : "+selectedGods.Count);
     }
     

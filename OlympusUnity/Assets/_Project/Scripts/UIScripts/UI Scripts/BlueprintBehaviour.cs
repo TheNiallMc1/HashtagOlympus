@@ -57,6 +57,9 @@ public class BlueprintBehaviour : MonoBehaviour
           
             if (gameObject != null)
             {
+                //move the position of the god to here
+                //also set this in god placement info
+                
                // _playerControls.Player.MouseClick.performed -= ctx => SetDown();
                 _playerControls.Disable();
                 Destroy(gameObject);

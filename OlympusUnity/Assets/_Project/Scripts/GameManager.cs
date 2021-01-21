@@ -217,4 +217,9 @@ public class GameManager : MonoBehaviour
     {
         currentCam = cameraToChangeTo;
     }
+
+    public void SetPlayerGods(List<GodBehaviour> godstoSet)
+    {
+        allPlayerGods = godstoSet;
+    }
 }
