@@ -90,6 +90,7 @@ public class InterimUIManager : MonoBehaviour
             }
             
             characterDocks[myKey].gameObject.SetActive(true);
+            characterDocks[myKey].GetComponent<CharacterDock>().UpdateCharacterDock();
             ReOrderButtons(myKey);
     }
 
