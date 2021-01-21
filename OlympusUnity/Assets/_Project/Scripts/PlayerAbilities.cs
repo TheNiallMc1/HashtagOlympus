@@ -8,7 +8,6 @@ public class PlayerAbilities : MonoBehaviour
     protected PlayerControls playerControls;
     public bool leftClick;
     public bool rightClick;
-    public bool clicked = false;
     private Vector2 mousePosition;
 
     public GodBehaviour godBehaviour;

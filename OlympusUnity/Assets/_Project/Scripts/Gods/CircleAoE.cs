@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class CircleAoE : MonoBehaviour
 {
     public float radius = 3f;
-    // List<Combatant> targets = new List<Combatant>();
-    HashSet<Combatant> targets = new HashSet<Combatant>();
+    List<Combatant> targets = new List<Combatant>();
+    // HashSet<Combatant> targets = new HashSet<Combatant>();
 
     private DanielTestingKeys testKeys;
     private bool key1;
@@ -50,25 +50,30 @@ public class CircleAoE : MonoBehaviour
         if (key1)
         {
             key1 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.Enemy);
+            targets.Clear();
+            GenerateCircleAoE(transform.position, radius, Combatant.eTargetType.Enemy);
+            GetTargets();
         }
 
         if (key2)
         {
             key2 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.EMonument);
+            targets.Clear();
+            GenerateCircleAoE(transform.position, radius, Combatant.eTargetType.EMonument);
+            GetTargets();
         }
 
         if (key3)
         {
             key3 = false;
-            GetCircleAoETargets(transform.position, radius, Combatant.eTargetType.Player);
+            targets.Clear();
+            GenerateCircleAoE(transform.position, radius, Combatant.eTargetType.Player);
+            GetTargets();
         }
-
     }
 
 
-    public void GetCircleAoETargets(Vector3 centre, float radius, Combatant.eTargetType targetType)
+    public void GenerateCircleAoE(Vector3 centre, float radius, Combatant.eTargetType targetType)
     {
         Collider[] colliders = Physics.OverlapSphere(centre, radius);
 
@@ -87,7 +92,7 @@ public class CircleAoE : MonoBehaviour
 
     // This might be a bad idea and unneccesary so blame it on it being 6pm in that case 
 
-    public HashSet<Combatant> GetTargets()
+    public List<Combatant> GetTargets()
     {
         return targets;
     }
