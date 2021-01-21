@@ -12,9 +12,10 @@ public class Combatant : MonoBehaviour
         EMonument
     }
 
-    public eTargetType targetType;
+    public int respectOnKill =5;
 
-    [HideInInspector]
+    [SerializeField] private eTargetType _targetType;
+    public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
     public Dictionary<StatusEffect, StatusEffectManager> activeStatusEffects = new Dictionary<StatusEffect, StatusEffectManager>(); 
     
     public GameObject colliderHolder;
@@ -132,6 +133,7 @@ public class Combatant : MonoBehaviour
         }
         
         print(gameObject.name + " has been defeated");
+        GameManager.Instance.AddRespect(respectOnKill);
         Destroy(gameObject);
     }
 }

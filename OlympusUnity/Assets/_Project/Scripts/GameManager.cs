@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerControls playerControls;
     private Camera cam;
-    private Camera currentCam;
+    public Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
     public InterimUIManager iUIManager;
@@ -169,7 +169,9 @@ public class GameManager : MonoBehaviour
         currentRespect += valueToAdd;
         
         //uiManager.UpdateCurrentGodText();
-        respectDisplay.text = respectText + currentRespect;
+
+        respectDisplay.text = respectText  + currentRespect;
+
         CheckForSummon();
     }
     
@@ -213,5 +215,10 @@ public class GameManager : MonoBehaviour
     public void SwitchCam(Camera cameraToChangeTo)
     {
         currentCam = cameraToChangeTo;
+    }
+
+    public void SetPlayerGods(List<GodBehaviour> godstoSet)
+    {
+        allPlayerGods = godstoSet;
     }
 }

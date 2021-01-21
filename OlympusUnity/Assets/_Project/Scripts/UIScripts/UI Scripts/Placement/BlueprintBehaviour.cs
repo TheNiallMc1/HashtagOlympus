@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class BlueprintBehaviour : MonoBehaviour
 {
-    public GameObject prefab;
-    
-    private Camera _cam;
+    public GameObject godGO;
+
+    public Camera _cam;
     private RaycastHit _hit;
     private Vector3 _movePoint;
 
@@ -22,14 +22,17 @@ public class BlueprintBehaviour : MonoBehaviour
         _playerControls.Enable();
 
         _playerControls.Player.MouseClick.performed += ctx => SetDown();
-        // prefab = BekahsGM.Instance.currentGods[ImprovedPlacementManager.Instance.currentGodIndex];
+        // = BekahsGM.Instance.currentGods[ImprovedPlacementManager.Instance.currentGodIndex];
+        //godGO = PlacementManager.Instance.ChangeCurrentGodIndex();
     }
 
     private void Start()
     {
-        _cam = Camera.main;
+        _cam = GameManager.Instance.currentCam;
         Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out _hit,50000.0f,(1<<8)))
+        
+       // if (Physics.Raycast(ray, out _hit,50000.0f,(1<<11)))
+       if (Physics.Raycast(ray, out _hit))
         {
             _newPosition = _hit.point;
         }
@@ -38,29 +41,38 @@ public class BlueprintBehaviour : MonoBehaviour
     private void Update()
     {
             Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if (Physics.Raycast(ray, out _hit, 50000.0f, (1 << 8)))
+           // if (Physics.Raycast(ray, out _hit, 50000.0f, (1 << 11)))
+           if (Physics.Raycast(ray, out _hit))
             {
+               
                 _newPosition = new Vector3(_hit.point.x, 0f, _hit.point.z);
                 transform.position = _newPosition;
             }
-        
     }
 
     public void SetDown()
     {
         
         _newPosition.y = 0;
-            Debug.Log("Instantiating ");
+         
             //Instantiate(prefab, _hit.point, transform.rotation);
-            prefab.transform.position = _newPosition;
+            godGO = PlacementManager.Instance.ReturnCurrentGod();
+            godGO.transform.SetParent(null);
+            godGO.transform.position = _newPosition;
             
           
             if (gameObject != null)
             {
+                //move the position of the god to here
+                //also set this in god placement info
+                
                // _playerControls.Player.MouseClick.performed -= ctx => SetDown();
                 _playerControls.Disable();
+                PlacementManager.Instance.IncreaseCount();
                 Destroy(gameObject);
             }
+
+          
     }
     
     /*
