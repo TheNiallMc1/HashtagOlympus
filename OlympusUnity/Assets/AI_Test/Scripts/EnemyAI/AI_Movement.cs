@@ -148,7 +148,7 @@ public class AI_Movement : MonoBehaviour
     }
 
 
-    public void MoveToTarget(GameObject target)
+    public void MoveToTarget(Combatant target)
     {
         nav.SetDestination(target.transform.position);
     }

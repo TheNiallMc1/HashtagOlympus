@@ -107,7 +107,15 @@ public class Combatant : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            if (targetType == eTargetType.Player || targetType == eTargetType.Enemy)
+            {
+                Die();
+            }
+            if(targetType == eTargetType.PMonument)
+            {
+                // state change
+            }
+
         }
     }
 

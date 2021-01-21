@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 137998977589943470}
   - component: {fileID: 8055487632596141253}
   - component: {fileID: -5785828546316613266}
+  - component: {fileID: 824122396156031596}
   m_Layer: 9
   m_Name: Drone
   m_TagString: Tourist
@@ -136,12 +137,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesInAttackRange: []
   monumentsInAttackRange: []
+  currentAttackTarget: {fileID: 0}
   _health: 100
   _priority: 0
   _state: 0
   InRange: 0
   initMove: 1
   wieghtCheck: 0
+  waypoint: {fileID: 0}
 --- !u!114 &-5785828546316613266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,8 +159,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   Path: []
-  waypointListHolder: {fileID: 0}
+  spawn: {fileID: 0}
+  closestWaypoint: {fileID: 0}
+  wpIndex: 0
   test: 0
+--- !u!114 &824122396156031596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137998977589943456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetType: 1
+  maxHealth: 100
+  currentHealth: 100
+  attackStat: 10
 --- !u!1 &1904221497872110840
 GameObject:
   m_ObjectHideFlags: 0

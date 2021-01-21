@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(AI_Movement))]
+[RequireComponent(typeof(Combatant))]
 public class AI_Brain : MonoBehaviour
 {
     AI_Movement movementMotor;
 
-    [SerializeField] protected internal List<GodBehaviour> enemiesInAttackRange;
-    [SerializeField] protected internal List<MonumentHealth> monumentsInAttackRange;
+    [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
+    [SerializeField] protected internal List<Combatant> monumentsInAttackRange;
+
+    protected Combatant thisCombatant;
+
+    public Combatant currentAttackTarget;
+    protected Coroutine currentAttackCoroutine;
 
     public enum ePriority { Moving, Monument, God }
     public enum eState { idle, Moving, Attacking, Ability }
@@ -32,10 +39,7 @@ public class AI_Brain : MonoBehaviour
     public bool initMove = true;
     public bool wieghtCheck = false;
 
-    protected GodBehaviour god;
     [SerializeField]
-    protected MonumentHealth monument;
-    //MonumentHealth monument;
     public Waypoint waypoint;
 
 
@@ -48,6 +52,7 @@ public class AI_Brain : MonoBehaviour
 
     private void Awake()
     {
+        thisCombatant = GetComponent<Combatant>();
         movementMotor = this.GetComponent<AI_Movement>();
         _state = eState.Moving;
     }
@@ -61,12 +66,12 @@ public class AI_Brain : MonoBehaviour
     {
         if (monumentsInAttackRange.Count > 0)
         {
-            if (monumentsInAttackRange[0].state == MonumentHealth.eState.Tourist && enemiesInAttackRange.Count == 0)
-            {
-                _state = eState.Moving;
-                _priority = ePriority.Moving;
-                InRange = false;
-            }
+            //if (monumentsInAttackRange[0].state == MonumentHealth.eState.Tourist && enemiesInAttackRange.Count == 0)
+            //{
+            //    _state = eState.Moving;
+            //    _priority = ePriority.Moving;
+            //    InRange = false;
+            //}
         }
         if((enemiesInAttackRange.Count == 0 && monumentsInAttackRange.Count == 0))
         {
@@ -86,13 +91,13 @@ public class AI_Brain : MonoBehaviour
             case ePriority.God:
                 if (enemiesInAttackRange[0] != null)
                 {
-                    god = enemiesInAttackRange[0];
+                    currentAttackTarget = enemiesInAttackRange[0];
                 }
                 break;
             case ePriority.Monument:        
                 if (waypoint != null)
                 {
-                    monument = waypoint.transform.parent.GetComponent<MonumentHealth>();
+                    currentAttackTarget = monumentsInAttackRange[0];
                 }
                 break;
         }
@@ -103,17 +108,18 @@ public class AI_Brain : MonoBehaviour
             case eState.Moving:
                 if (!initMove)
                 {
+                    CancelAutoAttack();
                     movementMotor.Moving();
                 }
                 break;
             case eState.Attacking:
                 if(_priority == ePriority.God)
                 {
-                    Attack(god.gameObject);
+                    Attack(currentAttackTarget);
                 }
                 if(_priority == ePriority.Monument)
                 {
-                    Attack(monument.gameObject);
+                    Attack(currentAttackTarget);
                 }
                break;
         }
@@ -125,19 +131,19 @@ public class AI_Brain : MonoBehaviour
 
     }
 
-    protected virtual void Attack(GameObject target)
+    protected virtual void Attack(Combatant target)
     {
         
-        if (god != null)
+        if (currentAttackTarget != null)
         {
             movementMotor.MoveToTarget(target);
             if((transform.position - target.transform.position).magnitude < 5)
             {
-                //StartCoroutine(AttackingCoroutine);
+                currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
             }
             else
             {
-                enemiesInAttackRange.Remove(god);
+                enemiesInAttackRange.Remove(currentAttackTarget);
             }
         
         }
@@ -147,35 +153,69 @@ public class AI_Brain : MonoBehaviour
     /*
     Handles AI while it is attacking a monument. 
    */
-    //protected IEnumerator AttackingCoroutine()
-    //{
-    //    while (god != null || _state == eState.Attacking)
-    //    {
+    protected IEnumerator AttackingCoroutine()
+    {
+        if(currentAttackTarget.currentHealth <= 0)
+        {
+            if (_priority == ePriority.God)
+            {
+                UpdateAttackList(false, currentAttackTarget);
+            }
+            if (_priority == ePriority.Monument)
+            {
+                UpdateMonumentList(false, currentAttackTarget);
+            }
+        }
 
-    //        if (god == null || monument.Health <= 0)
-    //        {
-    //            // yield return new WaitForSeconds(10);
-    //            if (god != null) 
-    //            { 
-    //                //attackTarget.RemoveObject();
-    //            }
+        transform.LookAt(currentAttackTarget.transform.position);
 
-    //        }
-    //        else
-    //        {
-    //          //  monument.Health = monument.Health - _damage;
-    //        }
+        yield return new WaitForSecondsRealtime(0.2f);
 
-    //        yield return new WaitForSeconds(5);
+        // If the current target is now null because it died remove it from the lists
+        if (currentAttackTarget == null)
+        {
+            if (_priority == ePriority.God)
+            {
+                UpdateAttackList(false, currentAttackTarget);
+            }
+            if (_priority == ePriority.Monument)
+            {
+                UpdateMonumentList(false, currentAttackTarget);
+            }
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(2.5f);
+        }
 
-    //    }
-    //    yield break;
-    //}
+
+        // If any more enemies remain in range, loop the coroutine
+        if (enemiesInAttackRange.Any())
+        {
+            currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+        }
+        else
+        {
+            currentAttackCoroutine = null;
+            _state = eState.Moving;
+            yield break; // If there are no enemies left, end the coroutine
+        }
+    }
+
+    protected void CancelAutoAttack()
+    {
+        // Stop the auto attack coroutine if it exists
+        if (currentAttackCoroutine != null)
+        {
+            StopCoroutine(currentAttackCoroutine);
+        }
+    }
+
     protected void targetInRange()
     {
-        if(god != null)
+        if(currentAttackTarget != null)
         {
-            if((transform.position - god.transform.position).magnitude < 10)
+            if((transform.position - currentAttackTarget.transform.position).magnitude < 10)
             {
                 InRange = true;
             }
@@ -190,16 +230,19 @@ public class AI_Brain : MonoBehaviour
         yield break;
     }
 
-    public void UpdateAttackList(bool addToList, GodBehaviour god)
+    public void UpdateAttackList(bool addToList, Combatant god)
     {
         bool alreadyInList = enemiesInAttackRange.Contains(god);
 
         // Add tourist if the method is to add from the list, and the tourist is not already in the list
         if (addToList && !alreadyInList)
         {
-            enemiesInAttackRange.Add(god);
-            this.god = enemiesInAttackRange[0];
-            _priority = ePriority.God;
+            if (god.targetType == Combatant.eTargetType.Player)
+            {
+                enemiesInAttackRange.Add(god);
+                this.currentAttackTarget = enemiesInAttackRange[0];
+                _priority = ePriority.God;
+            }
         }
 
         // Remove tourist if the method is to remove from the list, and the tourist is already in the list
@@ -207,25 +250,27 @@ public class AI_Brain : MonoBehaviour
         {
             
             //enemiesInAttackRange.Remove(god);
-            _priority = AI_Brain.ePriority.Moving;
-            _state = AI_Brain.eState.Moving;
-            //  movementMotor.test = 0;
-            //   movementMotor.FindClosestWaypoint(transform.position);
+            _priority = ePriority.Moving;
+            _state = eState.Moving;
+            movementMotor.FindClosestWaypoint(transform.position);
         }
     }
-    internal void UpdateMonumentList(bool addToList, MonumentHealth monument)
+    internal void UpdateMonumentList(bool addToList, Combatant monument)
     {
         bool alreadyInList = monumentsInAttackRange.Contains(monument);
 
         // Add tourist if the method is to add from the list, and the tourist is not already in the list
         if (addToList && !alreadyInList)
         {
-            monumentsInAttackRange.Add(monument);
-            this.monument = monumentsInAttackRange[0];
-            if (!wieghtCheck)
+            if (monument.targetType == Combatant.eTargetType.PMonument)
             {
-                _priority = ePriority.Monument;
-                _state = eState.Attacking;
+                monumentsInAttackRange.Add(monument);
+                this.currentAttackTarget = monumentsInAttackRange[0];
+                if (!wieghtCheck)
+                {
+                    _priority = ePriority.Monument;
+                    _state = eState.Attacking;
+                }
             }
         }
 
@@ -235,8 +280,6 @@ public class AI_Brain : MonoBehaviour
             monumentsInAttackRange.Remove(monument);
             _priority = ePriority.Moving;
             _state = eState.Moving;
-            //movementMotor.test = 0;
-            //movementMotor.FindClosestWaypoint(transform.position);
         }
     }
 }
