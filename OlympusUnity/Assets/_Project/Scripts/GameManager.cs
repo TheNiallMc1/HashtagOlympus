@@ -169,11 +169,9 @@ public class GameManager : MonoBehaviour
         currentRespect += valueToAdd;
         
         //uiManager.UpdateCurrentGodText();
-<<<<<<< HEAD
+
         respectDisplay.text = respectText  + currentRespect;
-=======
-        respectDisplay.text = respectText + currentRespect;
->>>>>>> test-main
+
         CheckForSummon();
     }
     
