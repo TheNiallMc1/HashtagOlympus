@@ -20,6 +20,7 @@ public class GodBehaviour : MonoBehaviour
 
     public bool attackingLocked;
     public bool movementLocked;
+    bool closeToTargetPosition;
 
     [Header("Attacking")]
     [SerializeField] protected internal List<Combatant> enemiesSeen;
@@ -101,7 +102,10 @@ public class GodBehaviour : MonoBehaviour
         bool attacking = currentState == GodState.attacking;
         bool isKnockedOut = currentState == GodState.knockedOut;
 
-        bool closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
+        if (movingToArea || movingToEnemy)
+        {
+            closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
+        }
 
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
         if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
