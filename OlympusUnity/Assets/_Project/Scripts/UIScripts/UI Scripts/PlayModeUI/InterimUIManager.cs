@@ -28,31 +28,26 @@ public class InterimUIManager : MonoBehaviour
    
 
     private Dictionary<int, GodBehaviour> allGods;
-    private GameObject[] characterDocks;
-    private GameObject[] switchButtons;
+    public GameObject[] characterDocks;
+    public GameObject[] switchButtons;
 
     public GodBehaviour currentGod;
     public RespectBuff respectBuff;
 
-    private void Awake()
+    private void Start()
     {
-        // reviveButton.gameObject.SetActive(false);
         allGods = new Dictionary<int, GodBehaviour>();
-        characterDocks = GameObject.FindGameObjectsWithTag("CharacterDock");
+        //characterDocks = GameObject.FindGameObjectsWithTag("CharacterDock");
 
         if (characterDocks == null) return;
         characterDocks[1].gameObject.SetActive(false);
         characterDocks[2].gameObject.SetActive(false);
         Debug.Log("dock 0 active, 1&2 inactive");
         
-        switchButtons = GameObject.FindGameObjectsWithTag("DockSwitch");
+       // switchButtons = GameObject.FindGameObjectsWithTag("DockSwitch");
+        
     }
-
-    public void BoomBoom()
-    {
-        Debug.Log("Boom boom");
-    }
-
+    
     public void AssignCharacterDocks(Dictionary<int, GodBehaviour> activeGods)
     {
         Debug.Log("i am printing the message");

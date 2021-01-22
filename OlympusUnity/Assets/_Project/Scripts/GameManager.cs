@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     // Respect
     public int currentRespect;
     public TMP_Text respectDisplay;
-    private String respectText;
+    public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
     
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
         uiManager = FindObjectOfType<UIManager>();
         
-        cam = Camera.current;
+        cam = Camera.main;
         currentCam = cam;
 
         // Controls
@@ -70,27 +70,29 @@ public class GameManager : MonoBehaviour
 
     public void PopulateAllPlayerGods()
     {
-        allPlayerGods = UberManager.Instance.selectedGods;
-        GodListToDictionary();
+        if (UberManager.Instance.selectedGods.Count == 3)
+        {
+            allPlayerGods = UberManager.Instance.selectedGods;
+            GodListToDictionary();
+        }
     }
 
     private void GodListToDictionary()
     {
-        Debug.Log("Just making sure i am running");
+        Debug.Log("I am creating the dictionary");
         Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
 
         for (int i = 0; i < allPlayerGods.Count; i++)
         { godDict.Add(i, allPlayerGods[i]);
         }
 
-        InterimUIManager.Instance.BoomBoom();
-        InterimUIManager.Instance.AssignCharacterDocks(godDict);
+        Debug.Log("dictionary count is now: "+godDict.Count);
         
+        InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
     private void CycleSelect()
     {
-        
         currentGodIndex += 1;
         
         if (currentGodIndex > allPlayerGods.Count - 1)

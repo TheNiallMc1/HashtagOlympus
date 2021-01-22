@@ -13,6 +13,7 @@ public class DockSwitcherButton : MonoBehaviour
     {
         godKey = key;
         godNameDisplay.text = godName;
+        Debug.Log("switch button: "+godName);
     }
 
     public void SendSwitchInfo()
