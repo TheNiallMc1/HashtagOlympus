@@ -26,7 +26,7 @@ public class GodBehaviour : MonoBehaviour
     [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
     
     public Combatant currentAttackTarget;
-    protected Coroutine currentAttackCoroutine;
+   // protected Coroutine currentAttackCoroutine;
 
     [Header("States")]
     [SerializeField] protected internal GodState currentState;
@@ -186,6 +186,60 @@ public class GodBehaviour : MonoBehaviour
         }
     }
 
+    protected void Attack()
+    {
+        // Determine and store current target
+        currentAttackTarget = enemiesInAttackRange[0];
+
+        // If the current target is null (usually because it died) remove it from the lists
+        if (currentAttackTarget == null)
+        {
+            UpdateAttackList(false, currentAttackTarget);
+            UpdateAwarenessList(false, currentAttackTarget);
+            // Determine and store a new target if the last one was null 
+            currentAttackTarget = enemiesInAttackRange[0];
+        }
+
+        transform.LookAt(currentAttackTarget.transform.position);
+
+        int animNumber = randomNumber();
+
+        animator.ResetTrigger("AutoAttack0" + lastNumber);
+
+        animator.SetTrigger("AutoAttack0" + animNumber);
+
+        lastNumber = animNumber;
+
+        //yield return new WaitForSecondsRealtime(0.2f);
+
+        // If the current target is now null because it died remove it from the lists
+        if (currentAttackTarget == null)
+        {
+            animator.ResetTrigger("AutoAttack0" + animNumber);
+
+            UpdateAttackList(false, currentAttackTarget);
+            UpdateAwarenessList(false, currentAttackTarget);
+            // Determine and store a new target if the last one was null 
+            currentAttackTarget = enemiesInAttackRange[0];
+        }
+        else
+        {
+           // yield return new WaitForSecondsRealtime(2.5f);
+        }
+
+
+        // If any more enemies remain in range, loop the coroutine
+        if (enemiesInAttackRange.Any())
+        {
+          //  currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
+        }
+        else
+        {
+          //  currentAttackCoroutine = null;
+            SwitchState(GodState.idle);
+        }
+
+    }
 
     #region State Behaviours
 
@@ -265,74 +319,75 @@ public class GodBehaviour : MonoBehaviour
     private void AttackingState()
     {
         currentState = GodState.attacking;
+        Attack();
         print(godName + ": attacking");
-        currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
+       // currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }
 
     #endregion
 
-    protected IEnumerator AutoAttackCoroutine()
-    {
-        // Determine and store current target
-        currentAttackTarget = enemiesInAttackRange[0];
+    //protected IEnumerator AutoAttackCoroutine()
+    //{
+    //    // Determine and store current target
+    //    currentAttackTarget = enemiesInAttackRange[0];
 
-        // If the current target is null (usually because it died) remove it from the lists
-        if (currentAttackTarget == null)
-        {
-            UpdateAttackList(false, currentAttackTarget);
-            UpdateAwarenessList(false, currentAttackTarget);
-            // Determine and store a new target if the last one was null 
-            currentAttackTarget = enemiesInAttackRange[0];
-        }
+    //    // If the current target is null (usually because it died) remove it from the lists
+    //    if (currentAttackTarget == null)
+    //    {
+    //        UpdateAttackList(false, currentAttackTarget);
+    //        UpdateAwarenessList(false, currentAttackTarget);
+    //        // Determine and store a new target if the last one was null 
+    //        currentAttackTarget = enemiesInAttackRange[0];
+    //    }
 
-        transform.LookAt(currentAttackTarget.transform.position);
+    //    transform.LookAt(currentAttackTarget.transform.position);
 
-        int animNumber = randomNumber();
+    //    int animNumber = randomNumber();
 
-        animator.ResetTrigger("AutoAttack0" + lastNumber);
+    //    animator.ResetTrigger("AutoAttack0" + lastNumber);
 
-        animator.SetTrigger("AutoAttack0" + animNumber);
+    //    animator.SetTrigger("AutoAttack0" + animNumber);
 
-        lastNumber = animNumber;
+    //    lastNumber = animNumber;
 
-        yield return new WaitForSecondsRealtime(0.2f);
+    //    yield return new WaitForSecondsRealtime(0.2f);
 
-        // If the current target is now null because it died remove it from the lists
-        if (currentAttackTarget == null)
-        {
-            animator.ResetTrigger("AutoAttack0" + animNumber);
+    //    // If the current target is now null because it died remove it from the lists
+    //    if (currentAttackTarget == null)
+    //    {
+    //        animator.ResetTrigger("AutoAttack0" + animNumber);
 
-            UpdateAttackList(false, currentAttackTarget);
-            UpdateAwarenessList(false, currentAttackTarget);
-            // Determine and store a new target if the last one was null 
-            currentAttackTarget = enemiesInAttackRange[0];
-        }
-        else
-        {
-            yield return new WaitForSecondsRealtime(2.5f);
-        }
-        
+    //        UpdateAttackList(false, currentAttackTarget);
+    //        UpdateAwarenessList(false, currentAttackTarget);
+    //        // Determine and store a new target if the last one was null 
+    //        currentAttackTarget = enemiesInAttackRange[0];
+    //    }
+    //    else
+    //    {
+    //        yield return new WaitForSecondsRealtime(2.5f);
+    //    }
 
-        // If any more enemies remain in range, loop the coroutine
-        if (enemiesInAttackRange.Any())
-        {
-            currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
-        }
-        else
-        {
-            currentAttackCoroutine = null;
-            SwitchState(GodState.idle);
-        }
 
-    }
+    //    // If any more enemies remain in range, loop the coroutine
+    //    if (enemiesInAttackRange.Any())
+    //    {
+    //        currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
+    //    }
+    //    else
+    //    {
+    //        currentAttackCoroutine = null;
+    //        SwitchState(GodState.idle);
+    //    }
+
+    //}
 
     protected void CancelAutoAttack()
     {
-        // Stop the auto attack coroutine if it exists
-        if (currentAttackCoroutine != null)
-        {
-            StopCoroutine(currentAttackCoroutine);
-        }
+        //// Stop the auto attack coroutine if it exists
+        //if (currentAttackCoroutine != null)
+        //{
+        //    StopCoroutine(currentAttackCoroutine);
+        //}
     }
 
     public void Revive()
