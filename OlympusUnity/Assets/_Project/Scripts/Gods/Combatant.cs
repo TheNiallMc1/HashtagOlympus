@@ -105,11 +105,6 @@ public class Combatant : MonoBehaviour
     {
         currentHealth -= damageTaken;
 
-        if (targetType == eTargetType.Player)
-        {
-            GetComponent<GodBehaviour>().OnDamageEvent(damageTaken);
-        }
-        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -117,11 +112,11 @@ public class Combatant : MonoBehaviour
             {
                 Die();
             }
-            if(targetType == eTargetType.PMonument)
-            {
-                // state change
-            }
+        }
 
+        if (targetType == eTargetType.Player)
+        {
+            GetComponent<GodBehaviour>().OnDamageEvent(damageTaken);
         }
     }
 
@@ -131,9 +126,11 @@ public class Combatant : MonoBehaviour
         {
             GetComponent<GodBehaviour>().OnDeathEvent();
         }
-        
-        print(gameObject.name + " has been defeated");
-        GameManager.Instance.AddRespect(respectOnKill);
-        Destroy(gameObject);
+        if(targetType == eTargetType.Enemy)
+        {
+            print(gameObject.name + " has been defeated");
+            GameManager.Instance.AddRespect(respectOnKill);
+            Destroy(gameObject);
+        }
     }
 }

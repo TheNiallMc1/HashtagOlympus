@@ -87,6 +87,7 @@ public class GodBehaviour : MonoBehaviour
     {
         // Call base and override if needed
         SwitchState(GodState.knockedOut);
+        animator.Play("Die");
     }
     
     public virtual void FixedUpdate()

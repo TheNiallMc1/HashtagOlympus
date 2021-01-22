@@ -24,4 +24,9 @@ public class AresAnimations : MonoBehaviour
             target.TakeDamage(godCombatant.attackDamage);
         }
     }
+
+    public void Dead()
+    {
+        Debug.Log(godCombatant.name + " has died");
+    }
 }
