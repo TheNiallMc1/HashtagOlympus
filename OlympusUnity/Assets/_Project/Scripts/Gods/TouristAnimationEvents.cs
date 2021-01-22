@@ -31,10 +31,12 @@ public class TouristAnimationEvents : MonoBehaviour
     public void LockMovement()
     {
         navMeshAgent.isStopped = true;
+        aI_Brain.AttackAnimationIsPlaying = true;
     }
 
     public void UnlockMovement()
     {
         navMeshAgent.isStopped = false;
+        aI_Brain.AttackAnimationIsPlaying = false;
     }
 }

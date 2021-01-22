@@ -32,6 +32,7 @@ public class AI_Brain : MonoBehaviour
     public bool initMove = true;
     public bool wieghtCheck = false;
     public bool isAttacking = false;
+    public bool AttackAnimationIsPlaying = false;
 
     [SerializeField]
     public Waypoint waypoint;
@@ -168,7 +169,7 @@ public class AI_Brain : MonoBehaviour
 
         }
            // yield return new WaitWhile(() => !isAttacking);
-            if (_state == eState.Attacking)
+            if (_state == eState.Attacking && !AttackAnimationIsPlaying)
             {
                 Debug.Log("Starting attack");
 
