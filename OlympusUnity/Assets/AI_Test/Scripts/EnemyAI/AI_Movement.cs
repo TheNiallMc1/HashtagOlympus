@@ -51,10 +51,10 @@ public class AI_Movement : MonoBehaviour
             transform.LookAt(_destination.position);
         }
 
-        if (!closeToTargetPosition)
-        {
-            animator.SetLookAtPosition(nav.destination);
-        }
+        //if (!closeToTargetPosition)
+        //{
+        //    animator.SetLookAtPosition(nav.destination);
+        //}
     }
 
     void MoveToWaypoint()

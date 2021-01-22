@@ -135,10 +135,10 @@ public class GodBehaviour : MonoBehaviour
 
         animator.SetFloat("Vertical_f", animSpeed);
         
-        if (!closeToTargetPosition)
-        {
-            animator.SetLookAtPosition(navMeshAgent.destination);
-        }
+        //if (!closeToTargetPosition)
+        //{
+        //    animator.SetLookAtPosition(navMeshAgent.destination);
+        //}
     }
 
     public void ToggleSelection(bool isSelected)

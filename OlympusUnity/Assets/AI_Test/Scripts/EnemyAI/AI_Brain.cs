@@ -195,8 +195,8 @@ public class AI_Brain : MonoBehaviour
                 }
 
                 transform.LookAt(currentAttackTarget.transform.position);
-                movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
-                movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
+                //movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+                //movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
 
 
 
