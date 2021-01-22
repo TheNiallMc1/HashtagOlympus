@@ -31,6 +31,7 @@ public class AI_Brain : MonoBehaviour
     public bool InRange = false;
     public bool initMove = true;
     public bool wieghtCheck = false;
+    public bool isAttacking = false;
 
     [SerializeField]
     public Waypoint waypoint;
@@ -106,7 +107,7 @@ public class AI_Brain : MonoBehaviour
                 if (!initMove)
                 {
                     CancelAutoAttack();
-
+                    isAttacking = false;
                     movementMotor.animator.Play("Tourist_standard_movement");
                     movementMotor.nav.isStopped = false;
                     initialCoLoop = true;
@@ -116,6 +117,7 @@ public class AI_Brain : MonoBehaviour
                 }
                 break;
             case eState.Attacking:
+                isAttacking = true;
                 if(_priority == ePriority.God)
                 {
                     Attack(currentAttackTarget);
@@ -173,109 +175,113 @@ public class AI_Brain : MonoBehaviour
    */
     protected IEnumerator AttackingCoroutine()
     {
+        bool GamePlaying = true;
         Debug.Log("Starting coroutine");
-        
-        if (_state == eState.Attacking)
+        while (GamePlaying == true)
         {
-            Debug.Log("Starting attack");
-            
-            movementMotor.nav.isStopped = true;
-            int animNumber = 1;
-            
-            
-            if(currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
+            yield return new WaitWhile(() => !isAttacking);
+            if (_state == eState.Attacking)
             {
-                Debug.Log("Current target is dead or current target is type of monument");
-                
-                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
-                if (_priority == ePriority.God)
-                {
-                    UpdateAttackList(false, currentAttackTarget);
-                }
-                if (_priority == ePriority.Monument)
-                {
-                    Debug.Log("Attacking monument");
-                    movementMotor.animator.SetBool("MonumentDestroyed", true);
-                    UpdateMonumentList(false, currentAttackTarget);
-                }
-            }
+                Debug.Log("Starting attack");
 
-            transform.LookAt(currentAttackTarget.transform.position);
-            movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
-            movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
+                movementMotor.nav.isStopped = true;
+                int animNumber = 1;
 
-            
 
-            if (_priority == ePriority.God)
-            {
-                if (initialCoLoop)
+                if (currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
                 {
-                    initialCoLoop = false;
-                    movementMotor.animator.Play("Tourist_standard_movement");
+                    Debug.Log("Current target is dead or current target is type of monument");
+
+                    movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+                    if (_priority == ePriority.God)
+                    {
+                        UpdateAttackList(false, currentAttackTarget);
+                    }
+                    if (_priority == ePriority.Monument)
+                    {
+                        Debug.Log("Attacking monument");
+                        movementMotor.animator.SetBool("MonumentDestroyed", true);
+                        UpdateMonumentList(false, currentAttackTarget);
+                    }
                 }
 
-                animNumber = randomNumber();
-
-                movementMotor.animator.ResetTrigger("AutoAttack0" + lastNumber);
-                movementMotor.animator.SetTrigger("AutoAttack0" + animNumber);
-
-                lastNumber = animNumber;
-
-                
-            }
-
-            yield return new WaitForSecondsRealtime(0.2f);
-
-            movementMotor.animator.SetBool("GodInRange", false);
-
-            // If the current target is now null because it died remove it from the lists
-            if (currentAttackTarget == null)
-            {
-                // movementMotor.animator.SetBool("MonumentDestroyed", true);
-
-                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+                transform.LookAt(currentAttackTarget.transform.position);
+                movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+                movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
 
 
-                
 
                 if (_priority == ePriority.God)
                 {
-                    UpdateAttackList(false, currentAttackTarget);
+                    if (initialCoLoop)
+                    {
+                        initialCoLoop = false;
+                        movementMotor.animator.Play("Tourist_standard_movement");
+                    }
+
+                    animNumber = randomNumber();
+
+                    movementMotor.animator.ResetTrigger("AutoAttack0" + lastNumber);
+                    movementMotor.animator.SetTrigger("AutoAttack0" + animNumber);
+
+                    lastNumber = animNumber;
+
+
                 }
-                if (_priority == ePriority.Monument)
+
+                yield return new WaitForSecondsRealtime(0.2f);
+
+                movementMotor.animator.SetBool("GodInRange", false);
+
+                // If the current target is now null because it died remove it from the lists
+                if (currentAttackTarget == null)
                 {
-                    UpdateMonumentList(false, currentAttackTarget);
+                    // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+                    movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+
+
+
+
+                    if (_priority == ePriority.God)
+                    {
+                        UpdateAttackList(false, currentAttackTarget);
+                    }
+                    if (_priority == ePriority.Monument)
+                    {
+                        UpdateMonumentList(false, currentAttackTarget);
+                    }
                 }
+                else
+                {
+                    yield return new WaitForSecondsRealtime(2.5f);
+                    Debug.Log("Restarting coroutine");
+                    currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+                }
+
+                Debug.Log("Ending attack");
+                // If any more enemies remain in range, loop the coroutine
+                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+
+                //if (enemiesInAttackRange.Any())
+                //{
+
+                //}
+                //else
+                //{
+                //    // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+
+                //    currentAttackCoroutine = null;
+                //    // _state = eState.Moving;
+                //    yield break; // If there are no enemies left, end the coroutine
+                //}
             }
-            else
-            {
-                yield return new WaitForSecondsRealtime(2.5f);
-                Debug.Log("Restarting coroutine");
-                currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
-            }
-
-            Debug.Log("Ending attack");
-            // If any more enemies remain in range, loop the coroutine
-            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
-
-            //if (enemiesInAttackRange.Any())
-            //{
-                
-            //}
-            //else
-            //{
-            //    // movementMotor.animator.SetBool("MonumentDestroyed", true);
-
-
-            //    currentAttackCoroutine = null;
-            //    // _state = eState.Moving;
-            //    yield break; // If there are no enemies left, end the coroutine
-            //}
         }
         
         yield return new WaitForSecondsRealtime(2.5f);
         Debug.Log("Restarting coroutine");
-        currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+        //currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
 
     protected void CancelAutoAttack()
