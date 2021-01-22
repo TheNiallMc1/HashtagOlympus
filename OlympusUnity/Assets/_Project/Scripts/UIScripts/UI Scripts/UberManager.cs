@@ -63,7 +63,7 @@ public class UberManager : MonoBehaviour
                 break;
             case GameState.LevelSelect:
                 break;
-            case GameState.GodSelect:
+            case GameState.GodSelect: LoadGodSelect();
                 break;
             case GameState.GodPlacement: LoadGodPlacement();
                 break;
@@ -83,18 +83,19 @@ public class UberManager : MonoBehaviour
 
     public void LoadGodSelect()
     {
-        
+        SceneManager.LoadScene("SelectionScene");
     }
     
     public void LoadGodPlacement()
     {
         SceneManager.LoadScene("PlacementScene");
-        GameManager.Instance.SetPlayerGods(selectedGods);
+       // GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
     public void LoadGamePlay()
     {
         Debug.Log("Loading game play");
+        SceneManager.LoadScene("GamePlay");
     }
     public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
     {

@@ -170,54 +170,7 @@ Transform:
   - {fileID: 1459869891}
   - {fileID: 452422605}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &192263342
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 192263344}
-  - component: {fileID: 192263343}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &192263343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192263342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71af9a22acdef4cf293fc9e64d0f745c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGameState: 0
-  selectedLevel: 0
-  selectedGods: []
-  totalRespect: 0
---- !u!4 &192263344
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192263342}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 347, y: 293, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452422602
 GameObject:
@@ -508,7 +461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &710529461 stripped
 MonoBehaviour:
@@ -555,7 +508,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &716788985
 MonoBehaviour:
@@ -686,8 +639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0.000011444, y: 67.4}
+  m_SizeDelta: {x: 96.791626, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1250519848
 GameObject:
@@ -724,7 +677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.6042, y: -89.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1282506196
@@ -844,6 +797,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1459869891}
     m_Modifications:
+    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: characterName
+      value: Ares
+      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God
@@ -1118,7 +1075,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1459869890
 GameObject:
@@ -1160,6 +1117,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1459869891}
     m_Modifications:
+    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: characterName
+      value: Dionysus
+      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631152, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -1225,6 +1186,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1459869891}
     m_Modifications:
+    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: characterName
+      value: Demeter
+      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God (2)
@@ -1590,7 +1555,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2139249395
 MonoBehaviour:
@@ -1827,7 +1792,7 @@ RectTransform:
   m_Children:
   - {fileID: 5744261812471851218}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1903,12 +1868,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

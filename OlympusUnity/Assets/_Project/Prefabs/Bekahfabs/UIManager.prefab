@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &461555623904182937
+--- !u!1 &4224600461928918564
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,67 +8,60 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 461555623904182935}
-  - component: {fileID: 461555623904182934}
-  - component: {fileID: 1350583989}
+  - component: {fileID: 4224600461928918565}
+  - component: {fileID: 4224600461928918571}
+  - component: {fileID: 4224600461928918570}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &461555623904182935
+--- !u!4 &4224600461928918565
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461555623904182937}
+  m_GameObject: {fileID: 4224600461928918564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.826855, y: 8.279754, z: 5.8132744}
+  m_LocalPosition: {x: 1.509573, y: 3.2407312, z: -22.077305}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &461555623904182934
+--- !u!114 &4224600461928918571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461555623904182937}
+  m_GameObject: {fileID: 4224600461928918564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa80bdb7d505eb42a4a3876350fe88a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a373ca5906d74a21a1f2427d86e071e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCam: {fileID: 0}
-  overViewCam: {fileID: 0}
-  allPlayerGods: []
-  godSelected: 0
-  currentlySelectedGod: {fileID: 0}
-  lD: {fileID: 0}
-  currentRespect: 25
-  respectDisplay: {fileID: 0}
-  summonRespectThreshold: 0
---- !u!114 &1350583989
+--- !u!114 &4224600461928918570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461555623904182937}
+  m_GameObject: {fileID: 4224600461928918564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688c4532cce60254ea803d33d65669cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9df728180f129434abfa46b119c2d292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 2
-  prefab: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-  left: {fileID: 0}
-  timeBetweenWaves: 5
-  countDown: 2
-  touristDrones: []
-  waveIndex: 20
+  characterDocks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  switchButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  currentGod: {fileID: 0}
+  respectBuff: {fileID: 4224600461928918571}

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Camera currentCam;
     public Camera overViewCam; 
     private UIManager uiManager;
-    public InterimUIManager iUIManager;
+    
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     // Respect
     public int currentRespect;
     public TMP_Text respectDisplay;
-    private String respectText;
+    public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
     
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         }
 
         uiManager = FindObjectOfType<UIManager>();
+        
         cam = Camera.main;
         currentCam = cam;
 
@@ -57,27 +58,41 @@ public class GameManager : MonoBehaviour
         playerControls.Movement.MouseClick.performed += context => ClickSelect();
         playerControls.GodSelection.CycleThroughGods.performed += context => CycleSelect();
 
-        respectText = respectDisplay.text;
-        respectDisplay.text = respectText+currentRespect;
         canSummon = false;
-        
-        GodListToDictionary();
+    }
+
+    private void Start()
+    {
+        respectText = respectDisplay.text+" ";
+        respectDisplay.text = respectText+currentRespect;
+        PopulateAllPlayerGods();
+    }
+
+    public void PopulateAllPlayerGods()
+    {
+        if (UberManager.Instance.selectedGods.Count == 3)
+        {
+            allPlayerGods = UberManager.Instance.selectedGods;
+            GodListToDictionary();
+        }
     }
 
     private void GodListToDictionary()
     {
+        Debug.Log("I am creating the dictionary");
         Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
 
         for (int i = 0; i < allPlayerGods.Count; i++)
         { godDict.Add(i, allPlayerGods[i]);
         }
 
+        Debug.Log("dictionary count is now: "+godDict.Count);
+        
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
     private void CycleSelect()
     {
-        
         currentGodIndex += 1;
         
         if (currentGodIndex > allPlayerGods.Count - 1)
