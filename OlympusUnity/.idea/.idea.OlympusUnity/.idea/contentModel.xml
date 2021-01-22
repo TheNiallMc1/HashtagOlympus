@@ -6,40 +6,72 @@
     <e p="E:\Pixel Mill\Olympus\HashtagOlympus\OlympusUnity" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="!_Recycle" t="Include">
+          <e p="AbilitySOTest.cs" t="Include" />
+          <e p="DanielPlayerScript.cs" t="Include" />
+          <e p="GodAbility.cs" t="Include" />
+          <e p="GodHealthBar.cs" t="Include" />
+          <e p="GodPortrait.cs" t="Include" />
+          <e p="GodSpecialBar.cs" t="Include" />
+          <e p="PlayerAbilities.cs" t="Include" />
+          <e p="PlayerCamera.cs" t="Include" />
+          <e p="TouristStats.cs" t="Include" />
+          <e p="UIManager.cs" t="Include" />
+        </e>
         <e p="_Project" t="Include">
           <e p="Inputs" t="Include">
             <e p="CameraControls.cs" t="Include" />
             <e p="DanielTestingKeys.cs" t="Include" />
             <e p="PlayerControls.cs" t="Include" />
+            <e p="PlayerInput.cs" t="Include" />
+          </e>
+          <e p="Prefabs" t="Include">
+            <e p="Managers" t="Include">
+              <e p="GameManager.cs" t="Include" />
+              <e p="Respawn.cs" t="Include" />
+            </e>
           </e>
           <e p="Scripts" t="Include">
-            <e p="AbilitySOTest.cs" t="Include" />
-            <e p="BekahScripts" t="Include">
-              <e p="BekahInputs" t="Include">
-                <e p="PlayerInput.cs" t="Include" />
+            <e p="Abilities" t="Include">
+              <e p="AbilityManager.cs" t="Include" />
+              <e p="CircleAoE.cs" t="Include" />
+              <e p="ConeAoE.cs" t="Include" />
+              <e p="Scriptables" t="Include">
+                <e p="Ability_SO.cs" t="Include" />
+              </e>
+              <e p="SpecialAbility.cs" t="Include" />
+            </e>
+            <e p="AI" t="Include">
+              <e p="AI_Brain.cs" t="Include" />
+              <e p="AI_Movement.cs" t="Include" />
+              <e p="AITestManager.cs" t="Include" />
+              <e p="Defender.cs" t="Include" />
+              <e p="Influencer.cs" t="Include" />
+              <e p="Jock.cs" t="Include" />
+              <e p="MonumentCollider.cs" t="Include" />
+              <e p="MonumentHealth.cs" t="Include" />
+              <e p="Nerd.cs" t="Include" />
+              <e p="TouristAnimationEvents.cs" t="Include" />
+              <e p="TouristColliders.cs" t="Include" />
+              <e p="Waypoint.cs" t="Include" />
+            </e>
+            <e p="Camera" t="Include">
+              <e p="CameraController.cs" t="Include" />
+            </e>
+            <e p="Characters" t="Include">
+              <e p="Combatant.cs" t="Include" />
+              <e p="Gods" t="Include">
+                <e p="AresAnimations.cs" t="Include" />
+                <e p="God_Ares.cs" t="Include" />
+                <e p="God_Demeter.cs" t="Include" />
+                <e p="God_Dionysus.cs" t="Include" />
+                <e p="GodBehaviour.cs" t="Include" />
+                <e p="GodColliders.cs" t="Include" />
               </e>
             </e>
-            <e p="CameraController.cs" t="Include" />
-            <e p="GameManager.cs" t="Include" />
-            <e p="Gods" t="Include">
-              <e p="AbilityExampleAoE.cs" t="Include" />
-              <e p="AbilityExampleST.cs" t="Include" />
-              <e p="AresAnimations.cs" t="Include" />
-              <e p="CircleAoE.cs" t="Include" />
-              <e p="Combatant.cs" t="Include" />
-              <e p="ConeAoE.cs" t="Include" />
-              <e p="DanielPlayerScript.cs" t="Include" />
-              <e p="God_Ares.cs" t="Include" />
-              <e p="God_Ares2.cs" t="Include" />
-              <e p="God_Ares3.cs" t="Include" />
-              <e p="God_Demeter.cs" t="Include" />
-              <e p="God_Dionysus.cs" t="Include" />
-              <e p="GodBehaviour.cs" t="Include" />
-              <e p="GodColliders.cs" t="Include" />
-              <e p="TouristAnimationEvents.cs" t="Include" />
+            <e p="DebugScripts" t="Include">
+              <e p="FPSCounter.cs" t="Include" />
             </e>
-            <e p="PlayerAbilities.cs" t="Include" />
-            <e p="PlayerCamera.cs" t="Include" />
             <e p="SkillTree" t="Include">
               <e p="CharacterSkillSet.cs" t="Include" />
               <e p="Skill.cs" t="Include" />
@@ -48,91 +80,51 @@
               <e p="SkillNode.cs" t="Include" />
               <e p="SkillsManager.cs" t="Include" />
             </e>
-            <e p="SpecialAbilities" t="Include">
-              <e p="Ability_DemeterFreeze.cs" t="Include" />
-              <e p="Ability_SO.cs" t="Include" />
-              <e p="AbilityManager.cs" t="Include" />
-              <e p="SpecialAbility.cs" t="Include" />
-            </e>
             <e p="StatusEffects" t="Include">
-              <e p="Status_Blessing.cs" t="Include" />
-              <e p="Status_Heal.cs" t="Include" />
-              <e p="Status_MaxRage.cs" t="Include" />
-              <e p="Status_Party.cs" t="Include" />
-              <e p="Status_Rage.cs" t="Include" />
+              <e p="Scriptables" t="Include">
+                <e p="Status_Blessing.cs" t="Include" />
+                <e p="Status_Heal.cs" t="Include" />
+                <e p="Status_MaxRage.cs" t="Include" />
+                <e p="Status_Party.cs" t="Include" />
+                <e p="Status_Rage.cs" t="Include" />
+              </e>
               <e p="StatusEffect.cs" t="Include" />
               <e p="StatusEffectManager.cs" t="Include" />
-              <e p="TestScriptForAddingStatus.cs" t="Include" />
             </e>
-            <e p="TestScript.cs" t="Include" />
-            <e p="TouristStats.cs" t="Include" />
             <e p="UIScripts" t="Include">
               <e p="AbilityIcon.cs" t="Include" />
               <e p="CharacterDock.cs" t="Include" />
-              <e p="GodHealthBar.cs" t="Include" />
-              <e p="GodPortrait.cs" t="Include" />
-              <e p="GodSpecialBar.cs" t="Include" />
-              <e p="Tooltip.cs" t="Include" />
-              <e p="TooltipSystem.cs" t="Include" />
-              <e p="TooltipTrigger.cs" t="Include" />
-              <e p="UI Scripts" t="Include">
-                <e p="GodDontDestroy.cs" t="Include" />
-                <e p="MainMenuPlayButton.cs" t="Include" />
-                <e p="PauseMapUI" t="Include">
-                  <e p="GodOverviewMapIcon.cs" t="Include" />
-                  <e p="LineDrawer.cs" t="Include" />
-                  <e p="MiniMapCamera.cs" t="Include" />
-                  <e p="PauseMapButton.cs" t="Include" />
-                </e>
-                <e p="Placement" t="Include">
-                  <e p="BlueprintBehaviour.cs" t="Include" />
-                  <e p="GodPlacementInfo.cs" t="Include" />
-                  <e p="GodPlacerButton.cs" t="Include" />
-                  <e p="PlacementManager.cs" t="Include" />
-                  <e p="RespectBuff.cs" t="Include" />
-                </e>
-                <e p="PlayModeUI" t="Include">
-                  <e p="DockSwitcherButton.cs" t="Include" />
-                  <e p="GodAbility.cs" t="Include" />
-                  <e p="HealthBar.cs" t="Include" />
-                  <e p="InterimUIManager.cs" t="Include" />
-                </e>
-                <e p="Selection" t="Include">
-                  <e p="GodSelectManager.cs" t="Include" />
-                  <e p="GodSelectorButton.cs" t="Include" />
-                </e>
-                <e p="UberManager.cs" t="Include" />
+              <e p="DockSwitcherButton.cs" t="Include" />
+              <e p="GodDontDestroy.cs" t="Include" />
+              <e p="HealthBar.cs" t="Include" />
+              <e p="InterimUIManager.cs" t="Include" />
+              <e p="MainMenuPlayButton.cs" t="Include" />
+              <e p="PauseMapUI" t="Include">
+                <e p="GodOverviewMapIcon.cs" t="Include" />
+                <e p="LineDrawer.cs" t="Include" />
+                <e p="MiniMapCamera.cs" t="Include" />
+                <e p="PauseMapButton.cs" t="Include" />
               </e>
-              <e p="UIManager.cs" t="Include" />
+              <e p="Placement" t="Include">
+                <e p="BlueprintBehaviour.cs" t="Include" />
+                <e p="GodPlacementInfo.cs" t="Include" />
+                <e p="GodPlacerButton.cs" t="Include" />
+                <e p="PlacementManager.cs" t="Include" />
+              </e>
+              <e p="RespectBuff.cs" t="Include" />
+              <e p="Selection" t="Include">
+                <e p="GodSelectManager.cs" t="Include" />
+                <e p="GodSelectorButton.cs" t="Include" />
+              </e>
+              <e p="Tooltip" t="Include">
+                <e p="Tooltip.cs" t="Include" />
+                <e p="TooltipSystem.cs" t="Include" />
+                <e p="TooltipTrigger.cs" t="Include" />
+              </e>
+              <e p="UberManager.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="AI_Test" t="Include">
-          <e p="Scripts" t="Include">
-            <e p="EnemyAI" t="Include">
-              <e p="AI_Brain.cs" t="Include" />
-              <e p="AI_Movement.cs" t="Include" />
-              <e p="AITestManager.cs" t="Include" />
-              <e p="Defender.cs" t="Include" />
-              <e p="Influencer.cs" t="Include" />
-              <e p="Jock.cs" t="Include" />
-              <e p="MonumentCollider.cs" t="Include" />
-              <e p="Nerd.cs" t="Include" />
-              <e p="Reference" t="Include">
-                <e p="PathManager.cs" t="Include" />
-                <e p="PathNavTest.cs" t="Include" />
-              </e>
-              <e p="Scenes" t="Include">
-                <e p="blank.cs" t="Include" />
-              </e>
-              <e p="TouristColliders.cs" t="Include" />
-              <e p="Waypoint.cs" t="Include" />
-            </e>
-            <e p="FPSCounter.cs" t="Include" />
-            <e p="MonumentHealth.cs" t="Include" />
-          </e>
-        </e>
-        <e p="Respawn.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />
