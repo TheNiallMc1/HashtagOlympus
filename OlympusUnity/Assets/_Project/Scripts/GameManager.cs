@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
+    public Dictionary<int, GodBehaviour> godDict;
 
     public LineDrawer lD;
 
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
     private void GodListToDictionary()
     {
         Debug.Log("I am creating the dictionary");
-        Dictionary<int, GodBehaviour> godDict = new Dictionary<int, GodBehaviour>();
+        godDict = new Dictionary<int, GodBehaviour>();
 
         for (int i = 0; i < allPlayerGods.Count; i++)
         { godDict.Add(i, allPlayerGods[i]);

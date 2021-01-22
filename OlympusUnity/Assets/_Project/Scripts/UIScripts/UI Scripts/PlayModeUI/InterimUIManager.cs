@@ -50,8 +50,20 @@ public class InterimUIManager : MonoBehaviour
     
     public void AssignCharacterDocks(Dictionary<int, GodBehaviour> activeGods)
     {
-        Debug.Log("i am printing the message");
+        Debug.Log("number of entries in dict in UImanager: "+activeGods.Count);
+        
+        foreach (KeyValuePair<int, GodBehaviour> kvp in activeGods)
+            Debug.Log("Key + Value: "+ kvp.Key +", "+ kvp.Value.godName);
+
+        //foreach (KeyValuePair<int, GodBehaviour> kvp in activeGods)
+        //    allGods.Add(kvp.Key,kvp.Value);
+        
         allGods = activeGods;
+        Debug.Log("all gods: "+allGods.Count);
+        
+        foreach (KeyValuePair<int, GodBehaviour> kvp in allGods)
+            Debug.Log("Key + Value: "+ kvp.Key +", "+ kvp.Value.godName);
+
 
        // for (int i = 0; i <characterDocks.Length; i++)
         //{
@@ -78,7 +90,8 @@ public class InterimUIManager : MonoBehaviour
            
             //if param is GodBehaviour, need to find key by value
             var myKey = allGods.FirstOrDefault(x => x.Value == selectedGod).Key;
-            CameraController.Instance.FollowPlayer(allGods[myKey].gameObject);
+            //CameraController.Instance.FollowPlayer(allGods[myKey].gameObject);
+            CameraController.Instance.FollowPlayer(GameManager.Instance.allPlayerGods[myKey].gameObject);
             
             for (int i = 0; i < characterDocks.Length; i++)
             {
@@ -92,8 +105,16 @@ public class InterimUIManager : MonoBehaviour
 
     public void UpdateHUD(int key)
     {
-        GameManager.Instance.SelectGod(allGods[key]);
-        CameraController.Instance.FollowPlayer(allGods[key].gameObject);
+        Debug.Log("key received in UpdateHUD: "+key);
+        Debug.Log("dictionary count in UpdateHUD: "+allGods.Count);
+        foreach (KeyValuePair<int, GodBehaviour> kvp in allGods)
+            Debug.Log("Key + Value: "+ kvp.Key +", "+ kvp.Value.godName);
+        
+        //GameManager.Instance.SelectGod(allGods[key]);
+        //CameraController.Instance.FollowPlayer(allGods[key].gameObject);
+        
+        GameManager.Instance.SelectGod(GameManager.Instance.allPlayerGods[key]);
+        CameraController.Instance.FollowPlayer(GameManager.Instance.allPlayerGods[key].gameObject);
         
         for (int i = 0; i < characterDocks.Length; i++)
         {
@@ -122,7 +143,10 @@ public class InterimUIManager : MonoBehaviour
         remainder.Remove(currentButtonOrder[0]);
         currentButtonOrder.Add(remainder[0]);
         
-        switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0], allGods[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
-        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], allGods[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
+        //switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0], allGods[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
+        //switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], allGods[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
+        
+        switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0], GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
+        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
     }
 }

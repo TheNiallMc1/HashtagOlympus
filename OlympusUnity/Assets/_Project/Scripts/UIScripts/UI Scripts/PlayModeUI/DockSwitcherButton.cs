@@ -18,6 +18,7 @@ public class DockSwitcherButton : MonoBehaviour
 
     public void SendSwitchInfo()
     {
+        Debug.Log("I am sending key: "+godKey);
         
         InterimUIManager.Instance.UpdateHUD(godKey);
     }
