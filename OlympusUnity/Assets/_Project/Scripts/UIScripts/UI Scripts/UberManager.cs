@@ -63,7 +63,7 @@ public class UberManager : MonoBehaviour
                 break;
             case GameState.LevelSelect:
                 break;
-            case GameState.GodSelect:
+            case GameState.GodSelect: LoadGodSelect();
                 break;
             case GameState.GodPlacement: LoadGodPlacement();
                 break;
@@ -83,7 +83,7 @@ public class UberManager : MonoBehaviour
 
     public void LoadGodSelect()
     {
-        
+        SceneManager.LoadScene("SelectionScene");
     }
     
     public void LoadGodPlacement()

@@ -83,7 +83,8 @@ public class InterimUIManager : MonoBehaviour
            
             //if param is GodBehaviour, need to find key by value
             var myKey = allGods.FirstOrDefault(x => x.Value == selectedGod).Key;
-
+            CameraController.Instance.FollowPlayer(allGods[myKey].gameObject);
+            
             for (int i = 0; i < characterDocks.Length; i++)
             {
                 characterDocks[i].gameObject.SetActive(false);
@@ -97,6 +98,7 @@ public class InterimUIManager : MonoBehaviour
     public void UpdateHUD(int key)
     {
         GameManager.Instance.SelectGod(allGods[key]);
+        CameraController.Instance.FollowPlayer(allGods[key].gameObject);
         
         for (int i = 0; i < characterDocks.Length; i++)
         {
@@ -104,6 +106,7 @@ public class InterimUIManager : MonoBehaviour
         }
             
         characterDocks[key].gameObject.SetActive(true);
+        
         
         ReOrderButtons(key);
     }

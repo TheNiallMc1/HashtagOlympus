@@ -58,15 +58,13 @@ public class GameManager : MonoBehaviour
         playerControls.Movement.MouseClick.performed += context => ClickSelect();
         playerControls.GodSelection.CycleThroughGods.performed += context => CycleSelect();
 
-        //respectText = respectDisplay.text+" ";
-        respectDisplay.text = respectText+currentRespect;
         canSummon = false;
-        
-        
     }
 
     private void Start()
     {
+        respectText = respectDisplay.text+" ";
+        respectDisplay.text = respectText+currentRespect;
         PopulateAllPlayerGods();
     }
 
@@ -87,7 +85,7 @@ public class GameManager : MonoBehaviour
 
         InterimUIManager.Instance.BoomBoom();
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
-        InterimUIManager.Instance.BoomBoom();
+        
     }
 
     private void CycleSelect()
