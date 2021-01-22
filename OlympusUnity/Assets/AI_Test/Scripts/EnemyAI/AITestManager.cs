@@ -18,7 +18,10 @@ public class AITestManager : MonoBehaviour
     [SerializeField]
     private List<Transform> touristDrones;
     
-    public int waveIndex = 0;
+    public int enemiesPerWave = 0;
+    public int numberOfWaves = 3;
+    public int currentWave = 1;
+    public float incrementAmount = 1.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,7 @@ public class AITestManager : MonoBehaviour
     {
         yield return new WaitForSeconds(countDown);
 
-        while (true)
+        while (currentWave != numberOfWaves + 1)
         {
             state = SpawnState.SPAWNING;
 
@@ -43,6 +46,8 @@ public class AITestManager : MonoBehaviour
             state = SpawnState.COUNTING;
 
             yield return new WaitForSeconds(timeBetweenWaves);
+
+            currentWave++;
         }
     }
 
@@ -55,12 +60,12 @@ public class AITestManager : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        waveIndex++;
-        for (int i = 0; i < waveIndex; i++)
+        for (int i = 0; i < enemiesPerWave; i++)
         {
             SpawnTourist();
             yield return new WaitForSeconds(0.5f);
         }
+        enemiesPerWave = (int)(enemiesPerWave * incrementAmount);
     }
 
     private void SpawnTourist()
