@@ -113,6 +113,7 @@ public class GodBehaviour : MonoBehaviour
         if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked && !movingToArea)
         {
             SwitchState(GodState.attacking);
+            Attack();
         }
 
         // If the god reaches their target destination, and is not attacking, switch to idle state
@@ -319,7 +320,6 @@ public class GodBehaviour : MonoBehaviour
     private void AttackingState()
     {
         currentState = GodState.attacking;
-        Attack();
         print(godName + ": attacking");
        // currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }

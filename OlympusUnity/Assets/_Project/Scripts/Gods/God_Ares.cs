@@ -44,7 +44,7 @@ public class God_Ares : GodBehaviour
     {
         ultimateCharge += amountToAdd;
 
-        rageCountText.text = ultimateCharge.ToString();
+       // rageCountText.text = ultimateCharge.ToString();
         // For Ares, rage and ultimate charge are the same thing
     }
 
