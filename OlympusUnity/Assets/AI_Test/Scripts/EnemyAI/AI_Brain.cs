@@ -47,7 +47,7 @@ public class AI_Brain : MonoBehaviour
 
     private void Awake()
     {
-        currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+        
         thisCombatant = GetComponent<Combatant>();
         movementMotor = this.GetComponent<AI_Movement>();
         _state = eState.Moving;
@@ -55,7 +55,7 @@ public class AI_Brain : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
 
     private void Update()
@@ -173,13 +173,19 @@ public class AI_Brain : MonoBehaviour
    */
     protected IEnumerator AttackingCoroutine()
     {
-
+        Debug.Log("Starting coroutine");
+        
         if (_state == eState.Attacking)
         {
+            Debug.Log("Starting attack");
+            
             movementMotor.nav.isStopped = true;
             int animNumber = 1;
+            
+            
             if(currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
             {
+                Debug.Log("Current target is dead or current target is type of monument");
                 
                 movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
                 if (_priority == ePriority.God)
@@ -188,6 +194,7 @@ public class AI_Brain : MonoBehaviour
                 }
                 if (_priority == ePriority.Monument)
                 {
+                    Debug.Log("Attacking monument");
                     movementMotor.animator.SetBool("MonumentDestroyed", true);
                     UpdateMonumentList(false, currentAttackTarget);
                 }
@@ -197,7 +204,7 @@ public class AI_Brain : MonoBehaviour
             movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
             movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
 
-
+            
 
             if (_priority == ePriority.God)
             {
@@ -243,9 +250,11 @@ public class AI_Brain : MonoBehaviour
             else
             {
                 yield return new WaitForSecondsRealtime(2.5f);
+                Debug.Log("Restarting coroutine");
+                currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
             }
 
-
+            Debug.Log("Ending attack");
             // If any more enemies remain in range, loop the coroutine
             movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
 
@@ -264,16 +273,18 @@ public class AI_Brain : MonoBehaviour
             //}
         }
         
-        // currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+        yield return new WaitForSecondsRealtime(2.5f);
+        Debug.Log("Restarting coroutine");
+        currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
 
     protected void CancelAutoAttack()
     {
         // Stop the auto attack coroutine if it exists
-        if (currentAttackCoroutine != null)
-        {
-            StopCoroutine(currentAttackCoroutine);
-        }
+        // if (currentAttackCoroutine != null)
+        // {
+        //     StopCoroutine(currentAttackCoroutine);
+        // }
     }
 
     protected void targetInRange()
