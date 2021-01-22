@@ -34,7 +34,7 @@ public class AresAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = true;
     }
-    public void AnimaitionIsFinished()
+    public void AnimationIsFinished()
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }

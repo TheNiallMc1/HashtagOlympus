@@ -38,7 +38,7 @@ public class AI_Brain : MonoBehaviour
     public Waypoint waypoint;
 
     // Animation
-    int lastNumber;   
+    int lastNumber = 1;   
     bool initialCoLoop = true;
 
     public ePriority priority { get { return _priority; } set { _priority = value; } }

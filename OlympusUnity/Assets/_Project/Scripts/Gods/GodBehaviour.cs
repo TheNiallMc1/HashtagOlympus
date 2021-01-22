@@ -60,7 +60,7 @@ public class GodBehaviour : MonoBehaviour
     protected UIManager uiManager;
 
     public Animator animator;
-    private int lastNumber;
+    private int lastNumber = 1;
     public bool attackAnimationIsPlaying = false;
 
     public virtual void Start()
