@@ -56,7 +56,7 @@ public class AI_Brain : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+        //currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
 
     private void Update()
@@ -138,19 +138,19 @@ public class AI_Brain : MonoBehaviour
 
     protected virtual void Attack(Combatant target)
     {
-        
+        Debug.Log("Attacking");
         if (currentAttackTarget != null)
         {
             movementMotor.MoveToTarget(target);
 
-            if((transform.position - target.transform.position).magnitude < 10)
+            if ((transform.position - target.transform.position).magnitude < 10)
             {
-                
+
                 transform.LookAt(currentAttackTarget.transform.position);
 
                 if (_priority == ePriority.God)
                 {
-                    
+
                     movementMotor.animator.SetBool("GodSeen", true);
                 }
 
@@ -159,27 +159,15 @@ public class AI_Brain : MonoBehaviour
                     movementMotor.animator.SetTrigger("MonumentAttack");
                 }
 
-                
+
             }
             else
             {
                 // enemiesInAttackRange.Remove(currentAttackTarget);
             }
-        
-        }
-        
-    }
 
-    /*
-    Handles AI while it is attacking a monument. 
-   */
-    protected IEnumerator AttackingCoroutine()
-    {
-        bool GamePlaying = true;
-        Debug.Log("Starting coroutine");
-        while (GamePlaying == true)
-        {
-            yield return new WaitWhile(() => !isAttacking);
+        }
+           // yield return new WaitWhile(() => !isAttacking);
             if (_state == eState.Attacking)
             {
                 Debug.Log("Starting attack");
@@ -229,7 +217,7 @@ public class AI_Brain : MonoBehaviour
 
                 }
 
-                yield return new WaitForSecondsRealtime(0.2f);
+               // yield return new WaitForSecondsRealtime(0.2f);
 
                 movementMotor.animator.SetBool("GodInRange", false);
 
@@ -252,37 +240,123 @@ public class AI_Brain : MonoBehaviour
                         UpdateMonumentList(false, currentAttackTarget);
                     }
                 }
-                else
-                {
-                    yield return new WaitForSecondsRealtime(2.5f);
-                    Debug.Log("Restarting coroutine");
-                    currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
-                }
 
-                Debug.Log("Ending attack");
-                // If any more enemies remain in range, loop the coroutine
-                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
-
-                //if (enemiesInAttackRange.Any())
-                //{
-
-                //}
-                //else
-                //{
-                //    // movementMotor.animator.SetBool("MonumentDestroyed", true);
-
-
-                //    currentAttackCoroutine = null;
-                //    // _state = eState.Moving;
-                //    yield break; // If there are no enemies left, end the coroutine
-                //}
             }
-        }
-        
-        yield return new WaitForSecondsRealtime(2.5f);
-        Debug.Log("Restarting coroutine");
-        //currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
+
+    /*
+    Handles AI while it is attacking a monument. 
+   */
+    //protected IEnumerator AttackingCoroutine()
+    //{
+    //    bool GamePlaying = true;
+    //    Debug.Log("Starting coroutine");
+    //    while (GamePlaying == true)
+    //    {
+    //        yield return new WaitWhile(() => !isAttacking);
+    //        if (_state == eState.Attacking)
+    //        {
+    //            Debug.Log("Starting attack");
+
+    //            movementMotor.nav.isStopped = true;
+    //            int animNumber = 1;
+
+
+    //            if (currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
+    //            {
+    //                Debug.Log("Current target is dead or current target is type of monument");
+
+    //                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+    //                if (_priority == ePriority.God)
+    //                {
+    //                    UpdateAttackList(false, currentAttackTarget);
+    //                }
+    //                if (_priority == ePriority.Monument)
+    //                {
+    //                    Debug.Log("Attacking monument");
+    //                    movementMotor.animator.SetBool("MonumentDestroyed", true);
+    //                    UpdateMonumentList(false, currentAttackTarget);
+    //                }
+    //            }
+
+    //            transform.LookAt(currentAttackTarget.transform.position);
+    //            movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+    //            movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
+
+
+
+    //            if (_priority == ePriority.God)
+    //            {
+    //                if (initialCoLoop)
+    //                {
+    //                    initialCoLoop = false;
+    //                    movementMotor.animator.Play("Tourist_standard_movement");
+    //                }
+
+    //                animNumber = randomNumber();
+
+    //                movementMotor.animator.ResetTrigger("AutoAttack0" + lastNumber);
+    //                movementMotor.animator.SetTrigger("AutoAttack0" + animNumber);
+
+    //                lastNumber = animNumber;
+
+
+    //            }
+
+    //            yield return new WaitForSecondsRealtime(0.2f);
+
+    //            movementMotor.animator.SetBool("GodInRange", false);
+
+    //            // If the current target is now null because it died remove it from the lists
+    //            if (currentAttackTarget == null)
+    //            {
+    //                // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+    //                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+
+
+
+
+    //                if (_priority == ePriority.God)
+    //                {
+    //                    UpdateAttackList(false, currentAttackTarget);
+    //                }
+    //                if (_priority == ePriority.Monument)
+    //                {
+    //                    UpdateMonumentList(false, currentAttackTarget);
+    //                }
+    //            }
+    //            else
+    //            {
+    //                yield return new WaitForSecondsRealtime(2.5f);
+    //                Debug.Log("Restarting coroutine");
+    //                currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+    //            }
+
+    //            Debug.Log("Ending attack");
+    //            // If any more enemies remain in range, loop the coroutine
+    //            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+
+    //            //if (enemiesInAttackRange.Any())
+    //            //{
+
+    //            //}
+    //            //else
+    //            //{
+    //            //    // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+
+    //            //    currentAttackCoroutine = null;
+    //            //    // _state = eState.Moving;
+    //            //    yield break; // If there are no enemies left, end the coroutine
+    //            //}
+    //        }
+    //    }
+        
+    //    yield return new WaitForSecondsRealtime(2.5f);
+    //    Debug.Log("Restarting coroutine");
+    //    //currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
+    //}
 
     protected void CancelAutoAttack()
     {
