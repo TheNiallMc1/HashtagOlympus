@@ -173,9 +173,10 @@ public class AI_Brain : MonoBehaviour
    */
     protected IEnumerator AttackingCoroutine()
     {
+
         if (_state == eState.Attacking)
         {
-              movementMotor.nav.isStopped = true;
+            movementMotor.nav.isStopped = true;
             int animNumber = 1;
             if(currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
             {
@@ -246,20 +247,24 @@ public class AI_Brain : MonoBehaviour
 
 
             // If any more enemies remain in range, loop the coroutine
-            if (enemiesInAttackRange.Any())
-            {
-                currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
-            }
-            else
-            {
-                // movementMotor.animator.SetBool("MonumentDestroyed", true);
+            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
 
-                movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
-                currentAttackCoroutine = null;
-                // _state = eState.Moving;
-                yield break; // If there are no enemies left, end the coroutine
-            }
+            //if (enemiesInAttackRange.Any())
+            //{
+                
+            //}
+            //else
+            //{
+            //    // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+
+            //    currentAttackCoroutine = null;
+            //    // _state = eState.Moving;
+            //    yield break; // If there are no enemies left, end the coroutine
+            //}
         }
+        
+        // currentAttackCoroutine = StartCoroutine(AttackingCoroutine());
     }
 
     protected void CancelAutoAttack()
