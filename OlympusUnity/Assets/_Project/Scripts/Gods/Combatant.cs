@@ -25,7 +25,7 @@ public class Combatant : MonoBehaviour
     
     [Header("Combat Stats")]
     public int maxHealth;
-    [HideInInspector] public int currentHealth;
+    public int currentHealth;
     public int attackDamage;
     public int damageReduction;
 

@@ -22,4 +22,12 @@ public class MonumentHealth : MonoBehaviour
     {
         thisCombatant = GetComponent<Combatant>();
     }
+
+    private void Update()
+    {
+        if(thisCombatant.currentHealth <= 0)
+        {
+            thisCombatant.targetType = Combatant.eTargetType.EMonument;
+        }
+    }
 }

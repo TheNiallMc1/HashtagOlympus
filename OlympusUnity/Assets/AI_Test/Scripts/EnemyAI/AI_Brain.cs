@@ -37,7 +37,7 @@ public class AI_Brain : MonoBehaviour
 
     // Animation
     int lastNumber;
-
+    bool initialCoLoop = true;
 
     public ePriority priority { get { return _priority; } set { _priority = value; } }
 
@@ -105,7 +105,11 @@ public class AI_Brain : MonoBehaviour
                 if (!initMove)
                 {
                     CancelAutoAttack();
+
+                    movementMotor.animator.Play("Tourist_standard_movement");
                     movementMotor.nav.isStopped = false;
+                    initialCoLoop = true;
+
                     movementMotor.Moving();
                     movementMotor.animator.SetBool("GodSeen", false);
                 }
@@ -136,13 +140,14 @@ public class AI_Brain : MonoBehaviour
         {
             movementMotor.MoveToTarget(target);
 
-            if((transform.position - target.transform.position).magnitude < 5)
+            if((transform.position - target.transform.position).magnitude < 10)
             {
-                movementMotor.nav.isStopped = true;
+                
                 transform.LookAt(currentAttackTarget.transform.position);
 
                 if (_priority == ePriority.God)
                 {
+                    
                     movementMotor.animator.SetBool("GodSeen", true);
                 }
 
@@ -167,23 +172,37 @@ public class AI_Brain : MonoBehaviour
    */
     protected IEnumerator AttackingCoroutine()
     {
-        if(currentAttackTarget.currentHealth <= 0)
+        movementMotor.nav.isStopped = true;
+        int animNumber = 1;
+        if(currentAttackTarget.currentHealth <= 0 || currentAttackTarget.targetType == Combatant.eTargetType.EMonument)
         {
+            
+            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
             if (_priority == ePriority.God)
             {
                 UpdateAttackList(false, currentAttackTarget);
             }
             if (_priority == ePriority.Monument)
             {
+                movementMotor.animator.SetBool("MonumentDestroyed", true);
                 UpdateMonumentList(false, currentAttackTarget);
             }
         }
 
         transform.LookAt(currentAttackTarget.transform.position);
-        int animNumber = 1;
+        movementMotor.animator.SetLookAtWeight(0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+        movementMotor.animator.SetLookAtPosition(currentAttackTarget.transform.position);
+
+
 
         if (_priority == ePriority.God)
         {
+            if (initialCoLoop)
+            {
+                initialCoLoop = false;
+                movementMotor.animator.Play("Tourist_standard_movement");
+            }
+
             animNumber = randomNumber();
 
             movementMotor.animator.ResetTrigger("AutoAttack0" + lastNumber);
@@ -191,15 +210,23 @@ public class AI_Brain : MonoBehaviour
 
             lastNumber = animNumber;
 
-
+            
         }
 
         yield return new WaitForSecondsRealtime(0.2f);
 
+        movementMotor.animator.SetBool("GodInRange", false);
+
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
         {
+            // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
             movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+
+
+            
+
             if (_priority == ePriority.God)
             {
                 UpdateAttackList(false, currentAttackTarget);
@@ -222,6 +249,9 @@ public class AI_Brain : MonoBehaviour
         }
         else
         {
+            // movementMotor.animator.SetBool("MonumentDestroyed", true);
+
+            movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
             currentAttackCoroutine = null;
             // _state = eState.Moving;
             yield break; // If there are no enemies left, end the coroutine
@@ -241,7 +271,7 @@ public class AI_Brain : MonoBehaviour
     {
         if(currentAttackTarget != null)
         {
-            if((transform.position - movementMotor.closestWaypoint.transform.position).magnitude < 2)
+            if((transform.position - movementMotor.closestWaypoint.transform.position).magnitude < 5)
             {
                 InRange = true;
             }
@@ -266,6 +296,10 @@ public class AI_Brain : MonoBehaviour
             if (god.targetType == Combatant.eTargetType.Player)
             {
                 enemiesInAttackRange.Add(god);
+
+                movementMotor.animator.SetBool("GodInRange", true);
+                
+
                 this.currentAttackTarget = enemiesInAttackRange[0];
                 _priority = ePriority.God;
                 _state = eState.Attacking;
@@ -279,7 +313,7 @@ public class AI_Brain : MonoBehaviour
             enemiesInAttackRange.Remove(god);
             _priority = ePriority.Moving;
             _state = eState.Moving;
-            movementMotor.FindClosestWaypoint(transform.position);
+            //movementMotor.FindClosestWaypoint(transform.position);
         }
     }
     internal void UpdateMonumentList(bool addToList, Combatant monument)
@@ -293,6 +327,7 @@ public class AI_Brain : MonoBehaviour
             {
                 monumentsInAttackRange.Add(monument);
                 this.currentAttackTarget = monumentsInAttackRange[0];
+
                 if (!wieghtCheck)
                 {
                     _priority = ePriority.Monument;
@@ -307,15 +342,17 @@ public class AI_Brain : MonoBehaviour
             monumentsInAttackRange.Remove(monument);
             _priority = ePriority.Moving;
             _state = eState.Moving;
+           // movementMotor.FindClosestWaypoint(transform.position);
+
         }
     }
 
     private int randomNumber()
     {
-        int randomNumber = UnityEngine.Random.Range(1, 3);
+        int randomNumber = UnityEngine.Random.Range(1, 2);
         if (randomNumber == lastNumber)
         {
-            if (randomNumber < 3)
+            if (randomNumber < 2)
             {
                 randomNumber++;
             }

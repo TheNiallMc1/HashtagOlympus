@@ -29,13 +29,14 @@ public class AI_Movement : MonoBehaviour
 
     void Start()
     {
+        aiBrain = GetComponent<AI_Brain>();
+        animator = GetComponentInChildren<Animator>();
+
         waypoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
         spawn = waypoints[0];
         nav = GetComponent<NavMeshAgent>();
-        aiBrain = GetComponent<AI_Brain>();
         wpNum = 0;
         FindNextWaypoint(spawn);
-        animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -71,28 +72,28 @@ public class AI_Movement : MonoBehaviour
     {
         if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 12)
         {
-            
 
-                int num = UnityEngine.Random.Range(0, 10);
-                if (num > 7)
-                {
 
-                    Debug.Log("nearby");
-                    aiBrain.wieghtCheck = true;
-                    FindNextWaypoint(waypoints[wpIndex]);
-                }
-                else
-                {
-                    aiBrain.wieghtCheck = false;
-                    MoveToWaypoint();
-                }
+            int num = UnityEngine.Random.Range(0, 10);
+            if (num > 7)
+            {
+
+                Debug.Log("nearby");
+                aiBrain.wieghtCheck = true;
+                FindNextWaypoint(waypoints[wpIndex]);
             }
             else
-            { 
+            {
                 aiBrain.wieghtCheck = false;
                 MoveToWaypoint();
-               
             }
+        }
+        else
+        {
+            aiBrain.wieghtCheck = false;
+            MoveToWaypoint();
+
+        }
 
     }
 
