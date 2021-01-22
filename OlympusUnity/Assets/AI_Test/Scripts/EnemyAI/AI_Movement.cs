@@ -72,28 +72,28 @@ public class AI_Movement : MonoBehaviour
     {
         if (!nav.pathPending && nav.remainingDistance < rdist && wpIndex != 12)
         {
-            
 
-                int num = UnityEngine.Random.Range(0, 10);
-                if (num > 7)
-                {
 
-                    Debug.Log("nearby");
-                    aiBrain.wieghtCheck = true;
-                    FindNextWaypoint(waypoints[wpIndex]);
-                }
-                else
-                {
-                    aiBrain.wieghtCheck = false;
-                    MoveToWaypoint();
-                }
+            int num = UnityEngine.Random.Range(0, 10);
+            if (num > 7)
+            {
+
+                Debug.Log("nearby");
+                aiBrain.wieghtCheck = true;
+                FindNextWaypoint(waypoints[wpIndex]);
             }
             else
-            { 
+            {
                 aiBrain.wieghtCheck = false;
                 MoveToWaypoint();
-               
             }
+        }
+        else
+        {
+            aiBrain.wieghtCheck = false;
+            MoveToWaypoint();
+
+        }
 
     }
 

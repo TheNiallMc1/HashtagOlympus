@@ -140,7 +140,7 @@ public class AI_Brain : MonoBehaviour
         {
             movementMotor.MoveToTarget(target);
 
-            if((transform.position - target.transform.position).magnitude < 5)
+            if((transform.position - target.transform.position).magnitude < 10)
             {
                 
                 transform.LookAt(currentAttackTarget.transform.position);
@@ -271,7 +271,7 @@ public class AI_Brain : MonoBehaviour
     {
         if(currentAttackTarget != null)
         {
-            if((transform.position - movementMotor.closestWaypoint.transform.position).magnitude < 2)
+            if((transform.position - movementMotor.closestWaypoint.transform.position).magnitude < 5)
             {
                 InRange = true;
             }
@@ -313,7 +313,7 @@ public class AI_Brain : MonoBehaviour
             enemiesInAttackRange.Remove(god);
             _priority = ePriority.Moving;
             _state = eState.Moving;
-            movementMotor.FindClosestWaypoint(transform.position);
+            //movementMotor.FindClosestWaypoint(transform.position);
         }
     }
     internal void UpdateMonumentList(bool addToList, Combatant monument)
@@ -327,6 +327,7 @@ public class AI_Brain : MonoBehaviour
             {
                 monumentsInAttackRange.Add(monument);
                 this.currentAttackTarget = monumentsInAttackRange[0];
+
                 if (!wieghtCheck)
                 {
                     _priority = ePriority.Monument;
@@ -341,6 +342,8 @@ public class AI_Brain : MonoBehaviour
             monumentsInAttackRange.Remove(monument);
             _priority = ePriority.Moving;
             _state = eState.Moving;
+           // movementMotor.FindClosestWaypoint(transform.position);
+
         }
     }
 

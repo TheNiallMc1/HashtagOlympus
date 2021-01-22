@@ -388,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50198102}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 624}
+  m_LocalPosition: {x: 0, y: 0, z: 522}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 27294807}
@@ -603,7 +603,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90037732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 886}
+  m_LocalPosition: {x: 0, y: 0, z: 966}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2019134486}
@@ -2099,7 +2099,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341742027}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000030517578, y: 0, z: -726.001}
+  m_LocalPosition: {x: 0.000030517578, y: 0, z: -96}
   m_LocalScale: {x: 1, y: 2634.4458, z: 1}
   m_Children: []
   m_Father: {fileID: 1592111461}
@@ -3694,7 +3694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571242687}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -686, y: 0, z: 595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2118786900}
@@ -3715,7 +3715,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 5
   wayPoints: []
-  neighbors: []
+  neighbors:
+  - {fileID: 146023358}
+  - {fileID: 852683026}
   touristsNearby: []
   godsNearby: []
   monument: {fileID: 0}
@@ -4184,7 +4186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Layer
@@ -6281,7 +6283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852683024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -344, y: 0, z: 382}
+  m_LocalPosition: {x: -301, y: 0, z: 382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1072091947}
@@ -6598,7 +6600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894869642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -211, y: 0, z: 787}
+  m_LocalPosition: {x: -211, y: 0, z: 818}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2110539854}
@@ -6885,7 +6887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &915586719
 Transform:
   m_ObjectHideFlags: 0
@@ -7247,7 +7249,7 @@ PrefabInstance:
       objectReference: {fileID: 1789951305}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.0006866
+      value: -508
       objectReference: {fileID: 0}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7255,7 +7257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 586.00006
+      value: 403
       objectReference: {fileID: 0}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -7275,7 +7277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7148848230760303597, guid: 854fe47c660aa9b4a8aeeb033b22ce1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12637,7 +12639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818101069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 730}
+  m_LocalPosition: {x: 0, y: 0, z: 472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 906867914}
@@ -14696,7 +14698,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123055841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 460}
+  m_LocalPosition: {x: 0, y: 0, z: 333}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1644488245}
@@ -15894,7 +15896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -15932,7 +15934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -15970,7 +15972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16008,7 +16010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16046,7 +16048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16084,7 +16086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16138,7 +16140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16193,7 +16195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16231,7 +16233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16269,7 +16271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -16307,7 +16309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respectOnKill: 5
-  _targetType: 0
+  _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
@@ -17321,7 +17323,7 @@ GameObject:
   m_Name: pCube23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &2295667210879363631
