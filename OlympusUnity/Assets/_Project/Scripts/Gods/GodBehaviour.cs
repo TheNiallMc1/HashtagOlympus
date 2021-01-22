@@ -61,6 +61,7 @@ public class GodBehaviour : MonoBehaviour
 
     public Animator animator;
     private int lastNumber;
+    public bool attackAnimationIsPlaying = false;
 
     public virtual void Start()
     {
@@ -106,7 +107,7 @@ public class GodBehaviour : MonoBehaviour
         {
             closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
         }
-        if (attacking)
+        if (attacking && !attackAnimationIsPlaying)
         {
             Attack();
         }

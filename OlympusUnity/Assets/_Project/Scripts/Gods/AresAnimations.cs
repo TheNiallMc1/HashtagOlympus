@@ -29,4 +29,13 @@ public class AresAnimations : MonoBehaviour
     {
         Debug.Log(godCombatant.name + " has died");
     }
+
+    public void AnimationIsPlaying()
+    {
+        godBehaviour.attackAnimationIsPlaying = true;
+    }
+    public void AnimaitionIsFinished()
+    {
+        godBehaviour.attackAnimationIsPlaying = false;
+    }
 }
