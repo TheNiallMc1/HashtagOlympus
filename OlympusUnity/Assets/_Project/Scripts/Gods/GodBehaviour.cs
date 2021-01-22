@@ -106,6 +106,10 @@ public class GodBehaviour : MonoBehaviour
         {
             closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
         }
+        if (attacking)
+        {
+            Attack();
+        }
 
         // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
         if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
@@ -117,7 +121,6 @@ public class GodBehaviour : MonoBehaviour
         if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked && !movingToArea)
         {
             SwitchState(GodState.attacking);
-            Attack();
         }
 
         // If the god reaches their target destination, and is not attacking, switch to idle state
@@ -193,6 +196,7 @@ public class GodBehaviour : MonoBehaviour
 
     protected void Attack()
     {
+        Debug.Log("Ares - Attack Called");
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
 
