@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Influencer : AI_Brain
+public class Influencer : AIBrain
 {
-    public enum SpawnState { SPAWNING, WAITING, COUNTING }
+    public enum SpawnState { Spawning, Waiting, Counting }
 
-    public SpawnState state = SpawnState.COUNTING;
+    public new SpawnState state = SpawnState.Counting;
 
     public Transform prefab;
     public Transform left;
@@ -22,7 +22,7 @@ public class Influencer : AI_Brain
 
     public int waveIndex = 20;
 
-    protected override void Start()
+    protected void Start()
     {
         StartCoroutine(Spawner());
     }
@@ -34,15 +34,15 @@ public class Influencer : AI_Brain
 
         while (true)
         {
-            state = SpawnState.SPAWNING;
+            state = SpawnState.Spawning;
 
             yield return SpawnWave();
 
-            state = SpawnState.WAITING;
+            state = SpawnState.Waiting;
 
             yield return new WaitWhile(TouristsIsAlive);
 
-            state = SpawnState.COUNTING;
+            state = SpawnState.Counting;
 
             yield return new WaitForSeconds(timeBetweenWaves);
         }
@@ -57,7 +57,7 @@ public class Influencer : AI_Brain
 
     private IEnumerator SpawnWave()
     {
-        for (int i = 0; i < waveIndex; i++)
+        for (var i = 0; i < waveIndex; i++)
         {
             SpawnTourist();
             yield return new WaitForSeconds(0.5f);

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class AITestManager : MonoBehaviour
 {
-    public enum SpawnState { SPAWNING, WAITING, COUNTING}
+    public enum SpawnState { Spawning, Waiting, Counting}
 
-    public SpawnState state = SpawnState.COUNTING;
+    public SpawnState state = SpawnState.Counting;
 
     public Transform prefab;
     public Transform left;
@@ -35,15 +35,15 @@ public class AITestManager : MonoBehaviour
 
         while (currentWave != numberOfWaves + 1)
         {
-            state = SpawnState.SPAWNING;
+            state = SpawnState.Spawning;
 
             yield return SpawnWave();
 
-            state = SpawnState.WAITING;
+            state = SpawnState.Waiting;
 
             yield return new WaitWhile(TouristsIsAlive);
 
-            state = SpawnState.COUNTING;
+            state = SpawnState.Counting;
 
             yield return new WaitForSeconds(timeBetweenWaves);
 
@@ -60,7 +60,7 @@ public class AITestManager : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        for (int i = 0; i < enemiesPerWave; i++)
+        for (var i = 0; i < enemiesPerWave; i++)
         {
             SpawnTourist();
             yield return new WaitForSeconds(0.5f);
