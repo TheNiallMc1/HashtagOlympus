@@ -17,10 +17,6 @@ public class UIManager : MonoBehaviour
     public GameObject abilityIconPrefab;
     public GameObject[] abilityPanels;
 
-    [Header("Bars")] 
-    public List<GodHealthBar> healthBars;
-    public List<GodSpecialBar> specialBars; // Used for special abilities, such as Ares Rage meter
-    
     [Header("Portraits")]
     public List<Button> godPortraits;
 
@@ -43,12 +39,7 @@ public class UIManager : MonoBehaviour
     private void UpdatePortraitValues(int buttonIndex)
     {
         Button thisButton = godPortraits[buttonIndex];
-        GodPortrait portraitScript = thisButton.GetComponent<GodPortrait>();
         GodBehaviour thisGod = GameManager.Instance.allPlayerGods[buttonIndex];
-        
-        // Set the portrait script's god value equal to the player god at this same index
-        portraitScript.correspondingGod = thisGod;
-        portraitScript.UpdateValues();
     }
 
     private void UpdateAllPortraits()

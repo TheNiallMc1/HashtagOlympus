@@ -7,30 +7,20 @@ using UnityEngine.UI;
 public class God_Ares : GodBehaviour
 {
     [Header("Ares")]
-    private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
-
     [SerializeField] private StatusEffect rageStatus;
     [SerializeField] private StatusEffect maxRageStatus;
-
+    
     [SerializeField] private float rageReductionRate;
     
-    private Coroutine ultimateCoroutine;
-
-    private GodSpecialBar rageBar;
+    private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
 
     public GameObject rageParticles;
-
-    [Header("Ares TESTING")] 
-    public TextMeshProUGUI ultimateCountText;
-    public TextMeshProUGUI rageCountText;
     
-
+    private Coroutine ultimateCoroutine;
+    
     public override void Start()
     {
         base.Start();
-        
-        // Set rage bar equal to the relevant special bar
-
         ultimateCharge = 0;
     }
 
@@ -43,9 +33,6 @@ public class God_Ares : GodBehaviour
     private void RageUpdate(int amountToAdd)
     {
         ultimateCharge += amountToAdd;
-
-       // rageCountText.text = ultimateCharge.ToString();
-        // For Ares, rage and ultimate charge are the same thing
     }
 
     public override void ActivateUltimate()
@@ -73,7 +60,7 @@ public class God_Ares : GodBehaviour
         }
     }
 
-    public void EndUltimate()
+    private void EndUltimate()
     {
         ultimateCoroutine = null;
         usingUltimate = false;
@@ -82,11 +69,11 @@ public class God_Ares : GodBehaviour
 
     public override IEnumerator UltimateDurationCoroutine()
     {
-        // Every second, reduce Rage count by 1
+        // Reduce ultimate charge by 1 on interval
         yield return new WaitForSecondsRealtime(rageReductionRate);
         RageUpdate(-1);
 
-        // When rage hits zero, end the Ultimate
+        // When rage/ultimate charge hits zero, end the Ultimate and remove the rage status
         if (ultimateCharge <= 0)
         {
             ultimateCharge = 0; // Just adjusting in case it falls below zero somehow

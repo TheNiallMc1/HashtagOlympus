@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Combatant : MonoBehaviour
@@ -12,7 +13,7 @@ public class Combatant : MonoBehaviour
         EMonument
     }
 
-    public int respectOnKill =5;
+    public int respectOnKill;
 
     [SerializeField] private eTargetType _targetType;
     public eTargetType targetType { get { return _targetType; } set { _targetType = value; } }
@@ -67,13 +68,12 @@ public class Combatant : MonoBehaviour
         if (activeStatusEffects.ContainsKey(status))
         {
             // Get the value by its key (the status type) and then end the status
-            activeStatusEffects.TryGetValue(status, out StatusEffectManager manager);
-            manager?.EndStatus();
-
-            // Remove from dictionary
-            activeStatusEffects.Remove(status);
+            if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
+            {
+                manager.EndStatus();
+                activeStatusEffects.Remove(status);
+            }
         }
-        
         else
         {
             Debug.LogWarning("The status of " + status.name + " does not exist on this entity");
@@ -86,11 +86,10 @@ public class Combatant : MonoBehaviour
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
-            // Get the value by its key (the status type) and then end the status
-            activeStatusEffects.TryGetValue(status, out StatusEffectManager manager);
-
-            // Remove from dictionary
-            activeStatusEffects.Remove(status);
+            if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
+            {
+                activeStatusEffects.Remove(status);
+            }
         }
         
         else
@@ -120,12 +119,13 @@ public class Combatant : MonoBehaviour
         }
     }
 
-    public void Die()
+    private void Die()
     {
         if (targetType == eTargetType.Player)
         {
             GetComponent<GodBehaviour>().OnDeathEvent();
         }
+        
         if(targetType == eTargetType.Enemy)
         {
             print(gameObject.name + " has been defeated");

@@ -7,12 +7,9 @@ public class God_Dionysus : GodBehaviour
 {
     [Header("Dionysus")] 
     public StatusEffect ultimatePartyStatus;
-
     public float ultimateReductionRate;
     
     private Coroutine ultimateCoroutine;
-
-    public TextMeshProUGUI ultimateCountText;
     
     // KEEP LIST OF EVERY ENEMY AFFECTED BY PARTY-TIME
     
@@ -24,8 +21,6 @@ public class God_Dionysus : GodBehaviour
         {
             ultimateCharge = 100;
         }
-        
-        ultimateCountText.text = ultimateCharge.ToString();
     }
     
     public override void ActivateUltimate()

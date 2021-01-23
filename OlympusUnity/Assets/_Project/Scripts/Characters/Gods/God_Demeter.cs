@@ -12,16 +12,14 @@ public class God_Demeter : GodBehaviour
     
     private Coroutine ultimateCoroutine;
 
-    public TextMeshProUGUI ultimateCountText;
-
     [Header("Summer Demeter")] 
     public GameObject summerModel;
-    //public List<AbilityManager> summerAbilities;
+    public List<AbilityManager> summerAbilities;
 
     [Header("Winter Demeter")] 
     public GameObject winterModel;
-    //public List<AbilityManager> winterAbilities;
-    //public AbilityManager winterPassive;
+    public List<AbilityManager> winterAbilities;
+    public AbilityManager winterPassive;
         
     public void AddUltimateCharge(int chargeToAdd)
     {
@@ -31,10 +29,8 @@ public class God_Demeter : GodBehaviour
         {
             ultimateCharge = 100;
         }
-        
-        ultimateCountText.text = ultimateCharge.ToString();
     }
-
+    
     void SwitchForms()
     {
         switch (currentForm)
@@ -58,17 +54,18 @@ public class God_Demeter : GodBehaviour
 
         animator = winterModel.GetComponent<Animator>();
 
-        // foreach (AbilityManager ability in winterAbilities)
-        // {
-        //     winterAbilities.enable;
-        // }
+        // Disable summer abilities and activate winter abilities
+        foreach (AbilityManager ability in winterAbilities)
+        {
+            ability.enabled = true;
+        }
         
-        // winterPassive.enable;
+        foreach (AbilityManager ability in summerAbilities)
+        {
+            ability.enabled = false;
+        }
         
-        // foreach (AbilityManager ability in summerAbilities)
-        // {
-        //     summerAbilities.disable;
-        // }
+        winterPassive.enabled = true;
     }
 
     void SwitchToSummer()
@@ -80,17 +77,18 @@ public class God_Demeter : GodBehaviour
 
         animator = summerModel.GetComponent<Animator>();
         
-        // foreach (AbilityManager ability in winterAbilities)
-        // {
-        //     winterAbilities.disable;
-        // }
+        // Disable winter abilities and activate summer abilities
+        foreach (AbilityManager ability in winterAbilities)
+        {
+            ability.enabled = false;
+        }
         
-        // winterPassive.disable;
+        foreach (AbilityManager ability in summerAbilities)
+        {
+            ability.enabled = true;
+        }
         
-        // foreach (AbilityManager ability in summerAbilities)
-        // {
-        //     summerAbilities.enable;
-        // }
+        winterPassive.enabled = false;
     }
     
     public override void ActivateUltimate()
@@ -103,9 +101,6 @@ public class God_Demeter : GodBehaviour
             attackingLocked = true;
             
             SwitchForms();
-            
-            // ADD PASSIVE ABILITY TO INFLICTS PARTY-TIME ON NEARBY ENEMIES
-            // CHANGE STATE TO "DANCING" SO HE CANNOT ATTACK
             
             ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
         }

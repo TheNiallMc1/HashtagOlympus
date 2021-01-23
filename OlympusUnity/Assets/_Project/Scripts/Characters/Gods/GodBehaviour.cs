@@ -16,18 +16,18 @@ public class GodBehaviour : MonoBehaviour
     public int attackRadius;
 
     public int costToRespawn;
-    public bool isKOed;
-
-    public bool attackingLocked;
-    public bool movementLocked;
+   
+    [HideInInspector] public bool isKOed;
+    [HideInInspector] public bool attackingLocked;
+    [HideInInspector] public bool movementLocked;
+    
     bool closeToTargetPosition;
 
-    [Header("Attacking")]
-    [SerializeField] protected internal List<Combatant> enemiesSeen;
-    [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
+    [Header("Attacking")] 
+    protected List<Combatant> enemiesSeen;
+    protected List<Combatant> enemiesInAttackRange;
     
     public Combatant currentAttackTarget;
-   // protected Coroutine currentAttackCoroutine;
 
     [Header("States")]
     [SerializeField] protected internal GodState currentState;
@@ -41,7 +41,6 @@ public class GodBehaviour : MonoBehaviour
     protected int currentSkillPoints;
 
     [Header("Abilities")]
-
     public List<AbilityManager> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
@@ -56,9 +55,6 @@ public class GodBehaviour : MonoBehaviour
     public SphereCollider attackRadiusCollider;
 
     [Header("UI Elements")]
-    public GodHealthBar healthBar;
-    protected UIManager uiManager;
-
     public Animator animator;
     private int lastNumber = 1;
     public bool attackAnimationIsPlaying = false;
@@ -66,9 +62,6 @@ public class GodBehaviour : MonoBehaviour
     public virtual void Start()
     {
         thisCombatant = GetComponent<Combatant>();
-
-        uiManager = FindObjectOfType<UIManager>();
-
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         currentState = GodState.idle;
@@ -197,7 +190,8 @@ public class GodBehaviour : MonoBehaviour
 
     protected void Attack()
     {
-        Debug.Log("Ares - Attack Called");
+        Debug.Log(thisCombatant.characterName + ": Attack Called");
+        
         // Determine and store current target
         currentAttackTarget = enemiesInAttackRange[0];
 
@@ -212,15 +206,13 @@ public class GodBehaviour : MonoBehaviour
 
         transform.LookAt(currentAttackTarget.transform.position);
 
-        int animNumber = randomNumber();
+        int animNumber = GetRandomNumber();
 
         animator.ResetTrigger("AutoAttack0" + lastNumber);
 
         animator.SetTrigger("AutoAttack0" + animNumber);
 
         lastNumber = animNumber;
-
-        //yield return new WaitForSecondsRealtime(0.2f);
 
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
@@ -232,23 +224,8 @@ public class GodBehaviour : MonoBehaviour
             // Determine and store a new target if the last one was null 
             currentAttackTarget = enemiesInAttackRange[0];
         }
-        else
-        {
-           // yield return new WaitForSecondsRealtime(2.5f);
-        }
 
-
-        // If any more enemies remain in range, loop the coroutine
-        if (enemiesInAttackRange.Any())
-        {
-          //  currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
-        }
-        else
-        {
-          //  currentAttackCoroutine = null;
-            SwitchState(GodState.idle);
-        }
-
+        SwitchState(GodState.idle);
     }
 
     #region State Behaviours
@@ -258,7 +235,6 @@ public class GodBehaviour : MonoBehaviour
         switch (newState)
         {
             case GodState.idle:
-                CancelAutoAttack();
                 IdleState();
                 break;
 
@@ -267,22 +243,18 @@ public class GodBehaviour : MonoBehaviour
                 break;
 
             case GodState.moveToArea:
-                CancelAutoAttack();
                 MoveToAreaState();
                 break;
 
             case GodState.moveToEnemy:
-                CancelAutoAttack();
                 MoveToEnemyState();
                 break;
 
             case GodState.knockedOut:
-                CancelAutoAttack();
                 KnockedOutState();
                 break;
             
             case GodState.usingAbility:
-                CancelAutoAttack();
                 UsingAbility();
                 break;
         }
@@ -390,14 +362,14 @@ public class GodBehaviour : MonoBehaviour
 
     //}
 
-    protected void CancelAutoAttack()
-    {
-        //// Stop the auto attack coroutine if it exists
-        //if (currentAttackCoroutine != null)
-        //{
-        //    StopCoroutine(currentAttackCoroutine);
-        //}
-    }
+    // protected void CancelAutoAttack()
+    // {
+    //     //// Stop the auto attack coroutine if it exists
+    //     //if (currentAttackCoroutine != null)
+    //     //{
+    //     //    StopCoroutine(currentAttackCoroutine);
+    //     //}
+    // }
 
     public void Revive()
     {
@@ -424,7 +396,7 @@ public class GodBehaviour : MonoBehaviour
         // Override in sub class
     }
 
-    private int randomNumber()
+    private int GetRandomNumber()
     {
         int randomNumber = UnityEngine.Random.Range(1, 4);
         if (randomNumber == lastNumber)

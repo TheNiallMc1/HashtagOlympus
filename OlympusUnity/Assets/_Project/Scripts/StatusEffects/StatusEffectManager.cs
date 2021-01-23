@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Combatant))]
 public class StatusEffectManager : MonoBehaviour
@@ -41,7 +42,7 @@ public class StatusEffectManager : MonoBehaviour
         else if (statusEffect.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
         {
             ActivateEntryEffect();
-            EndStatus();
+            ActivateExitEffect();
         }
         
         else // Start the duration coroutine 
@@ -63,8 +64,6 @@ public class StatusEffectManager : MonoBehaviour
             StopCoroutine(tickCoroutine);
         }
         
-        ActivateExitEffect();
-        
         thisCombatant.RemoveStatusFromList(statusEffect);
         
         Destroy(this);
@@ -85,7 +84,7 @@ public class StatusEffectManager : MonoBehaviour
     private void ActivateExitEffect()
     {
         statusEffect.ExitEffect();
-        Debug.Log("Status effect ended");
+        EndStatus();
     }
 
     private IEnumerator TickEffectCoroutine()
@@ -98,7 +97,7 @@ public class StatusEffectManager : MonoBehaviour
     {
         Debug.Log("duration coroutine started");
         yield return new WaitForSecondsRealtime(statusEffect.statusDuration);
-        EndStatus();
+        ActivateExitEffect();
     }
     
 }
