@@ -1,42 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class TouristAnimationEvents : MonoBehaviour
+namespace _Project.Scripts.AI.AiControllers
 {
-    Combatant _touristCombatant;
-    AIBrain _aIBrain;
-    NavMeshAgent _navMeshAgent;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class TouristAnimationEvents : MonoBehaviour
     {
-        _touristCombatant = GetComponentInParent<Combatant>();
-        _aIBrain = GetComponentInParent<AIBrain>();
-        _navMeshAgent = GetComponentInParent<AIMovement>().nav;
-    }
-
+        Combatant _touristCombatant;
+        AIBrain _aIBrain;
+        NavMeshAgent _navMeshAgent;
     
-    // Animation Events
-    public void TakeDamageAnimation()
-    {
-        Combatant target = _aIBrain.currentAttackTarget;
-        if (target != null)
+        // Start is called before the first frame update
+        void Start()
         {
-            target.TakeDamage(_touristCombatant.attackDamage);
+            _touristCombatant = GetComponentInParent<Combatant>();
+            _aIBrain = GetComponentInParent<AIBrain>();
+            _navMeshAgent = GetComponentInParent<AIMovement>().nav;
         }
-    }
 
-    public void LockMovement()
-    {
-        _navMeshAgent.isStopped = true;
-        _aIBrain.attackAnimationIsPlaying = true;
-    }
+    
+        // Animation Events
+        public void TakeDamageAnimation()
+        {
+            Combatant target = _aIBrain.currentAttackTarget;
+            if (target != null)
+            {
+                target.TakeDamage(_touristCombatant.attackDamage);
+            }
+        }
 
-    public void UnlockMovement()
-    {
-        _navMeshAgent.isStopped = false;
-        _aIBrain.attackAnimationIsPlaying = false;
+        public void LockMovement()
+        {
+            _navMeshAgent.isStopped = true;
+            _aIBrain.attackAnimationIsPlaying = true;
+        }
+
+        public void UnlockMovement()
+        {
+            _navMeshAgent.isStopped = false;
+            _aIBrain.attackAnimationIsPlaying = false;
+        }
     }
 }

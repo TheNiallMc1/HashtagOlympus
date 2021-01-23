@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 
-public class TouristColliders : MonoBehaviour
+namespace _Project.Scripts.AI.AiControllers
 {
-    // This script serves as a way for the character detection colliders to communicate with the parent objects
-    public AIBrain parentBehaviour;
-    public ColliderType colliderType;
-
-    // When a tourist enters the trigger, call the method in the parent behaviour
-    private void OnTriggerEnter(Collider other)
+    public class TouristColliders : MonoBehaviour
     {
-        var target = other.GetComponentInParent<Combatant>();
+        // This script serves as a way for the character detection colliders to communicate with the parent objects
+        public AIBrain parentBehaviour;
+        public ColliderType colliderType;
 
-        if (target != null && target.targetType == Combatant.eTargetType.Player)
+        // When a tourist enters the trigger, call the method in the parent behaviour
+        private void OnTriggerEnter(Collider other)
         {
-            parentBehaviour.UpdateAttackList(true, target);
+            var target = other.GetComponentInParent<Combatant>();
+
+            if (target != null && target.targetType == Combatant.eTargetType.Player)
+            {
+                parentBehaviour.UpdateAttackList(true, target);
+            }
+
+            if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+            {
+                parentBehaviour.UpdateMonumentList(true, target);
+            }
         }
 
-        if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+        // When a tourist exits the trigger, call the method in the parent behaviour
+        private void OnTriggerExit(Collider other)
         {
-            parentBehaviour.UpdateMonumentList(true, target);
-        }
-    }
+            var target = other.GetComponentInParent<Combatant>();
 
-    // When a tourist exits the trigger, call the method in the parent behaviour
-    private void OnTriggerExit(Collider other)
-    {
-        var target = other.GetComponentInParent<Combatant>();
+            if (target != null && target.targetType == Combatant.eTargetType.Player)
+            {
+                parentBehaviour.UpdateAttackList(false, target);
+            }
 
-        if (target != null && target.targetType == Combatant.eTargetType.Player)
-        {
-            parentBehaviour.UpdateAttackList(false, target);
-        }
-
-        if (target != null && target.targetType == Combatant.eTargetType.PMonument)
-        {
-            parentBehaviour.UpdateMonumentList(false, target);
+            if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+            {
+                parentBehaviour.UpdateMonumentList(false, target);
+            }
         }
     }
 }
