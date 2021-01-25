@@ -20,7 +20,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         public enum EPriority { Moving, Monument, God }
         public enum EState { Moving, Attacking, Ability }
-    
+
         [Header("Dynamic States")]
         [SerializeField]
         protected EPriority priority = EPriority.Moving;
@@ -38,19 +38,33 @@ namespace _Project.Scripts.AI.AiControllers
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
 
+        [Header("Animation")]
         private bool _initialCoLoop = true;
         private int _lastNumber = 1;
         private static readonly int GodSeen = Animator.StringToHash("GodSeen");
         private static readonly int MonumentAttack = Animator.StringToHash("MonumentAttack");
         private static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
         private static readonly int GodInRange = Animator.StringToHash("GodInRange");
-    
+        private static readonly int TouristStandardMovement = Animator.StringToHash("Tourist_standard_movement");
+        private static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
+        private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
 
-        public EPriority Priority { get => priority;
+        private readonly List<int> _autoAttackAnimations = new List<int>
+        {
+            AutoAttack01,
+            AutoAttack02,
+        };
+
+
+        public EPriority Priority
+        {
+            get => priority;
             set => priority = value;
         }
 
-        public EState State { get => state;
+        public EState State
+        {
+            get => state;
             set => state = value;
         }
 
@@ -60,20 +74,20 @@ namespace _Project.Scripts.AI.AiControllers
             thisCombatant = GetComponent<Combatant>();
             _movementMotor = GetComponent<AIMovement>();
             State = EState.Moving;
-      
+
         }
 
         #region State Behaviours
 
         protected void FixedUpdate()
         {
-            
-            
+
+
             wayPoint = _movementMotor.GetPath();
             switch (priority)
             {
-                case EPriority.God: 
-                    _isCombatantNotNull =  enemiesInAttackRange.Count != 0;
+                case EPriority.God:
+                    _isCombatantNotNull = enemiesInAttackRange.Count != 0;
                     if (_isCombatantNotNull)
                     {
                         currentAttackTarget = null;
@@ -82,8 +96,8 @@ namespace _Project.Scripts.AI.AiControllers
                     }
 
                     break;
-                case EPriority.Monument: 
-                    _isMonumentsNotNull = monumentsInAttackRange.Count != 0;       
+                case EPriority.Monument:
+                    _isMonumentsNotNull = monumentsInAttackRange.Count != 0;
                     if (_isMonumentsNotNull)
                     {
                         initMove = false;
@@ -104,20 +118,21 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Moving:
                     if (!initMove)
                     {
+                        attackAnimationIsPlaying = false;
                         _movementMotor.animator.SetBool(GodSeen, false);
                         isTargetNotNull = false;
                         inRange = false;
                         isAttacking = false;
-                        _movementMotor.animator.Play("Tourist_standard_movement");
+                        _movementMotor.animator.Play(TouristStandardMovement);
                         _movementMotor.nav.isStopped = false;
                         _initialCoLoop = true;
                         _movementMotor.Moving();
-                        
+
                     }
                     break;
                 case EState.Attacking:
                     isAttacking = true;
-                    
+
                     if (Priority == EPriority.God)
                     {
                         Attack(currentAttackTarget);
@@ -125,7 +140,7 @@ namespace _Project.Scripts.AI.AiControllers
 
                     if (Priority == EPriority.Monument)
                     {
-                        
+
                         Attack(currentAttackTarget);
                     }
                     break;
@@ -143,89 +158,91 @@ namespace _Project.Scripts.AI.AiControllers
         protected virtual void Attack(Combatant target)
         {
             if (State != EState.Attacking || attackAnimationIsPlaying) return;
-           if (target.currentHealth <=0 || target.targetType == Combatant.eTargetType.EMonument)
-           {
+            if (target.currentHealth <= 0 || target.targetType == Combatant.eTargetType.EMonument)
+            {
 
-               if (Priority == EPriority.God)
-               {
-                   UpdateAttackList(false, currentAttackTarget);
-               }
-               if (Priority == EPriority.Monument)
-               {
-                   _movementMotor.animator.SetBool(MonumentDestroyed, true);
-                   UpdateMonumentList(false, currentAttackTarget);
-               }
-           }
+                if (Priority == EPriority.God)
+                {
+                    UpdateAttackList(false, currentAttackTarget);
+                }
+                if (Priority == EPriority.Monument)
+                {
+                    _movementMotor.animator.SetBool(MonumentDestroyed, true);
+                    UpdateMonumentList(false, currentAttackTarget);
+                }
+            }
 
-           transform.LookAt(currentAttackTarget.transform.position);
+            transform.LookAt(currentAttackTarget.transform.position);
 
-           var animNumber = 1;
+            var animNumber = 1;
 
-           
- 
-           if (isTargetNotNull)
-           {
-               _movementMotor.MoveToTarget(target);
-               TargetInRange();
-               if (Priority == EPriority.God && inRange)
-               {
-                    _movementMotor.nav.isStopped = true;
-                   _movementMotor.animator.SetBool(GodSeen, true);
-               }
+            if (isTargetNotNull)
+            {
+                _movementMotor.MoveToTarget(target);
+                TargetInRange();
 
-               if (Priority == EPriority.Monument && inRange)
-               {
-                   _movementMotor.nav.isStopped = true;
+                if (Priority == EPriority.God && inRange)
+                {
+                    
+                    _movementMotor.animator.SetBool(GodSeen, true);
+                }
+
+                if (Priority == EPriority.Monument && inRange)
+                {
                     _movementMotor.animator.SetTrigger(MonumentAttack);
-               }
-           }
-           transform.LookAt(currentAttackTarget.transform.position);
+                }
+            }
+            transform.LookAt(currentAttackTarget.transform.position);
 
-           if (Priority == EPriority.God)
-           {
+            if (Priority == EPriority.God)
+            {
+
                 if (_initialCoLoop)
                 {
                     _initialCoLoop = false;
-                    _movementMotor.animator.Play("Tourist_standard_movement");
+                    _movementMotor.animator.Play(TouristStandardMovement);
                 }
-                _movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
-               animNumber = RandomNumber();
+                _movementMotor.animator.ResetTrigger(_autoAttackAnimations[animNumber]);
+                animNumber = RandomNumber();
+                Debug.Log(animNumber);
+                attackAnimationIsPlaying = true;
+                _movementMotor.animator.ResetTrigger(_autoAttackAnimations[_lastNumber]);
+                _movementMotor.animator.SetTrigger(_autoAttackAnimations[animNumber]);
 
-               _movementMotor.animator.ResetTrigger("AutoAttack0" + _lastNumber);
-               _movementMotor.animator.SetTrigger("AutoAttack0" + animNumber);
-
-               _lastNumber = animNumber;
-
-
-           }
-
-           _movementMotor.animator.SetBool(GodInRange, false);
-
-           if (currentAttackTarget != null) return;
-           // movementMotor.animator.SetBool("MonumentDestroyed", true);
-
-           _movementMotor.animator.ResetTrigger("AutoAttack0" + animNumber);
+                _lastNumber = animNumber;
 
 
+            }
+
+          
+
+            if (currentAttackTarget != null) return;
+             _movementMotor.animator.SetBool(MonumentDestroyed, true);
+
+            _movementMotor.animator.ResetTrigger(_autoAttackAnimations[animNumber]);
+             _movementMotor.animator.SetBool(GodInRange, false);
 
 
-           if (Priority == EPriority.God)
-           {
-               UpdateAttackList(false, currentAttackTarget);
-           }
-           if (Priority == EPriority.Monument)
-           {
-               UpdateMonumentList(false, currentAttackTarget);
-           }
+
+            if (Priority == EPriority.God)
+            {
+                UpdateAttackList(false, currentAttackTarget);
+            }
+            if (Priority == EPriority.Monument)
+            {
+                UpdateMonumentList(false, currentAttackTarget);
+            }
         }
 
         protected void TargetInRange()
         {
             if (!isTargetNotNull) return;
-            if((transform.position - wayPoint.transform.position).magnitude < 5 || (transform.position - currentAttackTarget.transform.position).magnitude < 5)
-            {
-                inRange = true;
-            }
+            var position = transform.position;
+            inRange = (position - wayPoint.transform.position).magnitude < 10 ||
+                      (position - currentAttackTarget.transform.position).magnitude < 10;
+
+
+            _movementMotor.nav.isStopped = true;
         }
 
         #endregion
@@ -240,24 +257,25 @@ namespace _Project.Scripts.AI.AiControllers
             {
                 // Add tourist if the method is to add from the list, and the tourist is not already in the list
                 case true when !alreadyInList:
-                {
-                    if (god.targetType == Combatant.eTargetType.Player)
                     {
-                        enemiesInAttackRange.Add(god);
+                        if (god.targetType == Combatant.eTargetType.Player)
+                        {
+                            enemiesInAttackRange.Add(god);
 
-                        _movementMotor.animator.SetBool(GodInRange, true);
-                
+                            _movementMotor.animator.SetBool(GodInRange, true);
 
-                        currentAttackTarget = enemiesInAttackRange[0];
-                        Priority = EPriority.God;
-                        State = EState.Attacking;
+
+                            currentAttackTarget = enemiesInAttackRange[0];
+                            Priority = EPriority.God;
+                            State = EState.Attacking;
+                        }
+
+                        break;
                     }
-
-                    break;
-                }
                 // Remove tourist if the method is to remove from the list, and the tourist is already in the list
                 case false when alreadyInList:
                     enemiesInAttackRange.Remove(god);
+                    if (enemiesInAttackRange.Count > 0) return;
                     Priority = EPriority.Moving;
                     State = EState.Moving;
                     break;
@@ -271,39 +289,40 @@ namespace _Project.Scripts.AI.AiControllers
             {
                 // Add tourist if the method is to add from the list, and the tourist is not already in the list
                 case true when !alreadyInList:
-                {
-                    if (monument.targetType == Combatant.eTargetType.PMonument)
                     {
-                        monumentsInAttackRange.Add(monument);
-                        currentAttackTarget = monumentsInAttackRange[0];
-
-                        if (weightCheck == false)
+                        if (monument.targetType == Combatant.eTargetType.PMonument)
                         {
-                            Priority = EPriority.Monument;
-                            State = EState.Attacking;
-                        }
-                    }
+                            monumentsInAttackRange.Add(monument);
+                            currentAttackTarget = monumentsInAttackRange[0];
 
-                    break;
-                }
+                            if (weightCheck == false)
+                            {
+                                Priority = EPriority.Monument;
+                                State = EState.Attacking;
+                            }
+                        }
+
+                        break;
+                    }
                 // Remove tourist if the method is to remove from the list, and the tourist is already in the list
                 case false when alreadyInList:
                     monumentsInAttackRange.Remove(monument);
+                    if (monumentsInAttackRange.Count > 0) return;
                     State = EState.Moving;
                     Priority = EPriority.Moving;
                     break;
             }
 
-        
+
         }
 
-#endregion
+        #endregion
 
         private int RandomNumber()
         {
-            var randomNumber = UnityEngine.Random.Range(1, 2);
+            var randomNumber = UnityEngine.Random.Range(0, _autoAttackAnimations.Count - 1);
             if (randomNumber != _lastNumber) return randomNumber;
-            if (randomNumber < 2)
+            if (randomNumber < _autoAttackAnimations.Count - 1)
             {
                 randomNumber++;
             }

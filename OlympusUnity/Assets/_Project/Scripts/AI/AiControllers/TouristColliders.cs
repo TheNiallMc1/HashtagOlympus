@@ -13,8 +13,9 @@ namespace _Project.Scripts.AI.AiControllers
         private void OnTriggerEnter(Collider other)
         {
             var target = other.GetComponentInParent<Combatant>();
+            colliderType = other.GetComponentInChildren<GodColliders>().colliderType;
 
-            if (target is null) return;
+            if (target is null || colliderType == ColliderType.attackRadius) return;
             switch (target.targetType)
             {
                 case Combatant.eTargetType.Player:
@@ -36,8 +37,9 @@ namespace _Project.Scripts.AI.AiControllers
         private void OnTriggerExit(Collider other)
         {
             var target = other.GetComponentInParent<Combatant>();
+            colliderType = other.GetComponentInChildren<GodColliders>().colliderType;
 
-            if (target is null) return;
+            if (target is null || colliderType == ColliderType.attackRadius) return;
             switch (target.targetType)
             {
                 case Combatant.eTargetType.Player:

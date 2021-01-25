@@ -30,13 +30,11 @@ namespace _Project.Scripts.AI.AiControllers
 
         public void LockMovement()
         {
-            _navMeshAgent.isStopped = true;
             _aIBrain.attackAnimationIsPlaying = true;
         }
 
         public void UnlockMovement()
         {
-            _navMeshAgent.isStopped = false;
             _aIBrain.attackAnimationIsPlaying = false;
         }
     }
