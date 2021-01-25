@@ -10,12 +10,12 @@ public class MonumentCollider : MonoBehaviour
     {
         var target = other.GetComponentInParent<Combatant>();
 
-        if (target != null && target.targetType == Combatant.eTargetType.Player)
+        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
         {
             parentBehaviour.UpdateGodsNearby(true, target);
         }
 
-        if (target != null && target.targetType == Combatant.eTargetType.Enemy)
+        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Enemy)
         {
             parentBehaviour.UpdateTouristsNearby(true, target);
         }
@@ -26,12 +26,12 @@ public class MonumentCollider : MonoBehaviour
     {
         var target = other.GetComponentInParent<Combatant>();
 
-        if (target != null && target.targetType == Combatant.eTargetType.Player)
+        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
         {
             parentBehaviour.UpdateGodsNearby(false, target);
         }
 
-        if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.PMonument)
         {
             parentBehaviour.UpdateTouristsNearby(false, target);
         }

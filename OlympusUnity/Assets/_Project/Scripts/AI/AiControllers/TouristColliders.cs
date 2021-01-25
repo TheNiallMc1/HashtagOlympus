@@ -13,7 +13,7 @@ namespace _Project.Scripts.AI.AiControllers
         {
             var target = other.GetComponentInParent<Combatant>();
 
-            if (target != null && target.targetType == Combatant.eTargetType.Player)
+            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
             {
                 parentBehaviour.UpdateAttackList(true, target);
             }
@@ -29,12 +29,12 @@ namespace _Project.Scripts.AI.AiControllers
         {
             var target = other.GetComponentInParent<Combatant>();
 
-            if (target != null && target.targetType == Combatant.eTargetType.Player)
+            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
             {
                 parentBehaviour.UpdateAttackList(false, target);
             }
 
-            if (target != null && target.targetType == Combatant.eTargetType.PMonument)
+            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.PMonument)
             {
                 parentBehaviour.UpdateMonumentList(false, target);
             }

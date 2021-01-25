@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Project.Scripts.AI.AiControllers
 {
@@ -20,13 +19,13 @@ namespace _Project.Scripts.AI.AiControllers
         public Combatant currentAttackTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Idle, Moving, Attacking, Ability }
+        public enum EState { Moving, Attacking, Ability }
     
         [Header("Dynamic States")]
         [SerializeField]
         protected EPriority priority = EPriority.Moving;
         [SerializeField]
-        protected EState state = EState.Idle;
+        protected EState state = EState.Moving;
         public Waypoint wayPoint;
 
         [Header("Dynamic Validation")]
@@ -38,7 +37,6 @@ namespace _Project.Scripts.AI.AiControllers
         public bool isTargetNotNull;
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
-        private bool _isMoving;
 
         private bool _initialCoLoop = true;
         private int _lastNumber = 1;
@@ -64,6 +62,8 @@ namespace _Project.Scripts.AI.AiControllers
             State = EState.Moving;
       
         }
+
+        #region State Behaviours
 
         protected void FixedUpdate()
         {
@@ -129,14 +129,16 @@ namespace _Project.Scripts.AI.AiControllers
                         Attack(currentAttackTarget);
                     }
                     break;
-                case EState.Idle:
-                    break;
                 case EState.Ability:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        #endregion
+
+        #region Combat Logic
 
         protected virtual void Attack(Combatant target)
         {
@@ -226,6 +228,10 @@ namespace _Project.Scripts.AI.AiControllers
             }
         }
 
+        #endregion
+
+        #region List Management
+
         internal void UpdateAttackList(bool addToList, Combatant god)
         {
             var alreadyInList = enemiesInAttackRange.Contains(god);
@@ -290,6 +296,8 @@ namespace _Project.Scripts.AI.AiControllers
 
         
         }
+
+#endregion
 
         private int RandomNumber()
         {

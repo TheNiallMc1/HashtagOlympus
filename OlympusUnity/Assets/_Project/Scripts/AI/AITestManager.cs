@@ -24,7 +24,7 @@ public class AITestManager : MonoBehaviour
     public float incrementAmount = 1.3f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(Spawner());
     }

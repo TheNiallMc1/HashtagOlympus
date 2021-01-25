@@ -5,12 +5,12 @@ namespace _Project.Scripts.AI.AiControllers
 {
     public class TouristAnimationEvents : MonoBehaviour
     {
-        Combatant _touristCombatant;
-        AIBrain _aIBrain;
-        NavMeshAgent _navMeshAgent;
+        private Combatant _touristCombatant;
+        private AIBrain _aIBrain;
+        private NavMeshAgent _navMeshAgent;
     
         // Start is called before the first frame update
-        void Start()
+        protected void Start()
         {
             _touristCombatant = GetComponentInParent<Combatant>();
             _aIBrain = GetComponentInParent<AIBrain>();
@@ -21,8 +21,8 @@ namespace _Project.Scripts.AI.AiControllers
         // Animation Events
         public void TakeDamageAnimation()
         {
-            Combatant target = _aIBrain.currentAttackTarget;
-            if (target != null)
+            var target = _aIBrain.currentAttackTarget;
+            if (target.isActiveAndEnabled)
             {
                 target.TakeDamage(_touristCombatant.attackDamage);
             }

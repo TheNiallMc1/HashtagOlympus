@@ -45,10 +45,10 @@ public class Waypoint : MonoBehaviour
 
     private void OnDrawGizmos()
 	{
-		if (neighbors == null)
+		if (neighbors.Count <= 0)
 			return;
 		Gizmos.color = new Color (0f, 0f, 0f);
-		foreach (var neighbor in neighbors.Where(neighbor => neighbor != null))
+		foreach (var neighbor in neighbors.Where(neighbor => neighbor.isActiveAndEnabled))
         {
             Gizmos.DrawLine (transform.position, neighbor.transform.position);
         }
