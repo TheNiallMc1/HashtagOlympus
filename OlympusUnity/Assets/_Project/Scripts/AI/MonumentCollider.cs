@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class MonumentCollider : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class MonumentCollider : MonoBehaviour
     {
         var target = other.GetComponentInParent<Combatant>();
 
-        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
+        if(target is null) return;
+        if (target.targetType == Combatant.eTargetType.Player)
         {
             parentBehaviour.UpdateGodsNearby(true, target);
         }
@@ -26,14 +28,21 @@ public class MonumentCollider : MonoBehaviour
     {
         var target = other.GetComponentInParent<Combatant>();
 
-        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
+        if(target is null) return;
+        switch (target.targetType)
         {
-            parentBehaviour.UpdateGodsNearby(false, target);
-        }
-
-        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.PMonument)
-        {
-            parentBehaviour.UpdateTouristsNearby(false, target);
+            case Combatant.eTargetType.Player:
+                parentBehaviour.UpdateGodsNearby(false, target);
+                break;
+            case Combatant.eTargetType.PMonument:
+                parentBehaviour.UpdateTouristsNearby(false, target);
+                break;
+            case Combatant.eTargetType.Enemy:
+                break;
+            case Combatant.eTargetType.EMonument:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }

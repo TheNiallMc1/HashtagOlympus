@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace _Project.Scripts.AI.AiControllers
 {
@@ -13,14 +14,21 @@ namespace _Project.Scripts.AI.AiControllers
         {
             var target = other.GetComponentInParent<Combatant>();
 
-            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
+            if (target is null) return;
+            switch (target.targetType)
             {
-                parentBehaviour.UpdateAttackList(true, target);
-            }
-
-            if (target != null && target.targetType == Combatant.eTargetType.PMonument)
-            {
-                parentBehaviour.UpdateMonumentList(true, target);
+                case Combatant.eTargetType.Player:
+                    parentBehaviour.UpdateAttackList(true, target);
+                    break;
+                case Combatant.eTargetType.PMonument:
+                    parentBehaviour.UpdateMonumentList(true, target);
+                    break;
+                case Combatant.eTargetType.Enemy:
+                    break;
+                case Combatant.eTargetType.EMonument:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -29,14 +37,21 @@ namespace _Project.Scripts.AI.AiControllers
         {
             var target = other.GetComponentInParent<Combatant>();
 
-            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Player)
+            if (target is null) return;
+            switch (target.targetType)
             {
-                parentBehaviour.UpdateAttackList(false, target);
-            }
-
-            if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.PMonument)
-            {
-                parentBehaviour.UpdateMonumentList(false, target);
+                case Combatant.eTargetType.Player:
+                    parentBehaviour.UpdateAttackList(false, target);
+                    break;
+                case Combatant.eTargetType.PMonument:
+                    parentBehaviour.UpdateMonumentList(false, target);
+                    break;
+                case Combatant.eTargetType.Enemy:
+                    break;
+                case Combatant.eTargetType.EMonument:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
