@@ -6,6 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Combatant))]
 public class AbilityManager : MonoBehaviour
 {
+    [Header("Editor Gizmos")] 
+    public bool displayRadius;
+    
     private Combatant thisCombatant;
     
     public SpecialAbility ability;
@@ -143,7 +146,7 @@ public class AbilityManager : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, 100))
             {
-                currentTarget = hit.transform.gameObject.GetComponent<Combatant>();
+                currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
 
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
@@ -163,7 +166,7 @@ public class AbilityManager : MonoBehaviour
 
         foreach (Collider targetCollider in colliders)
         {
-            Combatant currentTarget = targetCollider.gameObject.GetComponent<Combatant>();
+            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
 
             if (isTargetValid(currentTarget))
             {
@@ -228,6 +231,12 @@ public class AbilityManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, ability.radius);
+        float radius = ability.radius;
+        
+        if (displayRadius && ability != null)
+        {
+            Gizmos.DrawWireSphere(transform.position, radius);
+        }
+        
     }
 }

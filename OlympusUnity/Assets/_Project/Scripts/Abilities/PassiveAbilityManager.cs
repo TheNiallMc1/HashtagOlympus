@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Combatant))]
 public class PassiveAbilityManager : MonoBehaviour
 {
+    [Header("Editor Gizmos")] 
+    public bool displayRadius;
+    public Color radiusColour;
+    
     public PassiveAbility ability;
     private Coroutine tickCoroutine;
 
@@ -26,15 +32,13 @@ public class PassiveAbilityManager : MonoBehaviour
 
     void FindTargets()
     {
-        Debug.Log("FINDING TARGETS");
         Vector3 centre = ability.thisCombatant.colliderHolder.transform.position;
         
         Collider[] colliders = Physics.OverlapSphere(centre, ability.effectRadius);
-        print(colliders[0].gameObject.name);
         
         foreach (Collider targetCollider in colliders)
         {
-            Combatant currentTarget = targetCollider.gameObject.GetComponent<Combatant>();
+            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
 
             if (isTargetValid(currentTarget))
             {
@@ -71,7 +75,14 @@ public class PassiveAbilityManager : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0.23f, 0.57f, 1f);
-        Gizmos.DrawWireSphere(transform.position, ability.effectRadius);
+        Gizmos.color = radiusColour;
+        
+        float radius = ability.effectRadius;
+        
+        if (displayRadius)
+        {
+            Gizmos.DrawWireSphere(gameObject.transform.position, radius);
+        }
+        
     }
 }

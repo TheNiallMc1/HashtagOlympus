@@ -16377,6 +16377,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed8d6704ce8c814387c817ce0407185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayRadius: 1
+  radiusColour: {r: 0, g: 0.8861277, b: 1, a: 1}
   ability: {fileID: 11400000, guid: b1c30e1102a66cd49b88d9578269a06b, type: 2}
 --- !u!4 &865218875354923320 stripped
 Transform:
@@ -17726,6 +17728,18 @@ PrefabInstance:
     - target: {fileID: 2007012545955164153, guid: a62c967277759554baae7fb81adeb590, type: 3}
       propertyPath: m_Name
       value: Dionysus
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269090751525626368, guid: a62c967277759554baae7fb81adeb590, type: 3}
+      propertyPath: displayRadius
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269090751525626368, guid: a62c967277759554baae7fb81adeb590, type: 3}
+      propertyPath: ability
+      value: 
+      objectReference: {fileID: 11400000, guid: 44d3c900856629948a8cc2d1666503bc, type: 2}
+    - target: {fileID: 5620301933350337087, guid: a62c967277759554baae7fb81adeb590, type: 3}
+      propertyPath: displayRadius
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62c967277759554baae7fb81adeb590, type: 3}
