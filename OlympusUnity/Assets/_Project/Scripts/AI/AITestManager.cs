@@ -70,7 +70,15 @@ public class AITestManager : MonoBehaviour
 
     private void SpawnTourist()
     {
-        touristDrones.Add(Instantiate(prefab, left.position, left.rotation));
+        GameObject touristDrone = ObjectPools.SharedInstance.GetPoolObGameObject();
+        if (touristDrone != null)
+        {
+            touristDrone.transform.position = left.position;
+            touristDrone.transform.rotation = left.rotation;
+            touristDrone.SetActive(true);
+            touristDrones.Add(touristDrone.transform);
+        }
+
     }
 
 }

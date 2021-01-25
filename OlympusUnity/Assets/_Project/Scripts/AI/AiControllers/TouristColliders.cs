@@ -12,11 +12,12 @@ namespace _Project.Scripts.AI.AiControllers
         // When a tourist enters the trigger, call the method in the parent behaviour
         private void OnTriggerEnter(Collider other)
         {
+            if (!this.isActiveAndEnabled) return;
             var target = other.GetComponentInParent<Combatant>();
-            colliderType = other.GetComponentInChildren<GodColliders>().colliderType;
 
-            if (target is null || colliderType == ColliderType.attackRadius) return;
-            switch (target.targetType)
+            if (target == null) return;
+            var targetType = target.targetType;
+            switch (targetType)
             {
                 case Combatant.eTargetType.Player:
                     parentBehaviour.UpdateAttackList(true, target);
@@ -36,11 +37,13 @@ namespace _Project.Scripts.AI.AiControllers
         // When a tourist exits the trigger, call the method in the parent behaviour
         private void OnTriggerExit(Collider other)
         {
-            var target = other.GetComponentInParent<Combatant>();
-            colliderType = other.GetComponentInChildren<GodColliders>().colliderType;
 
-            if (target is null || colliderType == ColliderType.attackRadius) return;
-            switch (target.targetType)
+            if (!this.isActiveAndEnabled) return;
+            var target = other.GetComponentInParent<Combatant>();
+
+            if (target == null) return;
+            var targetType = target.targetType;
+            switch (targetType)
             {
                 case Combatant.eTargetType.Player:
                     parentBehaviour.UpdateAttackList(false, target);

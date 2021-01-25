@@ -130,7 +130,7 @@ public class Combatant : MonoBehaviour
         {
             print(gameObject.name + " has been defeated");
             GameManager.Instance.AddRespect(respectOnKill);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

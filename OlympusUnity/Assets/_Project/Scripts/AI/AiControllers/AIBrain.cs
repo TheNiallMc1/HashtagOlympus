@@ -236,13 +236,22 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void TargetInRange()
         {
+            Transform targetPosition = currentAttackTarget.transform;
+            if (Priority != EPriority.God)
+            {
+                if (Priority == EPriority.Monument) targetPosition = wayPoint.transform;
+            }
+            else
+                targetPosition = currentAttackTarget.transform;
+
             if (!isTargetNotNull) return;
             var position = transform.position;
-            inRange = (position - wayPoint.transform.position).magnitude < 10 ||
-                      (position - currentAttackTarget.transform.position).magnitude < 10;
-
-
+            if (!((position - targetPosition.position).magnitude < 5)) return;
+            inRange = true;
             _movementMotor.nav.isStopped = true;
+
+
+
         }
 
         #endregion
@@ -264,8 +273,6 @@ namespace _Project.Scripts.AI.AiControllers
 
                             _movementMotor.animator.SetBool(GodInRange, true);
 
-
-                            currentAttackTarget = enemiesInAttackRange[0];
                             Priority = EPriority.God;
                             State = EState.Attacking;
                         }
@@ -293,7 +300,6 @@ namespace _Project.Scripts.AI.AiControllers
                         if (monument.targetType == Combatant.eTargetType.PMonument)
                         {
                             monumentsInAttackRange.Add(monument);
-                            currentAttackTarget = monumentsInAttackRange[0];
 
                             if (weightCheck == false)
                             {
