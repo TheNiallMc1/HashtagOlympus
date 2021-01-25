@@ -23,9 +23,9 @@ public class GodBehaviour : MonoBehaviour
     
     bool closeToTargetPosition;
 
-    [Header("Attacking")] 
-    protected List<Combatant> enemiesSeen;
-    protected List<Combatant> enemiesInAttackRange;
+    [Header("Attacking")]
+    public List<Combatant> enemiesSeen;
+    public List<Combatant> enemiesInAttackRange;
     
     public Combatant currentAttackTarget;
 
@@ -123,15 +123,10 @@ public class GodBehaviour : MonoBehaviour
             SwitchState(GodState.idle);
         }
 
+        Debug.Log("setting AnimSpeed");
         float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
-        // animSpeed = navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
-        
-        //if (!closeToTargetPosition)
-        //{
-        //    animator.SetLookAtPosition(navMeshAgent.destination);
-        //}
     }
 
     public void ToggleSelection(bool isSelected)
@@ -306,70 +301,6 @@ public class GodBehaviour : MonoBehaviour
     }
 
     #endregion
-
-    //protected IEnumerator AutoAttackCoroutine()
-    //{
-    //    // Determine and store current target
-    //    currentAttackTarget = enemiesInAttackRange[0];
-
-    //    // If the current target is null (usually because it died) remove it from the lists
-    //    if (currentAttackTarget == null)
-    //    {
-    //        UpdateAttackList(false, currentAttackTarget);
-    //        UpdateAwarenessList(false, currentAttackTarget);
-    //        // Determine and store a new target if the last one was null 
-    //        currentAttackTarget = enemiesInAttackRange[0];
-    //    }
-
-    //    transform.LookAt(currentAttackTarget.transform.position);
-
-    //    int animNumber = randomNumber();
-
-    //    animator.ResetTrigger("AutoAttack0" + lastNumber);
-
-    //    animator.SetTrigger("AutoAttack0" + animNumber);
-
-    //    lastNumber = animNumber;
-
-    //    yield return new WaitForSecondsRealtime(0.2f);
-
-    //    // If the current target is now null because it died remove it from the lists
-    //    if (currentAttackTarget == null)
-    //    {
-    //        animator.ResetTrigger("AutoAttack0" + animNumber);
-
-    //        UpdateAttackList(false, currentAttackTarget);
-    //        UpdateAwarenessList(false, currentAttackTarget);
-    //        // Determine and store a new target if the last one was null 
-    //        currentAttackTarget = enemiesInAttackRange[0];
-    //    }
-    //    else
-    //    {
-    //        yield return new WaitForSecondsRealtime(2.5f);
-    //    }
-
-
-    //    // If any more enemies remain in range, loop the coroutine
-    //    if (enemiesInAttackRange.Any())
-    //    {
-    //        currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
-    //    }
-    //    else
-    //    {
-    //        currentAttackCoroutine = null;
-    //        SwitchState(GodState.idle);
-    //    }
-
-    //}
-
-    // protected void CancelAutoAttack()
-    // {
-    //     //// Stop the auto attack coroutine if it exists
-    //     //if (currentAttackCoroutine != null)
-    //     //{
-    //     //    StopCoroutine(currentAttackCoroutine);
-    //     //}
-    // }
 
     public void Revive()
     {
