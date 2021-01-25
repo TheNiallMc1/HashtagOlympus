@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class GodBehaviour : MonoBehaviour
 {
@@ -44,7 +42,7 @@ public class GodBehaviour : MonoBehaviour
     public List<AbilityManager> specialAbilities;
     //public List<SpecialAbility> passiveAbilities;
 
-    protected int ultimateCharge; // current ultimate charge percentage
+    protected int ultimateCharge;
     protected bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
