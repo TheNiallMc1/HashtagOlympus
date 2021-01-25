@@ -52,10 +52,24 @@ public class GodBehaviour : MonoBehaviour
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
 
-    [Header("UI Elements")]
+    [Header("Animations")] 
     public Animator animator;
     private int lastNumber = 1;
-    public bool attackAnimationIsPlaying = false;
+    public bool attackAnimationIsPlaying;
+    
+    private static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
+    private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
+    private static readonly int AutoAttack03 = Animator.StringToHash("AutoAttack03");
+    private static readonly int AutoAttack04 = Animator.StringToHash("AutoAttack04");
+
+    private readonly List<int> autoAttackAnimations = new List<int>
+    {
+        AutoAttack01,
+        AutoAttack02,
+        AutoAttack03,
+        AutoAttack04
+    };
+    
 
     public virtual void Start()
     {
@@ -86,9 +100,6 @@ public class GodBehaviour : MonoBehaviour
     public virtual void FixedUpdate()
     {
         // Booleans used for determining different states
-        bool attackRangeEmpty = !enemiesInAttackRange.Any();
-        bool awarenessRangeEmpty = !enemiesSeen.Any();
-
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
         bool attacking = currentState == GodState.attacking;
@@ -98,22 +109,19 @@ public class GodBehaviour : MonoBehaviour
         {
             closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
         }
+    
         if (attacking && !attackAnimationIsPlaying)
         {
             Attack();
         }
 
-        // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
-        if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
-        {
-            SwitchState(GodState.moveToEnemy);
-        }
+        // // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
+        // if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
+        // {
+        //     SwitchState(GodState.moveToEnemy);
+        // }
 
-        // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
-        {
-            SwitchState(GodState.attacking);
-        }
+
 
         // If the god reaches their target destination, and is not attacking, switch to idle state
         if (!isKnockedOut && currentState != GodState.idle && !attacking && closeToTargetPosition)
@@ -121,7 +129,6 @@ public class GodBehaviour : MonoBehaviour
             SwitchState(GodState.idle);
         }
 
-        Debug.Log("setting AnimSpeed");
         float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
 
         animator.SetFloat("Vertical_f", animSpeed);
@@ -155,12 +162,19 @@ public class GodBehaviour : MonoBehaviour
         if (addToList && !alreadyInList)
         {
             enemiesSeen.Add(tourist);
+            SwitchState(GodState.attacking);
         }
 
         // Remove tourist if the method is to remove from the list, and the tourist is already in the list
         if (!addToList && alreadyInList)
         {
             enemiesSeen.Remove(tourist);
+            
+            if (!enemiesSeen.Any())
+            {
+                SwitchState(GodState.idle);
+            }
+            
         }
     }
     
@@ -172,45 +186,66 @@ public class GodBehaviour : MonoBehaviour
         if (addToList && !alreadyInList)
         {
             enemiesInAttackRange.Add(tourist);
+            SwitchState(GodState.attacking);
         }
 
         // Remove tourist if the method is to remove from the list, and the tourist is already in the list
         if (!addToList && alreadyInList)
         {
             enemiesInAttackRange.Remove(tourist);
+            
+            if (!enemiesInAttackRange.Any() && !enemiesSeen.Any())
+            {
+                SwitchState(GodState.idle);
+            }
+
         }
     }
 
     protected void Attack()
-    {
-        Debug.Log(thisCombatant.characterName + ": Attack Called");
-        
+    {        
         // Determine and store current target
-        currentAttackTarget = enemiesInAttackRange[0];
-
+        currentAttackTarget = enemiesSeen[0];
+        
         // If the current target is null (usually because it died) remove it from the lists
         if (currentAttackTarget == null)
         {
             UpdateAttackList(false, currentAttackTarget);
             UpdateAwarenessList(false, currentAttackTarget);
             // Determine and store a new target if the last one was null 
-            currentAttackTarget = enemiesInAttackRange[0];
+            currentAttackTarget = enemiesSeen[0];
         }
 
-        transform.LookAt(currentAttackTarget.transform.position);
+        if (!enemiesSeen.Any() && !enemiesInAttackRange.Any())
+        {
+            SwitchState(GodState.idle);
+        }
 
+        var targetPosition = currentAttackTarget.transform.position;
+        
+        MoveToTarget(targetPosition);
+        transform.LookAt(targetPosition);
+
+        if (attackAnimationIsPlaying)
+        {
+            return;
+        }
+        
         int animNumber = GetRandomNumber();
+        Debug.Log("Anim: " + animNumber);
 
-        animator.ResetTrigger("AutoAttack0" + lastNumber);
+        attackAnimationIsPlaying = true;
+        
+        animator.ResetTrigger(autoAttackAnimations[animNumber]);
 
-        animator.SetTrigger("AutoAttack0" + animNumber);
+        animator.SetTrigger(autoAttackAnimations[animNumber]);
 
         lastNumber = animNumber;
 
         // If the current target is now null because it died remove it from the lists
         if (currentAttackTarget == null)
         {
-            animator.ResetTrigger("AutoAttack0" + animNumber);
+            animator.ResetTrigger(autoAttackAnimations[animNumber]);
 
             UpdateAttackList(false, currentAttackTarget);
             UpdateAwarenessList(false, currentAttackTarget);
@@ -297,7 +332,6 @@ public class GodBehaviour : MonoBehaviour
     private void AttackingState()
     {
         currentState = GodState.attacking;
-        print(godName + ": attacking");
        // currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }
 
@@ -330,10 +364,10 @@ public class GodBehaviour : MonoBehaviour
 
     private int GetRandomNumber()
     {
-        int randomNumber = UnityEngine.Random.Range(1, 4);
+        int randomNumber = Random.Range(0, autoAttackAnimations.Count - 1);
         if (randomNumber == lastNumber)
         {
-            if (randomNumber < 4)
+            if (randomNumber < autoAttackAnimations.Count - 1)
             {
                 randomNumber++;
             }
