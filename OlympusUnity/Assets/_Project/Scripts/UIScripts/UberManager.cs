@@ -29,12 +29,6 @@ public class UberManager : MonoBehaviour
     
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
         // Creating singleton
         if (_instance != null && _instance != this)
         {
@@ -44,7 +38,13 @@ public class UberManager : MonoBehaviour
         {
             _instance = this;
         }
-
+        
+        DontDestroyOnLoad(gameObject);
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
         currentGameState = GameState.MainMenu;
         SwitchGameState(currentGameState);
     }

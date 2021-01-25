@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void PopulateAllPlayerGods()
     {
+        Debug.Log("PopAllPGs count: " + UberManager.Instance.selectedGods.Count);
         if (UberManager.Instance.selectedGods.Count == 3)
         {
             allPlayerGods = UberManager.Instance.selectedGods;
