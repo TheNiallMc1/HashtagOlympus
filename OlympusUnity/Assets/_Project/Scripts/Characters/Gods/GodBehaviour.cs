@@ -87,6 +87,10 @@ public class GodBehaviour : MonoBehaviour
     
     public virtual void FixedUpdate()
     {
+        float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+
+        animator.SetFloat("Vertical_f", animSpeed);
+
         // Booleans used for determining different states
         bool attackRangeEmpty = !enemiesInAttackRange.Any();
         bool awarenessRangeEmpty = !enemiesSeen.Any();
