@@ -8,13 +8,9 @@
           <e p="AbilitySOTest.cs" t="Include" />
           <e p="DanielPlayerScript.cs" t="Include" />
           <e p="GodAbility.cs" t="Include" />
-          <e p="GodHealthBar.cs" t="Include" />
-          <e p="GodPortrait.cs" t="Include" />
-          <e p="GodSpecialBar.cs" t="Include" />
           <e p="PlayerAbilities.cs" t="Include" />
           <e p="PlayerCamera.cs" t="Include" />
           <e p="TouristStats.cs" t="Include" />
-          <e p="UIManager.cs" t="Include" />
         </e>
         <e p="_Project" t="Include">
           <e p="Inputs" t="Include">
@@ -40,17 +36,21 @@
               <e p="SpecialAbility.cs" t="Include" />
             </e>
             <e p="AI" t="Include">
-              <e p="AI_Brain.cs" t="Include" />
-              <e p="AI_Movement.cs" t="Include" />
+              <e p="AiCharacters" t="Include">
+                <e p="Defender.cs" t="Include" />
+                <e p="Influencer.cs" t="Include" />
+                <e p="Jock.cs" t="Include" />
+                <e p="Nerd.cs" t="Include" />
+              </e>
+              <e p="AiControllers" t="Include">
+                <e p="AIBrain.cs" t="Include" />
+                <e p="AIMovement.cs" t="Include" />
+                <e p="TouristAnimationEvents.cs" t="Include" />
+                <e p="TouristColliders.cs" t="Include" />
+              </e>
               <e p="AITestManager.cs" t="Include" />
-              <e p="Defender.cs" t="Include" />
-              <e p="Influencer.cs" t="Include" />
-              <e p="Jock.cs" t="Include" />
               <e p="MonumentCollider.cs" t="Include" />
               <e p="MonumentHealth.cs" t="Include" />
-              <e p="Nerd.cs" t="Include" />
-              <e p="TouristAnimationEvents.cs" t="Include" />
-              <e p="TouristColliders.cs" t="Include" />
               <e p="Waypoint.cs" t="Include" />
             </e>
             <e p="Camera" t="Include">

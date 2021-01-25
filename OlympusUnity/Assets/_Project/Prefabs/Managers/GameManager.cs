@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
     private Camera cam;
     public Camera currentCam;
     public Camera overViewCam; 
-    private UIManager uiManager;
-    
     
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
@@ -46,8 +44,6 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        uiManager = FindObjectOfType<UIManager>();
         
         cam = Camera.main;
         currentCam = cam;

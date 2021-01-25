@@ -1,64 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class MonumentCollider : MonoBehaviour
 {
     // This script serves as a way for the character detection colliders to communicate with the parent objects
     public Waypoint parentBehaviour;
-    public ColliderType colliderType;
 
     // When a tourist enters the trigger, call the method in the parent behaviour
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("God"))
-        {
-            GodBehaviour god = other.GetComponent<GodBehaviour>();
+        var target = other.GetComponentInParent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateGodsNearby(true, god);
-                    break;
-            }
+        if(target is null) return;
+        if (target.targetType == Combatant.eTargetType.Player)
+        {
+            parentBehaviour.UpdateGodsNearby(true, target);
         }
-        if (other.gameObject.CompareTag("Tourist"))
-        {
-            AI_Brain tourist = other.GetComponent<AI_Brain>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateTouristsNearby(true, tourist);
-                    break;
-            }
+        if (target.isActiveAndEnabled && target.targetType == Combatant.eTargetType.Enemy)
+        {
+            parentBehaviour.UpdateTouristsNearby(true, target);
         }
     }
 
     // When a tourist exits the trigger, call the method in the parent behaviour
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("God"))
-        {
-            GodBehaviour god = other.GetComponent<GodBehaviour>();
+        var target = other.GetComponentInParent<Combatant>();
 
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateGodsNearby(false, god);
-                    break;
-            }
-        }
-        if (other.gameObject.CompareTag("Tourist"))
+        if(target is null) return;
+        switch (target.targetType)
         {
-            AI_Brain tourist = other.GetComponent<AI_Brain>();
-
-            switch (colliderType)
-            {
-                case ColliderType.attackRadius:
-                    parentBehaviour.UpdateTouristsNearby(false, tourist);
-                    break;
-            }
+            case Combatant.eTargetType.Player:
+                parentBehaviour.UpdateGodsNearby(false, target);
+                break;
+            case Combatant.eTargetType.PMonument:
+                parentBehaviour.UpdateTouristsNearby(false, target);
+                break;
+            case Combatant.eTargetType.Enemy:
+                break;
+            case Combatant.eTargetType.EMonument:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }

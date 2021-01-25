@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
@@ -9,8 +10,8 @@ public class Waypoint : MonoBehaviour
 
 	public List<Waypoint>					wayPoints;
 	public List<Waypoint>					neighbors;
-	public List<AI_Brain>					touristsNearby;
-	public List<GodBehaviour>				godsNearby;
+	public List<Combatant>					touristsNearby;
+	public List<Combatant>				    godsNearby;
 
 	public GameObject						monument;
 
@@ -18,80 +19,72 @@ public class Waypoint : MonoBehaviour
 	[SerializeField] private Vector3		finalLocation;
 	public Vector3							distanceToFinal;
 
-	public enum eState						{ God, Tourist}
+	public enum EState						{ God, Tourist}
 
-	private eState _currentState = eState.God;
+	private EState _currentState = EState.God;
 
-    public eState currentState { get { return _currentState; } set { _currentState = value; } }
-	public int health { get { return _health; } set { _health = value; } }
+    public EState CurrentState { get => _currentState;
+        set => _currentState = value;
+    }
+	public int Health { get => _health;
+        set => _health = value;
+    }
 
 	private void Awake()
 	{
 		distanceToFinal = transform.position;
-		Renderer[] rends = GetComponentsInChildren<Renderer>();
-		foreach (Renderer rend in rends)
+		var rends = GetComponentsInChildren<Renderer>();
+		foreach (var rend in rends)
 		{
 			rend.enabled = false;
 		}
 	}
 
 
-	public Vector3 pos
-	{
-		get
-		{
-			return transform.position;
-		}
-	}
+	public Vector3 Pos => transform.position;
 
-	void OnDrawGizmos()
+    private void OnDrawGizmos()
 	{
-		if (neighbors == null)
+		if (neighbors.Count <= 0)
 			return;
 		Gizmos.color = new Color (0f, 0f, 0f);
-		foreach(var neighbor in neighbors)
-		{
-			if (neighbor != null)
-				Gizmos.DrawLine (transform.position, neighbor.transform.position);
-		}
+		foreach (var neighbor in neighbors.Where(neighbor => neighbor.isActiveAndEnabled))
+        {
+            Gizmos.DrawLine (transform.position, neighbor.transform.position);
+        }
 	}
-	internal void UpdateGodsNearby(bool addToList, GodBehaviour god)
+	internal void UpdateGodsNearby(bool addToList, Combatant god)
 	{
-		bool alreadyInList = godsNearby.Contains(god);
+		var alreadyInList = godsNearby.Contains(god);
 
-		// Add tourist if the method is to add from the list, and the tourist is not already in the list
-		if (addToList && !alreadyInList)
-		{
-			godsNearby.Add(god);
-
-
-		}
-
-		// Remove tourist if the method is to remove from the list, and the tourist is already in the list
-		if (!addToList && alreadyInList)
-		{
-
-			godsNearby.Remove(god);
-		}
-	}
+        switch (addToList)
+        {
+            // Add tourist if the method is to add from the list, and the tourist is not already in the list
+            case true when !alreadyInList:
+                godsNearby.Add(god);
+                break;
+            // Remove tourist if the method is to remove from the list, and the tourist is already in the list
+            case false when alreadyInList:
+                godsNearby.Remove(god);
+                break;
+        }
+    }
 
 
-	internal void UpdateTouristsNearby(bool addToList, AI_Brain tourist)
+	internal void UpdateTouristsNearby(bool addToList, Combatant tourist)
 	{
-		bool alreadyInList = touristsNearby.Contains(tourist);
+		var alreadyInList = touristsNearby.Contains(tourist);
 
-		// Add tourist if the method is to add from the list, and the tourist is not already in the list
-		if (addToList && !alreadyInList)
-		{
-			touristsNearby.Add(tourist);
-		}
-
-
-
-		// Remove tourist if the method is to remove from the list, and the tourist is already in the list
-		if (!addToList && alreadyInList)
-		{
-			touristsNearby.Remove(tourist);
-		}
-	}
+        switch (addToList)
+        {
+            // Add tourist if the method is to add from the list, and the tourist is not already in the list
+            case true when !alreadyInList:
+                touristsNearby.Add(tourist);
+                break;
+            // Remove tourist if the method is to remove from the list, and the tourist is already in the list
+            case false when alreadyInList:
+                touristsNearby.Remove(tourist);
+                break;
+        }
+    }
 }
