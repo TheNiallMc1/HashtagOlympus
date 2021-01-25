@@ -18,7 +18,7 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
    
     [HideInInspector] public bool isKOed;
-    [HideInInspector] public bool attackingLocked;
+    public bool attackingLocked;
     [HideInInspector] public bool movementLocked;
     
     bool closeToTargetPosition;
@@ -112,7 +112,7 @@ public class GodBehaviour : MonoBehaviour
         }
 
         // If there are enemies in attack range, and the god isn't currently moving to an area, attack the enemy
-        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked && !movingToArea)
+        if (!isKnockedOut && !attacking && !attackRangeEmpty && !attackingLocked)
         {
             SwitchState(GodState.attacking);
         }
@@ -220,7 +220,10 @@ public class GodBehaviour : MonoBehaviour
             currentAttackTarget = enemiesInAttackRange[0];
         }
 
-        SwitchState(GodState.idle);
+        if (!enemiesInAttackRange.Any())
+        {
+            SwitchState(GodState.idle);
+        }
     }
 
     #region State Behaviours
