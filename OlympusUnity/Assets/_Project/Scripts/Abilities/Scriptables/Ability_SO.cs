@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "AbilityExample", menuName = "Abilities/New Ability", order = 1)]
@@ -19,7 +17,7 @@ public class Ability_SO : SpecialAbility
             DealDamage(target);
             InflictStatusEffects(target);
             RestoreHealth(target);
-            Debug.Log(target.gameObject.name + " took " + abilityDamage + " damage, has " + target.currentHealth + " remaining");
+            Debug.Log(target.gameObject.name + " took " + abilityDamage + " damag e, has " + target.currentHealth + " remaining");
         }
         targets.Clear();
     }
@@ -39,7 +37,7 @@ public class Ability_SO : SpecialAbility
         //foreach (StatusEffect statusEffect in statusEffects)
         //{
         //    target.ApplyStatus(statusEffect);
-        //    Debug.Log(target.gameObject.name + " was infliced with " + statusEffect.name);
+        //    Debug.Log(target.gameObject.name + " was inflicted with " + statusEffect.name);
         //}
     }
     

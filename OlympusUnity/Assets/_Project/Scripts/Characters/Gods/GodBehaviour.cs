@@ -53,9 +53,9 @@ public class GodBehaviour : MonoBehaviour
     public SphereCollider attackRadiusCollider;
 
     [Header("Animations")] 
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     private int lastNumber = 1;
-    public bool attackAnimationIsPlaying;
+    [HideInInspector] public bool attackAnimationIsPlaying;
     
     private static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
     private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");

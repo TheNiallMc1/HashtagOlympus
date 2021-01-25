@@ -16,8 +16,8 @@ public class AbilityManager : MonoBehaviour
     private List<Combatant> targets = new List<Combatant>();
 
     private bool targetSelectModeActive = false;
-    
-    protected PlayerControls playerControls;
+
+    private PlayerControls playerControls;
     private bool leftClick;
     private bool rightClick;
     private Vector2 mousePosition;

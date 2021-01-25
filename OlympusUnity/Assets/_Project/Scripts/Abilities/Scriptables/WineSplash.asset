@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e2ef4eb33a462142a41d5821a4b612c, type: 3}
-  m_Name: AresAbility2
+  m_Name: WineSplash
   m_EditorClassIdentifier: 
-  abilityName: Rage Boost
-  abilityDescription: 
-  abilityCanHit: 00000000
-  abilityDamage: 15
+  abilityName: Wine Splash
+  abilityDescription: Spin around in a circle, making all surrounding enemies Drunk
+  selectionType: 1
+  abilityCanHit: 01000000
+  abilityDamage: 0
   abilityHealAmount: 0
-  statusEffects: []
-  abilityCooldown: 7
+  statusEffects:
+  - {fileID: 0}
+  abilityCooldown: 15
   remainingCooldownTime: 0
-  radius: 0
+  radius: 5
   coneAoE: {fileID: 0}
   coneAlreadyExists: 0
   coneBuffer: 0
