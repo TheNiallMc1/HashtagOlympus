@@ -79,8 +79,8 @@ public class GodBehaviour : MonoBehaviour
         currentState = GodState.idle;
 
         // Initialise collider radius
-        awarenessRadiusCollider.radius = awarenessRadius;
-        attackRadiusCollider.radius = attackRadius;
+        //awarenessRadiusCollider.radius = awarenessRadius;
+        //attackRadiusCollider.radius = attackRadius;
 
         animator = GetComponentInChildren<Animator>();
     }
@@ -139,7 +139,7 @@ public class GodBehaviour : MonoBehaviour
         if (isSelected)
         {
             // meshRenderer.material = selectedMaterial;
-            mouseDetectorCollider.SetActive(false);
+            // mouseDetectorCollider.SetActive(false);
         }
 
         if (!isSelected)

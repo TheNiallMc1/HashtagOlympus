@@ -450,7 +450,7 @@ GameObject:
   - component: {fileID: 1858460738}
   - component: {fileID: 1858460743}
   m_Layer: 8
-  m_Name: God
+  m_Name: God_Ares
   m_TagString: God
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7196217159133631158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.7, z: 23.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1531513911}
@@ -546,15 +546,12 @@ MonoBehaviour:
   mouseDetectorCollider: {fileID: 7196217160540550378}
   awarenessRadiusCollider: {fileID: 7196217160143836662}
   attackRadiusCollider: {fileID: 7196217161070383294}
-  healthBar: {fileID: 0}
   animator: {fileID: 0}
   attackAnimationIsPlaying: 0
   rageStatus: {fileID: 0}
   maxRageStatus: {fileID: 0}
   rageReductionRate: 0
   rageParticles: {fileID: 0}
-  ultimateCountText: {fileID: 0}
-  rageCountText: {fileID: 0}
 --- !u!114 &1858460736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +570,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 100
   currentHealth: 100
-  attackDamage: 0
+  attackDamage: 200
   damageReduction: 0
 --- !u!114 &1858460737
 MonoBehaviour:
