@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.AI.AiControllers;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -130,6 +131,10 @@ public class Combatant : MonoBehaviour
         {
             print(gameObject.name + " has been defeated");
             GameManager.Instance.AddRespect(respectOnKill);
+            gameObject.GetComponent<AIBrain>().currentAttackTarget.GetComponent<GodBehaviour>().enemiesInAttackRange
+                .Remove(this);
+            gameObject.GetComponent<AIBrain>().currentAttackTarget.GetComponent<GodBehaviour>().enemiesSeen
+                .Remove(this);
             gameObject.SetActive(false);
         }
     }
