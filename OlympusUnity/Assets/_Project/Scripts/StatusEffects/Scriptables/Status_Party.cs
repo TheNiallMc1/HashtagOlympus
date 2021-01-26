@@ -23,8 +23,7 @@ public class Status_Party : StatusEffect
 
     public override void ExitEffect()
     {
-        // Deal damage to everyone afflicted
-        Debug.Log("party damage");
+        // Deal damage to everyone afflicted    
         affectedCombatant.TakeDamage(burstDamage);
     }
 }

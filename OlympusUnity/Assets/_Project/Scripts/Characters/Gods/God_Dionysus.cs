@@ -5,14 +5,16 @@ using UnityEngine;
 public class God_Dionysus : GodBehaviour
 {
     [Header("Dionysus")] 
-    public PassiveAbilityManager partyTimePassive;
+    public PassiveAbilityManager partyTimePassiveManager;
+    public StatusEffect partyStatus;
+    private PassiveAbility partyPassiveAbility;
 
     public List<Combatant> combatantsAffectedByPartyTime;
 
     public override void Start()
     {
         base.Start();
-        partyTimePassive.enabled = false;
+        partyTimePassiveManager.enabled = false;
     }
 
     public override void ActivateUltimate()
@@ -24,7 +26,8 @@ public class God_Dionysus : GodBehaviour
 
             attackingLocked = true;
 
-            partyTimePassive.enabled = true;
+            partyTimePassiveManager.enabled = true;
+            partyPassiveAbility = partyTimePassiveManager.ability;
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
         }
@@ -33,6 +36,16 @@ public class God_Dionysus : GodBehaviour
     public override void EndUltimate()
     {
         base.EndUltimate();
-        partyTimePassive.enabled = false;
+        partyTimePassiveManager.RemovePassiveAbility();
+        
+        // Take and store the list of targets affected by the status
+        combatantsAffectedByPartyTime = partyPassiveAbility.targetsAffectedByStatus;
+        
+        foreach (Combatant target in combatantsAffectedByPartyTime)
+        {
+            target.RemoveStatus(partyPassiveAbility.statusEffect);
+        }
+        
+        combatantsAffectedByPartyTime.Clear();
     }
 }

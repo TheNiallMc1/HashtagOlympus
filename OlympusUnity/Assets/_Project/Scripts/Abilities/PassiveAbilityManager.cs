@@ -16,6 +16,9 @@ public class PassiveAbilityManager : MonoBehaviour
     private Coroutine tickCoroutine;
     
     private List<Combatant> targets = new List<Combatant>();
+    
+    [Header("Status Effect Info")]
+    public List<Combatant> targetsInflictedWithStatus;
 
     private void Awake()
     {
@@ -28,6 +31,13 @@ public class PassiveAbilityManager : MonoBehaviour
         ability.thisGod = GetComponent<GodBehaviour>();
 
         tickCoroutine = StartCoroutine(TickEffectCoroutine());
+    }
+
+    public void RemovePassiveAbility()
+    {
+        StopAllCoroutines();
+        tickCoroutine = null;
+        this.enabled = false;
     }
 
     void FindTargets()

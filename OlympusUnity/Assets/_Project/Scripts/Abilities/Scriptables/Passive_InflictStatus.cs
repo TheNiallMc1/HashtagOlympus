@@ -10,6 +10,12 @@ public class Passive_InflictStatus : PassiveAbility
         foreach (Combatant target in targets)
         {
             target.ApplyStatus(statusEffect);
+            // Add target to list of affected targets if it isn't already in the list
+            if (!targetsAffectedByStatus.Contains(target))
+            {
+                targetsAffectedByStatus.Add(target);
+            }
+            
         }
     }
 }

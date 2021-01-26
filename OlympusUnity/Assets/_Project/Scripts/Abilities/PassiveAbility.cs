@@ -12,6 +12,7 @@ public abstract class PassiveAbility : ScriptableObject
     public float effectRadius;
     public float tickInterval;
     public StatusEffect statusEffect;
+    [HideInInspector] public List<Combatant> targetsAffectedByStatus = new List<Combatant>();
 
     [HideInInspector] public Combatant thisCombatant;
     [HideInInspector] public List<Combatant> targets;

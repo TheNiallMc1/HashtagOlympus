@@ -20,6 +20,8 @@ public class StatusEffectManager : MonoBehaviour
     private void Start()
     {
         thisCombatant = GetComponent<Combatant>();
+
+        statusEffect = Instantiate(statusEffect);
         
         InitialiseStatus();
     }
@@ -27,6 +29,8 @@ public class StatusEffectManager : MonoBehaviour
     // We initialise each new effect that is added, starting its tick cycle and activating the entry effect
     private void InitialiseStatus()
     {
+        statusEffect.affectedCombatant = thisCombatant;
+        
         // Tick
         if (statusEffect.isTickType)
         {
@@ -65,7 +69,6 @@ public class StatusEffectManager : MonoBehaviour
         }
         
         thisCombatant.RemoveStatusFromList(statusEffect);
-        
         Destroy(this);
     }
     
@@ -81,7 +84,7 @@ public class StatusEffectManager : MonoBehaviour
         statusEffect.EntryEffect();
     }
 
-    private void ActivateExitEffect()
+    public void ActivateExitEffect()
     {
         statusEffect.ExitEffect();
         EndStatus();
@@ -95,7 +98,6 @@ public class StatusEffectManager : MonoBehaviour
     
     private IEnumerator DurationCoroutine()
     {
-        Debug.Log("duration coroutine started");
         yield return new WaitForSecondsRealtime(statusEffect.statusDuration);
         ActivateExitEffect();
     }

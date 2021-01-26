@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 204546e4a743c9c44845a82eb31b78be, type: 3}
-  m_Name: TestPassive
+  m_Name: PartyPassive
   m_EditorClassIdentifier: 
-  abilityName: Test Passive
-  abilityDescription: Test
+  abilityName: PartyPassive
+  abilityDescription: 
   abilityCanHit: 01000000
   effectRadius: 9
-  tickInterval: 3
+  tickInterval: 1
   statusEffect: {fileID: 11400000, guid: 26cb82323b017a74ba06442d52338101, type: 2}
+  targetsAffectedByStatus: []
   thisCombatant: {fileID: 0}
   targets: []
   thisGod: {fileID: 0}

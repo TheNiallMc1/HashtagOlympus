@@ -104,7 +104,6 @@ public class AbilityManager : MonoBehaviour
 
     void StartAbility()
     {
-        Debug.Log("Start ability");
         targetSelectModeActive = false;
 
         ability.targets = targets;
