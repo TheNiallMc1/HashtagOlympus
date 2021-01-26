@@ -26,7 +26,7 @@ public class LineDrawer : MonoBehaviour
         // Controls
         playerControls = new PlayerControls();
         playerControls.Enable();
-        playerControls.Movement.MouseClick.performed += context => SetMousePos();
+        playerControls.Movement.LeftMouseClick.performed += context => SetMousePos();
     
     }
     
