@@ -10,6 +10,7 @@ public class Combatant : MonoBehaviour
         Player,
         Enemy,
         PMonument,
+        DMonument,
         EMonument
     }
 
