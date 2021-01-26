@@ -29,13 +29,14 @@ public class God_Dionysus : GodBehaviour
             partyTimePassiveManager.enabled = true;
             partyPassiveAbility = partyTimePassiveManager.ability;
             
+            partyTimePassiveManager.Initialise();
+            
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
         }
     }
 
     public override void EndUltimate()
     {
-        base.EndUltimate();
         partyTimePassiveManager.RemovePassiveAbility();
         
         // Take and store the list of targets affected by the status
@@ -47,5 +48,7 @@ public class God_Dionysus : GodBehaviour
         }
         
         combatantsAffectedByPartyTime.Clear();
+        
+        base.EndUltimate();
     }
 }

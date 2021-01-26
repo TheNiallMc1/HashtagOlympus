@@ -365,7 +365,7 @@ public class GodBehaviour : MonoBehaviour
     {
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
-        ultimateChargeText.text = ultimateName;
+        ultimateChargeText.text = ultimateCharge.ToString();
         
         usingUltimate = false;    
         attackingLocked = false;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,11 +26,14 @@ public class PassiveAbilityManager : MonoBehaviour
         ability = Instantiate(ability);
     }
 
-    void Start()
+    private void Start()
     {
         ability.thisCombatant = GetComponent<Combatant>();
         ability.thisGod = GetComponent<GodBehaviour>();
+    }
 
+    public void Initialise()
+    {
         tickCoroutine = StartCoroutine(TickEffectCoroutine());
     }
 

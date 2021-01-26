@@ -45,6 +45,7 @@ public class Combatant : MonoBehaviour
 
     public void ApplyStatus(StatusEffect status)
     {
+        
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -59,6 +60,7 @@ public class Combatant : MonoBehaviour
         
             newStatusManager.enabled = true;
             newStatusManager.statusEffect = status;
+            Debug.Log("Applied status of type " + status.name);
         }       
     }
 
@@ -67,7 +69,6 @@ public class Combatant : MonoBehaviour
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
-            Debug.Log(gameObject.name + ": Status in dictionary");
             // Get the value by its key (the status type) and then end the status
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {
@@ -129,7 +130,7 @@ public class Combatant : MonoBehaviour
                 break;
             
             case eTargetType.Enemy:
-                GameManager.Instance.AddRespect(respectOnKill);
+                //GameManager.Instance.AddRespect(respectOnKill);
                 Destroy(gameObject);
                 break;
         }
