@@ -26,6 +26,7 @@ namespace _Project.Scripts.AI.AiControllers
         [SerializeField]
         protected int wpIndex;
         public int test;
+        private int _currentPath = 1;
         private static readonly int VerticalF = Animator.StringToHash("Vertical_f");
         private bool _isCurrentAttackTargetNull;
 
@@ -136,38 +137,46 @@ namespace _Project.Scripts.AI.AiControllers
 
         public void Drunk()
         {
-            int currentPath = 1;
-            while (_aiBrain.State == AIBrain.EState.Drunk)
+            Vector3 destination;
+            switch (_currentPath)
             {
-                switch (currentPath)
-                {
-                    case 1:
-                        nav.SetDestination(new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z));
-                        if (!nav.pathPending && nav.remainingDistance < rDist)
-                            currentPath++;
-                        break;
-                    case 2:
-                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
-                        if (!nav.pathPending && nav.remainingDistance < rDist)
-                            currentPath++;
-                        break;
-                    case 3:
-                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
-                        if (!nav.pathPending && nav.remainingDistance < rDist)
-                            currentPath++;
-                        break;
-                    case 4:
-                        nav.SetDestination(new Vector3(currentPosition.x - 1, currentPosition.y, currentPosition.z));
-                        if (!nav.pathPending && nav.remainingDistance < rDist)
-                            currentPath++;
-                        break;
-                    case 5:
-                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 1));
-                        if (!nav.pathPending && nav.remainingDistance < rDist)
-                            currentPath = 1;
-                        break;
-                }
+                case 1:
+                    destination = new Vector3(currentPosition.x + 2, currentPosition.y, currentPosition.z);
+                    _aiBrain.transform.LookAt(destination);
+                    nav.SetDestination(destination);
+                    if (!nav.pathPending && nav.remainingDistance < 0.05)
+                        _currentPath++;
+                    break;
+                case 2:
+                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
+                    _aiBrain.transform.LookAt(destination);
+                    nav.SetDestination(destination);
+                    if (!nav.pathPending && nav.remainingDistance < 0.05)
+                        _currentPath++;
+                    break;
+                case 3:
+                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
+                    _aiBrain.transform.LookAt(destination);
+                    nav.SetDestination(destination);
+                    if (!nav.pathPending && nav.remainingDistance < 0.05)
+                        _currentPath++;
+                    break;
+                case 4:
+                    destination = new Vector3(currentPosition.x - 2, currentPosition.y, currentPosition.z);
+                    _aiBrain.transform.LookAt(destination);
+                    nav.SetDestination(destination);
+                    if (!nav.pathPending && nav.remainingDistance < 0.05)
+                        _currentPath++;
+                    break;
+                case 5:
+                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 2);
+                    _aiBrain.transform.LookAt(destination);
+                    nav.SetDestination(destination);
+                    if (!nav.pathPending && nav.remainingDistance < 0.05)
+                        _currentPath = 1;
+                    break;
             }
+
         }
     }
 

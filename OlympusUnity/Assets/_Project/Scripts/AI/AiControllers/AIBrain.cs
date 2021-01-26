@@ -37,6 +37,7 @@ namespace _Project.Scripts.AI.AiControllers
         public bool isTargetNotNull;
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
+        private bool _isDrunk;
 
         [Header("Animation")]
         private bool _initialCoLoop = true;
@@ -106,6 +107,7 @@ namespace _Project.Scripts.AI.AiControllers
                     }
                     break;
                 case EPriority.Moving:
+                    if(State == EState.Drunk) break;
                     currentAttackTarget = null;
                     isTargetNotNull = false;
                     break;
@@ -118,6 +120,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Moving:
                     if (!initMove)
                     {
+                        _isDrunk = false;
                         attackAnimationIsPlaying = false;
                         _movementMotor.animator.SetBool(GodSeen, false);
                         isTargetNotNull = false;
@@ -132,6 +135,7 @@ namespace _Project.Scripts.AI.AiControllers
                     break;
                 case EState.Attacking:
                     isAttacking = true;
+                    _isDrunk = false;
 
                     if (Priority == EPriority.God)
                     {
@@ -147,10 +151,13 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Ability:
                     break;
                 case EState.Drunk:
-                    _movementMotor.currentPosition = transform.position;
+                    if(!_isDrunk)
+                        _movementMotor.currentPosition = transform.position;
+                    _isDrunk = true;
                     _movementMotor.Drunk();
                     break;
                 case EState.Follow:
+                    _isDrunk = false;
                     _movementMotor.MoveToTarget(currentAttackTarget);
                     break;
                 default:
@@ -280,6 +287,7 @@ namespace _Project.Scripts.AI.AiControllers
 
                             _movementMotor.animator.SetBool(GodInRange, true);
 
+                            if(State == EState.Drunk) return;
                             Priority = EPriority.God;
                             State = EState.Attacking;
                         }
@@ -310,6 +318,7 @@ namespace _Project.Scripts.AI.AiControllers
 
                             if (weightCheck == false)
                             {
+                                if (State == EState.Drunk) return;
                                 Priority = EPriority.Monument;
                                 State = EState.Attacking;
                             }
