@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.AI.AiControllers;
@@ -23,51 +24,33 @@ public class Influencer : AIBrain
 
     public int waveIndex = 20;
 
-    protected void Start()
+    private void LateUpdate()
     {
-        StartCoroutine(Spawner());
-    }
-
-
-    private IEnumerator Spawner()
-    {
-        yield return new WaitForSeconds(countDown);
-
-        while (true)
+        if (RandomNumber() < 4)
         {
-            state = SpawnState.Spawning;
-
-            yield return SpawnWave();
-
-            state = SpawnState.Waiting;
-
-            yield return new WaitWhile(TouristsIsAlive);
-
-            state = SpawnState.Counting;
-
-            yield return new WaitForSeconds(timeBetweenWaves);
+            SpawnWave();
         }
     }
 
-    private bool TouristsIsAlive()
-    {
-        touristDrones = touristDrones.Where(e => e != null).ToList();
-
-        return touristDrones.Count > 0;
-    }
-
-    private IEnumerator SpawnWave()
+    private void SpawnWave()
     {
         for (var i = 0; i < waveIndex; i++)
         {
             SpawnTourist();
-            yield return new WaitForSeconds(0.5f);
         }
     }
 
     private void SpawnTourist()
     {
-        touristDrones.Add(Instantiate(prefab, left.position, left.rotation));
+        GameObject touristDrone = ObjectPools.SharedInstance.GetPoolObGameObject();
+        touristDrone.SetActive(true);
+        touristDrones.Add(transform);
+
     }
 
+    private int RandomNumber()
+    {
+        var randomNumber = UnityEngine.Random.Range(1, 10);
+        return randomNumber;
+    }
 }
