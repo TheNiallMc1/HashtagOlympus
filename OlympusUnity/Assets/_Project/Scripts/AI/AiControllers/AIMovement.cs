@@ -56,7 +56,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             animator.SetFloat(VerticalF, animSpeed);
 
-            if(_isCurrentAttackTargetNull)
+            if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk)
             {
                 transform.LookAt(destination.position);
             }

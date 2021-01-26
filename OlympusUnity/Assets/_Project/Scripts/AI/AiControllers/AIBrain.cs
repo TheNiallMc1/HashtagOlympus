@@ -37,7 +37,7 @@ namespace _Project.Scripts.AI.AiControllers
         public bool isTargetNotNull;
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
-        private bool _isDrunk;
+        public bool _isDrunk;
 
         [Header("Animation")]
         private bool _initialCoLoop = true;
