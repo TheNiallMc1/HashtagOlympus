@@ -208,7 +208,7 @@ public class GodBehaviour : MonoBehaviour
         currentAttackTarget = enemiesSeen[0];
         
         // If the current target is null (usually because it died) remove it from the lists
-        if (currentAttackTarget == null)
+        if (!currentAttackTarget.gameObject.activeInHierarchy)
         {
             UpdateAttackList(false, currentAttackTarget);
             UpdateAwarenessList(false, currentAttackTarget);

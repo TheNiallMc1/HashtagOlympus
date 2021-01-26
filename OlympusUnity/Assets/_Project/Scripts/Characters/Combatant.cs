@@ -131,10 +131,6 @@ public class Combatant : MonoBehaviour
         {
             print(gameObject.name + " has been defeated");
             GameManager.Instance.AddRespect(respectOnKill);
-            gameObject.GetComponent<AIBrain>().currentAttackTarget.GetComponent<GodBehaviour>().enemiesInAttackRange
-                .Remove(this);
-            gameObject.GetComponent<AIBrain>().currentAttackTarget.GetComponent<GodBehaviour>().enemiesSeen
-                .Remove(this);
             gameObject.SetActive(false);
         }
     }
