@@ -143,23 +143,28 @@ namespace _Project.Scripts.AI.AiControllers
                 {
                     case 1:
                         nav.SetDestination(new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z));
-                        currentPath++;
+                        if (!nav.pathPending && nav.remainingDistance < rDist)
+                            currentPath++;
                         break;
                     case 2:
                         nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
-                        currentPath++;
+                        if (!nav.pathPending && nav.remainingDistance < rDist)
+                            currentPath++;
                         break;
                     case 3:
                         nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
-                        currentPath++;
+                        if (!nav.pathPending && nav.remainingDistance < rDist)
+                            currentPath++;
                         break;
                     case 4:
                         nav.SetDestination(new Vector3(currentPosition.x - 1, currentPosition.y, currentPosition.z));
-                        currentPath++;
+                        if (!nav.pathPending && nav.remainingDistance < rDist)
+                            currentPath++;
                         break;
                     case 5:
                         nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 1));
-                        currentPath = 1;
+                        if (!nav.pathPending && nav.remainingDistance < rDist)
+                            currentPath = 1;
                         break;
                 }
             }
