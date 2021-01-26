@@ -16,9 +16,9 @@ namespace _Project.Scripts.AI.AiControllers
         public List<Waypoint> path;
 
         public Waypoint spawn;
-
         public Waypoint closestWayPoint;
 
+        public Vector3 currentPosition;
         protected Transform destination;
         protected float rDist = 2f;
 
@@ -133,5 +133,38 @@ namespace _Project.Scripts.AI.AiControllers
         {
             nav.SetDestination(target.transform.position);
         }
+
+        public void Drunk()
+        {
+            int currentPath = 1;
+            while (_aiBrain.State == AIBrain.EState.Drunk)
+            {
+                switch (currentPath)
+                {
+                    case 1:
+                        nav.SetDestination(new Vector3(currentPosition.x + 1, currentPosition.y, currentPosition.z));
+                        currentPath++;
+                        break;
+                    case 2:
+                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
+                        currentPath++;
+                        break;
+                    case 3:
+                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 1));
+                        currentPath++;
+                        break;
+                    case 4:
+                        nav.SetDestination(new Vector3(currentPosition.x - 1, currentPosition.y, currentPosition.z));
+                        currentPath++;
+                        break;
+                    case 5:
+                        nav.SetDestination(new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 1));
+                        currentPath = 1;
+                        break;
+                }
+            }
+        }
     }
+
+    
 }

@@ -19,7 +19,7 @@ namespace _Project.Scripts.AI.AiControllers
         public Combatant currentAttackTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability }
+        public enum EState { Moving, Attacking, Ability, Drunk, Follow }
 
         [Header("Dynamic States")]
         [SerializeField]
@@ -145,6 +145,13 @@ namespace _Project.Scripts.AI.AiControllers
                     }
                     break;
                 case EState.Ability:
+                    break;
+                case EState.Drunk:
+                    _movementMotor.currentPosition = transform.position;
+                    _movementMotor.Drunk();
+                    break;
+                case EState.Follow:
+                    _movementMotor.MoveToTarget(currentAttackTarget);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
