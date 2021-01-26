@@ -30,7 +30,7 @@ public class GodBehaviour : MonoBehaviour
     [Header("States")]
     [SerializeField] protected internal GodState currentState;
 
-    [HideInInspector] public Vector3 lastClickedPosition;
+    public Vector3 lastClickedPosition;
 
     [Header("Levelling and EXP")]
     protected int currentLevel;

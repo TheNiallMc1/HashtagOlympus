@@ -19,10 +19,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""ca1aa8c8-2a25-456d-82d1-c7aef4d60899"",
             ""actions"": [
                 {
-                    ""name"": ""MouseClick"",
+                    ""name"": ""LeftMouseClick"",
                     ""type"": ""Value"",
                     ""id"": ""4657c9f0-020d-4f00-8cea-252e97b36666"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightMouseClick"",
+                    ""type"": ""Value"",
+                    ""id"": ""b4af97b4-6f78-4d99-9846-fc2bccecd451"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -35,7 +43,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseClick"",
+                    ""action"": ""LeftMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f4bd057-7fca-47bd-b3a1-799e3ebdfed5"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -138,7 +157,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
 }");
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
-        m_Movement_MouseClick = m_Movement.FindAction("MouseClick", throwIfNotFound: true);
+        m_Movement_LeftMouseClick = m_Movement.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Movement_RightMouseClick = m_Movement.FindAction("RightMouseClick", throwIfNotFound: true);
         // GodSelection
         m_GodSelection = asset.FindActionMap("GodSelection", throwIfNotFound: true);
         m_GodSelection_CycleThroughGods = m_GodSelection.FindAction("CycleThroughGods", throwIfNotFound: true);
@@ -196,12 +216,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // Movement
     private readonly InputActionMap m_Movement;
     private IMovementActions m_MovementActionsCallbackInterface;
-    private readonly InputAction m_Movement_MouseClick;
+    private readonly InputAction m_Movement_LeftMouseClick;
+    private readonly InputAction m_Movement_RightMouseClick;
     public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
         public MovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MouseClick => m_Wrapper.m_Movement_MouseClick;
+        public InputAction @LeftMouseClick => m_Wrapper.m_Movement_LeftMouseClick;
+        public InputAction @RightMouseClick => m_Wrapper.m_Movement_RightMouseClick;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,16 +233,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_MovementActionsCallbackInterface != null)
             {
-                @MouseClick.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseClick;
-                @MouseClick.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseClick;
-                @MouseClick.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMouseClick;
+                @LeftMouseClick.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnLeftMouseClick;
+                @LeftMouseClick.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnLeftMouseClick;
+                @RightMouseClick.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnRightMouseClick;
+                @RightMouseClick.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnRightMouseClick;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @MouseClick.started += instance.OnMouseClick;
-                @MouseClick.performed += instance.OnMouseClick;
-                @MouseClick.canceled += instance.OnMouseClick;
+                @LeftMouseClick.started += instance.OnLeftMouseClick;
+                @LeftMouseClick.performed += instance.OnLeftMouseClick;
+                @LeftMouseClick.canceled += instance.OnLeftMouseClick;
+                @RightMouseClick.started += instance.OnRightMouseClick;
+                @RightMouseClick.performed += instance.OnRightMouseClick;
+                @RightMouseClick.canceled += instance.OnRightMouseClick;
             }
         }
     }
@@ -309,7 +337,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public MouseActions @Mouse => new MouseActions(this);
     public interface IMovementActions
     {
-        void OnMouseClick(InputAction.CallbackContext context);
+        void OnLeftMouseClick(InputAction.CallbackContext context);
+        void OnRightMouseClick(InputAction.CallbackContext context);
     }
     public interface IGodSelectionActions
     {
