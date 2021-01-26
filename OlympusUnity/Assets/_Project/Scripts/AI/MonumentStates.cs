@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Combatant))]
-public class MonumentHealth : MonoBehaviour
+public class MonumentStates : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> _defenders;
@@ -28,7 +28,7 @@ public class MonumentHealth : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(_thisCombatant.currentHealth == _thisCombatant.maxHealth) return;
         if (_thisCombatant.currentHealth < _thisCombatant.maxHealth)
