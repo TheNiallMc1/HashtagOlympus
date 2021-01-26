@@ -1,26 +1,22 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class God_Dionysus : GodBehaviour
 {
     [Header("Dionysus")] 
-    public StatusEffect ultimatePartyStatus;
-    public float ultimateReductionRate;
-    
-    private Coroutine ultimateCoroutine;
-    
-    // KEEP LIST OF EVERY ENEMY AFFECTED BY PARTY-TIME
-    
-    public void AddUltimateCharge(int chargeToAdd)
-    {
-        ultimateCharge += chargeToAdd;
+    public PassiveAbilityManager partyTimePassiveManager;
+    public StatusEffect partyStatus;
+    private PassiveAbility partyPassiveAbility;
 
-        if (ultimateCharge > 100)
-        {
-            ultimateCharge = 100;
-        }
+    public List<Combatant> combatantsAffectedByPartyTime;
+
+    public override void Start()
+    {
+        base.Start();
+        partyTimePassiveManager.enabled = false;
     }
-    
+
     public override void ActivateUltimate()
     {
         if (ultimateCharge >= 100 && !usingUltimate)
@@ -29,32 +25,30 @@ public class God_Dionysus : GodBehaviour
             usingUltimate = true;
 
             attackingLocked = true;
+
+            partyTimePassiveManager.enabled = true;
+            partyPassiveAbility = partyTimePassiveManager.ability;
             
-            // ADD PASSIVE ABILITY TO INFLICTS PARTY-TIME ON NEARBY ENEMIES
-            // CHANGE STATE TO "DANCING" SO HE CANNOT ATTACK
+            partyTimePassiveManager.Initialise();
             
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
         }
     }
-    
-    public override IEnumerator UltimateDurationCoroutine()
-    {
-        // Ultimate count goes down on a set time frame by 1
-        yield return new WaitForSecondsRealtime(ultimateReductionRate);
-        AddUltimateCharge(-1);
-        
-        // When ultimate hits zero, end the Ultimate
-        if (ultimateCharge <= 0)
-        {
-            ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
 
-            usingUltimate = false;    
-            attackingLocked = false;
-            ultimateCoroutine = null;
-        }
-        else
+    public override void EndUltimate()
+    {
+        partyTimePassiveManager.RemovePassiveAbility();
+        
+        // Take and store the list of targets affected by the status
+        combatantsAffectedByPartyTime = partyPassiveAbility.targetsAffectedByStatus;
+        
+        foreach (Combatant target in combatantsAffectedByPartyTime)
         {
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            target.RemoveStatus(partyPassiveAbility.statusEffect);
         }
+        
+        combatantsAffectedByPartyTime.Clear();
+        
+        base.EndUltimate();
     }
 }

@@ -4,19 +4,22 @@ using System.Collections.Generic;
 using UnityEditor.Compilation;
 using UnityEngine;
 
-
 public abstract class SpecialAbility : ScriptableObject
 {
     
     public string abilityName;
     public string abilityDescription;
 
+    
     public enum eSelectionType { Single, CircleAoE, ConeAoE, Self }
-    public eSelectionType selectionType { get; set; }
+    
+    [Header("Ability Effects")]
+    [SerializeField]
+    public eSelectionType selectionType;
 
     public List<Combatant.eTargetType> abilityCanHit;
     
-    [Header("Ability Effects")]
+    
     public int abilityDamage = 50;
     public int abilityHealAmount = 50;
     public List<StatusEffect> statusEffects;

@@ -47,6 +47,7 @@ public class Combatant : MonoBehaviour
 
     public void ApplyStatus(StatusEffect status)
     {
+        
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -61,6 +62,7 @@ public class Combatant : MonoBehaviour
         
             newStatusManager.enabled = true;
             newStatusManager.statusEffect = status;
+            Debug.Log("Applied status of type " + status.name);
         }       
     }
 
@@ -72,7 +74,7 @@ public class Combatant : MonoBehaviour
             // Get the value by its key (the status type) and then end the status
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {
-                manager.EndStatus();
+                manager.ActivateExitEffect();
                 activeStatusEffects.Remove(status);
             }
         }
@@ -105,7 +107,7 @@ public class Combatant : MonoBehaviour
     public void TakeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
-
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -123,9 +125,16 @@ public class Combatant : MonoBehaviour
 
     private void Die()
     {
-        if (targetType == eTargetType.Player)
+        switch (targetType)
         {
-            GetComponent<GodBehaviour>().OnDeathEvent();
+            case eTargetType.Player:
+                GetComponent<GodBehaviour>().OnDeathEvent();
+                break;
+            
+            case eTargetType.Enemy:
+                //GameManager.Instance.AddRespect(respectOnKill);
+                Destroy(gameObject);
+                break;
         }
         
         if(targetType == eTargetType.Enemy)

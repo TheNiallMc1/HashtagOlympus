@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -62,13 +63,13 @@ public class AITestManager : MonoBehaviour
     {
         for (var i = 0; i < enemiesPerWave; i++)
         {
-            SpawnTourist();
+            SpawnTourist(i);
             yield return new WaitForSeconds(0.5f);
         }
         enemiesPerWave = (int)(enemiesPerWave * incrementAmount);
     }
 
-    private void SpawnTourist()
+    private void SpawnTourist(int nameTestInt)
     {
         GameObject touristDrone = ObjectPools.SharedInstance.GetPoolObGameObject();
         if (touristDrone != null)

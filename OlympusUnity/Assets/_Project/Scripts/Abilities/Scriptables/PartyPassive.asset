@@ -9,20 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2ef4eb33a462142a41d5821a4b612c, type: 3}
-  m_Name: AresAbility1
+  m_Script: {fileID: 11500000, guid: 204546e4a743c9c44845a82eb31b78be, type: 3}
+  m_Name: PartyPassive
   m_EditorClassIdentifier: 
-  abilityName: Sword Spin
+  abilityName: PartyPassive
   abilityDescription: 
-  abilityCanHit: 0100000003000000
-  abilityDamage: 50
-  abilityHealAmount: 0
-  statusEffects: []
-  abilityCooldown: 10
-  remainingCooldownTime: 0
-  radius: 6.27
-  coneAoE: {fileID: 0}
-  coneAlreadyExists: 0
-  coneBuffer: 0
+  abilityCanHit: 01000000
+  effectRadius: 9
+  tickInterval: 1
+  statusEffect: {fileID: 11400000, guid: 26cb82323b017a74ba06442d52338101, type: 2}
+  targetsAffectedByStatus: []
+  thisCombatant: {fileID: 0}
   targets: []
   thisGod: {fileID: 0}

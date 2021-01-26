@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e2ef4eb33a462142a41d5821a4b612c, type: 3}
-  m_Name: AoEConeAbilityTest
+  m_Name: AbilityExample
   m_EditorClassIdentifier: 
   abilityName: 
   abilityDescription: 
-  abilityCanHit: 0100000003000000
+  selectionType: 0
+  abilityCanHit: 
   abilityDamage: 50
   abilityHealAmount: 50
   statusEffects: []
-  abilityCooldown: 5
+  abilityCooldown: 0
   remainingCooldownTime: 0
   radius: 0
-  coneAoE: {fileID: 200404270140182027, guid: 61275b04778011c4ca9912a4c5d46c4b, type: 3}
+  coneAoE: {fileID: 0}
   coneAlreadyExists: 0
   coneBuffer: 0
   targets: []

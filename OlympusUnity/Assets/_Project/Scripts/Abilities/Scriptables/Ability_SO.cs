@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "AbilityExample", menuName = "Abilities/New Ability", order = 1)]
@@ -36,11 +34,11 @@ public class Ability_SO : SpecialAbility
 
     public override void InflictStatusEffects(Combatant target)
     {
-        //foreach (StatusEffect statusEffect in statusEffects)
-        //{
-        //    target.ApplyStatus(statusEffect);
-        //    Debug.Log(target.gameObject.name + " was infliced with " + statusEffect.name);
-        //}
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            target.ApplyStatus(statusEffect);
+            Debug.Log(target.gameObject.name + " was inflicted with " + statusEffect.name);
+        }
     }
     
     public override void EndAbility()
