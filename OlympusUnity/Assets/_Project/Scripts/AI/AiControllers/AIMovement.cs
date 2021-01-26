@@ -137,41 +137,41 @@ namespace _Project.Scripts.AI.AiControllers
 
         public void Drunk()
         {
-            Vector3 destination;
+            Vector3 drunkDestination;
             switch (_currentPath)
             {
                 case 1:
-                    destination = new Vector3(currentPosition.x + 2, currentPosition.y, currentPosition.z);
-                    _aiBrain.transform.LookAt(destination);
-                    nav.SetDestination(destination);
+                    drunkDestination = new Vector3(currentPosition.x + 2, currentPosition.y, currentPosition.z);
+                    transform.LookAt(drunkDestination);
+                    nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
                         _currentPath++;
                     break;
                 case 2:
-                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
-                    _aiBrain.transform.LookAt(destination);
-                    nav.SetDestination(destination);
+                    drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
+                    transform.LookAt(drunkDestination);
+                    nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
                         _currentPath++;
                     break;
                 case 3:
-                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
-                    _aiBrain.transform.LookAt(destination);
-                    nav.SetDestination(destination);
+                    drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
+                    transform.LookAt(drunkDestination);
+                    nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
                         _currentPath++;
                     break;
                 case 4:
-                    destination = new Vector3(currentPosition.x - 2, currentPosition.y, currentPosition.z);
-                    _aiBrain.transform.LookAt(destination);
-                    nav.SetDestination(destination);
+                    drunkDestination = new Vector3(currentPosition.x - 2, currentPosition.y, currentPosition.z);
+                    transform.LookAt(drunkDestination);
+                    nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
                         _currentPath++;
                     break;
                 case 5:
-                    destination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 2);
-                    _aiBrain.transform.LookAt(destination);
-                    nav.SetDestination(destination);
+                    drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 2);
+                    transform.LookAt(drunkDestination);
+                    nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
                         _currentPath = 1;
                     break;
