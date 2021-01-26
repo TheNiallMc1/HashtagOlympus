@@ -192,8 +192,16 @@ public class GameManager : MonoBehaviour
 
     public void SelectGod(GodBehaviour godToSelect)
     {
+        if(currentlySelectedGod != null)
+        {
+            currentlySelectedGod.selectionCircle.SetActive(false);
+        }
+
         godSelected = true;
         currentlySelectedGod = godToSelect;
+
+        currentlySelectedGod.selectionCircle.SetActive(true);
+
         Debug.Log("selected god : "+currentlySelectedGod.godName);
         currentlySelectedGod.ToggleSelection(true);
         

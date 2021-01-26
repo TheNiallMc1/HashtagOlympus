@@ -42,7 +42,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3442854357931673171
 Transform:
   m_ObjectHideFlags: 0
@@ -767,9 +767,10 @@ MonoBehaviour:
   currentState: 0
   lastClickedPosition: {x: 0, y: 0, z: 0}
   specialAbilities: []
-  mouseDetectorCollider: {fileID: 0}
-  awarenessRadiusCollider: {fileID: 0}
-  attackRadiusCollider: {fileID: 0}
+  mouseDetectorCollider: {fileID: 5483520318372174064}
+  awarenessRadiusCollider: {fileID: 5483520318239848940}
+  attackRadiusCollider: {fileID: 5483520317840735396}
+  selectionCircle: {fileID: 3442854357931673170}
   animator: {fileID: 0}
   attackAnimationIsPlaying: 0
   currentForm: 0

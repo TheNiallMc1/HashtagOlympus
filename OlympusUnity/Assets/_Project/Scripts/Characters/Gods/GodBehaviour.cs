@@ -51,6 +51,7 @@ public class GodBehaviour : MonoBehaviour
     public GameObject mouseDetectorCollider;
     public SphereCollider awarenessRadiusCollider;
     public SphereCollider attackRadiusCollider;
+    public GameObject selectionCircle;
 
     [Header("Animations")] 
     public Animator animator;
