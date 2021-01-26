@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,9 +41,19 @@ public class GodBehaviour : MonoBehaviour
 
     [Header("Abilities")]
     public List<AbilityManager> specialAbilities;
-    //public List<SpecialAbility> passiveAbilities;
 
+    [Header("Ultimate")] 
+    public string ultimateName;
+    protected Coroutine ultimateGainCoroutine;
+    public int ultimateGainTickInterval; // How often Ultimate Charge is gained
+    public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
+    public TextMeshProUGUI ultimateChargeText;
+
+    protected Coroutine ultimateDecreaseCoroutine;
+    public int ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
+    public int ultimateDecreasePerTick; // How much Ultimate Charge is decreased per tick
+    
     protected bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
@@ -83,6 +94,8 @@ public class GodBehaviour : MonoBehaviour
         attackRadiusCollider.radius = attackRadius;
 
         animator = GetComponentInChildren<Animator>();
+
+        ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
     }
 
     public virtual void OnDamageEvent(int damageTaken)
@@ -114,14 +127,6 @@ public class GodBehaviour : MonoBehaviour
         {
             Attack();
         }
-
-        // // If there are enemies in awareness range but not attack range, head to the enemy that can be seen
-        // if (!isKnockedOut && !movingToArea && !movingToEnemy && attackRangeEmpty && !awarenessRangeEmpty && !movementLocked)
-        // {
-        //     SwitchState(GodState.moveToEnemy);
-        // }
-
-
 
         // If the god reaches their target destination, and is not attacking, switch to idle state
         if (!isKnockedOut && currentState != GodState.idle && !attacking && closeToTargetPosition)
@@ -356,10 +361,52 @@ public class GodBehaviour : MonoBehaviour
         // Override in sub class
     }
 
+    public virtual void EndUltimate()
+    {
+        // Override in sub class if needed
+        ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
+        ultimateChargeText.text = ultimateName;
+        
+        usingUltimate = false;    
+        attackingLocked = false;
+        ultimateDecreaseCoroutine = null;
+        
+        ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+    }
+
+    public virtual IEnumerator GainUltimateChargeCoroutine()
+    {
+        // Gain charge every tick
+        yield return new WaitForSecondsRealtime(ultimateGainTickInterval);
+        ultimateCharge += ultimateGainPerTick;
+        ultimateChargeText.text = ultimateCharge.ToString();
+
+        // If less than 100, keep gaining. If 100 or over, stop.
+        if (ultimateCharge < 100)
+        {
+            ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+        }
+        else
+        {
+            ultimateChargeText.text = ultimateName;
+        }
+    }
+    
     public virtual IEnumerator UltimateDurationCoroutine()
     {
-        yield return null;
-        // Override in sub class
+        yield return new WaitForSecondsRealtime(ultimateDurationTickInterval);
+        ultimateCharge -= ultimateDecreasePerTick;
+        ultimateChargeText.text = ultimateCharge.ToString();
+        
+        // When ultimate hits zero, end the Ultimate
+        if (ultimateCharge <= 0)
+        {
+            EndUltimate();
+        }
+        else
+        {
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
+        }
     }
 
     private int GetRandomNumber()

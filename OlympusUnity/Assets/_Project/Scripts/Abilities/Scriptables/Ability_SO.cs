@@ -17,7 +17,7 @@ public class Ability_SO : SpecialAbility
             DealDamage(target);
             InflictStatusEffects(target);
             RestoreHealth(target);
-            Debug.Log(target.gameObject.name + " took " + abilityDamage + " damag e, has " + target.currentHealth + " remaining");
+            Debug.Log(target.gameObject.name + " took " + abilityDamage + " damage, has " + target.currentHealth + " remaining");
         }
         targets.Clear();
     }
@@ -34,11 +34,11 @@ public class Ability_SO : SpecialAbility
 
     public override void InflictStatusEffects(Combatant target)
     {
-        //foreach (StatusEffect statusEffect in statusEffects)
-        //{
-        //    target.ApplyStatus(statusEffect);
-        //    Debug.Log(target.gameObject.name + " was inflicted with " + statusEffect.name);
-        //}
+        foreach (StatusEffect statusEffect in statusEffects)
+        {
+            target.ApplyStatus(statusEffect);
+            Debug.Log(target.gameObject.name + " was inflicted with " + statusEffect.name);
+        }
     }
     
     public override void EndAbility()

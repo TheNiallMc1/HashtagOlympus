@@ -7,10 +7,8 @@ public class Passive_InflictStatus : PassiveAbility
 {
     public override void AbilityEffect()
     {
-        Debug.Log("Ability Effect");
         foreach (Combatant target in targets)
         {
-            Debug.Log("Applied effect to " + target.gameObject.name);
             target.ApplyStatus(statusEffect);
         }
     }

@@ -127,21 +127,16 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject objectHit = hit.collider.gameObject;
-                
-                Debug.Log("<color=yellow> Click Select: Raycast complete. Returning object: </color>" + hit.collider.gameObject);
 
                 GodBehaviour godHit = objectHit.GetComponentInParent<GodBehaviour>();
 
                 if (godHit != null)
-                {
-                    Debug.Log("<color=green> Click Select: God found </color>");
+                {    
                     SelectGod(godHit);
-                    Debug.Log("<color=green> Click Select: Selected god: </color>" + godHit.gameObject.name);
                 }
                 
                 if (currentlySelectedGod != null)
                 {
-                    Debug.Log("<color=green> Click to Move: Selected position for player </color>");
                     currentlySelectedGod.lastClickedPosition = hit.point;
                     // currentlySelectedGod.navMeshAgent.isStopped = false;
                     currentlySelectedGod.SwitchState(GodState.moveToArea);

@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b187b72c7aa5c244daa9b25f3ed4914f, type: 3}
-  m_Name: PartyStatus
+  m_Script: {fileID: 11500000, guid: 7fafa213307b36c4b9c8baf2e4a0ac0d, type: 3}
+  m_Name: DrunkStatus
   m_EditorClassIdentifier: 
   effectPriority: 0
   statusDuration: 0
   isInfinite: 1
-  isTickType: 1
-  tickInterval: 1
+  isTickType: 0
+  tickInterval: 0
   inflictedBy: {fileID: 0}
   affectedCombatant: {fileID: 0}
-  burstDamage: 100

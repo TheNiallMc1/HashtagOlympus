@@ -1,20 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Management.Instrumentation;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Combatant))]
+[RequireComponent(typeof(GodBehaviour))]
 public class PassiveAbilityManager : MonoBehaviour
 {
     [Header("Editor Gizmos")] 
     public bool displayRadius;
     public Color radiusColour;
     
+    [Header("Ability Info")]
     public PassiveAbility ability;
     private Coroutine tickCoroutine;
-
+    
     private List<Combatant> targets = new List<Combatant>();
 
     private void Awake()
@@ -59,7 +59,6 @@ public class PassiveAbilityManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("target is invalid");
             return false;
         }
     }

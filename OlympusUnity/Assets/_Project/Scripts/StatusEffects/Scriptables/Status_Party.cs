@@ -7,22 +7,24 @@ using UnityEngine;
 public class Status_Party : StatusEffect
 {
     [Header("Party Variables")]
-    [SerializeField] [Tooltip("The damage this effect inflicts when it ends")] protected int burstDamage;
+    
+    [Tooltip("The damage this effect inflicts when it ends")] 
+    [SerializeField] protected int burstDamage;
     
     public override void TickEffect()
     {
-        Debug.Log("testing tick status effect");
+        
     }
 
     public override void EntryEffect()
     {
-        
+        // Set to follow Dionysus
     }
 
     public override void ExitEffect()
     {
         // Deal damage to everyone afflicted
         Debug.Log("party damage");
-        // affectedCombatant.takeDamage(burstDamage)
+        affectedCombatant.TakeDamage(burstDamage);
     }
 }

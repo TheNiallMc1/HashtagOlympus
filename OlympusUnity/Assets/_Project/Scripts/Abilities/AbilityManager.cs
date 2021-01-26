@@ -1,42 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Combatant))]
+[RequireComponent(typeof(GodBehaviour))]
 public class AbilityManager : MonoBehaviour
 {
     [Header("Editor Gizmos")] 
     public bool displayRadius;
+    public Color radiusColour;
     
-    private Combatant thisCombatant;
-    
+    [Header("Ability Info")]
     public SpecialAbility ability;
-    
-    private bool onCooldown = false;
-    private Coroutine cooldownCoroutine;
-
     private List<Combatant> targets = new List<Combatant>();
-
     private bool targetSelectModeActive = false;
 
+    [Header("Visuals")] 
+    public GameObject particleEffects;
+
+    [Header("Player Controls")]
     private PlayerControls playerControls;
     private bool leftClick;
     private bool rightClick;
     private Vector2 mousePosition;
     
+    [Header("Components")]
+    private Combatant thisCombatant;
     private Camera mainCam;
-
+    private Animator anim;
     ConeAoE coneAoE;
 
-    [Header("Testing")]
-    public Text cooldownText;
+    [Header("Cooldown Info")]
+    private Coroutine cooldownCoroutine;
+    private bool onCooldown = false;
+    public TextMeshProUGUI cooldownText;
 
     private void Awake()
     {
         ability = Instantiate(ability);
-
-        mainCam = Camera.main;
 
         playerControls = new PlayerControls();
         playerControls.Enable();
@@ -52,8 +55,12 @@ public class AbilityManager : MonoBehaviour
 
     void Start()
     {
+        mainCam = Camera.main;
         thisCombatant = GetComponent<Combatant>();
         ability.thisGod = GetComponent<GodBehaviour>();
+        anim = GetComponentInChildren<Animator>();
+
+        cooldownText.text = ability.abilityName;
     }
 
     void Update()
@@ -83,6 +90,7 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
+        Debug.Log("Enter target select mode");
         if (!onCooldown && !targetSelectModeActive)
         {
             targetSelectModeActive = true;
@@ -96,9 +104,14 @@ public class AbilityManager : MonoBehaviour
 
     void StartAbility()
     {
+        Debug.Log("Start ability");
         targetSelectModeActive = false;
 
         ability.targets = targets;
+
+        //particleEffects.SetActive(true);
+        // Trigger animation
+        
         ability.StartAbility();
 
         onCooldown = true;
@@ -111,6 +124,7 @@ public class AbilityManager : MonoBehaviour
         cooldownText.text = ability.remainingCooldownTime.ToString();
         yield return new WaitForSecondsRealtime(1f);
         ability.remainingCooldownTime -= 1;
+        cooldownText.text = ability.remainingCooldownTime.ToString();
         
 
         if(ability.remainingCooldownTime <= 0)
@@ -118,7 +132,7 @@ public class AbilityManager : MonoBehaviour
             ability.remainingCooldownTime = 0;
             onCooldown = false;
             cooldownCoroutine = null;
-            cooldownText.text = "";
+            cooldownText.text = ability.abilityName;
         }
         
         else
@@ -231,6 +245,8 @@ public class AbilityManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = radiusColour;
+        
         float radius = ability.radius;
         
         if (displayRadius && ability != null)
