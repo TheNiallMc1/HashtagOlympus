@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
-        // if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
-        // {
+         if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
+         {
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject objectHit = hit.collider.gameObject;
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
                     lD.SetEndPos(hit.point);
                 }
             }
-        //}
+        }
     }
 
     public void SelectGod(GodBehaviour godToSelect)
