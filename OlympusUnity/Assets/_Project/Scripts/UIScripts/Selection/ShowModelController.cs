@@ -54,11 +54,12 @@ public class ShowModelController : MonoBehaviour
        for (int i = 0; i < models.Count; i++)
        {
            models[i].SetInitialPosition(i);
-           //turn off outlines
+           models[i].ToggleOutline(false);
        }
        
         Debug.Log("models count: "+models.Count);
         godStats.UpdateGodStatInfo(currentModel);
+        currentModel.ToggleOutline(true);
         selectButton.UpdateButton();
     }
 
@@ -67,9 +68,10 @@ public class ShowModelController : MonoBehaviour
         for(int i = 0; i<models.Count;i++)
         {
             models[i].SetCurrentPosition();
-            
+            models[i].ToggleOutline(false);
         }
         godStats.UpdateGodStatInfo(currentModel);
+        currentModel.ToggleOutline(true);
         selectButton.UpdateButton();
     }
 

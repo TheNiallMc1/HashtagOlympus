@@ -56,10 +56,13 @@ public class ModelBehaviour : MonoBehaviour
 
     public void ToggleOutline(bool shouldTurnOn)
     {
-        //Component[] outlineList;
-        //outlineList= gameObject.GetComponentsInChildren();
-         // Outline[]  outlineList = GetComponentsInChildren(Outline) as outlineList[];
-         
-         //var outlineList = Outline[];
+        var allObjects = GetComponentsInChildren<Transform>();
+        foreach (var child in allObjects)
+        {
+            if (child.GetComponent<Outline>() != null)
+            {
+                child.GetComponent<Outline>().enabled = shouldTurnOn;
+            }
+        }
     }
 }

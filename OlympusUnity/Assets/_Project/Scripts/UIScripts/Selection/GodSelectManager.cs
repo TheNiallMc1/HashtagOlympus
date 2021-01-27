@@ -21,6 +21,8 @@ public class GodSelectManager : MonoBehaviour
 
     public GameObject chosenGods;
     public int addedGodCounter;
+    
+    private PlayerControls playerControls;
 
     
     public Dictionary<ModelBehaviour, GameObject> modelToGod;
@@ -44,11 +46,22 @@ public class GodSelectManager : MonoBehaviour
         selectionComplete = false;
         FinalSelectionStuff.gameObject.SetActive(false);
         addedGodCounter = 0;
+        
+        playerControls = new PlayerControls();
+        playerControls.Enable();
+
+        playerControls.Movement.MouseClick.performed += context => DragToRotate();
+       // playerControls.Movement.
 
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    void DragToRotate()
     {
         
     }
