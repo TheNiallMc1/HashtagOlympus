@@ -84,7 +84,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 100
   currentHealth: 100
-  attackDamage: 0
+  attackDamage: 50
   damageReduction: 0
 --- !u!114 &3213524915655957867
 MonoBehaviour:
@@ -111,14 +111,21 @@ MonoBehaviour:
   currentState: 0
   lastClickedPosition: {x: 0, y: 0, z: 0}
   specialAbilities: []
+  ultimateName: 
+  ultimateGainTickInterval: 0
+  ultimateGainPerTick: 0
+  ultimateChargeText: {fileID: 0}
+  ultimateDurationTickInterval: 0
+  ultimateDecreasePerTick: 0
   mouseDetectorCollider: {fileID: 1856571197521284019}
   awarenessRadiusCollider: {fileID: 1856571197649398447}
   attackRadiusCollider: {fileID: 1856571196989452263}
   selectionCircle: {fileID: 8799405627247154449}
   animator: {fileID: 7299036378472581296}
   attackAnimationIsPlaying: 0
-  ultimatePartyStatus: {fileID: 0}
-  ultimateReductionRate: 0
+  partyTimePassiveManager: {fileID: 0}
+  partyStatus: {fileID: 0}
+  combatantsAffectedByPartyTime: []
 --- !u!1 &1856571196989452262
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea6146fdd84d0c4ea8a267c7cd3e061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBehaviour: {fileID: 0}
+  parentBehaviour: {fileID: 3213524915655957867}
   colliderType: 0
 --- !u!54 &1856571196989452258
 Rigidbody:
@@ -237,8 +244,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.67, y: 7.394767, z: 8.440565}
-  m_Center: {x: 0, y: 3.7273831, z: 0.3335104}
+  m_Size: {x: 2.7564783, y: 5.2546463, z: 2.7590637}
+  m_Center: {x: 0.070379734, y: 2.657323, z: 0.07912445}
 --- !u!1 &1856571197649398445
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea6146fdd84d0c4ea8a267c7cd3e061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBehaviour: {fileID: 0}
+  parentBehaviour: {fileID: 3213524915655957867}
   colliderType: 1
 --- !u!54 &1856571197649398441
 Rigidbody:
