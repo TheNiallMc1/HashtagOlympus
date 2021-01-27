@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -88,6 +89,20 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (ability.remainingCooldownTime < ability.abilityCooldown && ability.remainingCooldownTime > 0)
+        {
+            cooldownText.text = ability.remainingCooldownTime.ToString(); 
+        }
+        
+        else
+        {
+            cooldownText.text = ability.abilityName; 
+        }
+        
+    }
+
     public void EnterTargetSelectMode()
     {
         Debug.Log("Enter target select mode");
@@ -120,10 +135,18 @@ public class AbilityManager : MonoBehaviour
     
     IEnumerator CooldownCoroutine()
     {
-        cooldownText.text = ability.remainingCooldownTime.ToString();
+        if (this.isActiveAndEnabled)
+        {
+            cooldownText.text = ability.remainingCooldownTime.ToString();;
+        }
+        
         yield return new WaitForSecondsRealtime(1f);
         ability.remainingCooldownTime -= 1;
-        cooldownText.text = ability.remainingCooldownTime.ToString();
+        
+        if (this.isActiveAndEnabled)
+        {
+            cooldownText.text = ability.remainingCooldownTime.ToString();;
+        }
         
 
         if(ability.remainingCooldownTime <= 0)
@@ -131,7 +154,12 @@ public class AbilityManager : MonoBehaviour
             ability.remainingCooldownTime = 0;
             onCooldown = false;
             cooldownCoroutine = null;
-            cooldownText.text = ability.abilityName;
+            
+            if (this.isActiveAndEnabled)
+            {
+                cooldownText.text = ability.abilityName;
+            }
+            
         }
         
         else

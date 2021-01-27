@@ -6,9 +6,6 @@ public class God_Demeter : GodBehaviour
 {
     [Header("Demeter General")] 
     public DemeterForm currentForm; 
-    public float ultimateReductionRate;
-    
-    private Coroutine ultimateCoroutine;
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
@@ -17,17 +14,14 @@ public class God_Demeter : GodBehaviour
     [Header("Winter Demeter")] 
     public GameObject winterModel;
     public List<AbilityManager> winterAbilities;
-    public AbilityManager winterPassive;
-        
-    public void AddUltimateCharge(int chargeToAdd)
-    {
-        ultimateCharge += chargeToAdd;
+    public PassiveAbilityManager winterPassive;
 
-        if (ultimateCharge > 100)
-        {
-            ultimateCharge = 100;
-        }
+    public override void Start()
+    {
+        base.Start();
+        SwitchToSummer();
     }
+    
     
     void SwitchForms()
     {
@@ -50,7 +44,7 @@ public class God_Demeter : GodBehaviour
         summerModel.SetActive(false);
         winterModel.SetActive(true);
 
-        animator = winterModel.GetComponent<Animator>();
+        animator = winterModel.GetComponentInChildren<Animator>();
 
         // Disable summer abilities and activate winter abilities
         foreach (AbilityManager ability in winterAbilities)
@@ -62,8 +56,12 @@ public class God_Demeter : GodBehaviour
         {
             ability.enabled = false;
         }
+
+        specialAbilities[0] = winterAbilities[0];
+        specialAbilities[1] = winterAbilities[1];
         
         winterPassive.enabled = true;
+        winterPassive.Initialise();
     }
 
     void SwitchToSummer()
@@ -73,7 +71,7 @@ public class God_Demeter : GodBehaviour
         summerModel.SetActive(true);
         winterModel.SetActive(false);
 
-        animator = summerModel.GetComponent<Animator>();
+        animator = summerModel.GetComponentInChildren<Animator>();
         
         // Disable winter abilities and activate summer abilities
         foreach (AbilityManager ability in winterAbilities)
@@ -85,6 +83,11 @@ public class God_Demeter : GodBehaviour
         {
             ability.enabled = true;
         }
+        
+        specialAbilities[0] = summerAbilities[0];
+        specialAbilities[1] = summerAbilities[1];
+
+        specialAbilities[0].cooldownText.text = specialAbilities[0].ability.abilityName;
         
         winterPassive.enabled = false;
     }
@@ -100,28 +103,7 @@ public class God_Demeter : GodBehaviour
             
             SwitchForms();
             
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
-        }
-    }
-    
-    public override IEnumerator UltimateDurationCoroutine()
-    {
-        // Ultimate count goes down on a set time frame by 1
-        yield return new WaitForSecondsRealtime(ultimateReductionRate);
-        AddUltimateCharge(-1);
-        
-        // When ultimate hits zero, end the Ultimate
-        if (ultimateCharge <= 0)
-        {
-            ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
-
-            usingUltimate = false;    
-            attackingLocked = false;
-            ultimateCoroutine = null;
-        }
-        else
-        {
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
         }
     }
 }
