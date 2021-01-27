@@ -46,7 +46,6 @@ public class PassiveAbilityManager : MonoBehaviour
 
     void FindTargets()
     {
-        Debug.Log("Finding targets");
         Vector3 centre = ability.thisCombatant.colliderHolder.transform.position;
         
         Collider[] colliders = Physics.OverlapSphere(centre, ability.effectRadius);
@@ -81,7 +80,6 @@ public class PassiveAbilityManager : MonoBehaviour
     // Every x seconds, generate targets and activate the ability effect 
     private IEnumerator TickEffectCoroutine()
     {
-        Debug.Log("Starting tick effect coroutine");
         yield return new WaitForSecondsRealtime(ability.tickInterval);
         FindTargets();
         ability.AbilityEffect();

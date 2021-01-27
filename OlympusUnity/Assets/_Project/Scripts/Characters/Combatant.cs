@@ -62,7 +62,6 @@ public class Combatant : MonoBehaviour
         
             newStatusManager.enabled = true;
             newStatusManager.statusEffect = status;
-            Debug.Log("Applied status of type " + status.name);
         }       
     }
 
@@ -87,8 +86,6 @@ public class Combatant : MonoBehaviour
     // Same as remove status, but doesnt call "EndStatus", to avoid a loop for status effects like Heal
     public void RemoveStatusFromList(StatusEffect status) 
     {
-        Debug.Log("Removing status from list");
-        
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -129,7 +126,6 @@ public class Combatant : MonoBehaviour
     {
         if(targetType == eTargetType.Enemy)
         {
-            print(gameObject.name + " has been defeated");
             GameManager.Instance.AddRespect(respectOnKill);
             gameObject.SetActive(false);
         }
