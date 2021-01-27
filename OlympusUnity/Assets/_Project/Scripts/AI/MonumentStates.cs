@@ -62,15 +62,16 @@ public class MonumentStates : MonoBehaviour
         if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
         {
             int j = _touristStands.Count;
+            Debug.Log("initial j = " + j);
             foreach (var t in _touristStands)
             {
                 
                 if (t.currentHealth <= 0)
                 {
-                    j--;
+                    _touristStands.Remove(t);
                 }
 
-                if (j == 0)
+                if (_touristStands.Count == 0)
                 {
                     _isGod = true;
                 }
@@ -89,7 +90,7 @@ public class MonumentStates : MonoBehaviour
 
         prefabEnemyMonument.SetActive(true);
         prefabGodMonument.SetActive(false);
-        for (int i = 1; i < 2; i++)
+        for (int i = 1; i < 3; i++)
         {
             _touristStands.Add(prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>());
         }
