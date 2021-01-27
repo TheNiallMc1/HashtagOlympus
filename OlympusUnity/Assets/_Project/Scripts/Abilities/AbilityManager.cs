@@ -105,9 +105,10 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
-        Debug.Log("Enter target select mode");
         if (!onCooldown && !targetSelectModeActive)
         {
+            Debug.Log("Enter target select mode");
+            // ACTIVATE TARGET SELECT MODE SHADERS
             targetSelectModeActive = true;
         }
         
@@ -117,20 +118,44 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    // After target select mode
     void StartAbility()
     {
         targetSelectModeActive = false;
-
+        
         ability.targets = targets;
 
-        //particleEffects.SetActive(true);
         // Trigger animation
         
-        ability.StartAbility();
+        ability.StartAbility(); // CALLED BY ANIMATION EVENT
+        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
 
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
         cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+    }
+
+    void StartChannelling()
+    {
+        targetSelectModeActive = false;
+        
+        ability.targets = targets;
+        
+        // Trigger animation
+        
+        ability.StartAbility(); // CALLED BY ANIMATION EVENT
+        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
+        
+        onCooldown = true;
+        ability.remainingCooldownTime = ability.abilityCooldown;
+        cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+    }
+
+    IEnumerator ChannelTargetSelectCoroutine()
+    {
+        // Check targets on a cycle to keep list updated
+        targets = coneAoE.targetsInCone;
+        yield return null;
     }
     
     IEnumerator CooldownCoroutine()
@@ -220,17 +245,18 @@ public class AbilityManager : MonoBehaviour
 
     private void AoEConeSelect()
     {
-
         if (!ability.coneAlreadyExists)
         {
-            ability.coneBuffer = 0.15f;
+            ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
             ability.coneAlreadyExists = true;
 
             coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.colliderHolder.transform);
             coneAoE.targetTypes = ability.abilityCanHit;
+            coneAoE.lifeTime = ability.coneLifetime;
         }
         else
         {
+            // When cone buffer hits zero, start the ability with the cone's targets
             ability.coneBuffer -= Time.deltaTime;
 
             if (ability.coneBuffer <= 0)
@@ -242,9 +268,6 @@ public class AbilityManager : MonoBehaviour
                 ability.coneAlreadyExists = false;
             }
         }
-
-
-        // DestroyImmediate(coneAoE);
     }
 
     private void SelfSelect()

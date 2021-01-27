@@ -28,8 +28,9 @@ public abstract class SpecialAbility : ScriptableObject
 
     [Header("Cone AoE")]
     public ConeAoE coneAoE;
-    public bool coneAlreadyExists;
-    public float coneBuffer;
+    public float coneLifetime;
+    [HideInInspector] public bool coneAlreadyExists;
+    [HideInInspector] public float coneBuffer;
     
     
     [HideInInspector] public List<Combatant> targets;
