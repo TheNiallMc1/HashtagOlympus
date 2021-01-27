@@ -40,9 +40,11 @@ public class MonumentStates : MonoBehaviour
             {
                 case Combatant.eTargetType.PMonument:
                     _thisCombatant.targetType = Combatant.eTargetType.EMonument;
+                    _thisCombatant.currentHealth = 100;
                     break;
                 case Combatant.eTargetType.EMonument:
                     _thisCombatant.targetType = Combatant.eTargetType.PMonument;
+                    _thisCombatant.currentHealth = 100;
                     break;
             }
         }
