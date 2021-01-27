@@ -543,6 +543,12 @@ MonoBehaviour:
   - {fileID: 1858460737}
   - {fileID: 1858460738}
   - {fileID: 1858460743}
+  ultimateName: 
+  ultimateGainTickInterval: 0
+  ultimateGainPerTick: 0
+  ultimateChargeText: {fileID: 0}
+  ultimateDurationTickInterval: 0
+  ultimateDecreasePerTick: 0
   mouseDetectorCollider: {fileID: 7196217160540550378}
   awarenessRadiusCollider: {fileID: 7196217160143836662}
   attackRadiusCollider: {fileID: 7196217161070383294}
@@ -585,7 +591,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 45af1bbb7c93be746829f93292a2ad8e, type: 2}
+  particleEffects: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &1858460738
 MonoBehaviour:
@@ -599,7 +608,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 3d01e878fa97a5249984c8a12121ac04, type: 2}
+  particleEffects: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &1858460743
 MonoBehaviour:
@@ -613,7 +625,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 18beb5400447fe24f808bd0c2bee4aa0, type: 2}
+  particleEffects: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!1 &7196217160143836660
 GameObject:
@@ -733,8 +748,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.67, y: 7.394767, z: 8.440565}
-  m_Center: {x: 0, y: 3.7273831, z: 0.3335104}
+  m_Size: {x: 2.7564783, y: 5.2546463, z: 2.7590637}
+  m_Center: {x: 0.070379734, y: 2.657323, z: 0.07912445}
 --- !u!1 &7196217161070383295
 GameObject:
   m_ObjectHideFlags: 0

@@ -638,8 +638,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.67, y: 7.394767, z: 8.440565}
-  m_Center: {x: 0, y: 3.7273831, z: 0.3335104}
+  m_Size: {x: 2.7564783, y: 5.2546463, z: 2.7590637}
+  m_Center: {x: 0.070379734, y: 2.657323, z: 0.07912445}
 --- !u!1 &5483520319108431532
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +767,12 @@ MonoBehaviour:
   currentState: 0
   lastClickedPosition: {x: 0, y: 0, z: 0}
   specialAbilities: []
+  ultimateName: 
+  ultimateGainTickInterval: 0
+  ultimateGainPerTick: 0
+  ultimateChargeText: {fileID: 0}
+  ultimateDurationTickInterval: 0
+  ultimateDecreasePerTick: 0
   mouseDetectorCollider: {fileID: 5483520318372174064}
   awarenessRadiusCollider: {fileID: 5483520318239848940}
   attackRadiusCollider: {fileID: 5483520317840735396}
@@ -876,6 +882,10 @@ PrefabInstance:
     - target: {fileID: 4615647555829444662, guid: 37ab21b4e02304f44ab8f03849244392, type: 3}
       propertyPath: m_Name
       value: demeter_winterBody
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135634131804268064, guid: 37ab21b4e02304f44ab8f03849244392, type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37ab21b4e02304f44ab8f03849244392, type: 3}
