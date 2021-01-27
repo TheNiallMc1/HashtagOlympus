@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,7 @@ public class DemeterSummerAnimations : MonoBehaviour
     God_Demeter godBehaviour;
     Combatant godCombatant;
 
-    AbilityManager ability01;
-    AbilityManager ability02;
+    AbilityManager[] abilities = new AbilityManager[2];
 
     // Start is called before the first frame update
     void Start()
@@ -16,8 +16,8 @@ public class DemeterSummerAnimations : MonoBehaviour
         godBehaviour = GetComponentInParent<God_Demeter>();
         godCombatant = GetComponentInParent<Combatant>();
 
-        ability01 = godBehaviour.summerAbilities[0];
-        ability02 = godBehaviour.summerAbilities[1];
+        abilities[0] = godBehaviour.summerAbilities[0];
+        abilities[1] = godBehaviour.summerAbilities[1];
     }
 
 
@@ -46,9 +46,11 @@ public class DemeterSummerAnimations : MonoBehaviour
         godBehaviour.attackAnimationIsPlaying = false;
     }
 
-    public void Ability01Effect()
+    public void AbilityEffect(int abilityIndex)
     {
-        ability01.ability.StartAbility();
+        Debug.Log("Executing ability from animation");
+        abilities[abilityIndex].ability.StartAbility();
+        abilities[abilityIndex].StartCooldown();
     }
 
 

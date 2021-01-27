@@ -7393,7 +7393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Ultimate Ability
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7402,8 +7402,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7420,7 +7420,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 25.2
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7637,6 +7637,14 @@ PrefabInstance:
       propertyPath: ultimateChargeText
       value: 
       objectReference: {fileID: 1124333070}
+    - target: {fileID: 4179311023262601941, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189933151310304302, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4489710980650523956, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
       propertyPath: cooldownText
       value: 
@@ -7655,7 +7663,7 @@ PrefabInstance:
       objectReference: {fileID: 1955662469}
     - target: {fileID: 8239274993909785492, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.7
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 8239274993909785492, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9042,7 +9050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Ability 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9051,7 +9059,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -9069,7 +9077,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 29.85
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11342,7 +11350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -128, y: 214}
+  m_AnchoredPosition: {x: -270.4, y: 214}
   m_SizeDelta: {x: 120.50343, y: 74.76273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579843525
@@ -12927,7 +12935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Ability 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12936,7 +12944,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -12954,7 +12962,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 29.85
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13176,7 +13184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -272.4, y: 214}
+  m_AnchoredPosition: {x: -132.8, y: 214}
   m_SizeDelta: {x: 120.50343, y: 74.76273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966377421

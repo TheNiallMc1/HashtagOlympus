@@ -139,7 +139,7 @@ public class AbilityManager : MonoBehaviour
         
     }
 
-    private void StartCooldown()
+    public void StartCooldown()
     {
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
