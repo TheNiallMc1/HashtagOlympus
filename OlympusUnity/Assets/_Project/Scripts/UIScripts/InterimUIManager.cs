@@ -91,7 +91,7 @@ public class InterimUIManager : MonoBehaviour
             //if param is GodBehaviour, need to find key by value
             var myKey = allGods.FirstOrDefault(x => x.Value == selectedGod).Key;
             //CameraController.Instance.FollowPlayer(allGods[myKey].gameObject);
-            CameraController.Instance.FollowPlayer(GameManager.Instance.godDict[myKey].gameObject);
+            CameraController.Instance.FollowPlayer(GameManager.Instance.godDict[myKey].gameObject.GetComponent<GodBehaviour>());
             
             for (int i = 0; i < characterDocks.Length; i++)
             {
@@ -114,7 +114,7 @@ public class InterimUIManager : MonoBehaviour
         //CameraController.Instance.FollowPlayer(allGods[key].gameObject);
         
         GameManager.Instance.SelectGod(GameManager.Instance.godDict[key]);
-        CameraController.Instance.FollowPlayer(GameManager.Instance.godDict[key].gameObject);
+        CameraController.Instance.FollowPlayer(GameManager.Instance.godDict[key].gameObject.GetComponent<GodBehaviour>());
         
         for (int i = 0; i < characterDocks.Length; i++)
         {
