@@ -190,6 +190,15 @@ namespace _Project.Scripts.AI.AiControllers
 
             var animNumber = 1;
 
+            foreach (Combatant targetCombatant in enemiesInAttackRange)
+            {
+                var closest = transform.position - currentAttackTarget.transform.position;
+                if ((transform.position - targetCombatant.transform.position).magnitude < closest.magnitude)
+                {
+                    currentAttackTarget = targetCombatant;
+                }
+            }
+
             if (isTargetNotNull)
             {
                 _movementMotor.MoveToTarget(target);
@@ -208,7 +217,7 @@ namespace _Project.Scripts.AI.AiControllers
             }
             transform.LookAt(currentAttackTarget.transform.position);
 
-            if (Priority == EPriority.God)
+            if (Priority == EPriority.God && inRange)
             {
 
                 if (_initialCoLoop)
@@ -256,7 +265,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             if (!isTargetNotNull) return;
             var position = transform.position;
-            if (!((position - targetPosition.position).magnitude < 5)) return;
+            if (!((position - targetPosition.position).magnitude <= 6)) return;
             inRange = true;
             _movementMotor.nav.isStopped = true;
 
