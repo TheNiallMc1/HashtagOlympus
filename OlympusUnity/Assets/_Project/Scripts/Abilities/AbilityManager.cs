@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -86,6 +87,11 @@ public class AbilityManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        cooldownText.text = ability.abilityName;
     }
 
     public void EnterTargetSelectMode()

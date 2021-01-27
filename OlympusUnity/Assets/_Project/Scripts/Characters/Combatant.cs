@@ -87,6 +87,8 @@ public class Combatant : MonoBehaviour
     // Same as remove status, but doesnt call "EndStatus", to avoid a loop for status effects like Heal
     public void RemoveStatusFromList(StatusEffect status) 
     {
+        Debug.Log("Removing status from list");
+        
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -125,18 +127,6 @@ public class Combatant : MonoBehaviour
 
     private void Die()
     {
-        switch (targetType)
-        {
-            case eTargetType.Player:
-                GetComponent<GodBehaviour>().OnDeathEvent();
-                break;
-            
-            case eTargetType.Enemy:
-                //GameManager.Instance.AddRespect(respectOnKill);
-                Destroy(gameObject);
-                break;
-        }
-        
         if(targetType == eTargetType.Enemy)
         {
             print(gameObject.name + " has been defeated");

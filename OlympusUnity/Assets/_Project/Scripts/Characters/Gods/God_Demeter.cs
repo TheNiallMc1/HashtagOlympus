@@ -61,6 +61,7 @@ public class God_Demeter : GodBehaviour
         specialAbilities[1] = winterAbilities[1];
         
         winterPassive.enabled = true;
+        winterPassive.Initialise();
     }
 
     void SwitchToSummer()
@@ -85,6 +86,8 @@ public class God_Demeter : GodBehaviour
         
         specialAbilities[0] = summerAbilities[0];
         specialAbilities[1] = summerAbilities[1];
+
+        specialAbilities[0].cooldownText.text = specialAbilities[0].ability.abilityName;
         
         winterPassive.enabled = false;
     }

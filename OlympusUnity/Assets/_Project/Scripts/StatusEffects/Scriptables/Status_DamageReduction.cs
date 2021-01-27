@@ -4,7 +4,7 @@
 public class Status_DamageReduction : StatusEffect
 {
     [Header("Damage Reduction Variables")] 
-    [Range(1, 100)] public float damageReductionPercentage;
+    [Range(1, 100)] public int damageReductionPercentage;
     
     public override void TickEffect()
         {
@@ -13,11 +13,11 @@ public class Status_DamageReduction : StatusEffect
     
         public override void EntryEffect()
         {
-            //affectedCombatant.damageReduction += damageReductionPercentage;
+            affectedCombatant.damageReduction += damageReductionPercentage;
         }
     
         public override void ExitEffect()
         {
-            //affectedCombatant.damageReduction -= damageReductionPercentage;
+            affectedCombatant.damageReduction -= damageReductionPercentage;
         }
 }
