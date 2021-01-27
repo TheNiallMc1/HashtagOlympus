@@ -17,9 +17,12 @@ public class AbilityManager : MonoBehaviour
     public SpecialAbility ability;
     private List<Combatant> targets = new List<Combatant>();
     private bool targetSelectModeActive = false;
+    public bool isChanneled = false;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
+    public string animTrigger;
+    public string channelAnimTrigger;
 
     [Header("Player Controls")]
     private PlayerControls playerControls;
@@ -30,7 +33,7 @@ public class AbilityManager : MonoBehaviour
     [Header("Components")]
     private Combatant thisCombatant;
     private Camera mainCam;
-    private Animator anim;
+    public Animator anim;
     ConeAoE coneAoE;
 
     [Header("Cooldown Info")]
@@ -122,14 +125,22 @@ public class AbilityManager : MonoBehaviour
     void StartAbility()
     {
         targetSelectModeActive = false;
-        
+
         ability.targets = targets;
 
-        // Trigger animation
-        
-        ability.StartAbility(); // CALLED BY ANIMATION EVENT
-        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
+        StartCooldown();
 
+        // Trigger animation
+        anim.SetTrigger(animTrigger);
+
+        //ability.StartAbility(); // CALLED BY ANIMATION EVENT
+                                // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
+
+        
+    }
+
+    private void StartCooldown()
+    {
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
         cooldownCoroutine = StartCoroutine(CooldownCoroutine());
