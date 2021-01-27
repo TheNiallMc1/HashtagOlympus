@@ -1,95 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Combatant))]
 public class MonumentStates : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> _defenders;
+    [FormerlySerializedAs("_defenders")] [SerializeField]
+    private List<GameObject> defenders;
     [SerializeField]
     private GameObject objectToPool;
+
+    [SerializeField] private GameObject prefabGodMonument;
+    [SerializeField] private GameObject prefabEnemyMonument;
     public int amountToPool;
 
     private Combatant _thisCombatant;
     private Combatant.eTargetType _currentTargetType;
 
+    [SerializeField] List<Combatant> _touristStands;
+
+    [SerializeField] bool _isGod = true;
+
     private void Start()
     {
+        
+        prefabEnemyMonument =  transform.GetChild(1).gameObject;
+        prefabGodMonument = transform.GetChild(0).gameObject;
         _thisCombatant = GetComponent<Combatant>();
         _currentTargetType = _thisCombatant.targetType;
-        _defenders = new List<GameObject>();
+        defenders = new List<GameObject>();
         GameObject tmp;
         for (var i = 0; i < amountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
             tmp.SetActive(false);
-            _defenders.Add(tmp);
+            defenders.Add(tmp);
         }
     }
 
     private void LateUpdate()
     {
         if(_thisCombatant.currentHealth == _thisCombatant.maxHealth) return;
-        if (_thisCombatant.currentHealth < _thisCombatant.maxHealth)
-            _thisCombatant.targetType = Combatant.eTargetType.DMonument;
 
-        if (_thisCombatant.targetType == Combatant.eTargetType.DMonument && _thisCombatant.currentHealth <= 0)
+        if (_thisCombatant.currentHealth <= 0 && _isGod)
         {
-            switch (_currentTargetType)
+            switch (_thisCombatant.targetType)
             {
                 case Combatant.eTargetType.PMonument:
-                    _thisCombatant.targetType = Combatant.eTargetType.EMonument;
-                    _thisCombatant.currentHealth = 100;
+                    _thisCombatant.targetType = Combatant.eTargetType.DMonument;
+                        _isGod = false;
+                    DamagedMonument();
                     break;
-                case Combatant.eTargetType.EMonument:
+                case Combatant.eTargetType.DMonument:
                     _thisCombatant.targetType = Combatant.eTargetType.PMonument;
-                    _thisCombatant.currentHealth = 100;
+                        _thisCombatant.currentHealth = 100;
+                    PlayerMonument();
                     break;
             }
         }
-        switch (_thisCombatant.targetType)
+        if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
         {
-            case Combatant.eTargetType.PMonument:
-                if(_currentTargetType != Combatant.eTargetType.EMonument) return;
-                PlayerMonument();
-                _currentTargetType = Combatant.eTargetType.PMonument;
-                break;
-            case Combatant.eTargetType.DMonument:
-                DamagedMonument();
-                break;
-            case Combatant.eTargetType.EMonument:
-                if(_currentTargetType != Combatant.eTargetType.PMonument) return;
-                EnemyMonument();
-                _currentTargetType = Combatant.eTargetType.EMonument;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            int j = _touristStands.Count;
+            foreach (var t in _touristStands)
+            {
+                
+                if (t.currentHealth <= 0)
+                {
+                    j--;
+                }
+
+                if (j == 0)
+                {
+                    _isGod = true;
+                }
+            }
         }
-    }
-
-    private void SpawnDefence()
-    {
-        return;
-    }
-
-    private void SpawnStructures()
-    {
-        return;
     }
 
     private void PlayerMonument()
     {
-        return;
+        prefabGodMonument.SetActive(true);
+        prefabEnemyMonument.SetActive(false);
     }
 
     private void DamagedMonument()
     {
-        return;
+
+        prefabEnemyMonument.SetActive(true);
+        prefabGodMonument.SetActive(false);
+        for (int i = 1; i < 2; i++)
+        {
+            _touristStands.Add(prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>());
+        }
     }
 
-    private void EnemyMonument()
-    {
-        return;
-    }
 }
