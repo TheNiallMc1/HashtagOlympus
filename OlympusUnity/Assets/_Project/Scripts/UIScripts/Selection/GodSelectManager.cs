@@ -50,8 +50,8 @@ public class GodSelectManager : MonoBehaviour
         playerControls = new PlayerControls();
         playerControls.Enable();
 
-        playerControls.Movement.MouseClick.performed += context => DragToRotate();
-       // playerControls.Movement.
+        //playerControls.Movement.LeftMouseClick.performed += context => DragToRotate();
+        //playerControls.Movement.
 
     }
 
