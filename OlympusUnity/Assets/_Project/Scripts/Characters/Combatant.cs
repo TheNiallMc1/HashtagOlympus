@@ -132,16 +132,10 @@ public class Combatant : MonoBehaviour
                 break;
             
             case eTargetType.Enemy:
-                //GameManager.Instance.AddRespect(respectOnKill);
-                Destroy(gameObject);
+                print(gameObject.name + " has been defeated");
+                GameManager.Instance.AddRespect(respectOnKill);
+                gameObject.SetActive(false);
                 break;
-        }
-        
-        if(targetType == eTargetType.Enemy)
-        {
-            print(gameObject.name + " has been defeated");
-            GameManager.Instance.AddRespect(respectOnKill);
-            gameObject.SetActive(false);
         }
     }
 }

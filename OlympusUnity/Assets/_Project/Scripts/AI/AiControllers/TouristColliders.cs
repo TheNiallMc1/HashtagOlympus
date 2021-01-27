@@ -29,8 +29,6 @@ namespace _Project.Scripts.AI.AiControllers
                     break;
                 case Combatant.eTargetType.EMonument:
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
         }
 
