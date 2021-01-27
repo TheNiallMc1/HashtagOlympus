@@ -429,9 +429,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!114 &66842559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,9 +448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &70686257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,9 +629,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1 &90037732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,9 +2257,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &380260597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3774,9 +3790,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &602328225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3851,9 +3871,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1 &613986278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6965228806836708543, guid: 9633a9c444591c249bb4042ab8c5284f, type: 3}
@@ -5601,9 +5625,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &839316552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5824,9 +5852,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &881855067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6725,9 +6757,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1 &1056068993
 GameObject:
   m_ObjectHideFlags: 0
@@ -7707,7 +7743,7 @@ PrefabInstance:
       objectReference: {fileID: 1955662469}
     - target: {fileID: 8239274993909785492, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.39
+      value: -8.7
       objectReference: {fileID: 0}
     - target: {fileID: 8239274993909785492, guid: 9a6a7d4c023e75043bb69c2e38ba4d34, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7840,9 +7876,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &1158637060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8127,9 +8167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &1209297252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8932,9 +8976,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b24135222f904e8125f8b623d3e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defenders: []
+  defenders: []
   objectToPool: {fileID: 0}
+  prefabGodMonument: {fileID: 0}
+  prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  _touristStands: []
+  _isGod: 1
 --- !u!1001 &1268472722
 PrefabInstance:
   m_ObjectHideFlags: 0
