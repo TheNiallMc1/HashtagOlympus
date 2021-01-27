@@ -106,6 +106,7 @@ MonoBehaviour:
   isAttacking: 0
   attackAnimationIsPlaying: 0
   isTargetNotNull: 0
+  _isDrunk: 0
 --- !u!114 &-5785828546316613266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +125,7 @@ MonoBehaviour:
   path: []
   spawn: {fileID: 0}
   closestWayPoint: {fileID: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
   wpIndex: 0
   test: 0
 --- !u!114 &824122396156031596
@@ -143,8 +145,8 @@ MonoBehaviour:
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 70
-  currentHealth: 0
-  attackDamage: 0
+  currentHealth: 70
+  attackDamage: 30
   damageReduction: 0
 --- !u!1 &1904221497872110840
 GameObject:
