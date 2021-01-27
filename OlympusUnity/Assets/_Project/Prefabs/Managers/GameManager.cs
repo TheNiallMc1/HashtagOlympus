@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
         
         //uiManager.UpdateCurrentGodText();
 
-        respectDisplay.text = respectText  + currentRespect;
+        //respectDisplay.text = respectText  + currentRespect;
 
         CheckForSummon();
     }

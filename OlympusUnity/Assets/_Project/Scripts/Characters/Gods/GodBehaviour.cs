@@ -364,6 +364,7 @@ public class GodBehaviour : MonoBehaviour
 
     public virtual void EndUltimate()
     {
+        Debug.Log("Ending ultimate");
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();
@@ -373,6 +374,13 @@ public class GodBehaviour : MonoBehaviour
         ultimateDecreaseCoroutine = null;
         
         ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+        
+        UltimateExitEffects();
+    }
+
+    public virtual void UltimateExitEffects()
+    {
+        // Override in subclass
     }
 
     public virtual IEnumerator GainUltimateChargeCoroutine()
