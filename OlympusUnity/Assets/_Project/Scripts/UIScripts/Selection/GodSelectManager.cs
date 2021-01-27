@@ -12,7 +12,7 @@ public class GodSelectManager : MonoBehaviour
     private static GodSelectManager _instance;
     public static GodSelectManager Instance => _instance;
     
-    public List<GodBehaviour> selectedGods;
+    public List<GameObject> godPrefabs;
     public bool selectionComplete;
 
     public GameObject SelectionButtons;
@@ -20,6 +20,12 @@ public class GodSelectManager : MonoBehaviour
     public TMP_Text finalSelectionText;
 
     public GameObject chosenGods;
+    public int addedGodCounter;
+    
+    private PlayerControls playerControls;
+
+    
+    public Dictionary<ModelBehaviour, GameObject> modelToGod;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +40,19 @@ public class GodSelectManager : MonoBehaviour
             _instance = this;
         }
         
-        selectedGods = new List<GodBehaviour>();
+        godPrefabs = new List<GameObject>();
+        modelToGod = new Dictionary<ModelBehaviour, GameObject>();
+        
         selectionComplete = false;
         FinalSelectionStuff.gameObject.SetActive(false);
+        addedGodCounter = 0;
         
+        playerControls = new PlayerControls();
+        playerControls.Enable();
+
+        playerControls.Movement.MouseClick.performed += context => DragToRotate();
+       // playerControls.Movement.
+
     }
 
     // Update is called once per frame
@@ -46,7 +61,61 @@ public class GodSelectManager : MonoBehaviour
         
     }
 
-    public void AddGodToList(GodBehaviour selectedGod)
+    void DragToRotate()
+    {
+        
+    }
+
+    void CreateModelToGodDisctionary()
+    {
+        //1. populate prefab list
+        //2. loop thru, compare string names
+        //3. if match then add
+        
+    }
+
+    public void AddGodToList(ModelBehaviour modelToAdd)
+    {
+        addedGodCounter++;
+        Debug.Log("adding : " + modelToAdd.godName+", now: "+addedGodCounter);
+        //use model as key to get god from dict to add to list
+
+        if (addedGodCounter == 3)
+        {
+            ConfirmFinalSelection();
+        }
+    }
+
+    public void RemoveGodFromList(ModelBehaviour modelToRemove)
+    {
+        addedGodCounter--;
+        Debug.Log("removing : " + modelToRemove.godName+", now: "+addedGodCounter);
+    }
+    
+    public void ConfirmFinalSelection()
+    {
+        SelectionButtons.gameObject.SetActive(false);
+        FinalSelectionStuff.gameObject.SetActive(true);
+       // finalSelectionText.text = selectedGods[0].godName + "\n" + selectedGods[1].godName + "\n" +
+                              //    selectedGods[2].godName;
+
+    }
+
+    public void SendFinalSelection()
+    {
+        //send to game mananger
+        Debug.Log("sending final selection");
+        //UberManager.Instance.AddSelectedGodList(selectedGods);
+    }
+
+    public void Reselect()
+    {
+        //selectedGods.Clear();
+        FinalSelectionStuff.gameObject.SetActive(false);
+       // SelectionButtons.gameObject.SetActive(true);
+    }
+
+   /* public void AddGodToList(GodBehaviour selectedGod)
     {
         selectedGods.Add(selectedGod);
         Debug.Log("added :" + selectedGod.godName+" : "+selectedGods.Count);
@@ -89,5 +158,5 @@ public class GodSelectManager : MonoBehaviour
         selectedGods.Clear();
         FinalSelectionStuff.gameObject.SetActive(false);
         SelectionButtons.gameObject.SetActive(true);
-    }
+    }*/
 }

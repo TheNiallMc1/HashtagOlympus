@@ -105,10 +105,15 @@
             <e p="UIScripts" t="Include">
               <e p="CharacterDock.cs" t="Include" />
               <e p="DockSwitcherButton.cs" t="Include" />
+              <e p="GameOver" t="Include">
+                <e p="GameOverData.cs" t="Include" />
+                <e p="WinLoseGM.cs" t="Include" />
+              </e>
               <e p="GodDontDestroy.cs" t="Include" />
               <e p="HealthBar.cs" t="Include" />
               <e p="InterimUIManager.cs" t="Include" />
               <e p="MainMenuPlayButton.cs" t="Include" />
+              <e p="MouseDragInteraction.cs" t="Include" />
               <e p="PauseMapUI" t="Include">
                 <e p="GodOverviewMapIcon.cs" t="Include" />
                 <e p="LineDrawer.cs" t="Include" />
@@ -125,6 +130,12 @@
               <e p="Selection" t="Include">
                 <e p="GodSelectManager.cs" t="Include" />
                 <e p="GodSelectorButton.cs" t="Include" />
+                <e p="GodStatDisplayController.cs" t="Include" />
+                <e p="ModelBehaviour.cs" t="Include" />
+                <e p="RotateModel.cs" t="Include" />
+                <e p="ShowModelButton.cs" t="Include" />
+                <e p="ShowModelController.cs" t="Include" />
+                <e p="ShowModelUI.cs" t="Include" />
               </e>
               <e p="Tooltip" t="Include">
                 <e p="Tooltip.cs" t="Include" />
@@ -132,6 +143,63 @@
                 <e p="TooltipTrigger.cs" t="Include" />
               </e>
               <e p="UberManager.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Cinema Suite" t="Include">
+          <e p="About" t="Include">
+            <e p="Editor" t="Include">
+              <e p="CinemaSuiteWelcome.cs" t="Include" />
+              <e p="ProductInfo.cs" t="Include" />
+              <e p="Resources" t="Include">
+                <e p="BaseProductInfo.xml" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Cinema Themes" t="Include">
+            <e p="Editor" t="Include">
+              <e p="CinemaThemesWindow.cs" t="Include" />
+              <e p="Resources" t="Include">
+                <e p="CinemaThemesInstalledProductInfo.xml" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Documents" t="Include">
+            <e p="CinemaThemesChangeLog.txt" t="Include" />
+            <e p="CinemaThemesReadMe.txt" t="Include" />
+          </e>
+        </e>
+        <e p="OutlineEffect" t="Include">
+          <e p="OutlineEffect" t="Include">
+            <e p="LinkedSet.cs" t="Include" />
+            <e p="Outline.cs" t="Include" />
+            <e p="OutlineEffect.asmdef" t="Include" />
+            <e p="OutlineEffect.cs" t="Include" />
+            <e p="Resources" t="Include">
+              <e p="OutlineBufferShader.shader" t="Include" />
+              <e p="OutlineShader.shader" t="Include" />
+            </e>
+          </e>
+          <e p="Samples" t="Include">
+            <e p="Demo" t="Include">
+              <e p="MaterialSwitcher.cs" t="Include" />
+              <e p="OutlineAnimation.cs" t="Include" />
+              <e p="Rotate.cs" t="Include" />
+              <e p="Toggle.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestMaterials" t="Include">
+          <e p="Greek Etc Fonts" t="Include">
+            <e p="oh_mighty_isis" t="Include">
+              <e p="ohmightyisis.txt" t="Include" />
+            </e>
+            <e p="pirho-herakles" t="Include">
+              <e p="About the artist.txt" t="Include" />
+              <e p="PR Linkware License.txt" t="Include" />
+            </e>
+            <e p="roman-font-7" t="Include">
+              <e p="Readme.txt" t="Include" />
             </e>
           </e>
         </e>
@@ -166,8 +234,36 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="Ultimate 10 Plus Shaders" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="U10PS_DissolveOverTime.cs" t="Include" />
+            <e p="U10PS_ExampleReview.cs" t="Include" />
+            <e p="U10PS_MouseRotation.cs" t="Include" />
+            <e p="U10PS_SnowOverTime.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="Blur.shader" t="Include" />
+            <e p="Depth Mask Edge Detection.shader" t="Include" />
+            <e p="Dissolve.shader" t="Include" />
+            <e p="Edge Detection.shader" t="Include" />
+            <e p="Force Field.shader" t="Include" />
+            <e p="Grass Sway.shader" t="Include" />
+            <e p="Lava3D.shader" t="Include" />
+            <e p="Ocean.shader" t="Include" />
+            <e p="Outline.shader" t="Include" />
+            <e p="Plasma.shader" t="Include" />
+            <e p="Plexus" t="Include">
+              <e p="Plexus Line.shader" t="Include" />
+              <e p="Plexus.compute" t="Include" />
+              <e p="Plexus.cs" t="Include" />
+            </e>
+            <e p="Simple Sine Wave.shader" t="Include" />
+            <e p="Snow.shader" t="Include" />
+          </e>
+        </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
+      <e p="OEBIF.csproj" t="IncludeRecursive" />
       <e p="OlympusUnity.sln" t="IncludeFlat" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
