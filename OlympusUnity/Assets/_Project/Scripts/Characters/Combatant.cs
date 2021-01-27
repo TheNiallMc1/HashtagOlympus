@@ -62,7 +62,6 @@ public class Combatant : MonoBehaviour
         
             newStatusManager.enabled = true;
             newStatusManager.statusEffect = status;
-            Debug.Log("Applied status of type " + status.name);
         }       
     }
 

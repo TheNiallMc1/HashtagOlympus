@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Compilation;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class SpecialAbility : ScriptableObject
@@ -9,7 +6,6 @@ public abstract class SpecialAbility : ScriptableObject
     
     public string abilityName;
     public string abilityDescription;
-
     
     public enum eSelectionType { Single, CircleAoE, ConeAoE, Self }
     
@@ -19,14 +15,13 @@ public abstract class SpecialAbility : ScriptableObject
 
     public List<Combatant.eTargetType> abilityCanHit;
     
-    
     public int abilityDamage = 50;
     public int abilityHealAmount = 50;
     public List<StatusEffect> statusEffects;
     
     [Header("Cooldown")]
     public int abilityCooldown;
-    public int remainingCooldownTime;
+    [HideInInspector] public int remainingCooldownTime;
 
     [Header("Circle AoE")]
     public float radius;

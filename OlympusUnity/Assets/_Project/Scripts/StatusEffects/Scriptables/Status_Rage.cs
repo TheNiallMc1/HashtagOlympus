@@ -7,8 +7,10 @@ using UnityEngine;
 public class Status_Rage : StatusEffect
 {
     [Header("Rage Variables")]
-    [SerializeField] protected int damageIncreasePercentage;
+    [SerializeField] protected int attackDamageIncrease;
     [SerializeField] protected int damageReductionPercentage;
+    private int baseDamageReduction;
+    private int baseDamage;
     
     public override void TickEffect()
     {
@@ -17,13 +19,18 @@ public class Status_Rage : StatusEffect
 
     public override void EntryEffect()
     {
-        // Buff target stats
-        Debug.Log("Begin rage on ares");
+        // Buff target 
+        baseDamage = affectedCombatant.attackDamage;
+        affectedCombatant.attackDamage += attackDamageIncrease;
+        
+        baseDamageReduction = affectedCombatant.damageReduction;
+        affectedCombatant.damageReduction = damageReductionPercentage;
     }
 
     public override void ExitEffect()
     {
         // Reduce target stats to normal
-        Debug.Log("Removed rage on ares");
+        affectedCombatant.attackDamage = baseDamage;
+        affectedCombatant.damageReduction = baseDamageReduction;
     }
 }

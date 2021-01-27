@@ -29,7 +29,11 @@ public class God_Ares : GodBehaviour
 
     private void RageUpdate(int amountToAdd)
     {
-        ultimateCharge += amountToAdd;
+        if (!usingUltimate)
+        {
+            ultimateCharge += amountToAdd;
+            ultimateCharge = Mathf.Min(ultimateCharge, 100);
+        }
     }
 
     public override void ActivateUltimate()
@@ -39,9 +43,9 @@ public class God_Ares : GodBehaviour
             thisCombatant.ApplyStatus(rageStatus);
             lastActivatedRageType = rageStatus;
 
-            rageParticles.SetActive(true);
+            //rageParticles.SetActive(true);
             
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
 
             usingUltimate = true;
         }
@@ -51,37 +55,14 @@ public class God_Ares : GodBehaviour
             thisCombatant.ApplyStatus(maxRageStatus);
             lastActivatedRageType = maxRageStatus;
             
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
             
             usingUltimate = true;
         }
     }
 
-    private void EndUltimate()
+    public override void UltimateExitEffects()
     {
-        ultimateCoroutine = null;
-        usingUltimate = false;
-        rageParticles.SetActive(false);
-    }
-
-    public override IEnumerator UltimateDurationCoroutine()
-    {
-        // Reduce ultimate charge by 1 on interval
-        yield return new WaitForSecondsRealtime(rageReductionRate);
-        RageUpdate(-1);
-
-        // When rage/ultimate charge hits zero, end the Ultimate and remove the rage status
-        if (ultimateCharge <= 0)
-        {
-            ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
-            
-            thisCombatant.RemoveStatus(lastActivatedRageType);
-            
-            EndUltimate();
-        }
-        else
-        {
-            ultimateCoroutine = StartCoroutine(UltimateDurationCoroutine());
-        }
+        thisCombatant.RemoveStatus(lastActivatedRageType);
     }
 }

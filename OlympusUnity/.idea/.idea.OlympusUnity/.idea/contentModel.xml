@@ -55,7 +55,7 @@
               </e>
               <e p="AITestManager.cs" t="Include" />
               <e p="MonumentCollider.cs" t="Include" />
-              <e p="MonumentHealth.cs" t="Include" />
+              <e p="MonumentStates.cs" t="Include" />
               <e p="Waypoint.cs" t="Include" />
             </e>
             <e p="Camera" t="Include">
@@ -65,6 +65,9 @@
               <e p="Combatant.cs" t="Include" />
               <e p="Gods" t="Include">
                 <e p="AresAnimations.cs" t="Include" />
+                <e p="DemeterSummerAnimations.cs" t="Include" />
+                <e p="DemeterWinterAnimations.cs" t="Include" />
+                <e p="DionysusAnimations.cs" t="Include" />
                 <e p="God_Ares.cs" t="Include" />
                 <e p="God_Demeter.cs" t="Include" />
                 <e p="God_Dionysus.cs" t="Include" />
@@ -75,6 +78,7 @@
             <e p="DebugScripts" t="Include">
               <e p="FPSCounter.cs" t="Include" />
             </e>
+            <e p="ObjectPools.cs" t="Include" />
             <e p="SkillTree" t="Include">
               <e p="CharacterSkillSet.cs" t="Include" />
               <e p="Skill.cs" t="Include" />
@@ -86,11 +90,14 @@
             <e p="StatusEffects" t="Include">
               <e p="Scriptables" t="Include">
                 <e p="Status_Blessing.cs" t="Include" />
+                <e p="Status_DamageReduction.cs" t="Include" />
                 <e p="Status_Drunk.cs" t="Include" />
+                <e p="Status_Freeze.cs" t="Include" />
                 <e p="Status_Heal.cs" t="Include" />
                 <e p="Status_MaxRage.cs" t="Include" />
                 <e p="Status_Party.cs" t="Include" />
                 <e p="Status_Rage.cs" t="Include" />
+                <e p="Status_Slow.cs" t="Include" />
               </e>
               <e p="StatusEffect.cs" t="Include" />
               <e p="StatusEffectManager.cs" t="Include" />

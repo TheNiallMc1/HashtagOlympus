@@ -45,13 +45,13 @@ public class GodBehaviour : MonoBehaviour
     [Header("Ultimate")] 
     public string ultimateName;
     protected Coroutine ultimateGainCoroutine;
-    public int ultimateGainTickInterval; // How often Ultimate Charge is gained
+    public float ultimateGainTickInterval; // How often Ultimate Charge is gained
     public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
     public TextMeshProUGUI ultimateChargeText;
 
     protected Coroutine ultimateDecreaseCoroutine;
-    public int ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
+    public float ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
     public int ultimateDecreasePerTick; // How much Ultimate Charge is decreased per tick
     
     protected bool usingUltimate;
@@ -364,6 +364,7 @@ public class GodBehaviour : MonoBehaviour
 
     public virtual void EndUltimate()
     {
+        Debug.Log("Ending ultimate");
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();
@@ -373,6 +374,13 @@ public class GodBehaviour : MonoBehaviour
         ultimateDecreaseCoroutine = null;
         
         ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+        
+        UltimateExitEffects();
+    }
+
+    public virtual void UltimateExitEffects()
+    {
+        // Override in subclass
     }
 
     public virtual IEnumerator GainUltimateChargeCoroutine()
