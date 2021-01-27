@@ -136,70 +136,101 @@ public class GameManager : MonoBehaviour
                 {    
                     SelectGod(godHit);
                     Debug.Log("<color=green> Click Select: Selected god: </color>" + godHit.gameObject.name);
-                }
-
-            //if (currentlySelectedGod != null)
-            //{
-            //    Debug.Log("<color=green> Click to Move: Selected position for player </color>");
-            //    currentlySelectedGod.lastClickedPosition = hit.point;
-            //    // currentlySelectedGod.navMeshAgent.isStopped = false;
-            //    currentlySelectedGod.SwitchState(GodState.moveToArea);
-            //    lD.SetEndPos(hit.point);
-            //}
+                }
+
+
+
+            //if (currentlySelectedGod != null)
+
+            //{
+
+            //    Debug.Log("<color=green> Click to Move: Selected position for player </color>");
+
+            //    currentlySelectedGod.lastClickedPosition = hit.point;
+
+            //    // currentlySelectedGod.navMeshAgent.isStopped = false;
+
+            //    currentlySelectedGod.SwitchState(GodState.moveToArea);
+
+            //    lD.SetEndPos(hit.point);
+
+            //}
+
         }
         //}
     }
 
-    private void MoveGod()
-    {
-        if(currentlySelectedGod == null) { return; }
-
+    private void MoveGod()
+
+    {
+
+        if(currentlySelectedGod == null) { return; }
+
+
+
         Ray ray;
 
         if (currentCam == cam)
-        {
+        {
+
             ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         }
         else
         {
-            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0);
-            ray = currentCam.ScreenPointToRay(scrPoint);
-        }
-
-        // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
-        // if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
-        // {
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, moveRayMask))
-        {
-            // Debug.Log("<color=yellow> Click Select: Raycast complete. Returning object: </color>" + hit.collider.gameObject);
-            Debug.DrawLine(currentlySelectedGod.transform.position, hit.point, Color.red, 20f);
-            // Debug.Log("<color=green> Click to Move: Selected position for player </color>");
-            currentlySelectedGod.lastClickedPosition = new Vector3(hit.point.x, 0, hit.point.z);
-            // currentlySelectedGod.navMeshAgent.isStopped = false;
-            currentlySelectedGod.SwitchState(GodState.moveToArea);
-            Debug.Log(hit.point);
-            lD.SetEndPos(hit.point);
-        }
-    }
+            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0);
 
-    private void OnDrawGizmos()
-    {
-        
+            ray = currentCam.ScreenPointToRay(scrPoint);
+
+        }
+
+
+
+        // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
+
+        // if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
+
+        // {
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, moveRayMask))
+
+        {
+
+            // Debug.Log("<color=yellow> Click Select: Raycast complete. Returning object: </color>" + hit.collider.gameObject);
+
+            Debug.DrawLine(currentlySelectedGod.transform.position, hit.point, Color.red, 20f);
+
+            // Debug.Log("<color=green> Click to Move: Selected position for player </color>");
+
+            currentlySelectedGod.lastClickedPosition = new Vector3(hit.point.x, 0, hit.point.z);
+
+            // currentlySelectedGod.navMeshAgent.isStopped = false;
+
+            currentlySelectedGod.SwitchState(GodState.moveToArea);
+
+            Debug.Log(hit.point);
+
+            lD.SetEndPos(hit.point);
+
+        }
+
     }
 
     public void SelectGod(GodBehaviour godToSelect)
-    {
-        if(currentlySelectedGod != null)
-        {
-            currentlySelectedGod.selectionCircle.SetActive(false);
-        }
-
+    {
+
+        if(currentlySelectedGod != null)
+        {
+            currentlySelectedGod.selectionCircle.SetActive(false);
+            currentlySelectedGod.mouseDetectorCollider.SetActive(true);
+        }
+
         godSelected = true;
         currentlySelectedGod = godToSelect;
 
         currentlySelectedGod.selectionCircle.SetActive(true);
+        currentlySelectedGod.mouseDetectorCollider.SetActive(false);
 
-        Debug.Log("selected god : "+currentlySelectedGod.godName);
+        Debug.Log("selected god : " + currentlySelectedGod.godName);
         currentlySelectedGod.ToggleSelection(true);
         
         //uiManager.UpdateCurrentGodText();
@@ -211,14 +242,13 @@ public class GameManager : MonoBehaviour
 
     public void DeselectGod()
     {
-        if (currentlySelectedGod != null)
+        if (currentlySelectedGod == null)
         {
-            godSelected = false;
-            currentlySelectedGod.ToggleSelection(false);
-            currentlySelectedGod = null;
-        
-           // uiManager.UpdateCurrentGodText();
+            return; 
         }
+        
+        currentlySelectedGod.selectionCircle.SetActive(false);
+        currentlySelectedGod.mouseDetectorCollider.SetActive(true);
     }
 
     public void AddRespect(int valueToAdd)
