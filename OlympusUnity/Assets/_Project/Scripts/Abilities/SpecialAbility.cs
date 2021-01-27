@@ -9,7 +9,6 @@ public abstract class SpecialAbility : ScriptableObject
     
     public string abilityName;
     public string abilityDescription;
-
     
     public enum eSelectionType { Single, CircleAoE, ConeAoE, Self }
     
@@ -19,14 +18,13 @@ public abstract class SpecialAbility : ScriptableObject
 
     public List<Combatant.eTargetType> abilityCanHit;
     
-    
     public int abilityDamage = 50;
     public int abilityHealAmount = 50;
     public List<StatusEffect> statusEffects;
     
     [Header("Cooldown")]
     public int abilityCooldown;
-    public int remainingCooldownTime;
+    [HideInInspector] public int remainingCooldownTime;
 
     [Header("Circle AoE")]
     public float radius;

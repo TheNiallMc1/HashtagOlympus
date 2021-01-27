@@ -45,13 +45,13 @@ public class GodBehaviour : MonoBehaviour
     [Header("Ultimate")] 
     public string ultimateName;
     protected Coroutine ultimateGainCoroutine;
-    public int ultimateGainTickInterval; // How often Ultimate Charge is gained
+    public float ultimateGainTickInterval; // How often Ultimate Charge is gained
     public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
     public TextMeshProUGUI ultimateChargeText;
 
     protected Coroutine ultimateDecreaseCoroutine;
-    public int ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
+    public float ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
     public int ultimateDecreasePerTick; // How much Ultimate Charge is decreased per tick
     
     protected bool usingUltimate;

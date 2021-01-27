@@ -631,6 +631,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: summerAbilities.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: winterAbilities.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: specialAbilities.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateChargeText
+      value: 
+      objectReference: {fileID: 1124333070}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateName
+      value: Season Change
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateGainTickInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateDurationTickInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateGainPerTick
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: ultimateDecreasePerTick
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: summerAbilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 81380188}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: summerAbilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 81380189}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: winterAbilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 81380190}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: winterAbilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 81380191}
+    - target: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: winterPassive
+      value: 
+      objectReference: {fileID: 81380187}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.93
@@ -661,7 +717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -679,6 +735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: God_Demeter
       objectReference: {fileID: 0}
+    - target: {fileID: 6125352825446394481, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 17440c90d4ec5234681fb3501c710044, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
 --- !u!1 &81380186 stripped
@@ -716,9 +776,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: 0f320af9a1ac8ff4b9b9af852038c3ee, type: 2}
   particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
+  cooldownText: {fileID: 1280970662}
 --- !u!114 &81380189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,9 +793,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: b5aac752a42ba9b42a55b75738417391, type: 2}
   particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
+  cooldownText: {fileID: 1955662469}
 --- !u!114 &81380190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,16 +803,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81380186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: 40f41cf8e944aac4cb9396ea2d802914, type: 2}
   particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
+  cooldownText: {fileID: 1280970662}
 --- !u!114 &81380191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,16 +820,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81380186}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: b971b0d9b8ed79441a5ce11653e7f644, type: 2}
   particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
+  cooldownText: {fileID: 1955662469}
+--- !u!114 &81380192 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+  m_PrefabInstance: {fileID: 81380185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81380186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cc3e9f99880fc44aa98817e03d99db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &90037732
 GameObject:
   m_ObjectHideFlags: 0
@@ -10069,8 +10140,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: God_Dionysus, Assembly-CSharp
+      - m_Target: {fileID: 81380192}
+        m_TargetAssemblyTypeName: God_Demeter, Assembly-CSharp
         m_MethodName: ActivateUltimate
         m_Mode: 1
         m_Arguments:
@@ -11363,7 +11434,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 81380192}
         m_TargetAssemblyTypeName: GodBehaviour, Assembly-CSharp
         m_MethodName: UseAbility
         m_Mode: 3
@@ -13140,7 +13211,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 81380192}
         m_TargetAssemblyTypeName: GodBehaviour, Assembly-CSharp
         m_MethodName: UseAbility
         m_Mode: 3
