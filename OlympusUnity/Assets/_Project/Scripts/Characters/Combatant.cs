@@ -30,7 +30,7 @@ public class Combatant : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public int attackDamage;
-    public int damageReduction;
+    [Range(0, 100)] public int damageReduction = 0;
 
     public void Start()
     {
@@ -104,9 +104,9 @@ public class Combatant : MonoBehaviour
 
     #endregion
     
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(int rawDamage)
     {
-        currentHealth -= damageTaken;
+        currentHealth -= (rawDamage * (1 - (damageReduction/100)));
         
         if (currentHealth <= 0)
         {
@@ -119,7 +119,7 @@ public class Combatant : MonoBehaviour
 
         if (targetType == eTargetType.Player)
         {
-            GetComponent<GodBehaviour>().OnDamageEvent(damageTaken);
+            GetComponent<GodBehaviour>().OnDamageEvent(rawDamage);
         }
     }
 

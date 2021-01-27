@@ -51,8 +51,8 @@ public class CameraController : MonoBehaviour
 
     public float followSpeed = 10f;
     
-    public GameObject currentPlayer = null;
-    public GameObject lastPlayer = null;
+    public GodBehaviour currentPlayer = null;
+    public GodBehaviour lastPlayer = null;
 
     private static CameraController _instance = null; // the private static singleton instance variable
     public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
@@ -245,7 +245,7 @@ public class CameraController : MonoBehaviour
 
 
     // Called when the a player icon is clicked to move over to that position
-    public void FollowPlayer(GameObject player)
+    public void FollowPlayer(GodBehaviour player)
     {
         lastPlayer = currentPlayer;
         currentPlayer = player;
@@ -259,7 +259,7 @@ public class CameraController : MonoBehaviour
 
     }
 
-    IEnumerator FollowPlayerRoutine(GameObject player)
+    IEnumerator FollowPlayerRoutine(GodBehaviour player)
     {
         Vector3 originalPosition = transform.position;
         float timeElapsed = 0;
