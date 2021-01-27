@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using TMPro;
 using UnityEngine;
 
@@ -51,5 +52,14 @@ public class ModelBehaviour : MonoBehaviour
         {
             ShowModelController.Instance.SetCurrentModel(this);
         } 
+    }
+
+    public void ToggleOutline(bool shouldTurnOn)
+    {
+        //Component[] outlineList;
+        //outlineList= gameObject.GetComponentsInChildren();
+         // Outline[]  outlineList = GetComponentsInChildren(Outline) as outlineList[];
+         
+         //var outlineList = Outline[];
     }
 }

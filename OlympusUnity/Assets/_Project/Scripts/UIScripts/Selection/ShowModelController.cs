@@ -8,7 +8,8 @@ public class ShowModelController : MonoBehaviour
     private static ShowModelController _instance;
     public static ShowModelController Instance => _instance;
     
-    private List<ModelBehaviour> models;
+    [SerializeField]
+    public List<ModelBehaviour> models;
     public ModelBehaviour currentModel;
     
     [SerializeField]
@@ -29,7 +30,7 @@ public class ShowModelController : MonoBehaviour
             _instance = this;
         }
         
-        models = new List<ModelBehaviour>();
+        //models = new List<ModelBehaviour>();
         godStats = GameObject.FindObjectOfType<GodStatDisplayController>();
         selectButton = GameObject.FindObjectOfType<GodSelectorButton>();
         //positions = new List<Transform>();
@@ -37,15 +38,25 @@ public class ShowModelController : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        
+       // Debug.Log("intialising models");
+       /* for (int i = 0; i < transform.childCount; i++)
         {
+            Debug.Log("loop");
             var model = transform.GetChild(i).GetComponent<ModelBehaviour>();
             models.Add(model);
 
             //put this one at the others at next 2
             model.SetInitialPosition(i);
         }
-        
+        */
+
+       for (int i = 0; i < models.Count; i++)
+       {
+           models[i].SetInitialPosition(i);
+           //turn off outlines
+       }
+       
         Debug.Log("models count: "+models.Count);
         godStats.UpdateGodStatInfo(currentModel);
         selectButton.UpdateButton();

@@ -132,6 +132,26 @@
             </e>
           </e>
         </e>
+        <e p="OutlineEffect" t="Include">
+          <e p="OutlineEffect" t="Include">
+            <e p="LinkedSet.cs" t="Include" />
+            <e p="Outline.cs" t="Include" />
+            <e p="OutlineEffect.asmdef" t="Include" />
+            <e p="OutlineEffect.cs" t="Include" />
+            <e p="Resources" t="Include">
+              <e p="OutlineBufferShader.shader" t="Include" />
+              <e p="OutlineShader.shader" t="Include" />
+            </e>
+          </e>
+          <e p="Samples" t="Include">
+            <e p="Demo" t="Include">
+              <e p="MaterialSwitcher.cs" t="Include" />
+              <e p="OutlineAnimation.cs" t="Include" />
+              <e p="Rotate.cs" t="Include" />
+              <e p="Toggle.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />
@@ -163,8 +183,36 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="Ultimate 10 Plus Shaders" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="U10PS_DissolveOverTime.cs" t="Include" />
+            <e p="U10PS_ExampleReview.cs" t="Include" />
+            <e p="U10PS_MouseRotation.cs" t="Include" />
+            <e p="U10PS_SnowOverTime.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="Blur.shader" t="Include" />
+            <e p="Depth Mask Edge Detection.shader" t="Include" />
+            <e p="Dissolve.shader" t="Include" />
+            <e p="Edge Detection.shader" t="Include" />
+            <e p="Force Field.shader" t="Include" />
+            <e p="Grass Sway.shader" t="Include" />
+            <e p="Lava3D.shader" t="Include" />
+            <e p="Ocean.shader" t="Include" />
+            <e p="Outline.shader" t="Include" />
+            <e p="Plasma.shader" t="Include" />
+            <e p="Plexus" t="Include">
+              <e p="Plexus Line.shader" t="Include" />
+              <e p="Plexus.compute" t="Include" />
+              <e p="Plexus.cs" t="Include" />
+            </e>
+            <e p="Simple Sine Wave.shader" t="Include" />
+            <e p="Snow.shader" t="Include" />
+          </e>
+        </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
+      <e p="OEBIF.csproj" t="IncludeRecursive" />
       <e p="OlympusUnity.sln" t="IncludeFlat" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp/bin" t="ExcludeRecursive" />
