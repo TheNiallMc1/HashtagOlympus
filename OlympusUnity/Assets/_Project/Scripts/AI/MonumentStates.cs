@@ -92,7 +92,9 @@ public class MonumentStates : MonoBehaviour
         prefabGodMonument.SetActive(false);
         for (int i = 1; i < 3; i++)
         {
+            prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>().currentHealth = 100;
             _touristStands.Add(prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>());
+            
         }
     }
 

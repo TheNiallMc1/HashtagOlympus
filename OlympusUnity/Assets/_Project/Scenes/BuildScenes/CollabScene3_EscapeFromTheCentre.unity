@@ -910,7 +910,6 @@ Transform:
   - {fileID: 543450651613442387}
   - {fileID: 543450653116018805}
   - {fileID: 543450652451642933}
-  - {fileID: 543450651985369501}
   - {fileID: 543450651708609443}
   - {fileID: 543450653454367013}
   - {fileID: 543450653229571089}
@@ -16708,8 +16707,9 @@ Transform:
   - {fileID: 1592111461}
   - {fileID: 3414776765280130328}
   - {fileID: 1604610515}
+  - {fileID: 543450651985369501}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450651721858590
 Transform:
@@ -16725,7 +16725,7 @@ Transform:
   - {fileID: 852683025}
   - {fileID: 465247214}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450651774226204
 Transform:
@@ -16741,7 +16741,7 @@ Transform:
   - {fileID: 1818101070}
   - {fileID: 2049430713}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450651985369501
 Transform:
@@ -16751,13 +16751,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147514245927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.1, y: -1.9590397, z: -16.5}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: -9389.999, y: 0, z: -13520}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 50198103}
   - {fileID: 671863166}
-  m_Father: {fileID: 128794663}
-  m_RootOrder: 5
+  m_Father: {fileID: 543450651708609443}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450652277628249
 Transform:
@@ -16837,7 +16837,7 @@ Transform:
   - {fileID: 749977450}
   - {fileID: 722398306}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450653454367013
 Transform:
@@ -16853,7 +16853,7 @@ Transform:
   - {fileID: 1831523047151607392}
   - {fileID: 894869644}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450653667183552
 Transform:
@@ -16870,7 +16870,7 @@ Transform:
   - {fileID: 1258403878}
   - {fileID: 655146986}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450653696937869
 Transform:
@@ -16887,7 +16887,7 @@ Transform:
   - {fileID: 146023357}
   - {fileID: 3597487146253853897}
   m_Father: {fileID: 128794663}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &613554916893404605
 MeshRenderer:
@@ -17767,7 +17767,7 @@ MonoBehaviour:
   colliderHolder: {fileID: 0}
   characterName: 
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 0
   attackDamage: 10
   damageReduction: 0
 --- !u!1 &919132149266359199
