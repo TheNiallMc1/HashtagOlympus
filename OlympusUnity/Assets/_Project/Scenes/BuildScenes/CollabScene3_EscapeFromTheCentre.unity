@@ -1664,17 +1664,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2306348754441333718, guid: 41d1fa9e1422242c18038acd28c6e06d, type: 3}
   m_PrefabInstance: {fileID: 243511579}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &261239753 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3213524915655957867, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
-  m_PrefabInstance: {fileID: 721049651}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd17f9ec0391f07459f161a5ee67d0a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &264841028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4352,13 +4341,17 @@ PrefabInstance:
       propertyPath: attackDamage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: damageReduction
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God_Ares
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.27
+      value: -9.65
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4366,7 +4359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 95.15
+      value: 87.88
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4824,9 +4817,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: attackDamage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4834,7 +4831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 91.2
+      value: 88.23
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5480,17 +5477,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7104711886989611473, guid: a1a2312e077de6d4681a93cb4829a602, type: 3}
   m_PrefabInstance: {fileID: 687638327}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &693992234 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2555057046900129225, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
-  m_PrefabInstance: {fileID: 653743555}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1cc3e9f99880fc44aa98817e03d99db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &697260161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5954,7 +5940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1856571196780817892, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.01
+      value: -4.1
       objectReference: {fileID: 0}
     - target: {fileID: 1856571196780817892, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5962,7 +5948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1856571196780817892, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 95.95
+      value: 87.51
       objectReference: {fileID: 0}
     - target: {fileID: 1856571196780817892, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5999,6 +5985,10 @@ PrefabInstance:
     - target: {fileID: 1856571196780817903, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_Name
       value: God_Dionysus
+      objectReference: {fileID: 0}
+    - target: {fileID: 8799405626769367833, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
+      propertyPath: attackDamage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
