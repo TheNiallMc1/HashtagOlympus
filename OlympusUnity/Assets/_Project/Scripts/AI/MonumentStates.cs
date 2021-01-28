@@ -38,6 +38,7 @@ public class MonumentStates : MonoBehaviour
             tmp.SetActive(false);
             defenders.Add(tmp);
         }
+        PlayerMonument();
     }
 
     private void LateUpdate()
@@ -91,7 +92,7 @@ public class MonumentStates : MonoBehaviour
 
         prefabEnemyMonument.SetActive(true);
         prefabGodMonument.SetActive(false);
-        for (int i = 1; i <= amountOfStands; i++)
+        for (int i = 1; i < amountOfStands + 1; i++)
         {
             prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>().currentHealth = 100;
             _touristStands.Add(prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>());
