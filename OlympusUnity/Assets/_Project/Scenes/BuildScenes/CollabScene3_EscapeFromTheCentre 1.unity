@@ -2495,11 +2495,6 @@ MonoBehaviour:
   amountToPool: 0
   _touristStands: []
   _isGod: 1
---- !u!1 &373861517 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2030069979800571037, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-  m_PrefabInstance: {fileID: 7887862083128989184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &380260597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11294,11 +11289,6 @@ Transform:
   m_Father: {fileID: 543450652985174871}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1431462988 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2450581167458894885, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-  m_PrefabInstance: {fileID: 7887862083128989184}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1432434280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12294,6 +12284,10 @@ PrefabInstance:
     - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: characterName
       value: Ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: currentHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
@@ -16082,6 +16076,10 @@ PrefabInstance:
     - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: characterName
       value: Demeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: currentHealth
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20315,6 +20313,10 @@ PrefabInstance:
       propertyPath: characterName
       value: Dionysus
       objectReference: {fileID: 0}
+    - target: {fileID: 8799405626769367833, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
+      propertyPath: currentHealth
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
 --- !u!23 &3874039932937086709
@@ -23991,22 +23993,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayModeUI
       objectReference: {fileID: 0}
-    - target: {fileID: 2030069979800571037, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2450581167458894885, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6329698747405310714, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: characterDocks.Array.data[1]
-      value: 
-      objectReference: {fileID: 1431462988}
-    - target: {fileID: 6329698747405310714, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: characterDocks.Array.data[2]
-      value: 
-      objectReference: {fileID: 373861517}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
 --- !u!33 &7888168408020376383
