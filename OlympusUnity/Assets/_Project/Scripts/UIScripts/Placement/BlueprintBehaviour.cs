@@ -31,8 +31,8 @@ public class BlueprintBehaviour : MonoBehaviour
         _cam = Camera.main;
         Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         
-       // if (Physics.Raycast(ray, out _hit,50000.0f,(1<<11)))
-       if (Physics.Raycast(ray, out _hit))
+       if (Physics.Raycast(ray, out _hit,50000.0f,(1<<11)))
+       //if (Physics.Raycast(ray, out _hit))
         {
             _newPosition = _hit.point;
         }
@@ -58,7 +58,8 @@ public class BlueprintBehaviour : MonoBehaviour
             //Instantiate(prefab, _hit.point, transform.rotation);
             godGO = PlacementManager.Instance.ReturnCurrentGod();
             godGO.transform.SetParent(null);
-            godGO.transform.position = _newPosition;
+            //godGO.transform.position = _newPosition;
+            godGO.transform.position = new Vector3(_newPosition.x, 0, _newPosition.z);
             
           
             if (gameObject != null)

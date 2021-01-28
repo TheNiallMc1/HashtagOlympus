@@ -17,6 +17,11 @@ public class PlacementManager : MonoBehaviour
 
     public bool allGodsPlaced;
     public int placementCount;
+
+    [SerializeField]
+    public List<GameObject> blueprints;
+    public GameObject currentBluePrint;
+    
     
     
     // Start is called before the first frame update
@@ -47,6 +52,7 @@ public class PlacementManager : MonoBehaviour
     public void ChangeCurrentGodIndex(int newIndex)
     {
         currentGodIndex = newIndex;
+        currentBluePrint = blueprints[newIndex];
     }
     public GameObject ReturnCurrentGod()
     {
@@ -82,6 +88,16 @@ public class PlacementManager : MonoBehaviour
         GodPlacementInfo.Instance.god3Location = UberManager.Instance.selectedGods[2].gameObject.transform.position;
         
         UberManager.Instance.SwitchGameState(UberManager.GameState.GamePlay);
+    }
+
+    public void TryAgain()
+    {
+        Debug.Log("trying again");
+        for (int i = 0; i < UberManager.Instance.selectedGods.Count;i++)
+        {
+            UberManager.Instance.selectedGods[i].gameObject.transform.position = (new Vector3(1000, 0, 0));
+            continueUI.gameObject.SetActive(false);
+        }
     }
     
 }
