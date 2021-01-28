@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using UnityEngine;
 
 public class God_Ares : GodBehaviour
@@ -19,6 +19,8 @@ public class God_Ares : GodBehaviour
     {
         base.Start();
         ultimateCharge = 0;
+        specialAbilities[0].abilityStateName = "Ares_Ability01";
+        specialAbilities[1].abilityStateName = "Ares_Ability02";
     }
 
     public override void OnDamageEvent(int damageTaken)
@@ -38,12 +40,18 @@ public class God_Ares : GodBehaviour
 
     public override void ActivateUltimate()
     {
+        if (currentState == GodState.knockedOut || usingUltimate)
+        {
+            return;
+        }
+        
         if (ultimateCharge > 0 && ultimateCharge < 100 && !usingUltimate) // If charged but not full
         {
             thisCombatant.ApplyStatus(rageStatus);
             lastActivatedRageType = rageStatus;
 
             //rageParticles.SetActive(true);
+            // activate anim
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
 
@@ -54,6 +62,9 @@ public class God_Ares : GodBehaviour
         {
             thisCombatant.ApplyStatus(maxRageStatus);
             lastActivatedRageType = maxRageStatus;
+            
+            //rageParticles.SetActive(true);
+            // activate anim
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
             

@@ -7567,7 +7567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Ultimate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7576,8 +7576,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7594,7 +7594,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 25.2
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9102,7 +9102,7 @@ GameObject:
   - component: {fileID: 1280970663}
   - component: {fileID: 1280970662}
   m_Layer: 5
-  m_Name: CooldownText
+  m_Name: CooldownText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9128,7 +9128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Ability1 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9137,8 +9137,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9155,7 +9155,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 29.15
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11428,7 +11428,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -128, y: 214}
+  m_AnchoredPosition: {x: -275.7, y: 214}
   m_SizeDelta: {x: 120.50343, y: 74.76273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579843525
@@ -12989,7 +12989,7 @@ GameObject:
   - component: {fileID: 1955662470}
   - component: {fileID: 1955662469}
   m_Layer: 5
-  m_Name: CooldownText
+  m_Name: CooldownText2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13034,7 +13034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Ability2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13043,8 +13043,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13061,7 +13061,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.2
+  m_fontSize: 29.15
   m_fontSizeBase: 58.2
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13278,7 +13278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -272.4, y: 214}
+  m_AnchoredPosition: {x: -127.99997, y: 214}
   m_SizeDelta: {x: 120.50343, y: 74.76273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966377421
@@ -18609,11 +18609,11 @@ PrefabInstance:
     - target: {fileID: 3075225328389281974, guid: 7104c5aa8654cbb48bb595afbd6ad45d, type: 3}
       propertyPath: cooldownText
       value: 
-      objectReference: {fileID: 1955662469}
+      objectReference: {fileID: 1280970662}
     - target: {fileID: 3075225328389281975, guid: 7104c5aa8654cbb48bb595afbd6ad45d, type: 3}
       propertyPath: cooldownText
       value: 
-      objectReference: {fileID: 1280970662}
+      objectReference: {fileID: 1955662469}
     - target: {fileID: 3706102464094790422, guid: 7104c5aa8654cbb48bb595afbd6ad45d, type: 3}
       propertyPath: m_Name
       value: God_Dionysus

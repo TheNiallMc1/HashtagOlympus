@@ -21,7 +21,7 @@ public class AbilityManager : MonoBehaviour
 
     [Header("Visuals")] 
     public GameObject particleEffects;
-    public string animTrigger;
+    public string abilityStateName;
     public string channelAnimTrigger;
 
     [Header("Player Controls")]
@@ -32,6 +32,7 @@ public class AbilityManager : MonoBehaviour
     
     [Header("Components")]
     private Combatant thisCombatant;
+    private GodBehaviour thisGod;
     private Camera mainCam;
     public Animator anim;
     ConeAoE coneAoE;
@@ -62,6 +63,7 @@ public class AbilityManager : MonoBehaviour
         mainCam = Camera.main;
         thisCombatant = GetComponent<Combatant>();
         ability.thisGod = GetComponent<GodBehaviour>();
+        thisGod = ability.thisGod;
         anim = GetComponentInChildren<Animator>();
 
         cooldownText.text = ability.abilityName;
@@ -108,7 +110,7 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
-        if (!onCooldown && !targetSelectModeActive)
+        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
         {
             Debug.Log("Enter target select mode");
             // ACTIVATE TARGET SELECT MODE SHADERS
@@ -131,12 +133,13 @@ public class AbilityManager : MonoBehaviour
         StartCooldown();
 
         // Trigger animation
-        anim.SetTrigger(animTrigger);
-
+        //anim.SetTrigger(animTrigger);
+        anim.Play(abilityStateName);
+        thisGod.attackAnimationIsPlaying = false;
         //ability.StartAbility(); // CALLED BY ANIMATION EVENT
-                                // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
+        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
 
-        
+
     }
 
     public void StartCooldown()
