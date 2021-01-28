@@ -8,10 +8,12 @@ public class God_Demeter : GodBehaviour
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
+    public DemeterSummerAnimations summerAnimationsScript;
     public List<AbilityManager> summerAbilities;
 
     [Header("Winter Demeter")] 
     public GameObject winterModel;
+    public DemeterWinterAnimations winterAnimationsScript;
     public List<AbilityManager> winterAbilities;
     public PassiveAbilityManager winterPassive;
 
@@ -19,6 +21,9 @@ public class God_Demeter : GodBehaviour
     {
         base.Start();
         SwitchToSummer();
+
+        summerAnimationsScript = GetComponentInChildren<DemeterSummerAnimations>();
+        winterAnimationsScript = GetComponentInChildren<DemeterWinterAnimations>();
 
         summerAbilities[0].abilityStateName = "Demeter_S_Ability01";
         summerAbilities[1].abilityStateName = "Demeter_S_Ability02";

@@ -241,7 +241,7 @@ public class GodBehaviour : MonoBehaviour
         lastNumber = animNumber;
 
         // If the current target is now null because it died remove it from the lists
-        if (currentAttackTarget == null)
+        if (!currentAttackTarget.gameObject.activeInHierarchy)
         {
             animator.ResetTrigger(autoAttackAnimations[animNumber]);
 
@@ -340,8 +340,13 @@ public class GodBehaviour : MonoBehaviour
         bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
+
+        bool attackListEmpty = !enemiesInAttackRange.Any();
+        bool awarenessListEmpty = !enemiesSeen.Any();
+
+        bool eitherListValid = !attackListEmpty || !awarenessListEmpty;
         
-        return !knockedOut && !usingUltimate && !usingAbility; 
+        return !knockedOut && !usingUltimate && !usingAbility && eitherListValid; 
     }
 
     protected bool CanIdle()

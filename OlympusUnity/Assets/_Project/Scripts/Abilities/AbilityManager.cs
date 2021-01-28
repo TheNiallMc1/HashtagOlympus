@@ -13,9 +13,10 @@ public class AbilityManager : MonoBehaviour
     
     [Header("Ability Info")]
     public SpecialAbility ability;
-    private List<Combatant> targets = new List<Combatant>();
+    public List<Combatant> targets = new List<Combatant>();
     private bool targetSelectModeActive = false;
     public bool isChanneled = false;
+    [HideInInspector] public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
@@ -223,9 +224,13 @@ public class AbilityManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
+                
+                Debug.Log(currentTarget.name);
 
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
+                    lastSingleTarget = currentTarget;
+
                     targets.Add(currentTarget);
                     StartAbility();
                 }

@@ -9,6 +9,7 @@ public class DemeterWinterAnimations : MonoBehaviour
 
     [SerializeField] 
     private GameObject icicleMesh;
+    private GameObject icicleInstance;
     [SerializeField]
     private GameObject icyWindParticles;
     [SerializeField]
@@ -58,12 +59,17 @@ public class DemeterWinterAnimations : MonoBehaviour
 
     public void ActivateIcicleMesh()
     {
-        icicleMesh.SetActive(true);
+        icicleInstance = Instantiate(icicleMesh);
+
+        Vector3 enemyPosition = abilities[0].lastSingleTarget.transform.position;
+        Vector3 newPosition = new Vector3(enemyPosition.x, 0, enemyPosition.z);
+        
+        icicleInstance.transform.position = newPosition;
     }
     
     public void DeactivateIcicleMesh()
     {
-        icicleMesh.SetActive(false);
+        Destroy(icicleInstance);
     }
     
     public void EndAbility01()
