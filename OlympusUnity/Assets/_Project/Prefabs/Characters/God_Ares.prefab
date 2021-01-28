@@ -519,7 +519,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 100
   currentHealth: 100
-  attackDamage: 200
+  attackDamage: 0
   damageReduction: 0
 --- !u!114 &7196217159133631164
 MonoBehaviour:
@@ -580,7 +580,11 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 45af1bbb7c93be746829f93292a2ad8e, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &1858460738
 MonoBehaviour:
@@ -597,7 +601,11 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 3d01e878fa97a5249984c8a12121ac04, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &1858460743
 MonoBehaviour:
@@ -614,7 +622,11 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 18beb5400447fe24f808bd0c2bee4aa0, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!1 &7196217160143836660
 GameObject:
@@ -1219,6 +1231,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8967194393379534191, guid: a57f73fa0bbdabc4eb9fd2a35517c16e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5fccf347b7d68fe4ca88478de8add7bf, type: 2}
     - target: {fileID: 9115262874051636745, guid: a57f73fa0bbdabc4eb9fd2a35517c16e, type: 3}
       propertyPath: m_Layer
       value: 8
