@@ -42,8 +42,10 @@ public class Combatant : MonoBehaviour
 
     #region Status Effects
 
-    public void ApplyStatus(StatusEffect status)
+    public void ApplyStatus(StatusEffect status, Combatant inflictedBy)
     {
+        status.inflictedBy = inflictedBy;
+        
         Debug.LogWarning("Begin applying status");
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))

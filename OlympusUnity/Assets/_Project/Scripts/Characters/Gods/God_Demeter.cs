@@ -26,6 +26,9 @@ public class God_Demeter : GodBehaviour
         winterAbilities[0].abilityStateName = "Demeter_W_Ability01";
         winterAbilities[1].abilityStateName = "Demeter_W_Ability02";
         winterAbilities[1].channelAnimTrigger = "Ability02_End";
+        
+        ultimateStartAnimTrigger = "UltimateActivate";
+        ultimateFinishAnimTrigger = "UltimateFinish";
     }
     
     
@@ -102,19 +105,19 @@ public class God_Demeter : GodBehaviour
     
     public override void ActivateUltimate()
     {
-        if (currentState == GodState.knockedOut || usingUltimate)
+        if ( !CanUseAbility() )
         {
             return;
         }
-        
-        if (ultimateCharge >= 100 && !usingUltimate)
+
+        if (ultimateCharge >= 100)
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
-            usingUltimate = true;
-            
-            // trigger animation
 
-            attackingLocked = true;
+            currentState = GodState.usingUltimate;
+            
+            attackAnimationIsPlaying = false;
+            animator.SetTrigger(ultimateStartAnimTrigger);
             
             SwitchForms();
             

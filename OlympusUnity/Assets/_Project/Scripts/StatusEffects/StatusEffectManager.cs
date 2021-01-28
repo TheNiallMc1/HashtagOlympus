@@ -28,6 +28,9 @@ public class StatusEffectManager : MonoBehaviour
     {        
         instancedStatus.affectedCombatant = thisCombatant;
         
+        
+        ActivateEntryEffect();
+
         // Tick
         if (instancedStatus.isTickType)
         {
@@ -35,22 +38,11 @@ public class StatusEffectManager : MonoBehaviour
         }
         
         // Duration
-        if (instancedStatus.isInfinite) // If infinite, call enter event and wait to be removed to do exit
-        {
-            ActivateEntryEffect();
-        }
-        
-        else if (instancedStatus.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
-        {
-            ActivateEntryEffect();
-            ActivateExitEffect();
-        }
-        
-        else // Start the duration coroutine 
+        if (!instancedStatus.isInfinite)
         {
             durationCoroutine = StartCoroutine(DurationCoroutine());
-            ActivateEntryEffect();
         }
+        
     }
 
     public void EndStatus()

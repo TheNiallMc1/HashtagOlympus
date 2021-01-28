@@ -5,8 +5,7 @@ public class DemeterWinterAnimations : MonoBehaviour
     God_Demeter godBehaviour;
     Combatant godCombatant;
 
-    private AbilityManager icicleAbilty;
-    private AbilityManager freezeAbility;
+    private AbilityManager[] abilities = new AbilityManager[2];
 
     // Start is called before the first frame update
     void Start()
@@ -14,8 +13,8 @@ public class DemeterWinterAnimations : MonoBehaviour
         godBehaviour = GetComponentInParent<God_Demeter>();
         godCombatant = GetComponentInParent<Combatant>();
 
-        icicleAbilty = godBehaviour.winterAbilities[0];
-        freezeAbility = godBehaviour.winterAbilities[1];
+        abilities[0] = godBehaviour.winterAbilities[0];
+        abilities[1] = godBehaviour.winterAbilities[1];
     }
 
 
@@ -43,19 +42,28 @@ public class DemeterWinterAnimations : MonoBehaviour
         godBehaviour.attackAnimationIsPlaying = false;
     }
     
-    public void IcicleAbilityEffect()
+
+    public void Ability01Start()
     {
-        Debug.Log("Icicle ability animation event");
-        //Spawn icicle
-        icicleAbilty.ability.StartAbility();
-        icicleAbilty.StartCooldown();
+        // This needs to hold for the length of the ability lifetime, and then end the ability
+        abilities[0].ability.StartAbility();
     }
     
-    public void StartFreezeAbility()
+    public void EndAbility01()
     {
-        Debug.Log("Freeze ability animation event");
-        // This needs to hold for the length of the ability lifetime, and then end the ability
-        freezeAbility.ability.StartAbility();
-        freezeAbility.StartCooldown();
+        abilities[0].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
     }
+    
+    public void Ability02Effect()
+    {
+        abilities[1].ability.StartAbility();
+    }
+    
+    public void EndAbility02()
+    {
+        abilities[1].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+
 }

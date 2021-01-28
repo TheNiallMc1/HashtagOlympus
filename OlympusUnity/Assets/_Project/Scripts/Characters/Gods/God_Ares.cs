@@ -6,11 +6,7 @@ public class God_Ares : GodBehaviour
     [SerializeField] private StatusEffect rageStatus;
     [SerializeField] private StatusEffect maxRageStatus;
     
-    [SerializeField] private float rageReductionRate;
-    
     private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
-
-    public GameObject rageParticles;
     
     private Coroutine ultimateCoroutine;
     
@@ -20,6 +16,9 @@ public class God_Ares : GodBehaviour
         ultimateCharge = 0;
         specialAbilities[0].abilityStateName = "Ares_Ability01";
         specialAbilities[1].abilityStateName = "Ares_Ability02";
+        
+        ultimateStartAnimTrigger = "UltimateActivate";
+        ultimateFinishAnimTrigger = "UltimateFinish";
     }
 
     public override void OnDamageEvent(int damageTaken)
@@ -30,7 +29,7 @@ public class God_Ares : GodBehaviour
 
     private void RageUpdate(int amountToAdd)
     {
-        if (!usingUltimate)
+        if (currentState != GodState.usingUltimate)
         {
             ultimateCharge += amountToAdd;
             ultimateCharge = Mathf.Min(ultimateCharge, 100);
@@ -39,35 +38,37 @@ public class God_Ares : GodBehaviour
 
     public override void ActivateUltimate()
     {
-        if (currentState == GodState.knockedOut || usingUltimate)
+        if ( !CanUseAbility() )
         {
             return;
         }
         
-        if (ultimateCharge > 0 && ultimateCharge < 100 && !usingUltimate) // If charged but not full
+        // If charged, but not full activate standard rage status. If full, activate maximum rage status
+        
+        if (ultimateCharge > 0 && ultimateCharge < 100)
         {
-            thisCombatant.ApplyStatus(rageStatus);
+            thisCombatant.ApplyStatus(rageStatus, thisCombatant);
             lastActivatedRageType = rageStatus;
 
-            //rageParticles.SetActive(true);
-            // activate anim
+            attackAnimationIsPlaying = false;
+            animator.SetTrigger(ultimateStartAnimTrigger);
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
 
-            usingUltimate = true;
+            currentState = GodState.usingUltimate;
         }
         
-        if (ultimateCharge >= 100 && !usingUltimate)
+        if (ultimateCharge >= 100)
         {
-            thisCombatant.ApplyStatus(maxRageStatus);
+            thisCombatant.ApplyStatus(maxRageStatus, thisCombatant);
             lastActivatedRageType = maxRageStatus;
             
-            //rageParticles.SetActive(true);
-            // activate anim
+            attackAnimationIsPlaying = false;
+            animator.SetTrigger(ultimateStartAnimTrigger);
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
-            
-            usingUltimate = true;
+
+            currentState = GodState.usingUltimate;
         }
     }
 

@@ -37,7 +37,7 @@ public class Ability_SO : SpecialAbility
     {
         foreach (StatusEffect statusEffect in statusEffects)
         {
-            target.ApplyStatus(statusEffect);
+            target.ApplyStatus(statusEffect, thisGod.gameObject.GetComponent<Combatant>());
             Debug.Log(target.gameObject.name + " was inflicted with " + statusEffect.name);
         }
     }

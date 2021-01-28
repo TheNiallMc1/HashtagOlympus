@@ -4,8 +4,8 @@ public class DionysusAnimations : MonoBehaviour
 {
     God_Dionysus godBehaviour;
     Combatant godCombatant;
-    
-    AbilityManager[] abilities = new AbilityManager[2];
+
+    readonly AbilityManager[] abilities = new AbilityManager[2];
     public GameObject wineParticlesObj;
     private ParticleSystem wineParticleSystem;
 
@@ -58,7 +58,6 @@ public class DionysusAnimations : MonoBehaviour
     {
         Debug.Log("Executing ability from animation");
         abilities[0].ability.StartAbility();
-        abilities[0].StartCooldown();
     }
 
     public void ActivateWineParticles()
@@ -72,11 +71,18 @@ public class DionysusAnimations : MonoBehaviour
         wineParticlesObj.SetActive(false);
     }
 
+    public void EndAbility01()
+    {
+        godBehaviour.currentState = GodState.idle;
+        Debug.Log("set to idle");
+        abilities[0].StartCooldown();
+        Debug.Log("Starting cooldown");
+    }
+
     public void Ability02Effect()
     {
         Debug.Log("Executing ability from animation");
         abilities[1].ability.StartAbility();
-        abilities[1].StartCooldown();
     }
 
     public void ActivateHealParticles()
@@ -90,5 +96,11 @@ public class DionysusAnimations : MonoBehaviour
         healParticleSystem.Clear();
         healParticleSystem.Stop();
         healParticlesObj.SetActive(false);
+    }
+    
+    public void EndAbility02()
+    {
+        godBehaviour.currentState = GodState.idle;
+        abilities[1].StartCooldown();
     }
 }

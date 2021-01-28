@@ -108,6 +108,8 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
+        thisGod.currentState = GodState.usingAbility;
+        
         if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
         {
             Debug.Log("Enter target select mode");
@@ -128,16 +130,12 @@ public class AbilityManager : MonoBehaviour
 
         ability.targets = targets;
 
-        StartCooldown();
-
         // Trigger animation
         //anim.SetTrigger(animTrigger);
         anim.Play(abilityStateName);
         thisGod.attackAnimationIsPlaying = false;
         //ability.StartAbility(); // CALLED BY ANIMATION EVENT
         // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-
-
     }
 
     public void StartCooldown()

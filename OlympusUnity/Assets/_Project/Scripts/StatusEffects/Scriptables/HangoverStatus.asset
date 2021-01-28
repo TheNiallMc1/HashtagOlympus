@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b187b72c7aa5c244daa9b25f3ed4914f, type: 3}
-  m_Name: PartyStatus
+  m_Script: {fileID: 11500000, guid: 7e46be922b68f6d41a7c4cf374910391, type: 3}
+  m_Name: HangoverStatus
   m_EditorClassIdentifier: 
   effectPriority: 0
-  statusDuration: 0
-  isInfinite: 1
-  isTickType: 1
-  tickInterval: 0.2
+  statusDuration: 20
+  isInfinite: 0
+  isTickType: 0
+  tickInterval: 0
   inflictedBy: {fileID: 0}
   affectedCombatant: {fileID: 0}
-  burstDamage: 0
-  hangoverStatus: {fileID: 11400000, guid: 6159ac55193ff4344ac60b19def209c2, type: 2}

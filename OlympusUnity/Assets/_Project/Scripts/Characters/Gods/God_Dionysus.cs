@@ -5,7 +5,7 @@ public class God_Dionysus : GodBehaviour
 {
     [Header("Dionysus")] 
     public PassiveAbilityManager partyTimePassiveManager;
-    public StatusEffect partyStatus;
+    private StatusEffect partyStatus;
     private PassiveAbility partyPassiveAbility;
 
     public List<Combatant> combatantsAffectedByPartyTime;
@@ -17,24 +17,28 @@ public class God_Dionysus : GodBehaviour
 
         specialAbilities[0].abilityStateName = "Dionysus_Ability01";
         specialAbilities[1].abilityStateName = "Dionysus_Ability02";
+
+        ultimateStartAnimTrigger = "UltimateActivate";
+        ultimateFinishAnimTrigger = "UltimateFinish";
+
+        partyStatus = partyTimePassiveManager.ability.statusEffect;
     }
 
     public override void ActivateUltimate()
     {
-        if (currentState == GodState.knockedOut || usingUltimate)
+        if ( !CanUseAbility() )
         {
             return;
         }
         
-        if (ultimateCharge >= 100 && !usingUltimate)
+        if (ultimateCharge >= 100)
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
-            usingUltimate = true;
+            currentState = GodState.usingUltimate;
 
-            // activate anim
+            attackAnimationIsPlaying = false;
+            animator.SetTrigger(ultimateStartAnimTrigger);
             
-            attackingLocked = true;
-
             partyTimePassiveManager.enabled = true;
             partyPassiveAbility = partyTimePassiveManager.ability;
             
@@ -44,7 +48,7 @@ public class God_Dionysus : GodBehaviour
         }
     }
 
-    public override void EndUltimate()
+    protected override void EndUltimate()
     {
         partyTimePassiveManager.RemovePassiveAbility();
         

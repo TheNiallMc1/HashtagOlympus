@@ -42,12 +42,28 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }
-
-    public void AbilityEffect(int abilityIndex)
+    
+    
+    public void Ability01Effect()
     {
-        Debug.Log("Executing ability from animation");
-        abilities[abilityIndex].ability.StartAbility();
-        abilities[abilityIndex].StartCooldown();
+        abilities[0].ability.StartAbility();
+    }
+    
+    public void EndAbility01()
+    {
+        abilities[0].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+    
+    public void Ability02Start()
+    {
+        abilities[1].ability.StartAbility();
+    }
+    
+    public void EndAbility02()
+    {
+        abilities[1].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
     }
 
 
