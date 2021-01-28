@@ -103,4 +103,9 @@ public class DionysusAnimations : MonoBehaviour
         godBehaviour.currentState = GodState.idle;
         abilities[1].StartCooldown();
     }
+
+    public void EndUltimateEffect()
+    {
+        godBehaviour.UltimateExitEffects();
+    }
 }

@@ -37,7 +37,8 @@ public class God_Dionysus : GodBehaviour
             currentState = GodState.usingUltimate;
 
             attackAnimationIsPlaying = false;
-            animator.SetTrigger(ultimateStartAnimTrigger);
+            //animator.SetTrigger(ultimateStartAnimTrigger);
+            animator.Play("Dionysus_Ultimate");
             
             partyTimePassiveManager.enabled = true;
             partyPassiveAbility = partyTimePassiveManager.ability;
@@ -52,6 +53,11 @@ public class God_Dionysus : GodBehaviour
     {
         partyTimePassiveManager.RemovePassiveAbility();
         
+        animator.SetTrigger(ultimateFinishAnimTrigger);
+    }
+
+    public override void UltimateExitEffects()
+    {
         // Take and store the list of targets affected by the status
         combatantsAffectedByPartyTime = partyPassiveAbility.targetsAffectedByStatus;
         

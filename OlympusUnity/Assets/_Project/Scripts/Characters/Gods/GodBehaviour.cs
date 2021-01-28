@@ -201,6 +201,8 @@ public class GodBehaviour : MonoBehaviour
 
     protected void Attack()
     {        
+        SwitchState(GodState.attacking);
+        
         // Determine and store current target
         currentAttackTarget = enemiesSeen[0];
         
@@ -399,8 +401,6 @@ public class GodBehaviour : MonoBehaviour
         ultimateDecreaseCoroutine = null;
         
         ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
-        
-        UltimateExitEffects();
     }
 
     public virtual void UltimateExitEffects()
