@@ -5,7 +5,14 @@ public class DemeterSummerAnimations : MonoBehaviour
     God_Demeter godBehaviour;
     Combatant godCombatant;
 
-    AbilityManager[] abilities = new AbilityManager[2];
+    readonly AbilityManager[] abilities = new AbilityManager[2];
+
+    [SerializeField] 
+    private GameObject monumentHealParticles;
+    [SerializeField]
+    private GameObject cornMesh;
+    [SerializeField]
+    private GameObject cornHealParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +55,16 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         abilities[0].ability.StartAbility();
     }
+
+    public void ActivateMonumentHealParticles()
+    {
+        monumentHealParticles.SetActive(true);
+    }
+    
+    public void DeactivateMonumentHealParticles()
+    {
+        monumentHealParticles.SetActive(false);
+    }
     
     public void EndAbility01()
     {
@@ -60,11 +77,29 @@ public class DemeterSummerAnimations : MonoBehaviour
         abilities[1].ability.StartAbility();
     }
     
+    public void ActivateCornHealMesh()
+    {
+        cornMesh.SetActive(true);
+    }
+
+    public void ActivateCornHealParticles()
+    {
+        cornHealParticles.SetActive(true);
+    }
+    
+    public void DeactivateCornHealMesh()
+    {
+        cornMesh.SetActive(false);
+    }
+    
+    public void DeactivateCornHealParticles()
+    {
+        cornHealParticles.SetActive(false);
+    }
+    
     public void EndAbility02()
     {
         abilities[1].StartCooldown();
         godBehaviour.currentState = GodState.idle;
     }
-
-
 }

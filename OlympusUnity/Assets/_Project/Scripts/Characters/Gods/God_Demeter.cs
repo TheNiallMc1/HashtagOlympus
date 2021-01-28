@@ -27,8 +27,7 @@ public class God_Demeter : GodBehaviour
         winterAbilities[1].abilityStateName = "Demeter_W_Ability02";
         winterAbilities[1].channelAnimTrigger = "Ability02_End";
         
-        ultimateStartAnimTrigger = "UltimateActivate";
-        ultimateFinishAnimTrigger = "UltimateFinish";
+        ultimateStartAnimTrigger = "Ultimate";
     }
     
     

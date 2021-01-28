@@ -653,6 +653,11 @@ GameObject:
   - component: {fileID: 5483520319108431531}
   - component: {fileID: 3442854357318955098}
   - component: {fileID: 2555057046900129225}
+  - component: {fileID: 8402973261847203058}
+  - component: {fileID: 4011101733040598506}
+  - component: {fileID: 6739907504292267253}
+  - component: {fileID: 127516698408010733}
+  - component: {fileID: 7902060945686036732}
   m_Layer: 8
   m_Name: God_Demeter
   m_TagString: God
@@ -752,13 +757,15 @@ MonoBehaviour:
   currentAttackTarget: {fileID: 0}
   currentState: 0
   lastClickedPosition: {x: 0, y: 0, z: 0}
-  specialAbilities: []
-  ultimateName: 
-  ultimateGainTickInterval: 0
-  ultimateGainPerTick: 0
+  specialAbilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  ultimateName: Season Change
+  ultimateGainTickInterval: 1
+  ultimateGainPerTick: 100
   ultimateChargeText: {fileID: 0}
-  ultimateDurationTickInterval: 0
-  ultimateDecreasePerTick: 0
+  ultimateDurationTickInterval: 0.1
+  ultimateDecreasePerTick: 10
   mouseDetectorCollider: {fileID: 5483520318372174064}
   awarenessRadiusCollider: {fileID: 5483520318239848940}
   attackRadiusCollider: {fileID: 5483520317840735396}
@@ -766,12 +773,115 @@ MonoBehaviour:
   animator: {fileID: 0}
   attackAnimationIsPlaying: 0
   currentForm: 0
-  ultimateReductionRate: 0
   summerModel: {fileID: 554309316248162278}
-  summerAbilities: []
+  summerAbilities:
+  - {fileID: 4011101733040598506}
+  - {fileID: 6739907504292267253}
   winterModel: {fileID: 318359576256940317}
-  winterAbilities: []
-  winterPassive: {fileID: 0}
+  winterAbilities:
+  - {fileID: 127516698408010733}
+  - {fileID: 7902060945686036732}
+  winterPassive: {fileID: 8402973261847203058}
+--- !u!114 &8402973261847203058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed8d6704ce8c814387c817ce0407185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 1
+  radiusColour: {r: 0.07289071, g: 0.53766036, b: 0.735849, a: 1}
+  ability: {fileID: 11400000, guid: 6dca82f5e94b6b5439a89b46a9160941, type: 2}
+  targetsInflictedWithStatus: []
+--- !u!114 &4011101733040598506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: 0f320af9a1ac8ff4b9b9af852038c3ee, type: 2}
+  isChanneled: 0
+  particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &6739907504292267253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: b5aac752a42ba9b42a55b75738417391, type: 2}
+  isChanneled: 0
+  particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &127516698408010733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: b971b0d9b8ed79441a5ce11653e7f644, type: 2}
+  isChanneled: 0
+  particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &7902060945686036732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: 40f41cf8e944aac4cb9396ea2d802914, type: 2}
+  isChanneled: 1
+  particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
 --- !u!1 &8561648295950574584
 GameObject:
   m_ObjectHideFlags: 0

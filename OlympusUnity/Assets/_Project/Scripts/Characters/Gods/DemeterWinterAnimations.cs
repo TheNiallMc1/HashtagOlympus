@@ -2,11 +2,18 @@
 
 public class DemeterWinterAnimations : MonoBehaviour
 {
-    God_Demeter godBehaviour;
-    Combatant godCombatant;
+    private God_Demeter godBehaviour;
+    private Combatant godCombatant;
 
-    private AbilityManager[] abilities = new AbilityManager[2];
+    private readonly AbilityManager[] abilities = new AbilityManager[2];
 
+    [SerializeField] 
+    private GameObject icicleMesh;
+    [SerializeField]
+    private GameObject icyWindParticles;
+    [SerializeField]
+    private GameObject icyWindCone;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +55,16 @@ public class DemeterWinterAnimations : MonoBehaviour
         // This needs to hold for the length of the ability lifetime, and then end the ability
         abilities[0].ability.StartAbility();
     }
+
+    public void ActivateIcicleMesh()
+    {
+        icicleMesh.SetActive(true);
+    }
+    
+    public void DeactivateIcicleMesh()
+    {
+        icicleMesh.SetActive(false);
+    }
     
     public void EndAbility01()
     {
@@ -58,6 +75,18 @@ public class DemeterWinterAnimations : MonoBehaviour
     public void Ability02Effect()
     {
         abilities[1].ability.StartAbility();
+    }
+    
+    public void ActivateIcyWindParticles()
+    {
+        icyWindParticles.SetActive(true);
+        icyWindCone.SetActive(true);
+    }
+    
+    public void DeactivateIcyWindParticles()
+    {
+        icyWindParticles.SetActive(false);
+        icyWindCone.SetActive(false);
     }
     
     public void EndAbility02()
