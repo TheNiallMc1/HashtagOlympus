@@ -8,7 +8,7 @@ namespace _Project.Scripts.AI.AiControllers
     [RequireComponent(typeof(Combatant))]
     public class AIBrain : MonoBehaviour
     {
-        private AIMovement _movementMotor;
+        protected AIMovement _movementMotor;
 
         [Header("Target Lists")]
         [SerializeField] protected internal List<Combatant> enemiesInAttackRange;

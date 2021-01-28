@@ -9,8 +9,8 @@ namespace _Project.Scripts.AI.AiControllers
         private AIBrain _aIBrain;
         private NavMeshAgent _navMeshAgent;
 
-        [SerializeField] private GameObject sprayCan;
-        [SerializeField] private GameObject sprayEffect;
+        [SerializeField] private GameObject handheldObject;
+        [SerializeField] private GameObject particleEffect;
     
         // Start is called before the first frame update
         protected void Start()
@@ -43,26 +43,28 @@ namespace _Project.Scripts.AI.AiControllers
 
 
 
+        // Objects and particle effect events
 
-        // Jock
-        public void EquipCan()
+        public void EquipObject()
         {
-            sprayCan.SetActive(true);
+            handheldObject.SetActive(true);
         }
 
-        public void RemoveCan()
+        public void RemoveObject()
         {
-            sprayCan.SetActive(false);
+            handheldObject.SetActive(false);
         }
 
-        public void SprayOn()
+        public void ParticleEffectOn()
         {
-            sprayEffect.SetActive(true);
+            particleEffect.SetActive(true);
         }
 
-        public void SprayOff()
+        public void ParticleEffectOff()
         {
-            sprayEffect.SetActive(false);
+            particleEffect.SetActive(false);
         }
+
+
     }
 }
