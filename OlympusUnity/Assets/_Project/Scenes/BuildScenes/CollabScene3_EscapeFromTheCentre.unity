@@ -14334,7 +14334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211796720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -698, y: 0, z: 330}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 543450652277628249}
@@ -17206,6 +17206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940920671}
+  - component: {fileID: 1211796721}
   m_Layer: 13
   m_Name: SpawnLeft (Missing Prefab)
   m_TagString: Untagged
@@ -17213,6 +17214,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1211796721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211796720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e559b43ce905e8438ce060c74800623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  wayPoints:
+  - {fileID: 1211796721}
+  - {fileID: 1592111462}
+  - {fileID: 655146987}
+  - {fileID: 553848437}
+  - {fileID: 90037734}
+  - {fileID: 571242689}
+  - {fileID: 1818101071}
+  - {fileID: 146023358}
+  - {fileID: 852683026}
+  - {fileID: 50198104}
+  - {fileID: 2123055843}
+  - {fileID: 894869643}
+  - {fileID: 1430431087}
+  neighbors:
+  - {fileID: 1592111462}
+  - {fileID: 655146987}
+  touristsNearby: []
+  godsNearby: []
+  monument: {fileID: 0}
+  finalLocation: {x: 0, y: 0, z: 0}
+  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &1216964387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25977,12 +26013,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1350583989, guid: 0d44648d6dc4cd74e8a09ff02e3c08b4, type: 3}
       propertyPath: enemiesPerWave
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1350583989, guid: 0d44648d6dc4cd74e8a09ff02e3c08b4, type: 3}
       propertyPath: left
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 940920671}
     - target: {fileID: 1350583989, guid: 0d44648d6dc4cd74e8a09ff02e3c08b4, type: 3}
       propertyPath: timeBetweenWaves
       value: 2
