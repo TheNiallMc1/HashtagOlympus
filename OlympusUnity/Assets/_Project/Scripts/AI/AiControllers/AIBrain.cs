@@ -47,13 +47,16 @@ namespace _Project.Scripts.AI.AiControllers
         private static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
         private static readonly int GodInRange = Animator.StringToHash("GodInRange");
         private static readonly int TouristStandardMovement = Animator.StringToHash("Tourist_standard_movement");
-        private static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
-        private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
 
-        private readonly List<int> _autoAttackAnimations = new List<int>
+        protected static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
+        protected static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
+        protected static readonly int AutoAttack03 = Animator.StringToHash("AutoAttack03");
+        protected static readonly int AutoAttack04 = Animator.StringToHash("AutoAttack04");
+
+        public List<int> _autoAttackAnimations = new List<int>
         {
             AutoAttack01,
-            AutoAttack02,
+            AutoAttack02
         };
 
 
@@ -82,7 +85,6 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void FixedUpdate()
         {
-
 
             wayPoint = _movementMotor.GetPath();
             switch (priority)

@@ -120,9 +120,9 @@ public class GodBehaviour : MonoBehaviour
         bool attacking = currentState == GodState.attacking;
         bool isKnockedOut = currentState == GodState.knockedOut;
 
-        if (movingToArea || movingToEnemy)
+        if (movingToArea || movingToEnemy || attacking)
         {
-            closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
+            closeToTargetPosition = navMeshAgent.remainingDistance < 1f;
         }
     
         if (attacking && !attackAnimationIsPlaying)
