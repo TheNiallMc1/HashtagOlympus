@@ -97,6 +97,7 @@ public class GodBehaviour : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+
     }
 
     public virtual void OnDamageEvent(int damageTaken)

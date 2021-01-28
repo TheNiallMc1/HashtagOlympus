@@ -495,10 +495,10 @@ GameObject:
   - component: {fileID: 4489710980650523953}
   - component: {fileID: 4489710980650523958}
   - component: {fileID: 4489710980650523959}
-  - component: {fileID: 4489710980650523956}
   - component: {fileID: 4489710980650523957}
+  - component: {fileID: 4489710980650523956}
   m_Layer: 8
-  m_Name: God_Demeter
+  m_Name: God_Demeter_Abilities
   m_TagString: God
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,8 +631,8 @@ MonoBehaviour:
   - {fileID: 4489710980650523959}
   winterModel: {fileID: 4189933151310304302}
   winterAbilities:
-  - {fileID: 4489710980650523956}
   - {fileID: 4489710980650523957}
+  - {fileID: 4489710980650523956}
   winterPassive: {fileID: 4489710980650523953}
 --- !u!114 &4489710980650523953
 MonoBehaviour:
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8239274993909785503}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aed8d6704ce8c814387c817ce0407185, type: 3}
   m_Name: 
@@ -665,7 +665,11 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: 0f320af9a1ac8ff4b9b9af852038c3ee, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &4489710980650523959
 MonoBehaviour:
@@ -682,24 +686,11 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: b5aac752a42ba9b42a55b75738417391, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
---- !u!114 &4489710980650523956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8239274993909785503}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayRadius: 0
-  radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 11400000, guid: 40f41cf8e944aac4cb9396ea2d802914, type: 2}
-  particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!114 &4489710980650523957
 MonoBehaviour:
@@ -716,7 +707,32 @@ MonoBehaviour:
   displayRadius: 0
   radiusColour: {r: 0, g: 0, b: 0, a: 0}
   ability: {fileID: 11400000, guid: b971b0d9b8ed79441a5ce11653e7f644, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &4489710980650523956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239274993909785503}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: 40f41cf8e944aac4cb9396ea2d802914, type: 2}
+  isChanneled: 1
+  particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!1 &8239274994785158595
 GameObject:

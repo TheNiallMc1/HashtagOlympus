@@ -15,15 +15,25 @@ public class God_Dionysus : GodBehaviour
     {
         base.Start();
         partyTimePassiveManager.enabled = false;
+
+        specialAbilities[0].abilityStateName = "Dionysus_Ability01";
+        specialAbilities[1].abilityStateName = "Dionysus_Ability02";
     }
 
     public override void ActivateUltimate()
     {
+        if (currentState == GodState.knockedOut || usingUltimate)
+        {
+            return;
+        }
+        
         if (ultimateCharge >= 100 && !usingUltimate)
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
             usingUltimate = true;
 
+            // activate anim
+            
             attackingLocked = true;
 
             partyTimePassiveManager.enabled = true;

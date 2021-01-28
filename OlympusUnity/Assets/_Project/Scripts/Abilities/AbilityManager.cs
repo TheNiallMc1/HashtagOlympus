@@ -17,9 +17,12 @@ public class AbilityManager : MonoBehaviour
     public SpecialAbility ability;
     private List<Combatant> targets = new List<Combatant>();
     private bool targetSelectModeActive = false;
+    public bool isChanneled = false;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
+    public string abilityStateName;
+    public string channelAnimTrigger;
 
     [Header("Player Controls")]
     private PlayerControls playerControls;
@@ -29,8 +32,9 @@ public class AbilityManager : MonoBehaviour
     
     [Header("Components")]
     private Combatant thisCombatant;
+    private GodBehaviour thisGod;
     private Camera mainCam;
-    private Animator anim;
+    public Animator anim;
     ConeAoE coneAoE;
 
     [Header("Cooldown Info")]
@@ -59,6 +63,7 @@ public class AbilityManager : MonoBehaviour
         mainCam = Camera.main;
         thisCombatant = GetComponent<Combatant>();
         ability.thisGod = GetComponent<GodBehaviour>();
+        thisGod = ability.thisGod;
         anim = GetComponentInChildren<Animator>();
 
         cooldownText.text = ability.abilityName;
@@ -105,7 +110,7 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
-        if (!onCooldown && !targetSelectModeActive)
+        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
         {
             Debug.Log("Enter target select mode");
             // ACTIVATE TARGET SELECT MODE SHADERS
@@ -122,14 +127,23 @@ public class AbilityManager : MonoBehaviour
     void StartAbility()
     {
         targetSelectModeActive = false;
-        
+
         ability.targets = targets;
 
+        StartCooldown();
+
         // Trigger animation
-        
-        ability.StartAbility(); // CALLED BY ANIMATION EVENT
+        //anim.SetTrigger(animTrigger);
+        anim.Play(abilityStateName);
+        thisGod.attackAnimationIsPlaying = false;
+        //ability.StartAbility(); // CALLED BY ANIMATION EVENT
         // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
 
+
+    }
+
+    public void StartCooldown()
+    {
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
         cooldownCoroutine = StartCoroutine(CooldownCoroutine());

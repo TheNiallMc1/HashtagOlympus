@@ -26,10 +26,10 @@ GameObject:
   - component: {fileID: 5814325168145640928}
   - component: {fileID: 447508680368984978}
   - component: {fileID: 3075225328389281969}
-  - component: {fileID: 3075225328389281975}
   - component: {fileID: 3075225328389281974}
+  - component: {fileID: 3075225328389281975}
   m_Layer: 8
-  m_Name: God_Dionysus
+  m_Name: God_Dionysus_Abilities
   m_TagString: God
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   currentState: 0
   lastClickedPosition: {x: 0, y: 0, z: 0}
   specialAbilities:
-  - {fileID: 3075225328389281975}
   - {fileID: 3075225328389281974}
+  - {fileID: 3075225328389281975}
   ultimateName: Party Time
   ultimateGainTickInterval: 1
   ultimateGainPerTick: 25
@@ -159,23 +159,6 @@ MonoBehaviour:
   radiusColour: {r: 0.66403884, g: 0.23642756, b: 0.7264151, a: 1}
   ability: {fileID: 11400000, guid: b1c30e1102a66cd49b88d9578269a06b, type: 2}
   targetsInflictedWithStatus: []
---- !u!114 &3075225328389281975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3706102464094790422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayRadius: 0
-  radiusColour: {r: 0, g: 0, b: 0, a: 0}
-  ability: {fileID: 11400000, guid: 44d3c900856629948a8cc2d1666503bc, type: 2}
-  particleEffects: {fileID: 0}
-  cooldownText: {fileID: 0}
 --- !u!114 &3075225328389281974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +174,32 @@ MonoBehaviour:
   displayRadius: 1
   radiusColour: {r: 0, g: 0.5003611, b: 0.7294118, a: 1}
   ability: {fileID: 11400000, guid: 3bbf2f3ba7cf0e84dbea2bd6db58c593, type: 2}
+  isChanneled: 0
   particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &3075225328389281975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706102464094790422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: 44d3c900856629948a8cc2d1666503bc, type: 2}
+  isChanneled: 0
+  particleEffects: {fileID: 0}
+  animTrigger: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
   cooldownText: {fileID: 0}
 --- !u!1 &3706102464957735199
 GameObject:

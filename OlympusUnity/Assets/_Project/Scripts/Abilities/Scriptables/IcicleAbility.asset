@@ -15,7 +15,7 @@ MonoBehaviour:
   abilityName: Icicle
   abilityDescription: Attack the target with a massive icicle
   selectionType: 0
-  abilityCanHit: 01000000
+  abilityCanHit: 00000000
   abilityDamage: 50
   abilityHealAmount: 0
   statusEffects: []
@@ -23,6 +23,7 @@ MonoBehaviour:
   remainingCooldownTime: 0
   radius: 0
   coneAoE: {fileID: 0}
+  coneLifetime: 0
   coneAlreadyExists: 0
   coneBuffer: 0
   targets: []

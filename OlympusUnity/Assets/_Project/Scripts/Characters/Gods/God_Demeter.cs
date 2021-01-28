@@ -20,6 +20,13 @@ public class God_Demeter : GodBehaviour
     {
         base.Start();
         SwitchToSummer();
+
+        summerAbilities[0].abilityStateName = "Demeter_S_Ability01";
+        summerAbilities[1].abilityStateName = "Demeter_S_Ability02";
+
+        winterAbilities[0].abilityStateName = "Demeter_W_Ability01";
+        winterAbilities[1].abilityStateName = "Demeter_W_Ability02";
+        winterAbilities[1].channelAnimTrigger = "Ability02_End";
     }
     
     
@@ -50,6 +57,7 @@ public class God_Demeter : GodBehaviour
         foreach (AbilityManager ability in winterAbilities)
         {
             ability.enabled = true;
+            ability.anim = animator;
         }
         
         foreach (AbilityManager ability in summerAbilities)
@@ -82,6 +90,7 @@ public class God_Demeter : GodBehaviour
         foreach (AbilityManager ability in summerAbilities)
         {
             ability.enabled = true;
+            ability.anim = animator;
         }
         
         specialAbilities[0] = summerAbilities[0];
@@ -94,10 +103,17 @@ public class God_Demeter : GodBehaviour
     
     public override void ActivateUltimate()
     {
+        if (currentState == GodState.knockedOut || usingUltimate)
+        {
+            return;
+        }
+        
         if (ultimateCharge >= 100 && !usingUltimate)
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
             usingUltimate = true;
+            
+            // trigger animation
 
             attackingLocked = true;
             
