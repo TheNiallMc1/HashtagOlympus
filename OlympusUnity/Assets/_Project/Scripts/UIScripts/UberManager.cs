@@ -39,7 +39,7 @@ public class UberManager : MonoBehaviour
             _instance = this;
         }
         
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     
     // Start is called before the first frame update

@@ -17,6 +17,7 @@ public class GodSelectManager : MonoBehaviour
 
     public GameObject SelectionButtons;
     public GameObject FinalSelectionStuff;
+    public GameObject NormalSelectionStuff;
     public TMP_Text finalSelectionText;
 
     public GameObject chosenGods;
@@ -24,8 +25,9 @@ public class GodSelectManager : MonoBehaviour
     
     private PlayerControls playerControls;
 
+    private List<ModelBehaviour> addedModels;
     
-    public Dictionary<ModelBehaviour, GameObject> modelToGod;
+   // public Dictionary<ModelBehaviour, GameObject> modelToGod;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,8 @@ public class GodSelectManager : MonoBehaviour
         }
         
         godPrefabs = new List<GameObject>();
-        modelToGod = new Dictionary<ModelBehaviour, GameObject>();
+       // modelToGod = new Dictionary<ModelBehaviour, GameObject>();
+       addedModels = new List<ModelBehaviour>();
         
         selectionComplete = false;
         FinalSelectionStuff.gameObject.SetActive(false);
@@ -77,10 +80,11 @@ public class GodSelectManager : MonoBehaviour
     public void AddGodToList(ModelBehaviour modelToAdd)
     {
         addedGodCounter++;
+        addedModels.Add(modelToAdd);
         Debug.Log("adding : " + modelToAdd.godName+", now: "+addedGodCounter);
         //use model as key to get god from dict to add to list
 
-        if (addedGodCounter == 3)
+        if (addedModels.Count ==3)
         {
             ConfirmFinalSelection();
         }
@@ -88,17 +92,17 @@ public class GodSelectManager : MonoBehaviour
 
     public void RemoveGodFromList(ModelBehaviour modelToRemove)
     {
+        addedModels.Remove(modelToRemove);
         addedGodCounter--;
         Debug.Log("removing : " + modelToRemove.godName+", now: "+addedGodCounter);
     }
     
     public void ConfirmFinalSelection()
     {
-        SelectionButtons.gameObject.SetActive(false);
-        FinalSelectionStuff.gameObject.SetActive(true);
+       NormalSelectionStuff.gameObject.SetActive(false);
+       FinalSelectionStuff.gameObject.SetActive(true);
        // finalSelectionText.text = selectedGods[0].godName + "\n" + selectedGods[1].godName + "\n" +
                               //    selectedGods[2].godName;
-
     }
 
     public void SendFinalSelection()
@@ -106,57 +110,14 @@ public class GodSelectManager : MonoBehaviour
         //send to game mananger
         Debug.Log("sending final selection");
         //UberManager.Instance.AddSelectedGodList(selectedGods);
+        UberManager.Instance.SwitchGameState(UberManager.GameState.GodPlacement);
     }
 
     public void Reselect()
     {
         //selectedGods.Clear();
+        NormalSelectionStuff.gameObject.SetActive(true);
         FinalSelectionStuff.gameObject.SetActive(false);
-       // SelectionButtons.gameObject.SetActive(true);
+       
     }
-
-   /* public void AddGodToList(GodBehaviour selectedGod)
-    {
-        selectedGods.Add(selectedGod);
-        Debug.Log("added :" + selectedGod.godName+" : "+selectedGods.Count);
-        //selectedGod.gameObject.GetComponentInParent<GodDontDestroy>().ChooseUnchooseThisGod(true);
-        selectedGod.gameObject.transform.SetParent(chosenGods.transform, true);
-        
-        if (selectedGods.Count == 3)
-        {
-            ConfirmFinalSelection();
-        }
-    }
-
-    public void RemoveGodFromList(GodBehaviour selectedGod)
-    {
-        selectedGods.Remove(selectedGod);
-        //selectedGod.gameObject.GetComponentInParent<GodDontDestroy>().ChooseUnchooseThisGod(false);
-        selectedGod.gameObject.transform.SetParent(null);
-        Debug.Log("removed :" + selectedGod.godName+" : "+selectedGods.Count);
-    }
-    
-    
-    public void ConfirmFinalSelection()
-    {
-        SelectionButtons.gameObject.SetActive(false);
-        FinalSelectionStuff.gameObject.SetActive(true);
-        finalSelectionText.text = selectedGods[0].godName + "\n" + selectedGods[1].godName + "\n" +
-                               selectedGods[2].godName;
-
-    }
-
-    public void SendFinalSelection()
-    {
-        //send to game mananger
-        Debug.Log("sending final selection");
-        UberManager.Instance.AddSelectedGodList(selectedGods);
-    }
-
-    public void Reselect()
-    {
-        selectedGods.Clear();
-        FinalSelectionStuff.gameObject.SetActive(false);
-        SelectionButtons.gameObject.SetActive(true);
-    }*/
 }
