@@ -4145,10 +4145,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: attackDamage
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God_Ares
@@ -12293,6 +12289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: God_Ares
       objectReference: {fileID: 0}
+    - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.83
@@ -16073,14 +16073,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915586719}
     m_Modifications:
-    - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
-      propertyPath: characterName
-      value: Demeter
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
-      propertyPath: currentHealth
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.068853
@@ -20304,18 +20296,6 @@ PrefabInstance:
     - target: {fileID: 1856571196780817903, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
       propertyPath: m_Name
       value: God_Dionysus
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856571196780817903, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8799405626769367833, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
-      propertyPath: characterName
-      value: Dionysus
-      objectReference: {fileID: 0}
-    - target: {fileID: 8799405626769367833, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
-      propertyPath: currentHealth
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
