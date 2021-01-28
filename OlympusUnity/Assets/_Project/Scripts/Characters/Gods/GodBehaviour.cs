@@ -239,8 +239,7 @@ public class GodBehaviour : MonoBehaviour
         }
         
         int animNumber = GetRandomNumber();
-        Debug.Log("Anim: " + animNumber);
-
+        
         attackAnimationIsPlaying = true;
         
         animator.ResetTrigger(autoAttackAnimations[animNumber]);

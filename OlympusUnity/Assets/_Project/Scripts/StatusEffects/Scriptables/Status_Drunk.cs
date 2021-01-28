@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using _Project.Scripts.AI.AiControllers;
+﻿using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
 
 // Used for Dionysus' Ultimate ability, this causes every enemy to follow him and then take damage when the ability ends
@@ -19,7 +17,7 @@ public class Status_Drunk : StatusEffect
         if (affectedCombatant.targetType == Combatant.eTargetType.Enemy)
         {
             aiBrain = affectedCombatant.gameObject.GetComponent<AIBrain>();
-            aiBrain.State = AIBrain.EState.Moving;
+            aiBrain.State = AIBrain.EState.Drunk;
         }
     }
 

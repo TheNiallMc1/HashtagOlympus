@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.PerformanceData;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Combatant))]
 public class StatusEffectManager : MonoBehaviour
 {
-    public StatusEffect statusEffect;
+    public StatusEffect originalStatus;
+    public StatusEffect instancedStatus;
     public float remainingDuration;
     
     private Coroutine tickCoroutine = null;
@@ -21,29 +18,29 @@ public class StatusEffectManager : MonoBehaviour
     {
         thisCombatant = GetComponent<Combatant>();
 
-        statusEffect = Instantiate(statusEffect);
+        instancedStatus = Instantiate(originalStatus);
         
         InitialiseStatus();
     }
     
     // We initialise each new effect that is added, starting its tick cycle and activating the entry effect
     private void InitialiseStatus()
-    {
-        statusEffect.affectedCombatant = thisCombatant;
+    {        
+        instancedStatus.affectedCombatant = thisCombatant;
         
         // Tick
-        if (statusEffect.isTickType)
+        if (instancedStatus.isTickType)
         {
             ActivateTickEffect();
         }
         
         // Duration
-        if (statusEffect.isInfinite) // If infinite, call enter event and wait to be removed to do exit
+        if (instancedStatus.isInfinite) // If infinite, call enter event and wait to be removed to do exit
         {
             ActivateEntryEffect();
         }
         
-        else if (statusEffect.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
+        else if (instancedStatus.statusDuration == 0) // If it is set to zero, just fire the enter and exit effects straight away
         {
             ActivateEntryEffect();
             ActivateExitEffect();
@@ -75,31 +72,32 @@ public class StatusEffectManager : MonoBehaviour
     
     private void ActivateTickEffect()
     {
-        statusEffect.TickEffect();
+        instancedStatus.TickEffect();
         tickCoroutine = StartCoroutine(TickEffectCoroutine());
     }
 
     private void ActivateEntryEffect()
     {
-        statusEffect.EntryEffect();
+        instancedStatus.EntryEffect();
     }
 
     public void ActivateExitEffect()
     {
-        statusEffect.ExitEffect();
+        instancedStatus.ExitEffect();
         EndStatus();
     }
 
     private IEnumerator TickEffectCoroutine()
     {
-        yield return new WaitForSecondsRealtime(statusEffect.tickInterval);
+        yield return new WaitForSecondsRealtime(instancedStatus.tickInterval);
         ActivateTickEffect();
     }
     
     private IEnumerator DurationCoroutine()
     {
-        yield return new WaitForSecondsRealtime(statusEffect.statusDuration);
-        thisCombatant.RemoveStatus(statusEffect);
+        Debug.Log("Begin duration coroutine");
+        yield return new WaitForSecondsRealtime(instancedStatus.statusDuration);
+        thisCombatant.RemoveStatus(originalStatus);
     }
     
 }

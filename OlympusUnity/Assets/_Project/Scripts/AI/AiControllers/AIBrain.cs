@@ -9,17 +9,20 @@ namespace _Project.Scripts.AI.AiControllers
     public class AIBrain : MonoBehaviour
     {
         private AIMovement _movementMotor;
-
+        public GameObject drunkParticles;
+        public GameObject partyParticles;
+        
         [Header("Target Lists")]
         [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
         [SerializeField] protected internal List<Combatant> monumentsInAttackRange;
 
         [Header("Combatants")]
         protected Combatant thisCombatant;
-        public Combatant currentAttackTarget;
+        [HideInInspector] public Combatant currentAttackTarget;
+        [HideInInspector] public Combatant currentFollowTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability, Drunk, Follow }
+        public enum EState { Moving, Attacking, Ability, Drunk, Party }
 
         [Header("Dynamic States")]
         [SerializeField]
@@ -78,6 +81,12 @@ namespace _Project.Scripts.AI.AiControllers
 
         }
 
+        protected void Start()
+        {
+            drunkParticles.SetActive(false);
+            partyParticles.SetActive(false);
+        }
+
         #region State Behaviours
 
         protected void FixedUpdate()
@@ -118,6 +127,8 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Moving:
                     if (!initMove)
                     {
+                        partyParticles.SetActive(false);
+                        drunkParticles.SetActive(false);
                         _isDrunk = false;
                         attackAnimationIsPlaying = false;
                         _movementMotor.animator.SetBool(GodSeen, false);
@@ -132,6 +143,8 @@ namespace _Project.Scripts.AI.AiControllers
                     }
                     break;
                 case EState.Attacking:
+                    partyParticles.SetActive(false);
+                    drunkParticles.SetActive(false);
                     isAttacking = true;
                     _isDrunk = false;
 
@@ -149,14 +162,28 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Ability:
                     break;
                 case EState.Drunk:
-                    if(!_isDrunk)
+                    
+                    if (!_isDrunk)
+                    {
+                        partyParticles.SetActive(false);
+                        drunkParticles.SetActive(true);
                         _movementMotor.currentPosition = transform.position;
-                    _isDrunk = true;
-                    _movementMotor.Drunk();
+                        _isDrunk = true;
+                        attackAnimationIsPlaying = false;
+                        isAttacking = false;
+                        _movementMotor.animator.SetBool(GodSeen, false);
+                        _movementMotor.animator.Play(TouristStandardMovement);
+                        _movementMotor.nav.isStopped = false;
+                    }
+                    
+                    _movementMotor.Drunk(); 
+                    
                     break;
-                case EState.Follow:
+                case EState.Party:
+                    partyParticles.SetActive(true);
+                    drunkParticles.SetActive(false);
                     _isDrunk = false;
-                    _movementMotor.MoveToTarget(currentAttackTarget);
+                    _movementMotor.MoveToTarget(currentFollowTarget);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -284,13 +311,15 @@ namespace _Project.Scripts.AI.AiControllers
                 // Add tourist if the method is to add from the list, and the tourist is not already in the list
                 case true when !alreadyInList:
                     {
+                        if(State == EState.Drunk) return;
+                        
                         if (god.targetType == Combatant.eTargetType.Player)
                         {
                             enemiesInAttackRange.Add(god);
 
                             _movementMotor.animator.SetBool(GodInRange, true);
 
-                            if(State == EState.Drunk) return;
+                            
                             Priority = EPriority.God;
                             State = EState.Attacking;
                         }

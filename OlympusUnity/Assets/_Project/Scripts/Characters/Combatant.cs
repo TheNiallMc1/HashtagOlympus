@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using _Project.Scripts.AI.AiControllers;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Combatant : MonoBehaviour
@@ -47,7 +44,7 @@ public class Combatant : MonoBehaviour
 
     public void ApplyStatus(StatusEffect status)
     {
-        
+        Debug.LogWarning("Begin applying status");
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -61,15 +58,17 @@ public class Combatant : MonoBehaviour
             // Add an entry in the dictionary, with this type of status as the key and the new manager component as the value
         
             newStatusManager.enabled = true;
-            newStatusManager.statusEffect = status;
+            newStatusManager.originalStatus = status;
         }       
     }
 
     public void RemoveStatus(StatusEffect status)
-    {
+    {        
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
+            Debug.Log("Begin remove status");
+            
             // Get the value by its key (the status type) and then end the status
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {

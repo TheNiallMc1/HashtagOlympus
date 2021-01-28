@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Used for Dionysus' Ultimate ability, this causes every enemy to follow him and then take damage when the ability ends
 [CreateAssetMenu(fileName = "PartyStatus", menuName = "Status Effect/Party", order = 1)]
