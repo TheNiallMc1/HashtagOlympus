@@ -52,6 +52,7 @@ namespace _Project.Scripts.AI.AiControllers
         protected static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
         protected static readonly int AutoAttack03 = Animator.StringToHash("AutoAttack03");
         protected static readonly int AutoAttack04 = Animator.StringToHash("AutoAttack04");
+        protected static readonly int AutoAttack05 = Animator.StringToHash("AutoAttack05");
 
         public List<int> _autoAttackAnimations = new List<int>
         {

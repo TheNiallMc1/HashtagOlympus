@@ -8,6 +8,9 @@ namespace _Project.Scripts.AI.AiControllers
         private Combatant _touristCombatant;
         private AIBrain _aIBrain;
         private NavMeshAgent _navMeshAgent;
+
+        [SerializeField] private GameObject sprayCan;
+        [SerializeField] private GameObject sprayEffect;
     
         // Start is called before the first frame update
         protected void Start()
@@ -36,6 +39,30 @@ namespace _Project.Scripts.AI.AiControllers
         public void UnlockMovement()
         {
             _aIBrain.attackAnimationIsPlaying = false;
+        }
+
+
+
+
+        // Jock
+        public void EquipCan()
+        {
+            sprayCan.SetActive(true);
+        }
+
+        public void RemoveCan()
+        {
+            sprayCan.SetActive(false);
+        }
+
+        public void SprayOn()
+        {
+            sprayEffect.SetActive(true);
+        }
+
+        public void SprayOff()
+        {
+            sprayEffect.SetActive(false);
         }
     }
 }
