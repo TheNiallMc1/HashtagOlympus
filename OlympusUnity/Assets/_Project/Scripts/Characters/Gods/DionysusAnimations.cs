@@ -9,13 +9,19 @@ public class DionysusAnimations : MonoBehaviour
     
     AbilityManager[] abilities = new AbilityManager[2];
     public GameObject wineParticlesObj;
-    ParticleSystem wineParticleSystem;
+    private ParticleSystem wineParticleSystem;
+
+    public GameObject healParticlesObj;
+    private ParticleSystem healParticleSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         wineParticlesObj.SetActive(false);
+        healParticlesObj.SetActive(false);
+        
         wineParticleSystem = wineParticlesObj.GetComponent<ParticleSystem>();
+        healParticleSystem = healParticlesObj.GetComponent<ParticleSystem>();
         
         godBehaviour = GetComponentInParent<God_Dionysus>();
         godCombatant = GetComponentInParent<Combatant>();
@@ -73,5 +79,18 @@ public class DionysusAnimations : MonoBehaviour
         Debug.Log("Executing ability from animation");
         abilities[1].ability.StartAbility();
         abilities[1].StartCooldown();
+    }
+
+    public void ActivateHealParticles()
+    {
+        healParticlesObj.SetActive(true);
+        healParticleSystem.Play();
+    }
+    
+    public void DeactivateHealParticles()
+    {
+        healParticleSystem.Clear();
+        healParticleSystem.Stop();
+        healParticlesObj.SetActive(false);
     }
 }

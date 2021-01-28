@@ -176,7 +176,6 @@ namespace _Project.Scripts.AI.AiControllers
                         _currentPath = 1;
                     break;
             }
-
         }
     }
 

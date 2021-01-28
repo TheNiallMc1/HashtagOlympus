@@ -82,8 +82,6 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void FixedUpdate()
         {
-
-
             wayPoint = _movementMotor.GetPath();
             switch (priority)
             {
