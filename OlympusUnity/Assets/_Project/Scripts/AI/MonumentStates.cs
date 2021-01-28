@@ -14,6 +14,7 @@ public class MonumentStates : MonoBehaviour
     [SerializeField] private GameObject prefabGodMonument;
     [SerializeField] private GameObject prefabEnemyMonument;
     public int amountToPool;
+    public int amountOfStands;
 
     private Combatant _thisCombatant;
     private Combatant.eTargetType _currentTargetType;
@@ -90,7 +91,7 @@ public class MonumentStates : MonoBehaviour
 
         prefabEnemyMonument.SetActive(true);
         prefabGodMonument.SetActive(false);
-        for (int i = 1; i < 3; i++)
+        for (int i = 1; i <= amountOfStands; i++)
         {
             prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>().currentHealth = 100;
             _touristStands.Add(prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>());
