@@ -132,8 +132,8 @@ public class Combatant : MonoBehaviour
             
             case eTargetType.Enemy:
                 print(gameObject.name + " has been defeated");
+                GetComponent<AIBrain>().OnDeathEvent();
                 GameManager.Instance.AddRespect(respectOnKill);
-                gameObject.SetActive(false);
                 break;
         }
     }

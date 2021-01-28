@@ -200,7 +200,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tourist_Chad_movement
+  m_Name: Tourist_standard_movement
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -276,6 +276,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-5973949614381900344
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: GodSeen
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -6166033289859476387}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.92424244
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-5810676558072345394
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -731,7 +756,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Death_02_Chad
+  m_Name: Death
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1062,7 +1087,7 @@ AnimatorStateMachine:
     m_Position: {x: -430, y: -940, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3383519403039651671}
-    m_Position: {x: 460, y: -310, z: 0}
+    m_Position: {x: 540, y: -340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3001180620407079493}
     m_Position: {x: 630, y: -700, z: 0}
@@ -1274,6 +1299,7 @@ AnimatorState:
   - {fileID: -6770271518437606976}
   - {fileID: -2405563094006705253}
   - {fileID: 7640071353995881266}
+  - {fileID: -5973949614381900344}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

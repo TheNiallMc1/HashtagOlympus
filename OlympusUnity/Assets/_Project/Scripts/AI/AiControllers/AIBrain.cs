@@ -38,6 +38,7 @@ namespace _Project.Scripts.AI.AiControllers
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
         public bool _isDrunk;
+        public bool _isDead;
 
         [Header("Animation")]
         private bool _initialCoLoop = true;
@@ -78,6 +79,7 @@ namespace _Project.Scripts.AI.AiControllers
         {
             thisCombatant = GetComponent<Combatant>();
             _movementMotor = GetComponent<AIMovement>();
+            _isDead = false;
             State = EState.Moving;
 
         }
@@ -86,6 +88,10 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void FixedUpdate()
         {
+            if (_isDead)
+            {
+                gameObject.SetActive(false);
+            }
 
             wayPoint = _movementMotor.GetPath();
             switch (priority)
@@ -274,6 +280,12 @@ namespace _Project.Scripts.AI.AiControllers
 
 
 
+        }
+
+        public virtual void OnDeathEvent()
+        {
+            // Call base and override if needed
+            _movementMotor.animator.Play("Death");
         }
 
         #endregion

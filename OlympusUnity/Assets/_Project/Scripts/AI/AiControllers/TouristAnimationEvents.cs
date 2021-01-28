@@ -31,6 +31,21 @@ namespace _Project.Scripts.AI.AiControllers
             }
         }
 
+        public void TakeDamageAnimationHalf()
+        {
+            var target = _aIBrain.currentAttackTarget;
+            if (target.isActiveAndEnabled)
+            {
+                target.TakeDamage(_touristCombatant.attackDamage / 2);
+            }
+        }
+
+        public void Dead()
+        {
+            _aIBrain._isDead = true;
+        }
+
+
         public void LockMovement()
         {
             _aIBrain.attackAnimationIsPlaying = true;

@@ -13,6 +13,9 @@ public class Jock : AIBrain
             AutoAttack05
         };
 
+    [SerializeField] private GameObject handheldObject;
+    [SerializeField] private GameObject particleEffect;
+
     protected void Start()
     {
         base._autoAttackAnimations = _autoAttackAnimations;
@@ -20,9 +23,13 @@ public class Jock : AIBrain
     }
 
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if(Priority != EPriority.Monument)
+        {
+            handheldObject.SetActive(false);
+            particleEffect.SetActive(false);
+        }
+    }
 }

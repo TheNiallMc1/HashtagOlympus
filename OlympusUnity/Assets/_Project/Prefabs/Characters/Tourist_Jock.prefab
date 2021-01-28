@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6795404763115185234
 Transform:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   characterName: 
   maxHealth: 70
   currentHealth: 70
-  attackDamage: 0
+  attackDamage: 20
   damageReduction: 0
 --- !u!114 &1672828253
 MonoBehaviour:
@@ -238,7 +238,10 @@ MonoBehaviour:
   attackAnimationIsPlaying: 0
   isTargetNotNull: 0
   _isDrunk: 0
+  _isDead: 0
   _autoAttackAnimations: 52c56609e8946f90
+  handheldObject: {fileID: 7161867809484377842}
+  particleEffect: {fileID: 1852239880696333999}
 --- !u!1001 &6067901820013627848
 PrefabInstance:
   m_ObjectHideFlags: 0
