@@ -41,7 +41,11 @@ namespace _Project.Scripts.AI.AiControllers
             spawn = wayPoints[0];
             _isCurrentAttackTargetNull = _aiBrain.currentAttackTarget == null;
             wpNum = 0;
-            FindNextWayPoint(spawn);
+
+            if(gameObject.name != "Tourist_Defender")
+            {
+                FindNextWayPoint(spawn);
+            }
         }
 
         protected void Update()
