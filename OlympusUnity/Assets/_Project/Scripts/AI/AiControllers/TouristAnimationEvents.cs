@@ -8,6 +8,9 @@ namespace _Project.Scripts.AI.AiControllers
         private Combatant _touristCombatant;
         private AIBrain _aIBrain;
         private NavMeshAgent _navMeshAgent;
+
+        [SerializeField] private GameObject handheldObject;
+        [SerializeField] private GameObject particleEffect;
     
         // Start is called before the first frame update
         protected void Start()
@@ -28,6 +31,21 @@ namespace _Project.Scripts.AI.AiControllers
             }
         }
 
+        public void TakeDamageAnimationHalf()
+        {
+            var target = _aIBrain.currentAttackTarget;
+            if (target.isActiveAndEnabled)
+            {
+                target.TakeDamage(_touristCombatant.attackDamage / 2);
+            }
+        }
+
+        public void Dead()
+        {
+            _aIBrain._isDead = true;
+        }
+
+
         public void LockMovement()
         {
             _aIBrain.attackAnimationIsPlaying = true;
@@ -37,5 +55,31 @@ namespace _Project.Scripts.AI.AiControllers
         {
             _aIBrain.attackAnimationIsPlaying = false;
         }
+
+
+
+        // Objects and particle effect events
+
+        public void EquipObject()
+        {
+            handheldObject.SetActive(true);
+        }
+
+        public void RemoveObject()
+        {
+            handheldObject.SetActive(false);
+        }
+
+        public void ParticleEffectOn()
+        {
+            particleEffect.SetActive(true);
+        }
+
+        public void ParticleEffectOff()
+        {
+            particleEffect.SetActive(false);
+        }
+
+
     }
 }

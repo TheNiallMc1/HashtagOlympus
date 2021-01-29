@@ -118,9 +118,9 @@ public class GodBehaviour : MonoBehaviour
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
 
-        if (movingToArea || movingToEnemy)
+        if (movingToArea || movingToEnemy || attacking)
         {
-            closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
+            closeToTargetPosition = navMeshAgent.remainingDistance < 1f;
         }
     
         if ( CanAttack() )
