@@ -51,14 +51,14 @@ public class Tooltip : MonoBehaviour
     public void FollowMouse()
     {
         Vector3 mousePosition = GUIUtility.ScreenToGUIPoint(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-        transform.position = new Vector3(mousePosition.x - 10, mousePosition.y, mousePosition.z);
+        transform.position = new Vector3(mousePosition.x, mousePosition.y, mousePosition.z);
 
         //transform.position = newPosition;
         
         float pivotX = transform.position.x / Screen.width;
         float pivotY = transform.position.y / Screen.height;
         
-        rectTransform.pivot = new Vector2(pivotX - 0.4f, pivotY);
+        rectTransform.pivot = new Vector2(pivotX, pivotY);
         
     }
 }
