@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 // Used for basic healing. Heals a character once, immediately, and then is removed
 [CreateAssetMenu(fileName = "SlowStatus", menuName = "Status Effect/Slow", order = 1)]
@@ -9,6 +10,7 @@ public class Status_Slow : StatusEffect
     [Range(1, 100)] protected float speedReductionPercentage;
     private float baseSpeed;
     private float newSpeed;
+    private NavMeshAgent navMeshAgent;
     
     public override void TickEffect()
     {
@@ -17,13 +19,15 @@ public class Status_Slow : StatusEffect
 
     public override void EntryEffect()
     {
-        // baseSpeed = affectedCombatant.navMeshAgent.speed;
-        // newSpeed = speed / speedReductionPercentage
-        // affectedCombatant.navMeshAgent.speed = newSpeed 
+        navMeshAgent = affectedCombatant.GetComponentInParent<NavMeshAgent>();
+        baseSpeed = navMeshAgent.speed;
+        float speedReduction = speedReductionPercentage / 100;
+        newSpeed = baseSpeed * speedReduction;
+        navMeshAgent.speed = newSpeed;
     }
 
     public override void ExitEffect()
     {
-        // affectedCombatant.navMeshAgent.speed = baseSpeed
+        navMeshAgent.speed = baseSpeed;
     }
 }

@@ -16,7 +16,7 @@ public class AbilityManager : MonoBehaviour
     public List<Combatant> targets = new List<Combatant>();
     private bool targetSelectModeActive = false;
     public bool isChanneled = false;
-    [HideInInspector] public Combatant lastSingleTarget;
+    public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
     public GameObject particleEffects;

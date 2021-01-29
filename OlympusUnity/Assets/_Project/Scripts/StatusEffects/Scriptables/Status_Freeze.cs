@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.AI.AiControllers;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "FreezeStatus", menuName = "Status Effect/Freeze", order = 1)]
 public class Status_Freeze : StatusEffect
 {
     [Header("Freeze Variables")] 
     private float baseSpeed;
+    private AIBrain aiBrain;
     
     public override void TickEffect()
         {
@@ -13,12 +15,16 @@ public class Status_Freeze : StatusEffect
     
         public override void EntryEffect()
         {
-            //baseSpeed = affectedCombatant.navMeshAgent.speed;
-            //affectedCombatant.navMeshAgent.speed = 0;
+            if (affectedCombatant.targetType == Combatant.eTargetType.Enemy)
+            {
+                            
+                aiBrain = affectedCombatant.GetComponent<AIBrain>();
+                aiBrain.State = AIBrain.EState.Frozen;
+            }
         }
     
         public override void ExitEffect()
         {
-            //affectedCombatant.navMeshAgent.speed = baseSpeed;
+            aiBrain.State = AIBrain.EState.Moving;
         }
 }

@@ -22,7 +22,7 @@ namespace _Project.Scripts.AI.AiControllers
         [HideInInspector] public Combatant currentFollowTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability, Drunk, Party }
+        public enum EState { Moving, Attacking, Ability, Drunk, Party, Frozen }
 
         [Header("Dynamic States")]
         [SerializeField]
@@ -125,66 +125,80 @@ namespace _Project.Scripts.AI.AiControllers
             switch (state)
             {
                 case EState.Moving:
-                    if (!initMove)
+                    if (State != EState.Frozen)
                     {
-                        partyParticles.SetActive(false);
-                        drunkParticles.SetActive(false);
-                        _isDrunk = false;
-                        attackAnimationIsPlaying = false;
-                        _movementMotor.animator.SetBool(GodSeen, false);
-                        isTargetNotNull = false;
-                        inRange = false;
-                        isAttacking = false;
-                        _movementMotor.animator.Play(TouristStandardMovement);
-                        _movementMotor.nav.isStopped = false;
-                        _initialCoLoop = true;
-                        _movementMotor.Moving();
+                        if (!initMove)
+                        {
+                            partyParticles.SetActive(false);
+                            drunkParticles.SetActive(false);
+                            _isDrunk = false;
+                            attackAnimationIsPlaying = false;
+                            _movementMotor.animator.SetBool(GodSeen, false);
+                            isTargetNotNull = false;
+                            inRange = false;
+                            isAttacking = false;
+                            _movementMotor.animator.Play(TouristStandardMovement);
+                            _movementMotor.nav.isStopped = false;
+                            _initialCoLoop = true;
+                            _movementMotor.Moving();
 
+                        }
                     }
                     break;
                 case EState.Attacking:
-                    partyParticles.SetActive(false);
-                    drunkParticles.SetActive(false);
-                    isAttacking = true;
-                    _isDrunk = false;
-
-                    if (Priority == EPriority.God)
+                    if (State != EState.Frozen)
                     {
-                        Attack(currentAttackTarget);
-                    }
+                        partyParticles.SetActive(false);
+                        drunkParticles.SetActive(false);
+                        isAttacking = true;
+                        _isDrunk = false;
 
-                    if (Priority == EPriority.Monument)
-                    {
+                        if (Priority == EPriority.God)
+                        {
+                            Attack(currentAttackTarget);
+                        }
 
-                        Attack(currentAttackTarget);
+                        if (Priority == EPriority.Monument)
+                        {
+
+                            Attack(currentAttackTarget);
+                        }
                     }
                     break;
                 case EState.Ability:
                     break;
                 case EState.Drunk:
-                    
-                    if (!_isDrunk)
+                    if (State != EState.Frozen)
                     {
-                        partyParticles.SetActive(false);
-                        drunkParticles.SetActive(true);
-                        _movementMotor.currentPosition = transform.position;
-                        _isDrunk = true;
-                        attackAnimationIsPlaying = false;
-                        isAttacking = false;
-                        _movementMotor.animator.SetBool(GodSeen, false);
-                        _movementMotor.animator.Play(TouristStandardMovement);
-                        _movementMotor.nav.isStopped = false;
+                        if (!_isDrunk)
+                        {
+                            partyParticles.SetActive(false);
+                            drunkParticles.SetActive(true);
+                            _movementMotor.currentPosition = transform.position;
+                            _isDrunk = true;
+                            attackAnimationIsPlaying = false;
+                            isAttacking = false;
+                            _movementMotor.animator.SetBool(GodSeen, false);
+                            _movementMotor.animator.Play(TouristStandardMovement);
+                            _movementMotor.nav.isStopped = false;
+                        }
+                    
+                        _movementMotor.Drunk(); 
                     }
-                    
-                    _movementMotor.Drunk(); 
-                    
                     break;
                 case EState.Party:
-                    partyParticles.SetActive(true);
-                    drunkParticles.SetActive(false);
-                    _isDrunk = false;
-                    _movementMotor.MoveToTarget(currentFollowTarget);
+                    if (State != EState.Frozen)
+                    {
+                        partyParticles.SetActive(true);
+                        drunkParticles.SetActive(false);
+                        _isDrunk = false;
+                        _movementMotor.MoveToTarget(currentFollowTarget);
+                    }
                     break;
+                
+                case EState.Frozen:
+                    break;
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }
