@@ -53,6 +53,7 @@ Shader "Ultimate 10+ Shaders/Outline"
             
             #pragma vertex vert
             #pragma fragment frag
+            #include <UnityShaderUtilities.cginc>
 
             struct appdata {
                 float4 vertex : POSITION;

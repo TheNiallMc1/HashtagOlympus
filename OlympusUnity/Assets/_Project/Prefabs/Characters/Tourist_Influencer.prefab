@@ -131,7 +131,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7276881333199673116}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.35
   m_Speed: 3.5
   m_Acceleration: 8
@@ -182,6 +182,7 @@ MonoBehaviour:
   _targetType: 1
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 70
   currentHealth: 70
   attackDamage: 0
@@ -213,6 +214,7 @@ MonoBehaviour:
   isAttacking: 0
   attackAnimationIsPlaying: 0
   isTargetNotNull: 0
+  _isCombatantNotNull: 0
   _isDrunk: 0
   _isDead: 0
   _autoAttackAnimations: 52c56609e8946f90
