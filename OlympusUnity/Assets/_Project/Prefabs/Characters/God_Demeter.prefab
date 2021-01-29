@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 5483520319108431531}
   - component: {fileID: 3442854357318955098}
   - component: {fileID: 2555057046900129225}
+  - component: {fileID: 8067557271336609815}
   m_Layer: 8
   m_Name: God_Demeter
   m_TagString: God
@@ -691,6 +692,29 @@ MonoBehaviour:
   winterModel: {fileID: 318359576256940317}
   winterAbilities: []
   winterPassive: {fileID: 0}
+--- !u!114 &8067557271336609815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483520319108431532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aabc942a40044a0db56ca6b352997f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoAttackHeader: Auto Attack
+  autoAttackContent: dem
+  ability1Header: Ability 1
+  ability1Content: dem
+  ability2Header: Ability 2
+  ability2Content: dem
+  passiveHeader: Passive
+  passiveContent: dem
+  ultimateHeader: Ultimate
+  ultimateContent: dem
+  allTooltips: []
 --- !u!1 &8561648295950574584
 GameObject:
   m_ObjectHideFlags: 0
