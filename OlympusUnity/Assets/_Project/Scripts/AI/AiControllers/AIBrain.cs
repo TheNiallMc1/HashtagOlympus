@@ -46,11 +46,11 @@ namespace _Project.Scripts.AI.AiControllers
         [Header("Animation")]
         private bool _initialCoLoop = true;
         private int _lastNumber = 1;
-        private static readonly int GodSeen = Animator.StringToHash("GodSeen");
-        private static readonly int MonumentAttack = Animator.StringToHash("MonumentAttack");
-        private static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
-        private static readonly int GodInRange = Animator.StringToHash("GodInRange");
-        private static readonly int TouristStandardMovement = Animator.StringToHash("Tourist_standard_movement");
+        protected static readonly int GodSeen = Animator.StringToHash("GodSeen");
+        protected static readonly int MonumentAttack = Animator.StringToHash("MonumentAttack");
+        protected static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
+        protected static readonly int GodInRange = Animator.StringToHash("GodInRange");
+        protected static readonly int TouristStandardMovement = Animator.StringToHash("Tourist_standard_movement");
 
         protected static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
         protected static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
@@ -95,7 +95,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         #region State Behaviours
 
-        protected void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (_isDead)
             {
