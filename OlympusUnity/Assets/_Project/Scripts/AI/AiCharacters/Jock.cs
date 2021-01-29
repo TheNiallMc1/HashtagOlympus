@@ -1,5 +1,4 @@
 ﻿using _Project.Scripts.AI.AiControllers;
-using UnityEngine;
 
 public class Jock : AIBrain
 {

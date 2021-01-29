@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AresAnimations : MonoBehaviour
 {
@@ -8,6 +6,8 @@ public class AresAnimations : MonoBehaviour
     Combatant godCombatant;
     
     AbilityManager[] abilities = new AbilityManager[2];
+
+    public GameObject ultimateParticleEffects;
     
     // Start is called before the first frame update
     void Start()
@@ -47,12 +47,32 @@ public class AresAnimations : MonoBehaviour
     public void Ability01Effect()
     {
         abilities[0].ability.StartAbility();
+    }
+    
+    public void EndAbility01()
+    {
         abilities[0].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
     }
     
     public void Ability02Effect()
     {
         abilities[1].ability.StartAbility();
+    }
+    
+    public void EndAbility02()
+    {
         abilities[1].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+
+    public void ActivateUltimateParticles()
+    {
+        ultimateParticleEffects.SetActive(true);
+    }
+    
+    public void DeactivateUltimateParticles()
+    {
+        ultimateParticleEffects.SetActive(false);
     }
 }

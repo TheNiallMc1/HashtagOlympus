@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using cakeslice;
-using TMPro;
+﻿using cakeslice;
 using UnityEngine;
 
 public class ModelBehaviour : MonoBehaviour

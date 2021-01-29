@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Used for basic healing. Heals a character once, immediately, and then is removed
 [CreateAssetMenu(fileName = "RageStatus", menuName = "Status Effect/Normal Rage", order = 1)]

@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DemeterSummerAnimations : MonoBehaviour
 {
     God_Demeter godBehaviour;
     Combatant godCombatant;
 
-    AbilityManager[] abilities = new AbilityManager[2];
+    readonly AbilityManager[] abilities = new AbilityManager[2];
+
+    [SerializeField] 
+    private GameObject monumentHealParticles;
+    [SerializeField]
+    private GameObject cornMesh;
+    [SerializeField]
+    private GameObject cornHealParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -45,13 +49,57 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }
-
-    public void AbilityEffect(int abilityIndex)
+    
+    
+    public void Ability01Effect()
     {
-        Debug.Log("Executing ability from animation");
-        abilities[abilityIndex].ability.StartAbility();
-        abilities[abilityIndex].StartCooldown();
+        abilities[0].ability.StartAbility();
     }
 
+    public void ActivateMonumentHealParticles()
+    {
+        monumentHealParticles.SetActive(true);
+    }
+    
+    public void DeactivateMonumentHealParticles()
+    {
+        monumentHealParticles.SetActive(false);
+    }
+    
+    public void EndAbility01()
+    {
+        abilities[0].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+    
+    public void Ability02Start()
+    {
+        abilities[1].ability.StartAbility();
+    }
+    
+    public void ActivateCornHealMesh()
+    {
+        cornMesh.SetActive(true);
+    }
 
+    public void ActivateCornHealParticles()
+    {
+        cornHealParticles.SetActive(true);
+    }
+    
+    public void DeactivateCornHealMesh()
+    {
+        cornMesh.SetActive(false);
+    }
+    
+    public void DeactivateCornHealParticles()
+    {
+        cornHealParticles.SetActive(false);
+    }
+    
+    public void EndAbility02()
+    {
+        abilities[1].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
 }

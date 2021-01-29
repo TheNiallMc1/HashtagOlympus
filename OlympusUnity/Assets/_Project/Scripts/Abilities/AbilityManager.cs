@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Combatant))]
 [RequireComponent(typeof(GodBehaviour))]
@@ -15,9 +13,10 @@ public class AbilityManager : MonoBehaviour
     
     [Header("Ability Info")]
     public SpecialAbility ability;
-    private List<Combatant> targets = new List<Combatant>();
+    public List<Combatant> targets = new List<Combatant>();
     private bool targetSelectModeActive = false;
     public bool isChanneled = false;
+    public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
@@ -110,6 +109,8 @@ public class AbilityManager : MonoBehaviour
 
     public void EnterTargetSelectMode()
     {
+        thisGod.currentState = GodState.usingAbility;
+        
         if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
         {
             Debug.Log("Enter target select mode");
@@ -130,16 +131,12 @@ public class AbilityManager : MonoBehaviour
 
         ability.targets = targets;
 
-        StartCooldown();
-
         // Trigger animation
         //anim.SetTrigger(animTrigger);
         anim.Play(abilityStateName);
         thisGod.attackAnimationIsPlaying = false;
         //ability.StartAbility(); // CALLED BY ANIMATION EVENT
         // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-
-
     }
 
     public void StartCooldown()
@@ -227,9 +224,13 @@ public class AbilityManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
+                
+                Debug.Log(currentTarget.name);
 
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
+                    lastSingleTarget = currentTarget;
+
                     targets.Add(currentTarget);
                     StartAbility();
                 }

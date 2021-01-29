@@ -1,17 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DionysusAnimations : MonoBehaviour
 {
     God_Dionysus godBehaviour;
     Combatant godCombatant;
-    
-    AbilityManager[] abilities = new AbilityManager[2];
+
+    readonly AbilityManager[] abilities = new AbilityManager[2];
+    public GameObject wineParticlesObj;
+    private ParticleSystem wineParticleSystem;
+
+    public GameObject healParticlesObj;
+    private ParticleSystem healParticleSystem;
 
     // Start is called before the first frame update
     void Start()
     {
+        wineParticlesObj.SetActive(false);
+        healParticlesObj.SetActive(false);
+        
+        wineParticleSystem = wineParticlesObj.GetComponent<ParticleSystem>();
+        healParticleSystem = healParticlesObj.GetComponent<ParticleSystem>();
+        
         godBehaviour = GetComponentInParent<God_Dionysus>();
         godCombatant = GetComponentInParent<Combatant>();
 
@@ -49,13 +58,54 @@ public class DionysusAnimations : MonoBehaviour
     {
         Debug.Log("Executing ability from animation");
         abilities[0].ability.StartAbility();
+    }
+
+    public void ActivateWineParticles()
+    {
+        wineParticlesObj.SetActive(true);
+        //wineParticleSystem.Play();
+    }
+    
+    public void DeactivateWineParticles()
+    {
+        wineParticlesObj.SetActive(false);
+    }
+
+    public void EndAbility01()
+    {
+        godBehaviour.currentState = GodState.idle;
+        Debug.Log("set to idle");
         abilities[0].StartCooldown();
+        Debug.Log("Starting cooldown");
     }
 
     public void Ability02Effect()
     {
         Debug.Log("Executing ability from animation");
         abilities[1].ability.StartAbility();
+    }
+
+    public void ActivateHealParticles()
+    {
+        healParticlesObj.SetActive(true);
+        healParticleSystem.Play();
+    }
+    
+    public void DeactivateHealParticles()
+    {
+        healParticleSystem.Clear();
+        healParticleSystem.Stop();
+        healParticlesObj.SetActive(false);
+    }
+    
+    public void EndAbility02()
+    {
+        godBehaviour.currentState = GodState.idle;
         abilities[1].StartCooldown();
+    }
+
+    public void EndUltimateEffect()
+    {
+        godBehaviour.UltimateExitEffects();
     }
 }

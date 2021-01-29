@@ -1,23 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DemeterWinterAnimations : MonoBehaviour
 {
-    God_Demeter godBehaviour;
-    Combatant godCombatant;
+    private God_Demeter godBehaviour;
+    private Combatant godCombatant;
 
-    private AbilityManager icicleAbilty;
-    private AbilityManager freezeAbility;
+    private readonly AbilityManager[] abilities = new AbilityManager[2];
 
+    [SerializeField] 
+    private GameObject icicleMesh;
+    private GameObject icicleInstance;
+    [SerializeField]
+    private GameObject icyWindParticles;
+    [SerializeField]
+    private GameObject icyWindCone;
+    
     // Start is called before the first frame update
     void Start()
     {
         godBehaviour = GetComponentInParent<God_Demeter>();
         godCombatant = GetComponentInParent<Combatant>();
 
-        icicleAbilty = godBehaviour.winterAbilities[0];
-        freezeAbility = godBehaviour.winterAbilities[1];
+        abilities[0] = godBehaviour.winterAbilities[0];
+        abilities[1] = godBehaviour.winterAbilities[1];
     }
 
 
@@ -45,19 +50,55 @@ public class DemeterWinterAnimations : MonoBehaviour
         godBehaviour.attackAnimationIsPlaying = false;
     }
     
-    public void IcicleAbilityEffect()
+
+    public void Ability01Start()
     {
-        Debug.Log("Icicle ability animation event");
-        //Spawn icicle
-        icicleAbilty.ability.StartAbility();
-        icicleAbilty.StartCooldown();
+        // This needs to hold for the length of the ability lifetime, and then end the ability
+        abilities[0].ability.StartAbility();
+    }
+
+    public void ActivateIcicleMesh()
+    {
+        icicleInstance = Instantiate(icicleMesh);
+
+        Vector3 enemyPosition = abilities[0].lastSingleTarget.transform.position;
+        Vector3 newPosition = new Vector3(enemyPosition.x, 0, enemyPosition.z);
+        
+        icicleInstance.transform.position = newPosition;
     }
     
-    public void StartFreezeAbility()
+    public void DeactivateIcicleMesh()
     {
-        Debug.Log("Freeze ability animation event");
-        // This needs to hold for the length of the ability lifetime, and then end the ability
-        freezeAbility.ability.StartAbility();
-        freezeAbility.StartCooldown();
+        Destroy(icicleInstance);
     }
+    
+    public void EndAbility01()
+    {
+        abilities[0].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+    
+    public void Ability02Effect()
+    {
+        abilities[1].ability.StartAbility();
+    }
+    
+    public void ActivateIcyWindParticles()
+    {
+        icyWindParticles.SetActive(true);
+        icyWindCone.SetActive(true);
+    }
+    
+    public void DeactivateIcyWindParticles()
+    {
+        icyWindParticles.SetActive(false);
+        icyWindCone.SetActive(false);
+    }
+    
+    public void EndAbility02()
+    {
+        abilities[1].StartCooldown();
+        godBehaviour.currentState = GodState.idle;
+    }
+
 }
