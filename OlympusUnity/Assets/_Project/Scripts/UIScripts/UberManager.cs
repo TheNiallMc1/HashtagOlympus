@@ -94,7 +94,7 @@ public class UberManager : MonoBehaviour
     public void LoadGamePlay()
     {
         Debug.Log("Loading game play");
-        SceneManager.LoadScene("CollabScene3_EscapeFromTheCentre");
+        SceneManager.LoadScene("PlayScene");
     }
     public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
     {
