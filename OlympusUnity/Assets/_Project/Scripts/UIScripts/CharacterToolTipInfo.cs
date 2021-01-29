@@ -46,6 +46,6 @@ public class CharacterToolTipInfo : MonoBehaviour
        allTooltips.Add(ultimateHeader);
        allTooltips.Add(ultimateContent);
        
-       Debug.Log("ttoltips count : "+allTooltips.Count);
+       Debug.Log(gameObject.GetComponent<Combatant>().characterName+"'s tooltips count : "+allTooltips.Count);
     }
 }
