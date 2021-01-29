@@ -18,7 +18,7 @@ public class God_Dionysus : GodBehaviour
         specialAbilities[0].abilityStateName = "Dionysus_Ability01";
         specialAbilities[1].abilityStateName = "Dionysus_Ability02";
 
-        ultimateStartAnimTrigger = "UltimateActivate";
+        ultimateStartAnimTrigger = "Dionysus_Ultimate";
         ultimateFinishAnimTrigger = "UltimateFinish";
 
         partyStatus = partyTimePassiveManager.ability.statusEffect;
@@ -38,7 +38,7 @@ public class God_Dionysus : GodBehaviour
 
             attackAnimationIsPlaying = false;
             //animator.SetTrigger(ultimateStartAnimTrigger);
-            animator.Play("Dionysus_Ultimate");
+            animator.Play(ultimateStartAnimTrigger);
             
             partyTimePassiveManager.enabled = true;
             partyPassiveAbility = partyTimePassiveManager.ability;

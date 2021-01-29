@@ -5,6 +5,8 @@ public class God_Ares : GodBehaviour
     [Header("Ares")]
     [SerializeField] private StatusEffect rageStatus;
     [SerializeField] private StatusEffect maxRageStatus;
+
+    public GameObject rageParticleEffects;
     
     private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
     
@@ -17,7 +19,7 @@ public class God_Ares : GodBehaviour
         specialAbilities[0].abilityStateName = "Ares_Ability01";
         specialAbilities[1].abilityStateName = "Ares_Ability02";
         
-        ultimateStartAnimTrigger = "UltimateActivate";
+        ultimateStartAnimTrigger = "Ares_Ultimate";
         ultimateFinishAnimTrigger = "UltimateFinish";
     }
 
@@ -47,33 +49,33 @@ public class God_Ares : GodBehaviour
         
         if (ultimateCharge > 0 && ultimateCharge < 100)
         {
+            
             thisCombatant.ApplyStatus(rageStatus, thisCombatant);
             lastActivatedRageType = rageStatus;
 
             attackAnimationIsPlaying = false;
-            animator.SetTrigger(ultimateStartAnimTrigger);
+            animator.Play(ultimateStartAnimTrigger);
             
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
-
-            currentState = GodState.usingUltimate;
+            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine()); 
         }
         
         if (ultimateCharge >= 100)
         {
+            
             thisCombatant.ApplyStatus(maxRageStatus, thisCombatant);
             lastActivatedRageType = maxRageStatus;
             
             attackAnimationIsPlaying = false;
-            animator.SetTrigger(ultimateStartAnimTrigger);
+            animator.Play(ultimateStartAnimTrigger);
             
             ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
-
-            currentState = GodState.usingUltimate;
         }
     }
-
+    
     public override void UltimateExitEffects()
     {
         thisCombatant.RemoveStatus(lastActivatedRageType);
+        rageParticleEffects.SetActive(false);
+        base.EndUltimate();
     }
 }

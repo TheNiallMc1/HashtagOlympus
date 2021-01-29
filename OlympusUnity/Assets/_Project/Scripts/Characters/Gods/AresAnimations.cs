@@ -6,6 +6,8 @@ public class AresAnimations : MonoBehaviour
     Combatant godCombatant;
     
     AbilityManager[] abilities = new AbilityManager[2];
+
+    public GameObject ultimateParticleEffects;
     
     // Start is called before the first frame update
     void Start()
@@ -62,5 +64,15 @@ public class AresAnimations : MonoBehaviour
     {
         abilities[1].StartCooldown();
         godBehaviour.currentState = GodState.idle;
+    }
+
+    public void ActivateUltimateParticles()
+    {
+        ultimateParticleEffects.SetActive(true);
+    }
+    
+    public void DeactivateUltimateParticles()
+    {
+        ultimateParticleEffects.SetActive(false);
     }
 }
