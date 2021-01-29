@@ -53,7 +53,7 @@ public class Influencer : AIBrain
 
     private void SpawnTourist()
     {
-        GameObject touristDrone = ObjectPools.SharedInstance.GetPoolObGameObject();
+        GameObject touristDrone = ObjectPools.SharedInstance.GetDronePoolObGameObject();
 
         touristDrone.transform.position = spawnLocation.position;
         touristDrone.transform.rotation = spawnLocation.rotation;

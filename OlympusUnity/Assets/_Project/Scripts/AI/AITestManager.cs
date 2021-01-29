@@ -69,12 +69,6 @@ public class AITestManager : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
-            if (i % 3 == 0)
-            {
-                SpawnNerd(i);
-                yield return new WaitForSeconds(0.5f);
-                continue;
-            }
 
             if (i % 6 == 0)
             {
@@ -82,7 +76,12 @@ public class AITestManager : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
-
+            if (i % 3 == 0)
+            {
+                SpawnNerd(i);
+                yield return new WaitForSeconds(0.5f);
+                continue;
+            }
             SpawnTourist(i);
             yield return new WaitForSeconds(0.5f);
         }

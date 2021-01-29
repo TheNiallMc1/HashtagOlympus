@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6795404763115185234
 Transform:
   m_ObjectHideFlags: 0
@@ -225,9 +225,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da19354aa702224894472d0f0ad7a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drunkParticles: {fileID: 0}
+  partyParticles: {fileID: 0}
   enemiesInAttackRange: []
   monumentsInAttackRange: []
   currentAttackTarget: {fileID: 0}
+  currentFollowTarget: {fileID: 0}
   priority: 0
   state: 0
   wayPoint: {fileID: 0}
