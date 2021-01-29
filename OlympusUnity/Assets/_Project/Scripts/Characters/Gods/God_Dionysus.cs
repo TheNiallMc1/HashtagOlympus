@@ -10,6 +10,10 @@ public class God_Dionysus : GodBehaviour
 
     public List<Combatant> combatantsAffectedByPartyTime;
 
+    [Header("Testing Dionysus")] 
+    public bool inTestMode;
+    public GameObject passiveIcon;
+
     public override void Start()
     {
         base.Start();
@@ -33,6 +37,11 @@ public class God_Dionysus : GodBehaviour
         
         if (ultimateCharge >= 100)
         {
+            if (inTestMode)
+            {
+                passiveIcon.SetActive(false);
+            }
+            
             ultimateCharge = 100; // Set to 100 in case it somehow went over
             currentState = GodState.usingUltimate;
 
@@ -58,6 +67,11 @@ public class God_Dionysus : GodBehaviour
 
     public override void UltimateExitEffects()
     {
+        if (inTestMode)
+        {
+            passiveIcon.SetActive(true);
+        }
+        
         // Take and store the list of targets affected by the status
         combatantsAffectedByPartyTime = partyPassiveAbility.targetsAffectedByStatus;
         

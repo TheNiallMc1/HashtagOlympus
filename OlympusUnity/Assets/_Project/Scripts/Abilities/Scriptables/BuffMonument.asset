@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2ef4eb33a462142a41d5821a4b612c, type: 3}
   m_Name: BuffMonument
   m_EditorClassIdentifier: 
-  abilityName: Defend Monument
+  abilityName: 
   abilityDescription: Heal and increase the damage reduction of friendly monuments
   selectionType: 0
   abilityCanHit: 02000000
@@ -24,6 +24,7 @@ MonoBehaviour:
   remainingCooldownTime: 0
   radius: 0
   coneAoE: {fileID: 0}
+  coneLifetime: 0
   coneAlreadyExists: 0
   coneBuffer: 0
   targets: []

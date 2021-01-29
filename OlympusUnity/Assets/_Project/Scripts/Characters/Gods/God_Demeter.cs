@@ -4,7 +4,8 @@ using UnityEngine;
 public class God_Demeter : GodBehaviour
 {
     [Header("Demeter General")] 
-    public DemeterForm currentForm; 
+    public DemeterForm currentForm;
+    
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
@@ -16,6 +17,11 @@ public class God_Demeter : GodBehaviour
     public DemeterWinterAnimations winterAnimationsScript;
     public List<AbilityManager> winterAbilities;
     public PassiveAbilityManager winterPassive;
+    
+    [Header("Demeter Testing")]
+    public bool inTestMode;
+    public GameObject[] winterButtons;
+    public GameObject[] summerButtons;
 
     public override void Start()
     {
@@ -71,6 +77,18 @@ public class God_Demeter : GodBehaviour
             ability.enabled = false;
         }
 
+        if (inTestMode)
+        {
+            foreach (GameObject b in summerButtons)
+            {
+                b.SetActive(false);
+            }
+            foreach (GameObject b in winterButtons)
+            {
+                b.SetActive(true);
+            }
+        }
+
         specialAbilities[0] = winterAbilities[0];
         specialAbilities[1] = winterAbilities[1];
         
@@ -98,6 +116,19 @@ public class God_Demeter : GodBehaviour
             ability.enabled = true;
             ability.anim = animator;
         }
+        
+        if (inTestMode)
+        {
+            foreach (GameObject b in summerButtons)
+            {
+                b.SetActive(true);
+            }
+            foreach (GameObject b in winterButtons)
+            {
+                b.SetActive(false);
+            }
+        }
+
         
         specialAbilities[0] = summerAbilities[0];
         specialAbilities[1] = summerAbilities[1];
