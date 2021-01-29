@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
 
 public class Combatant : MonoBehaviour
