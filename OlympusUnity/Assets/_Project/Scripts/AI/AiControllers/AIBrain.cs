@@ -18,7 +18,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         [Header("Combatants")]
         protected Combatant thisCombatant;
-        [HideInInspector] public Combatant currentAttackTarget;
+        public Combatant currentAttackTarget;
         [HideInInspector] public Combatant currentFollowTarget;
 
         public enum EPriority { Moving, Monument, God }
@@ -38,7 +38,7 @@ namespace _Project.Scripts.AI.AiControllers
         public bool isAttacking;
         public bool attackAnimationIsPlaying;
         public bool isTargetNotNull;
-        private bool _isCombatantNotNull;
+        public bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
         public bool _isDrunk;
         public bool _isDead;
@@ -85,13 +85,11 @@ namespace _Project.Scripts.AI.AiControllers
             _isDead = false;
             State = EState.Moving;
 
-        }
-
-        protected virtual void Start()
-        {
             drunkParticles.SetActive(false);
             partyParticles.SetActive(false);
+
         }
+
 
         #region State Behaviours
 
@@ -348,7 +346,7 @@ namespace _Project.Scripts.AI.AiControllers
                         {
                             enemiesInAttackRange.Add(god);
 
-                            _movementMotor.animator.SetBool(GodInRange, true);
+                            _movementMotor.animator.SetBool(GodSeen, true);
 
                             
                             Priority = EPriority.God;
