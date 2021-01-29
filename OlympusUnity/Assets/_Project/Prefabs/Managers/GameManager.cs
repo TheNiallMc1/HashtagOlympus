@@ -252,6 +252,7 @@ public class GameManager : MonoBehaviour
     public void AddRespect(int valueToAdd)
     {
         currentRespect += valueToAdd;
+        respectDisplay.text = respectText+currentRespect;
         
         //uiManager.UpdateCurrentGodText();
 
@@ -267,12 +268,14 @@ public class GameManager : MonoBehaviour
         if (newValue > 0)
         {
             currentRespect = newValue;
+            respectDisplay.text = respectText+currentRespect;
            // uiManager.UpdateCurrentGodText();
         }
         
         if (newValue <= 0)
         {
             currentRespect = 0;
+            respectDisplay.text = respectText+currentRespect;
            // uiManager.UpdateCurrentGodText();
         }
         respectDisplay.text = respectText + currentRespect;
