@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class God_Demeter : GodBehaviour
@@ -9,10 +8,12 @@ public class God_Demeter : GodBehaviour
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
+    public DemeterSummerAnimations summerAnimationsScript;
     public List<AbilityManager> summerAbilities;
 
     [Header("Winter Demeter")] 
     public GameObject winterModel;
+    public DemeterWinterAnimations winterAnimationsScript;
     public List<AbilityManager> winterAbilities;
     public PassiveAbilityManager winterPassive;
 
@@ -21,12 +22,17 @@ public class God_Demeter : GodBehaviour
         base.Start();
         SwitchToSummer();
 
+        summerAnimationsScript = GetComponentInChildren<DemeterSummerAnimations>();
+        winterAnimationsScript = GetComponentInChildren<DemeterWinterAnimations>();
+
         summerAbilities[0].abilityStateName = "Demeter_S_Ability01";
         summerAbilities[1].abilityStateName = "Demeter_S_Ability02";
 
         winterAbilities[0].abilityStateName = "Demeter_W_Ability01";
         winterAbilities[1].abilityStateName = "Demeter_W_Ability02";
         winterAbilities[1].channelAnimTrigger = "Ability02_End";
+        
+        ultimateStartAnimTrigger = "Ultimate";
     }
     
     
@@ -103,19 +109,19 @@ public class God_Demeter : GodBehaviour
     
     public override void ActivateUltimate()
     {
-        if (currentState == GodState.knockedOut || usingUltimate)
+        if ( !CanUseAbility() )
         {
             return;
         }
-        
-        if (ultimateCharge >= 100 && !usingUltimate)
+
+        if (ultimateCharge >= 100)
         {
             ultimateCharge = 100; // Set to 100 in case it somehow went over
-            usingUltimate = true;
-            
-            // trigger animation
 
-            attackingLocked = true;
+            currentState = GodState.usingUltimate;
+            
+            attackAnimationIsPlaying = false;
+            animator.SetTrigger(ultimateStartAnimTrigger);
             
             SwitchForms();
             

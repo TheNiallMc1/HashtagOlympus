@@ -49,12 +49,13 @@ public class GodBehaviour : MonoBehaviour
     public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
     public TextMeshProUGUI ultimateChargeText;
+    
+    protected string ultimateStartAnimTrigger;
+    protected string ultimateFinishAnimTrigger;
 
     protected Coroutine ultimateDecreaseCoroutine;
     public float ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
     public int ultimateDecreasePerTick; // How much Ultimate Charge is decreased per tick
-    
-    protected bool usingUltimate;
 
     protected NavMeshAgent navMeshAgent;
 
@@ -114,24 +115,20 @@ public class GodBehaviour : MonoBehaviour
     
     public virtual void FixedUpdate()
     {
-        // Booleans used for determining different states
         bool movingToEnemy = currentState == GodState.moveToEnemy;
         bool movingToArea = currentState == GodState.moveToArea;
-        bool attacking = currentState == GodState.attacking;
-        bool isKnockedOut = currentState == GodState.knockedOut;
 
         if (movingToArea || movingToEnemy)
         {
-            closeToTargetPosition = navMeshAgent.remainingDistance < 0.1f;
+            closeToTargetPosition = navMeshAgent.remainingDistance < 1f;
         }
     
-        if (attacking && !attackAnimationIsPlaying)
+        if ( CanAttack() )
         {
             Attack();
         }
 
-        // If the god reaches their target destination, and is not attacking, switch to idle state
-        if (!isKnockedOut && currentState != GodState.idle && !attacking && closeToTargetPosition)
+        if ( CanIdle() )
         {
             SwitchState(GodState.idle);
         }
@@ -143,15 +140,8 @@ public class GodBehaviour : MonoBehaviour
 
     public void ToggleSelection(bool isSelected)
     {
-        if (isSelected)
-        {
-            // meshRenderer.material = selectedMaterial;
-            // mouseDetectorCollider.SetActive(false);
-        }
-
         if (!isSelected)
         {
-            // meshRenderer.material = standardMaterial;
             mouseDetectorCollider.SetActive(true);
         }
     }
@@ -211,6 +201,8 @@ public class GodBehaviour : MonoBehaviour
 
     protected void Attack()
     {        
+        SwitchState(GodState.attacking);
+        
         // Determine and store current target
         currentAttackTarget = enemiesSeen[0];
         
@@ -239,8 +231,7 @@ public class GodBehaviour : MonoBehaviour
         }
         
         int animNumber = GetRandomNumber();
-        Debug.Log("Anim: " + animNumber);
-
+        
         attackAnimationIsPlaying = true;
         
         animator.ResetTrigger(autoAttackAnimations[animNumber]);
@@ -250,7 +241,7 @@ public class GodBehaviour : MonoBehaviour
         lastNumber = animNumber;
 
         // If the current target is now null because it died remove it from the lists
-        if (currentAttackTarget == null)
+        if (!currentAttackTarget.gameObject.activeInHierarchy)
         {
             animator.ResetTrigger(autoAttackAnimations[animNumber]);
 
@@ -293,7 +284,7 @@ public class GodBehaviour : MonoBehaviour
                 break;
             
             case GodState.usingAbility:
-                UsingAbility();
+                UsingAbilityState();
                 break;
         }
     }
@@ -311,7 +302,7 @@ public class GodBehaviour : MonoBehaviour
         movementLocked = true;
     }
 
-    protected virtual void UsingAbility()
+    protected virtual void UsingAbilityState()
     {
         // Override in subclass
     }
@@ -341,6 +332,42 @@ public class GodBehaviour : MonoBehaviour
         currentState = GodState.attacking;
        // currentAttackCoroutine = StartCoroutine(AutoAttackCoroutine());
     }
+    
+    // CHECKS FOR ENTERING STATES \\
+
+    protected bool CanAttack()
+    {
+        bool usingUltimate = currentState == GodState.usingUltimate;
+        bool usingAbility = currentState == GodState.usingAbility;
+        bool knockedOut = currentState == GodState.knockedOut;
+
+        bool attackListEmpty = !enemiesInAttackRange.Any();
+        bool awarenessListEmpty = !enemiesSeen.Any();
+
+        bool eitherListValid = !attackListEmpty || !awarenessListEmpty;
+        
+        return !knockedOut && !usingUltimate && !usingAbility && eitherListValid; 
+    }
+
+    protected bool CanIdle()
+    {
+        bool usingUltimate = currentState == GodState.usingUltimate;
+        bool usingAbility = currentState == GodState.usingAbility;
+        bool knockedOut = currentState == GodState.knockedOut;
+        bool attacking = currentState == GodState.attacking;
+        bool moving = currentState == GodState.moveToArea || currentState == GodState.moveToEnemy;
+
+        return !moving && !attacking && !knockedOut && !usingAbility && !usingUltimate;
+    }
+    
+    protected bool CanUseAbility()
+    {
+        bool usingUltimate = currentState == GodState.usingUltimate;
+        bool usingAbility = currentState == GodState.usingAbility;
+        bool knockedOut = currentState == GodState.knockedOut;
+        
+        return !knockedOut && !usingUltimate && !usingAbility;
+    }
 
     #endregion
 
@@ -355,7 +382,11 @@ public class GodBehaviour : MonoBehaviour
     // may need to be public for ui implementation
     public void UseAbility(int abilityIndex)
     {
-        specialAbilities[abilityIndex].EnterTargetSelectMode();
+        if ( CanUseAbility() )
+        {
+            specialAbilities[abilityIndex].EnterTargetSelectMode();
+            currentState = GodState.usingAbility;
+        }
     }
 
     public virtual void ActivateUltimate()
@@ -363,20 +394,18 @@ public class GodBehaviour : MonoBehaviour
         // Override in sub class
     }
 
-    public virtual void EndUltimate()
+    protected virtual void EndUltimate()
     {
         Debug.Log("Ending ultimate");
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();
+
+        currentState = GodState.idle;
         
-        usingUltimate = false;    
-        attackingLocked = false;
         ultimateDecreaseCoroutine = null;
         
         ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
-        
-        UltimateExitEffects();
     }
 
     public virtual void UltimateExitEffects()
@@ -445,5 +474,6 @@ public enum GodState
     moveToEnemy,
     attacking,
     knockedOut,
-    usingAbility
+    usingAbility,
+    usingUltimate
 }

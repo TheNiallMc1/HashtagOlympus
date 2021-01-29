@@ -140,6 +140,7 @@ namespace _Project.Scripts.AI.AiControllers
             Vector3 drunkDestination;
             switch (_currentPath)
             {
+                
                 case 1:
                     drunkDestination = new Vector3(currentPosition.x + 2, currentPosition.y, currentPosition.z);
                     transform.LookAt(drunkDestination);
@@ -176,7 +177,6 @@ namespace _Project.Scripts.AI.AiControllers
                         _currentPath = 1;
                     break;
             }
-
         }
     }
 

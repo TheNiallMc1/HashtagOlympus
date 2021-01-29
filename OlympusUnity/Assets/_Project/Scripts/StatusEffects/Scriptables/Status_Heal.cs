@@ -1,6 +1,4 @@
-﻿    using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Used for basic healing. Heals a character once, immediately, and then is removed
 [CreateAssetMenu(fileName = "HealStatus", menuName = "Status Effect/Heal", order = 1)]

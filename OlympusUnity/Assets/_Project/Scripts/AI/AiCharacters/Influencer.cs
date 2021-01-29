@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
@@ -9,31 +7,44 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Influencer : AIBrain
 {
-    public enum SpawnState { Spawning, Waiting, Counting }
-
-    public new SpawnState state = SpawnState.Counting;
-
-    public Transform prefab;
-    public Transform left;
-
-    public float timeBetweenWaves = 5f;
-    public float countDown = 2f;
 
     [SerializeField]
     private List<Transform> touristDrones;
 
-    public int waveIndex = 20;
+    public int waveIndex = 3;
+    [SerializeField] Transform spawnLocation;
+
+    private static readonly int Spawn = Animator.StringToHash("SpawnSimps");
+    private new readonly List<int> _autoAttackAnimations = new List<int>
+        {
+            AutoAttack01,
+            AutoAttack02,
+            AutoAttack03,
+            AutoAttack04
+        };
+
+    protected void Start()
+    {
+        base._autoAttackAnimations = _autoAttackAnimations;
+
+    }
 
     private void LateUpdate()
     {
-        if (RandomNumber() < 4)
+        if(Priority != EPriority.Monument)  return; 
+
+        if (!TouristsIsAlive())
         {
-            SpawnWave();
+            if (RandomNumber() < 4)
+            {
+                SpawnWave();
+            }
         }
     }
 
     private void SpawnWave()
     {
+        _movementMotor.animator.Play(Spawn);
         for (var i = 0; i < waveIndex; i++)
         {
             SpawnTourist();
@@ -43,6 +54,10 @@ public class Influencer : AIBrain
     private void SpawnTourist()
     {
         GameObject touristDrone = ObjectPools.SharedInstance.GetPoolObGameObject();
+
+        touristDrone.transform.position = spawnLocation.position;
+        touristDrone.transform.rotation = spawnLocation.rotation;
+
         touristDrone.SetActive(true);
         touristDrones.Add(transform);
 
@@ -50,7 +65,14 @@ public class Influencer : AIBrain
 
     private int RandomNumber()
     {
-        var randomNumber = UnityEngine.Random.Range(1, 10);
+        var randomNumber = UnityEngine.Random.Range(1, 2000);
         return randomNumber;
+    }
+
+    private bool TouristsIsAlive()
+    {
+        touristDrones = touristDrones.Where(e => e != null).ToList();
+
+        return touristDrones.Count > 0;
     }
 }

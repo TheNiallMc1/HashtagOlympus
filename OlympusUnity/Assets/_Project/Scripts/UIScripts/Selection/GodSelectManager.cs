@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class GodSelectManager : MonoBehaviour
 {

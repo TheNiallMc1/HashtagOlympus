@@ -8,18 +8,21 @@ namespace _Project.Scripts.AI.AiControllers
     [RequireComponent(typeof(Combatant))]
     public class AIBrain : MonoBehaviour
     {
-        private AIMovement _movementMotor;
-
+        protected AIMovement _movementMotor;
+        public GameObject drunkParticles;
+        public GameObject partyParticles;
+        
         [Header("Target Lists")]
         [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
         [SerializeField] protected internal List<Combatant> monumentsInAttackRange;
 
         [Header("Combatants")]
         protected Combatant thisCombatant;
-        public Combatant currentAttackTarget;
+        [HideInInspector] public Combatant currentAttackTarget;
+        [HideInInspector] public Combatant currentFollowTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability, Drunk, Follow }
+        public enum EState { Moving, Attacking, Ability, Drunk, Party, Frozen }
 
         [Header("Dynamic States")]
         [SerializeField]
@@ -38,6 +41,7 @@ namespace _Project.Scripts.AI.AiControllers
         private bool _isCombatantNotNull;
         private bool _isMonumentsNotNull;
         public bool _isDrunk;
+        public bool _isDead;
 
         [Header("Animation")]
         private bool _initialCoLoop = true;
@@ -47,13 +51,17 @@ namespace _Project.Scripts.AI.AiControllers
         private static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
         private static readonly int GodInRange = Animator.StringToHash("GodInRange");
         private static readonly int TouristStandardMovement = Animator.StringToHash("Tourist_standard_movement");
-        private static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
-        private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
 
-        private readonly List<int> _autoAttackAnimations = new List<int>
+        protected static readonly int AutoAttack01 = Animator.StringToHash("AutoAttack01");
+        protected static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
+        protected static readonly int AutoAttack03 = Animator.StringToHash("AutoAttack03");
+        protected static readonly int AutoAttack04 = Animator.StringToHash("AutoAttack04");
+        protected static readonly int AutoAttack05 = Animator.StringToHash("AutoAttack05");
+
+        public List<int> _autoAttackAnimations = new List<int>
         {
             AutoAttack01,
-            AutoAttack02,
+            AutoAttack02
         };
 
 
@@ -74,15 +82,25 @@ namespace _Project.Scripts.AI.AiControllers
         {
             thisCombatant = GetComponent<Combatant>();
             _movementMotor = GetComponent<AIMovement>();
+            _isDead = false;
             State = EState.Moving;
 
+        }
+
+        protected void Start()
+        {
+            drunkParticles.SetActive(false);
+            partyParticles.SetActive(false);
         }
 
         #region State Behaviours
 
         protected void FixedUpdate()
         {
-
+            if (_isDead)
+            {
+                gameObject.SetActive(false);
+            }
 
             wayPoint = _movementMotor.GetPath();
             switch (priority)
@@ -118,48 +136,80 @@ namespace _Project.Scripts.AI.AiControllers
             switch (state)
             {
                 case EState.Moving:
-                    if (!initMove)
+                    if (State != EState.Frozen)
                     {
-                        _isDrunk = false;
-                        attackAnimationIsPlaying = false;
-                        _movementMotor.animator.SetBool(GodSeen, false);
-                        isTargetNotNull = false;
-                        inRange = false;
-                        isAttacking = false;
-                        _movementMotor.animator.Play(TouristStandardMovement);
-                        _movementMotor.nav.isStopped = false;
-                        _initialCoLoop = true;
-                        _movementMotor.Moving();
+                        if (!initMove)
+                        {
+                            partyParticles.SetActive(false);
+                            drunkParticles.SetActive(false);
+                            _isDrunk = false;
+                            attackAnimationIsPlaying = false;
+                            _movementMotor.animator.SetBool(GodSeen, false);
+                            isTargetNotNull = false;
+                            inRange = false;
+                            isAttacking = false;
+                            _movementMotor.animator.Play(TouristStandardMovement);
+                            _movementMotor.nav.isStopped = false;
+                            _initialCoLoop = true;
+                            _movementMotor.Moving();
 
+                        }
                     }
                     break;
                 case EState.Attacking:
-                    isAttacking = true;
-                    _isDrunk = false;
-
-                    if (Priority == EPriority.God)
+                    if (State != EState.Frozen)
                     {
-                        Attack(currentAttackTarget);
-                    }
+                        partyParticles.SetActive(false);
+                        drunkParticles.SetActive(false);
+                        isAttacking = true;
+                        _isDrunk = false;
 
-                    if (Priority == EPriority.Monument)
-                    {
+                        if (Priority == EPriority.God)
+                        {
+                            Attack(currentAttackTarget);
+                        }
 
-                        Attack(currentAttackTarget);
+                        if (Priority == EPriority.Monument)
+                        {
+
+                            Attack(currentAttackTarget);
+                        }
                     }
                     break;
                 case EState.Ability:
                     break;
                 case EState.Drunk:
-                    if(!_isDrunk)
-                        _movementMotor.currentPosition = transform.position;
-                    _isDrunk = true;
-                    _movementMotor.Drunk();
+                    if (State != EState.Frozen)
+                    {
+                        if (!_isDrunk)
+                        {
+                            partyParticles.SetActive(false);
+                            drunkParticles.SetActive(true);
+                            _movementMotor.currentPosition = transform.position;
+                            _isDrunk = true;
+                            attackAnimationIsPlaying = false;
+                            isAttacking = false;
+                            _movementMotor.animator.SetBool(GodSeen, false);
+                            _movementMotor.animator.Play(TouristStandardMovement);
+                            _movementMotor.nav.isStopped = false;
+                        }
+                    
+                        _movementMotor.Drunk(); 
+                    }
                     break;
-                case EState.Follow:
-                    _isDrunk = false;
-                    _movementMotor.MoveToTarget(currentAttackTarget);
+                case EState.Party:
+                    if (State != EState.Frozen)
+                    {
+                        partyParticles.SetActive(true);
+                        drunkParticles.SetActive(false);
+                        _isDrunk = false;
+                        _movementMotor.MoveToTarget(currentFollowTarget);
+                    }
                     break;
+                
+                case EState.Frozen:
+                    break;
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -273,6 +323,12 @@ namespace _Project.Scripts.AI.AiControllers
 
         }
 
+        public virtual void OnDeathEvent()
+        {
+            // Call base and override if needed
+            _movementMotor.animator.Play("Death");
+        }
+
         #endregion
 
         #region List Management
@@ -286,13 +342,15 @@ namespace _Project.Scripts.AI.AiControllers
                 // Add tourist if the method is to add from the list, and the tourist is not already in the list
                 case true when !alreadyInList:
                     {
+                        if(State == EState.Drunk) return;
+                        
                         if (god.targetType == Combatant.eTargetType.Player)
                         {
                             enemiesInAttackRange.Add(god);
 
                             _movementMotor.animator.SetBool(GodInRange, true);
 
-                            if(State == EState.Drunk) return;
+                            
                             Priority = EPriority.God;
                             State = EState.Attacking;
                         }
