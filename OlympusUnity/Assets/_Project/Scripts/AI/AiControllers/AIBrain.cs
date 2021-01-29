@@ -44,7 +44,7 @@ namespace _Project.Scripts.AI.AiControllers
         public bool _isDead;
 
         [Header("Animation")]
-        private bool _initialCoLoop = true;
+        protected bool _initialCoLoop = true;
         private int _lastNumber = 1;
         protected static readonly int GodSeen = Animator.StringToHash("GodSeen");
         protected static readonly int MonumentAttack = Animator.StringToHash("MonumentAttack");
@@ -87,7 +87,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             drunkParticles.SetActive(false);
             partyParticles.SetActive(false);

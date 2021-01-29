@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Defender : AIBrain
 {
-    private AIMovement navAIMovement;
-
     private Vector3 _defencePosition; 
     //// Start is called before the first frame update
-    protected void Start()
+    protected override void Start()
     {
-        navAIMovement = GetComponent<AIMovement>();
         _defencePosition = transform.position;
+        drunkParticles.SetActive(false);
+        partyParticles.SetActive(false);
     }
 
         //// Update is called once per frame
@@ -24,6 +23,16 @@ public class Defender : AIBrain
         switch (state)
         {
             case EState.Moving:
+                partyParticles.SetActive(false);
+                drunkParticles.SetActive(false);
+                _isDrunk = false;
+                attackAnimationIsPlaying = false;
+                isTargetNotNull = false;
+                inRange = false;
+                isAttacking = false;
+                _movementMotor.animator.SetBool(GodSeen, false);
+                _movementMotor.nav.isStopped = false;
+                _initialCoLoop = true;
                 ReturnToDefencePosition();
                 break;
             case EState.Attacking:
@@ -64,6 +73,6 @@ public class Defender : AIBrain
 
     private void ReturnToDefencePosition()
     {
-        navAIMovement.nav.SetDestination(_defencePosition);
+        _movementMotor.nav.SetDestination(_defencePosition);
     }
 }
