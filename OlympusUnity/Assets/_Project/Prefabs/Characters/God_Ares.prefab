@@ -368,6 +368,8 @@ GameObject:
   - component: {fileID: 7196217159133631164}
   - component: {fileID: 1858460737}
   - component: {fileID: 1858460738}
+  - component: {fileID: 1858460743}
+  - component: {fileID: 6194333889467712988}
   m_Layer: 8
   m_Name: God_Ares
   m_TagString: God
@@ -529,6 +531,50 @@ MonoBehaviour:
   channelAnimTrigger: 
   anim: {fileID: 0}
   cooldownText: {fileID: 0}
+--- !u!114 &1858460743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7196217159133631158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe4af5c361d8ba744a649a0b0058c022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayRadius: 0
+  radiusColour: {r: 0, g: 0, b: 0, a: 0}
+  ability: {fileID: 11400000, guid: 18beb5400447fe24f808bd0c2bee4aa0, type: 2}
+  isChanneled: 0
+  particleEffects: {fileID: 0}
+  abilityStateName: 
+  channelAnimTrigger: 
+  anim: {fileID: 0}
+  cooldownText: {fileID: 0}
+--- !u!114 &6194333889467712988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7196217159133631158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aabc942a40044a0db56ca6b352997f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoAttackHeader: Auto Attack
+  autoAttackContent: ares
+  ability1Header: Ability 1
+  ability1Content: ares
+  ability2Header: Ability 2
+  ability2Content: ares
+  passiveHeader: Passive
+  passiveContent: ares
+  ultimateHeader: Ultimate
+  ultimateContent: ares
+  allTooltips: []
 --- !u!1 &7196217160143836660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1188,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a57f73fa0bbdabc4eb9fd2a35517c16e, type: 3}
+--- !u!1 &6099437352785484029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6099437352168178853, guid: a57f73fa0bbdabc4eb9fd2a35517c16e, type: 3}
+  m_PrefabInstance: {fileID: 1732041816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3704758696359266611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3704758695842043243, guid: a57f73fa0bbdabc4eb9fd2a35517c16e, type: 3}

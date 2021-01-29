@@ -450,6 +450,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!114 &66842559
@@ -469,6 +470,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &70686257
@@ -650,6 +652,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1 &90037732
@@ -890,6 +893,7 @@ MonoBehaviour:
   _targetType: 4
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 0
@@ -2566,6 +2570,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &380260597
@@ -3814,6 +3819,7 @@ MonoBehaviour:
   _targetType: 4
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 0
@@ -4151,6 +4157,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &602328225
@@ -4293,6 +4300,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1 &613986278 stripped
@@ -6706,6 +6714,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &839316552
@@ -6933,6 +6942,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &881855067
@@ -8294,6 +8304,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1 &1056068993
@@ -9325,6 +9336,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &1158637060
@@ -9681,6 +9693,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1001 &1209297252
@@ -10555,6 +10568,7 @@ MonoBehaviour:
   prefabGodMonument: {fileID: 0}
   prefabEnemyMonument: {fileID: 0}
   amountToPool: 0
+  amountOfStands: 0
   _touristStands: []
   _isGod: 1
 --- !u!1 &1258403877
@@ -12656,20 +12670,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 915586719}
     m_Modifications:
     - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: characterName
-      value: Ares
-      objectReference: {fileID: 0}
-    - target: {fileID: 1858460736, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: currentHealth
-      value: 50
-      objectReference: {fileID: 0}
+      propertyPath: characterSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bb2b64fa9645e4478b86e8b687b4bb15, type: 3}
     - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_Name
       value: God_Ares
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13152,11 +13158,6 @@ MeshFilter:
 --- !u!224 &1631225590 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6330318327043632152, guid: 8640d3c31d53d38448fe7d4a6e057fcf, type: 3}
-  m_PrefabInstance: {fileID: 2093708369}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &1631225591 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 6330318327043632155, guid: 8640d3c31d53d38448fe7d4a6e057fcf, type: 3}
   m_PrefabInstance: {fileID: 2093708369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1644488244
@@ -16508,6 +16509,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915586719}
     m_Modifications:
+    - target: {fileID: 3442854357318955098, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
+      propertyPath: characterSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 69c5d4a0a62104ee69efdef955ef7918, type: 3}
     - target: {fileID: 5483520319108431527, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.068853
@@ -16555,10 +16560,6 @@ PrefabInstance:
     - target: {fileID: 5483520319108431532, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
       propertyPath: m_Name
       value: God_Demeter
-      objectReference: {fileID: 0}
-    - target: {fileID: 5483520319108431532, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c86654fdcc4f1945bcf62d51fd96bc0, type: 3}
@@ -17649,6 +17650,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17687,6 +17689,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17725,6 +17728,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17763,6 +17767,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17801,6 +17806,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17839,6 +17845,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17893,6 +17900,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -17931,6 +17939,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 0
   currentHealth: 0
   attackDamage: 0
@@ -17969,6 +17978,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -18007,6 +18017,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -18045,6 +18056,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -18083,6 +18095,7 @@ MonoBehaviour:
   _targetType: 2
   colliderHolder: {fileID: 0}
   characterName: 
+  characterSprite: {fileID: 0}
   maxHealth: 100
   currentHealth: 100
   attackDamage: 10
@@ -20789,6 +20802,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: God_Dionysus
       objectReference: {fileID: 0}
+    - target: {fileID: 8799405626769367833, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
+      propertyPath: characterSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a5d6361a54e943d784675a76cf4e2c9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4ce281d677103c469c789c1e2f9d9a2, type: 3}
 --- !u!23 &3874039932937086709
@@ -24365,18 +24382,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1411584827}
     m_Modifications:
-    - target: {fileID: 1413856251974476535, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 287805070}
-    - target: {fileID: 1413856251974476535, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: pauseMapCam
-      value: 
-      objectReference: {fileID: 1687228775}
-    - target: {fileID: 1413856251974476535, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
-      propertyPath: pauseModeUI
-      value: 
-      objectReference: {fileID: 1631225591}
     - target: {fileID: 1413856252913020981, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24464,6 +24469,14 @@ PrefabInstance:
     - target: {fileID: 1413856252913020985, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
       propertyPath: m_Name
       value: PlayModeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072778010747705917, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
+      propertyPath: m_text
+      value: xxxxx
+      objectReference: {fileID: 0}
+    - target: {fileID: 6072778011679567797, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}
+      propertyPath: m_text
+      value: xxxx
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0832b860783b54c04bc1bef6da185c43, type: 3}

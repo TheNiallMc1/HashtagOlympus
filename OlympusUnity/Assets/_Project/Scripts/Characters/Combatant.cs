@@ -23,6 +23,8 @@ public class Combatant : MonoBehaviour
 
     [Header("Character Info")] 
     public string characterName;
+
+    public Sprite characterSprite;
     
     [Header("Combat Stats")]
     public int maxHealth;
