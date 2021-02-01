@@ -48,13 +48,10 @@ public class Combatant : MonoBehaviour
     {
         if (targetIcon == null)
         {
-            Debug.Log("<color=red> TargetIcon is null </color>");
             return;
         }
         
-        Debug.Log("<color=green> TargetIcon is not null </color>");
         targetIcon.SetActive(true);
-        Debug.Log("<color=green> TargetIcon was set active? </color>");
     }
     
     public void DeactivateTargetIcon()

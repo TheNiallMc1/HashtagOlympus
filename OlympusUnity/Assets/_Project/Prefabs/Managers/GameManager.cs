@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
     public Camera currentCam;
     public Camera overViewCam;
 
-    [Header("Gods and God Selection")]
-    public List<GodBehaviour> allPlayerGods;
+    [Header("Gods and God Selection")] public List<GodBehaviour> allPlayerGods;
     public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
@@ -26,15 +25,13 @@ public class GameManager : MonoBehaviour
     public LayerMask moveRayMask;
     public LineDrawer lD;
 
-    [Header("Respect")]
-    public int currentRespect;
+    [Header("Respect")] public int currentRespect;
     public TMP_Text respectDisplay;
     public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
 
-    [Header("Target Selection")] 
-    public bool targetSelectModeActive;
+    [Header("Target Selection")] public bool targetSelectModeActive;
     public LayerMask combatantLayerMask;
     public AbilityManager currentAbility;
     public Combatant combatantUsingAbility;
@@ -145,6 +142,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region Target Selection
+
     private void FixedUpdate()
     {
         if (targetSelectModeActive && currentAbility != null)
@@ -176,20 +174,18 @@ public class GameManager : MonoBehaviour
     public void EnterTargetSelectMode(AbilityManager thisAbility)
     {
         // MOVE CAMERA TO GOD
-        
-        Debug.Log("<color=blue> Calling EnterTargetSelectMode() </color>");
+
         currentAbility = thisAbility;
         combatantUsingAbility = currentAbility.GetComponent<Combatant>();
-        
+
         targetSelectModeActive = true;
-        Debug.Log("<color=green> Enter target select mode </color>");
     }
 
     public void ExitTargetSelectMode()
     {
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 1f;
-        
+
         foreach (Combatant target in targetsInRange)
         {
             target.DeactivateTargetIcon();
@@ -199,38 +195,30 @@ public class GameManager : MonoBehaviour
         combatantUsingAbility = null;
         currentAbility = null;
         targetSelectModeActive = false;
-        
-        Debug.Log("<color=green> Exited target select mode </color>");
     }
 
     private void SingleTargetSelectMode()
     {
         // Within ability.range, make an overlap sphere
         // Get every target in the sphere
-        
-        // foreach target, if abilityCanHit = targetType
-            // Instantiate object to signal it is a valid target
-        
-        // If abilityCanHit = Player
-            // Activate god portraits if you can target gods
 
-        Debug.Log("<color=blue> Calling SingleTargetSelectMode() </color>");
-            
+        // foreach target, if abilityCanHit = targetType
+        // Instantiate object to signal it is a valid target
+
+        // If abilityCanHit = Player
+        // Activate god portraits if you can target gods
+
         Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
         float abilityRange = currentAbility.ability.abilityRange;
-        
-        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, combatantLayerMask); 
+
+        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, currentAbility.ability.targetLayerMask);
 
         Time.timeScale = 0.5f;
         Time.fixedDeltaTime = 0.5f;
-        
+
         foreach (Collider targetCollider in colliders)
-        {        
-            Debug.Log("<color=blue> Running SingleTargetSelectMode() ForEach Loop </color>");
-
+        {
             Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
-
-            Debug.Log("<color=green> " + targetCollider.gameObject.name + " WAS a Combatant </color>");
 
             if (isTargetValid(currentTarget))
             {
@@ -243,12 +231,9 @@ public class GameManager : MonoBehaviour
             ExitTargetSelectMode();
             return;
         }
-        
-        Debug.Log("<color=green> Resolved ForEach loop </color>");
-        
+
         foreach (Combatant target in targetsInRange)
         {
-            Debug.Log("<color=blue> Entered ForEach loop for target icons</color>");
             target.ActivateTargetIcon();
         }
 
@@ -257,7 +242,7 @@ public class GameManager : MonoBehaviour
 
     private bool isTargetValid(Combatant currentTarget)
     {
-        if(currentTarget != null)
+        if (currentTarget != null)
         {
             bool isInList = targetsInRange.Contains(currentTarget);
             bool canBeHit = currentAbility.ability.abilityCanHit.Contains(currentTarget.targetType);
@@ -269,7 +254,7 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-    
+
     #endregion
 
     public void SelectGod(GodBehaviour godToSelect)
@@ -321,7 +306,7 @@ public class GameManager : MonoBehaviour
             lD.SetEndPos(hit.point);
         }
     }
-    
+
     public void DeselectGod()
     {
         if (currentlySelectedGod == null)

@@ -16,8 +16,12 @@ MonoBehaviour:
   abilityDescription: Take a drink, healing yourself a little bit
   selectionType: 3
   abilityCanHit: 00000000
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   abilityDamage: 0
   abilityHealAmount: 50
+  abilityRange: 0
   statusEffects: []
   abilityCooldown: 10
   remainingCooldownTime: 0

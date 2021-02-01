@@ -14,6 +14,7 @@ public abstract class SpecialAbility : ScriptableObject
     public eSelectionType selectionType;
 
     public List<Combatant.eTargetType> abilityCanHit;
+    public LayerMask targetLayerMask;
     
     public int abilityDamage = 50;
     public int abilityHealAmount = 50;
