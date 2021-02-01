@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: 
   abilityDescription: Heal friendly gods with corn
-  selectionType: 0
-  abilityCanHit: 00000000
+  selectionType: 1
+  abilityCanHit: 0000000001000000
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   abilityDamage: 0
   abilityHealAmount: 100
   abilityRange: 20
   statusEffects: []
   abilityCooldown: 10
   remainingCooldownTime: 0
-  radius: 20
+  radius: 5.7
   coneAoE: {fileID: 0}
   coneLifetime: 0
   coneAlreadyExists: 0

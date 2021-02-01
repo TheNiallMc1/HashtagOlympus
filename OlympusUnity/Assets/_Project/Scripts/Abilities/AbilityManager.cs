@@ -26,6 +26,7 @@ public class AbilityManager : MonoBehaviour
     [Header("Player Controls")]
     private PlayerControls playerControls;
     private bool rightClick;
+    private bool leftClick;
     
     [Header("Components")]
     private Combatant thisCombatant;
@@ -45,8 +46,10 @@ public class AbilityManager : MonoBehaviour
         playerControls.Enable();
 
         playerControls.Mouse.RightClick.started += ctx => rightClick = true;
-
         playerControls.Mouse.RightClick.canceled += ctx => rightClick = false;
+        
+        playerControls.Mouse.LeftClick.started += ctx => leftClick = true;
+        playerControls.Mouse.LeftClick.canceled += ctx => leftClick = false;
     }
 
     private void Start()
@@ -105,18 +108,6 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    // After target select mode
-    private void StartAbility()
-    {
-        targetSelectModeActive = false;
-        GameManager.Instance.ExitTargetSelectMode();
-
-        ability.targets = targets;
-
-        anim.Play(abilityStateName);
-        thisGod.attackAnimationIsPlaying = false;
-    }
-
     public void StartCooldown()
     {
         onCooldown = true;
@@ -158,6 +149,17 @@ public class AbilityManager : MonoBehaviour
         }
     }
     
+    // After target select mode
+    private void StartAbility()
+    {
+        ExitTargetSelectMode();
+
+        ability.targets = targets;
+
+        anim.Play(abilityStateName);
+        thisGod.attackAnimationIsPlaying = false;
+    }
+    
     #region Target Selection
     
     public void EnterTargetSelectMode()
@@ -173,6 +175,18 @@ public class AbilityManager : MonoBehaviour
         {
             targetSelectModeActive = false;
         }
+    }
+    
+    public void ExitTargetSelectMode()
+    {
+        if (ability.selectionType == SpecialAbility.eSelectionType.CircleAoE)
+        {
+            thisCombatant.DeactivateCircleAreaMarker();
+        }
+        
+        targetSelectModeActive = false;
+        thisGod.currentState = GodState.idle;
+        GameManager.Instance.ExitTargetSelectMode();
     }
 
     private void SingleTargetSelect()
@@ -197,25 +211,26 @@ public class AbilityManager : MonoBehaviour
                 }
             }
         }
+
+        if (leftClick)
+        {
+            ExitTargetSelectMode();
+        }
     }
 
     private void AoECircleSelect()
     {
-        Vector3 centre = thisCombatant.colliderHolder.transform.position;
+        targets = GameManager.Instance.targetsInRange;
 
-        Collider[] colliders = Physics.OverlapSphere(centre, ability.radius);
-
-        foreach (Collider targetCollider in colliders)
-        {            
-            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
-
-            if (isTargetValid(currentTarget))
-            {
-                targets.Add(currentTarget);
-            }
+        if (rightClick)
+        {
+            StartAbility(); 
         }
-        
-        StartAbility();
+
+        if (leftClick)
+        {
+            ExitTargetSelectMode();
+        }
     }
 
     private void AoEConeSelect()

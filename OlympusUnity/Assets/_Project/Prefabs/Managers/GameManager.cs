@@ -147,17 +147,14 @@ public class GameManager : MonoBehaviour
     {
         if (targetSelectModeActive && currentAbility != null)
         {
-            Debug.Log("<color=blue> Calling Target Select switch statement </color>");
-
             switch (currentAbility.ability.selectionType)
             {
                 case SpecialAbility.eSelectionType.Single:
-                    Debug.Log("<color=green> Resolved selection switch statement </color>");
                     SingleTargetSelectMode();
                     break;
 
                 case SpecialAbility.eSelectionType.CircleAoE:
-                    // Show circle the size of the ability radius
+                    AreaCircleSelect();
                     break;
 
                 case SpecialAbility.eSelectionType.ConeAoE:
@@ -199,15 +196,6 @@ public class GameManager : MonoBehaviour
 
     private void SingleTargetSelectMode()
     {
-        // Within ability.range, make an overlap sphere
-        // Get every target in the sphere
-
-        // foreach target, if abilityCanHit = targetType
-        // Instantiate object to signal it is a valid target
-
-        // If abilityCanHit = Player
-        // Activate god portraits if you can target gods
-
         Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
         float abilityRange = currentAbility.ability.abilityRange;
 
@@ -215,6 +203,42 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0.5f;
         Time.fixedDeltaTime = 0.5f;
+
+        foreach (Collider targetCollider in colliders)
+        {
+            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+
+            if (isTargetValid(currentTarget))
+            {
+                targetsInRange.Add(currentTarget);
+            }
+        }
+
+        if (!targetsInRange.Any())
+        {
+            ExitTargetSelectMode();
+            return;
+        }
+
+        foreach (Combatant target in targetsInRange)
+        {
+            target.ActivateTargetIcon();
+        }
+
+        currentAbility.targetSelectModeActive = true;
+    }
+
+    private void AreaCircleSelect()
+    {
+        combatantUsingAbility.ActivateCircleAreaMarker(currentAbility.ability.radius);
+
+        Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
+        float abilityRange = currentAbility.ability.radius;
+
+        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, currentAbility.ability.targetLayerMask);
+
+        Time.timeScale = 0.15f;
+        Time.fixedDeltaTime = 0.15f;
 
         foreach (Collider targetCollider in colliders)
         {

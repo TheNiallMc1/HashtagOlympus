@@ -49,7 +49,6 @@ public class ConeAoE : MonoBehaviour
         }
     }
 
-
     private List<Combatant> GetTargets()
     {
         foreach (Combatant.eTargetType type in targetTypes)
