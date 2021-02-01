@@ -414,9 +414,6 @@ MonoBehaviour:
   - {fileID: 894869643}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &63017716
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,9 +720,6 @@ MonoBehaviour:
   - {fileID: 146023358}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &95890686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -860,7 +854,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113135898 stripped
 GameObject:
@@ -924,7 +918,7 @@ Transform:
   - {fileID: 1674277727}
   - {fileID: 543450651721858590}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &145444393
 PrefabInstance:
@@ -1050,9 +1044,6 @@ MonoBehaviour:
   - {fileID: 50198104}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &155916879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3313,6 +3304,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6248978853214755003, guid: 50c6a4e81899f49bfb15e62e8fd34486, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50c6a4e81899f49bfb15e62e8fd34486, type: 3}
 --- !u!1 &487588486 stripped
@@ -3714,9 +3709,6 @@ MonoBehaviour:
   - {fileID: 146023358}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &566960469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6945504317116697498, guid: ffd14ca847d6fa64d8e2c43230109ce7, type: 3}
@@ -3773,9 +3765,6 @@ MonoBehaviour:
   - {fileID: 852683026}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &582134992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4278,9 +4267,6 @@ MonoBehaviour:
   - {fileID: 1818101071}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &655454916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5335,11 +5321,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3399509172494550024, guid: 00fa56dfb35d88c44b9e6852efb6da84, type: 3}
   m_PrefabInstance: {fileID: 733535402}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &743876842 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 137998977589943456, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-  m_PrefabInstance: {fileID: 1559306301}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &749977449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5777,7 +5758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5275032244877727386, guid: 16dd6162e6a4c46719e229e5026957de, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5275032244877727386, guid: 16dd6162e6a4c46719e229e5026957de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5925,9 +5906,6 @@ MonoBehaviour:
   - {fileID: 2123055843}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &854755537
 GameObject:
   m_ObjectHideFlags: 0
@@ -6301,9 +6279,6 @@ MonoBehaviour:
   - {fileID: 1430431087}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &894869644
 Transform:
   m_ObjectHideFlags: 0
@@ -9033,7 +9008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3338159552365263245, guid: a1a5ba2ac8ce140a397701f4fe29dd82, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3338159552365263245, guid: a1a5ba2ac8ce140a397701f4fe29dd82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9201,7 +9176,7 @@ Transform:
   - {fileID: 1851650153}
   - {fileID: 443776946}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1280970661
 GameObject:
@@ -10341,9 +10316,6 @@ MonoBehaviour:
   neighbors: []
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &1430431088
 Transform:
   m_ObjectHideFlags: 0
@@ -10523,65 +10495,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 28.3, y: -153.6, z: 5.08}
---- !u!1001 &1438345192
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 137998977589943456, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_Name
-      value: Drone (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.864311
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.3763294
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 109.48003
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
 --- !u!1001 &1451587924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11317,67 +11232,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3076939919819740743, guid: 23507b8abe305804bb50bea9c884c077, type: 3}
   m_PrefabInstance: {fileID: 1529897828}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1559306301
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 137998977589943456, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_Name
-      value: Drone
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 109.76846
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 824122396156031596, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
-      propertyPath: colliderHolder
-      value: 
-      objectReference: {fileID: 743876842}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
 --- !u!1 &1564113113
 GameObject:
   m_ObjectHideFlags: 0
@@ -11719,9 +11573,6 @@ MonoBehaviour:
   - {fileID: 571242689}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &1601716043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11747,63 +11598,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 44.84
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 36.845
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16.525
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 63.69
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 23.05
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 94.83
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -33.945
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 179.66
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 11.79
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_Name
       value: TooltipCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918569, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: tooltip
@@ -11839,7 +11694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918574, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918574, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12356,7 +12211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4747961291031186062, guid: f6484da4d933a5f4b8f8cedfbc1ef093, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4747961291031186062, guid: f6484da4d933a5f4b8f8cedfbc1ef093, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12415,7 +12270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.14284
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12768,9 +12623,6 @@ MonoBehaviour:
   - {fileID: 50198104}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &1824352518
 GameObject:
   m_ObjectHideFlags: 0
@@ -12866,7 +12718,7 @@ RectTransform:
   - {fileID: 1399284100}
   - {fileID: 854755538}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14355,7 +14207,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2048681312 stripped
 GameObject:
@@ -15325,9 +15177,6 @@ MonoBehaviour:
   - {fileID: 1430431087}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &2126260211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22475,9 +22324,6 @@ MonoBehaviour:
   - {fileID: 655146987}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 919132148337084387}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &7148848230089917619
 Transform:
   m_ObjectHideFlags: 0

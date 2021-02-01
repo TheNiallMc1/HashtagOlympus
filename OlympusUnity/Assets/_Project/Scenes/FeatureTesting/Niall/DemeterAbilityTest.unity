@@ -414,9 +414,6 @@ MonoBehaviour:
   - {fileID: 894869643}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!114 &65225092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,9 +757,6 @@ MonoBehaviour:
   - {fileID: 146023358}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &95890686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -897,7 +891,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113135898 stripped
 GameObject:
@@ -991,7 +985,7 @@ Transform:
   - {fileID: 477586035}
   - {fileID: 543450651721858590}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &145444393
 PrefabInstance:
@@ -1126,9 +1120,6 @@ MonoBehaviour:
   - {fileID: 50198104}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &155916879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2233,6 +2224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2894034946158066157, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1161.4363
@@ -2251,59 +2246,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 44.84
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 36.845
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16.525
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 63.69
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 23.05
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 94.83
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -33.945
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 179.66
       objectReference: {fileID: 0}
     - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 11.79
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_Name
@@ -2343,7 +2338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918574, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918574, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3882,9 +3877,6 @@ MonoBehaviour:
   - {fileID: 146023358}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &571242687
 GameObject:
   m_ObjectHideFlags: 0
@@ -3936,9 +3928,6 @@ MonoBehaviour:
   - {fileID: 852683026}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &582134992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4441,9 +4430,6 @@ MonoBehaviour:
   - {fileID: 1818101071}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &655454916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5862,7 +5848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5275032244877727386, guid: 16dd6162e6a4c46719e229e5026957de, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5275032244877727386, guid: 16dd6162e6a4c46719e229e5026957de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6010,9 +5996,6 @@ MonoBehaviour:
   - {fileID: 2123055843}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &856368705
 GameObject:
   m_ObjectHideFlags: 0
@@ -6094,7 +6077,7 @@ Transform:
   m_Children:
   - {fileID: 280383814}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &877953368
 MonoBehaviour:
@@ -6400,9 +6383,6 @@ MonoBehaviour:
   - {fileID: 1430431087}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &894869644
 Transform:
   m_ObjectHideFlags: 0
@@ -9542,7 +9522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3338159552365263245, guid: a1a5ba2ac8ce140a397701f4fe29dd82, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3338159552365263245, guid: a1a5ba2ac8ce140a397701f4fe29dd82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9705,7 +9685,7 @@ Transform:
   - {fileID: 1851650153}
   - {fileID: 443776946}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1280970661
 GameObject:
@@ -10256,7 +10236,7 @@ Transform:
   m_LocalScale: {x: 4.2593, y: 4.2593, z: 4.2593}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1327548389
 PrefabInstance:
@@ -10961,9 +10941,6 @@ MonoBehaviour:
   neighbors: []
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &1430431088
 Transform:
   m_ObjectHideFlags: 0
@@ -11143,7 +11120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 28.3, y: -153.6, z: 5.08}
 --- !u!1001 &1438345192
 PrefabInstance:
@@ -11190,7 +11167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12280,7 +12257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12641,9 +12618,6 @@ MonoBehaviour:
   - {fileID: 571242689}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &1604610514
 GameObject:
   m_ObjectHideFlags: 0
@@ -13078,7 +13052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4747961291031186062, guid: f6484da4d933a5f4b8f8cedfbc1ef093, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4747961291031186062, guid: f6484da4d933a5f4b8f8cedfbc1ef093, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13160,7 +13134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13489,9 +13463,6 @@ MonoBehaviour:
   - {fileID: 50198104}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1 &1824352518
 GameObject:
   m_ObjectHideFlags: 0
@@ -13589,7 +13560,7 @@ RectTransform:
   - {fileID: 1089288234}
   - {fileID: 1492980727}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15067,7 +15038,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2048681312 stripped
 GameObject:
@@ -15723,63 +15694,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &2113381349
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7196217159133631158, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_Name
-      value: God_Ares
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -36.036278
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.9135313
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 114.97062
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196217159133631165, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d6581d61fb6c62046a649c67bc18c797, type: 3}
 --- !u!1 &2115097364 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9009671359464163059, guid: 9043757f1d2418e458f0dc266140f4e4, type: 3}
@@ -15949,9 +15863,6 @@ MonoBehaviour:
   - {fileID: 1430431087}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 0}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!1001 &2126260211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23276,9 +23187,6 @@ MonoBehaviour:
   - {fileID: 655146987}
   touristsNearby: []
   godsNearby: []
-  monument: {fileID: 919132148337084387}
-  finalLocation: {x: 0, y: 0, z: 0}
-  distanceToFinal: {x: 0, y: 0, z: 0}
 --- !u!4 &7148848230089917619
 Transform:
   m_ObjectHideFlags: 0
