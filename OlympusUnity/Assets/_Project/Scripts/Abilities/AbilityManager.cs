@@ -57,7 +57,11 @@ public class AbilityManager : MonoBehaviour
         thisGod = ability.thisGod;
         anim = GetComponentInChildren<Animator>();
 
-        cooldownText.text = ability.abilityName;
+        if (cooldownText != null)
+        {
+            cooldownText.text = ability.abilityName;   
+        }
+        
     }
 
     private void Update()
@@ -87,16 +91,18 @@ public class AbilityManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (ability.remainingCooldownTime < ability.abilityCooldown && ability.remainingCooldownTime > 0)
+        if (cooldownText != null)
         {
-            cooldownText.text = ability.remainingCooldownTime.ToString(); 
-        }
+            if (ability.remainingCooldownTime < ability.abilityCooldown && ability.remainingCooldownTime > 0)
+            {
+                cooldownText.text = ability.remainingCooldownTime.ToString(); 
+            }
         
-        else
-        {
-            cooldownText.text = ability.abilityName; 
+            else
+            {
+                cooldownText.text = ability.abilityName; 
+            }
         }
-        
     }
 
     public void EnterTargetSelectMode()
