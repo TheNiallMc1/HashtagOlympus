@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using _Project.Scripts.AI.AiControllers;
+﻿using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HangoverStatus", menuName = "Status Effect/Hangover", order = 1)]

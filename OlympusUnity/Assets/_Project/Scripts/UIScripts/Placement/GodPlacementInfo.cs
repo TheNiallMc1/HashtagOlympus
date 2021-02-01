@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GodPlacementInfo : MonoBehaviour
 {
-    private static GodPlacementInfo _instance = null; 
+    private static GodPlacementInfo _instance; 
     public static GodPlacementInfo Instance { get { return _instance; } } 
 
     public int currentGodIndex;
@@ -18,16 +18,16 @@ public class GodPlacementInfo : MonoBehaviour
     public Vector3 god3Location;
 
     public List<GameObject> allGodsList;
-    
-    void OnDestroy()
+
+    private void OnDestroy()
     {
         if (_instance == this)
         {
             _instance = null; 
         }
     }
-    
-    void Awake()
+
+    private void Awake()
     {
         if (_instance == null)
         {
@@ -42,7 +42,7 @@ public class GodPlacementInfo : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         allGodsList = new List<GameObject>();
     }

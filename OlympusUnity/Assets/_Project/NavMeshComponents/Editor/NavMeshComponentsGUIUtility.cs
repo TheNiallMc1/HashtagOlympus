@@ -142,12 +142,12 @@ namespace UnityEditor.AI
             return child;
         }
 
-        static bool IsAll(SerializedProperty agentMask)
+        private static bool IsAll(SerializedProperty agentMask)
         {
             return agentMask.arraySize == 1 && agentMask.GetArrayElementAtIndex(0).intValue == -1;
         }
 
-        static void ToggleAgentMaskItem(object userData)
+        private static void ToggleAgentMaskItem(object userData)
         {
             var args = (object[])userData;
             var agentMask = (SerializedProperty)args[0];
@@ -157,7 +157,7 @@ namespace UnityEditor.AI
             ToggleAgentMaskItem(agentMask, agentTypeID, value);
         }
 
-        static void ToggleAgentMaskItem(SerializedProperty agentMask, int agentTypeID, bool value)
+        private static void ToggleAgentMaskItem(SerializedProperty agentMask, int agentTypeID, bool value)
         {
             if (agentMask.hasMultipleDifferentValues)
             {
@@ -200,14 +200,14 @@ namespace UnityEditor.AI
             agentMask.serializedObject.ApplyModifiedProperties();
         }
 
-        static void SetAgentMaskNone(object data)
+        private static void SetAgentMaskNone(object data)
         {
             var agentMask = (SerializedProperty)data;
             agentMask.ClearArray();
             agentMask.serializedObject.ApplyModifiedProperties();
         }
 
-        static void SetAgentMaskAll(object data)
+        private static void SetAgentMaskAll(object data)
         {
             var agentMask = (SerializedProperty)data;
             agentMask.ClearArray();
@@ -216,7 +216,7 @@ namespace UnityEditor.AI
             agentMask.serializedObject.ApplyModifiedProperties();
         }
 
-        static string GetAgentMaskLabelName(SerializedProperty agentMask)
+        private static string GetAgentMaskLabelName(SerializedProperty agentMask)
         {
             if (agentMask.arraySize == 0)
                 return "None";
@@ -244,7 +244,7 @@ namespace UnityEditor.AI
             return "Mixed...";
         }
 
-        static bool AgentMaskHasSelectedAgentTypeID(SerializedProperty agentMask, int agentTypeID)
+        private static bool AgentMaskHasSelectedAgentTypeID(SerializedProperty agentMask, int agentTypeID)
         {
             for (var j = 0; j < agentMask.arraySize; j++)
             {

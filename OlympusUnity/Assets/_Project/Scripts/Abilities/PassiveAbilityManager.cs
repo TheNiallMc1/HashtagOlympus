@@ -12,7 +12,6 @@ public class PassiveAbilityManager : MonoBehaviour
     
     [Header("Ability Info")]
     public PassiveAbility ability;
-    private Coroutine tickCoroutine;
     
     private List<Combatant> targets = new List<Combatant>();
     
@@ -32,22 +31,23 @@ public class PassiveAbilityManager : MonoBehaviour
 
     public void Initialise()
     {
-        tickCoroutine = StartCoroutine(TickEffectCoroutine());
+        StartCoroutine(TickEffectCoroutine());
     }
 
     public void RemovePassiveAbility()
     {
         StopAllCoroutines();
-        tickCoroutine = null;
         this.enabled = false;
     }
 
-    void FindTargets()
+    private void FindTargets()
     {
         Vector3 centre = ability.thisCombatant.colliderHolder.transform.position;
         
-        Collider[] colliders = Physics.OverlapSphere(centre, ability.effectRadius);
-        
+        Collider[] colliders = new Collider[20];
+        int arraySize = Physics.OverlapSphereNonAlloc(centre, ability.effectRadius, colliders);
+
+        int i = 0;
         foreach (Collider targetCollider in colliders)
         {
             Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
@@ -56,6 +56,12 @@ public class PassiveAbilityManager : MonoBehaviour
             {
                 targets.Add(currentTarget);
                 ability.targets = targets;
+            }
+            
+            i++;
+            if (i > arraySize)
+            {
+                break;
             }
         }
     }
@@ -76,12 +82,13 @@ public class PassiveAbilityManager : MonoBehaviour
     }
     
     // Every x seconds, generate targets and activate the ability effect 
-    private IEnumerator TickEffectCoroutine()
+    // ReSharper disable once FunctionRecursiveOnAllPaths
+    public IEnumerator TickEffectCoroutine()
     {
         yield return new WaitForSecondsRealtime(ability.tickInterval);
         FindTargets();
         ability.AbilityEffect();
-        tickCoroutine = StartCoroutine(TickEffectCoroutine());
+        StartCoroutine(TickEffectCoroutine());
     }
     
     private void OnDrawGizmos()

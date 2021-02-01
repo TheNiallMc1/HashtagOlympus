@@ -30,7 +30,7 @@ public class Combatant : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public int attackDamage;
-    [Range(0, 100)] public int damageReduction = 0;
+    [Range(0, 100)] public int damageReduction;
 
     public void Start()
     {
@@ -93,6 +93,7 @@ public class Combatant : MonoBehaviour
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
+            // ReSharper disable once UnusedVariable
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {
                 activeStatusEffects.Remove(status);

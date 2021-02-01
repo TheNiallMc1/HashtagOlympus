@@ -2,11 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.AnimatedValues;
-using System;
-using System.Xml;
-using System.Xml.Linq;
-using System.Linq;
-using System.IO;
 
 namespace CinemaSuite
 {

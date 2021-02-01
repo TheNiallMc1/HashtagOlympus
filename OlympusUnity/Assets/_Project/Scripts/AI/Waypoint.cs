@@ -12,12 +12,6 @@ public class Waypoint : MonoBehaviour
 	public List<Combatant>					touristsNearby;
 	public List<Combatant>				    godsNearby;
 
-	public GameObject						monument;
-
-
-	[SerializeField] private Vector3		finalLocation;
-	public Vector3							distanceToFinal;
-
 	public enum EState						{ God, Tourist}
 
 	private EState _currentState = EState.God;
@@ -31,7 +25,6 @@ public class Waypoint : MonoBehaviour
 
 	private void Awake()
 	{
-		distanceToFinal = transform.position;
 		var rends = GetComponentsInChildren<Renderer>();
 		foreach (var rend in rends)
 		{

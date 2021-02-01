@@ -2,22 +2,15 @@
 
 public class RespectBuff : MonoBehaviour
 {
-    //private bool _isTimedOut = false;
-
-    public void Awake()
-    {
-      //  _isTimedOut = false;
-    }
-    
-    public void ApplyBuff(Combatant currentGod, int costToUse, ref int statToBuff, int buffAmount)
+    public void ApplyBuff(Combatant currentGod, int costToUse, ref int statToBuff)
     {
         
         //_isTimedOut = false;
         // need to add a cool down to APPLYING this buff/any buff to prevent spamming
 
         
-            Debug.Log("buffing");
-            statToBuff += 10;
+        Debug.Log("buffing");
+        statToBuff += 10;
             GameManager.Instance.RemoveRespect(costToUse);
     }
     

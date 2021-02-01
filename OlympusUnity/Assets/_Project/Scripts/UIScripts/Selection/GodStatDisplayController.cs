@@ -31,12 +31,6 @@ public class GodStatDisplayController : MonoBehaviour
             origGodUltimate = gUltText.text;
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
         public void UpdateGodStatInfo(ModelBehaviour currentModel)
         {
             Debug.Log("updating stats");

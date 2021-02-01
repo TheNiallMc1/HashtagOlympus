@@ -6,10 +6,9 @@ public class StatusEffectManager : MonoBehaviour
 {
     public StatusEffect originalStatus;
     public StatusEffect instancedStatus;
-    public float remainingDuration;
     
-    private Coroutine tickCoroutine = null;
-    private Coroutine durationCoroutine = null;
+    private Coroutine tickCoroutine;
+    private Coroutine durationCoroutine;
     
     [HideInInspector]
     public Combatant thisCombatant;
@@ -45,7 +44,7 @@ public class StatusEffectManager : MonoBehaviour
         
     }
 
-    public void EndStatus()
+    private void EndStatus()
     {
         if (durationCoroutine != null)
         {

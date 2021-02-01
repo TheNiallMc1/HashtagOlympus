@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ModelBehaviour : MonoBehaviour
 {
-
     public int currentPosition;
     private Transform objectToShow;
 
@@ -15,13 +14,7 @@ public class ModelBehaviour : MonoBehaviour
     public string godAbility1;
     public string godAbility2;
     public string godUltimate;
-    public bool isSelected = false;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool isSelected;
 
     public void SetInitialPosition(int pos)
     {

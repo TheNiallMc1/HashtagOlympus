@@ -97,8 +97,8 @@ public class CharacterDock : MonoBehaviour
             abilityTooltips[4].content = tooltipInfo.allTooltips[9];
         }
     }
-    
-    void ShowReviveButton()
+
+    private void ShowReviveButton()
     {
         abilityButtons.gameObject.SetActive(false);
         reviveButton.gameObject.SetActive(true);
@@ -115,11 +115,11 @@ public class CharacterDock : MonoBehaviour
 
     public void StrengthBuff()
     {
-        respectBuff.ApplyBuff(godCombatant, 30, ref godCombatant.attackDamage, 10);
+        respectBuff.ApplyBuff(godCombatant, 30, ref godCombatant.attackDamage);
         StartCoroutine(StrengthBuffCoolDown());
     }
-    
-    IEnumerator StrengthBuffCoolDown()
+
+    private IEnumerator StrengthBuffCoolDown()
     {
         yield return new WaitForSeconds(2f);
         respectBuff.RemoveBuff(godCombatant, 0, ref godCombatant.attackDamage, 10);

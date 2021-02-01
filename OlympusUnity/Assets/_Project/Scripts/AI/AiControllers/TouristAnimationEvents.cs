@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 namespace _Project.Scripts.AI.AiControllers
 {
@@ -7,7 +6,6 @@ namespace _Project.Scripts.AI.AiControllers
     {
         private Combatant _touristCombatant;
         private AIBrain _aIBrain;
-        private NavMeshAgent _navMeshAgent;
 
         [SerializeField] private GameObject handheldObject;
         [SerializeField] private GameObject particleEffect;
@@ -17,7 +15,6 @@ namespace _Project.Scripts.AI.AiControllers
         {
             _touristCombatant = GetComponentInParent<Combatant>();
             _aIBrain = GetComponentInParent<AIBrain>();
-            _navMeshAgent = GetComponentInParent<AIMovement>().nav;
         }
 
     

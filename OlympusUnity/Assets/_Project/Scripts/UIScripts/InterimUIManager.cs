@@ -14,10 +14,7 @@ public class InterimUIManager : MonoBehaviour
  
             return instance;
         }
-        set
-        {
-            instance = value;
-        }
+        set => instance = value;
     }
     private static InterimUIManager instance;
     #endregion
@@ -26,9 +23,6 @@ public class InterimUIManager : MonoBehaviour
     private Dictionary<int, GodBehaviour> allGods;
     public GameObject[] characterDocks;
     public GameObject[] switchButtons;
-
-    public GodBehaviour currentGod;
-    public RespectBuff respectBuff;
 
     private void Start()
     {
@@ -61,7 +55,7 @@ public class InterimUIManager : MonoBehaviour
             Debug.Log("Key + Value: "+ kvp.Key +", "+ kvp.Value.godName);
 
 
-       // for (int i = 0; i <characterDocks.Length; i++)
+        // for (int i = 0; i <characterDocks.Length; i++)
         //{
         //    characterDocks[i].GetComponent<CharacterDock>().DockSetUp(activeGods[i]);
        //     Debug.Log("sending: "+activeGods[i].godName);

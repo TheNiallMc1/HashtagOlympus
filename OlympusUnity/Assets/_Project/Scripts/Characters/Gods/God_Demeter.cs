@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class God_Demeter : GodBehaviour
+public sealed class God_Demeter : GodBehaviour
 {
     [Header("Demeter General")] 
     public DemeterForm currentForm;
@@ -9,12 +9,10 @@ public class God_Demeter : GodBehaviour
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
-    public DemeterSummerAnimations summerAnimationsScript;
     public List<AbilityManager> summerAbilities;
 
     [Header("Winter Demeter")] 
     public GameObject winterModel;
-    public DemeterWinterAnimations winterAnimationsScript;
     public List<AbilityManager> winterAbilities;
     public PassiveAbilityManager winterPassive;
     
@@ -28,9 +26,6 @@ public class God_Demeter : GodBehaviour
         base.Start();
         SwitchToSummer();
 
-        summerAnimationsScript = GetComponentInChildren<DemeterSummerAnimations>();
-        winterAnimationsScript = GetComponentInChildren<DemeterWinterAnimations>();
-
         summerAbilities[0].abilityStateName = "Demeter_S_Ability01";
         summerAbilities[1].abilityStateName = "Demeter_S_Ability02";
 
@@ -40,9 +35,9 @@ public class God_Demeter : GodBehaviour
         
         ultimateStartAnimTrigger = "Ultimate";
     }
-    
-    
-    void SwitchForms()
+
+
+    private void SwitchForms()
     {
         switch (currentForm)
         {
@@ -56,7 +51,7 @@ public class God_Demeter : GodBehaviour
         }
     }
 
-    void SwitchToWinter()
+    private void SwitchToWinter()
     {
         currentForm = DemeterForm.Winter;
             
@@ -96,7 +91,7 @@ public class God_Demeter : GodBehaviour
         winterPassive.Initialise();
     }
 
-    void SwitchToSummer()
+    private void SwitchToSummer()
     {
         currentForm = DemeterForm.Summer;
             
@@ -156,7 +151,7 @@ public class God_Demeter : GodBehaviour
             
             SwitchForms();
             
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            StartCoroutine(UltimateDurationCoroutine());
         }
     }
 }

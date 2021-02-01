@@ -9,7 +9,7 @@ public class LineDrawer : MonoBehaviour
     public int clickCount;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _lineR = GetComponent<LineRenderer>();
         _lineR.positionCount = 2;
@@ -24,8 +24,8 @@ public class LineDrawer : MonoBehaviour
         playerControls.Movement.LeftMouseClick.performed += context => SetMousePos();
     
     }
-    
-    void SetMousePos()
+
+    private void SetMousePos()
     {
         //clickCount++;
 

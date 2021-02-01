@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConeAoE : MonoBehaviour
 {
-    List<Combatant> combatantsInCone = new List<Combatant>();
+    private List<Combatant> combatantsInCone = new List<Combatant>();
     public List<Combatant> targetsInCone = new List<Combatant>();
 
     // HashSet<Combatant> combatantsInCone = new HashSet<Combatant>();
@@ -33,7 +33,7 @@ public class ConeAoE : MonoBehaviour
     // }
 
     // Start is called before the first frame update 
-    void Start()
+    private void Start()
     {
         transform.rotation = Quaternion.Euler(90f, 0, 0);
         StartCoroutine(GetTargetsRoutine());
@@ -128,7 +128,7 @@ public class ConeAoE : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator DestroyCone()
+    private IEnumerator DestroyCone()
     {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(lifeTime);

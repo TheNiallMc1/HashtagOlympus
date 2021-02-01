@@ -10,7 +10,7 @@ public class PauseMapButton : MonoBehaviour
     public Canvas playModeUI;
     public Canvas pauseModeUI;
 
-    void Start()
+    private void Start()
     {
         mainCam = Camera.main;
     }

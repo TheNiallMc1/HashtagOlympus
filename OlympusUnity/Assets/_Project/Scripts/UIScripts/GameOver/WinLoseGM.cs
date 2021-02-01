@@ -11,8 +11,6 @@ public class WinLoseGM : MonoBehaviour
     public Text respectTotalText;
     public Text xpTotalText;
 
-    public Button continueButton;
-
     private int respectValue;
     private int xpValue;
 
@@ -25,11 +23,11 @@ public class WinLoseGM : MonoBehaviour
     private GameOverData _gameOverData;
     private bool scoreTransition;
     public int animationTime = 1;
-    private bool lastFrame = false;
-    
-    void Start()
+    private bool lastFrame;
+
+    private void Start()
     {
-        _gameOverData = GameObject.FindObjectOfType<GameOverData>();
+        _gameOverData = FindObjectOfType<GameOverData>();
         scoreTransition = false;
         respectOrigText = respectTotalText.text;
         xpOrigText = xpTotalText.text;
@@ -46,18 +44,16 @@ public class WinLoseGM : MonoBehaviour
             winLoseText.text = "DEFEATED";
         }
 
-        respectTotalText.text = respectOrigText + respectDisplayed.ToString();
-        xpTotalText.text = xpOrigText + xpDisplayed.ToString();
+        respectTotalText.text = respectOrigText + respectDisplayed;
+        xpTotalText.text = xpOrigText + xpDisplayed;
 
         StartCoroutine(PauseBeforeAnim());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        var display = (int)xpDisplayed;
-        xpTotalText.text = xpOrigText + ((int)xpDisplayed).ToString();
-        respectTotalText.text = respectOrigText + ((int)respectDisplayed).ToString();
+        xpTotalText.text = xpOrigText + ((int)xpDisplayed);
+        respectTotalText.text = respectOrigText + ((int)respectDisplayed);
         Debug.Log("xpDisplayed value: "+(int)xpDisplayed);
         if (scoreTransition && !lastFrame)
         {Debug.Log("Animating");

@@ -1,6 +1,5 @@
 ﻿using _Project.Scripts.AI.AiControllers;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Nerd : AIBrain
 {

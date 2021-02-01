@@ -25,7 +25,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
-using UnityEngine.VR;
 
 namespace cakeslice
 {
@@ -77,12 +76,13 @@ namespace cakeslice
 
 		[HideInInspector]
 		public Camera outlineCamera;
-		Material outline1Material;
-		Material outline2Material;
-		Material outline3Material;
-		Material outlineEraseMaterial;
-		Shader outlineShader;
-		Shader outlineBufferShader;
+
+		private Material outline1Material;
+		private Material outline2Material;
+		private Material outline3Material;
+		private Material outlineEraseMaterial;
+		private Shader outlineShader;
+		private Shader outlineBufferShader;
 		[HideInInspector]
 		public Material outlineShaderMaterial;
 		[HideInInspector]
@@ -90,9 +90,9 @@ namespace cakeslice
 		[HideInInspector]
 		public RenderTexture extraRenderTexture;
 
-		CommandBuffer commandBuffer;
+		private CommandBuffer commandBuffer;
 
-		Material GetMaterialFromID(int ID)
+		private Material GetMaterialFromID(int ID)
 		{
 			if (ID == 0)
 				return outline1Material;
@@ -103,8 +103,10 @@ namespace cakeslice
 			else
 				return outline1Material;
 		}
-		List<Material> materialBuffer = new List<Material>();
-		Material CreateMaterial(Color emissionColor)
+
+		private List<Material> materialBuffer = new List<Material>();
+
+		private Material CreateMaterial(Color emissionColor)
 		{
 			Material m = new Material(outlineBufferShader);
 			m.SetColor("_Color", emissionColor);
@@ -129,7 +131,7 @@ namespace cakeslice
 			Instance = this;
 		}
 
-		void Start()
+		private void Start()
 		{
 			CreateMaterialsIfNeeded();
 			UpdateMaterialsPublicProperties();
@@ -176,7 +178,7 @@ namespace cakeslice
 			outlineCamera.AddCommandBuffer(CameraEvent.BeforeImageEffects, commandBuffer);
 		}
 
-		bool RenderTheNextFrame;
+		private bool RenderTheNextFrame;
 		public void OnPreRender()
 		{
 			if (commandBuffer == null)
@@ -313,7 +315,7 @@ namespace cakeslice
 			}
 		}
 
-		void OnDestroy()
+		private void OnDestroy()
 		{
 			if (renderTexture != null)
 				renderTexture.Release();
@@ -323,7 +325,7 @@ namespace cakeslice
 		}
 
 		[ImageEffectOpaque]
-		void OnRenderImage(RenderTexture source, RenderTexture destination)
+		private void OnRenderImage(RenderTexture source, RenderTexture destination)
 		{
 			if (outlineShaderMaterial != null)
 			{
@@ -443,7 +445,7 @@ namespace cakeslice
 			}
 		}
 
-		void UpdateOutlineCameraFromSource()
+		private void UpdateOutlineCameraFromSource()
 		{
 			outlineCamera.CopyFrom(sourceCamera);
 			outlineCamera.renderingPath = RenderingPath.Forward;

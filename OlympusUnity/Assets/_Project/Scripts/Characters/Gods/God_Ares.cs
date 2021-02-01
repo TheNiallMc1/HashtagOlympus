@@ -56,7 +56,7 @@ public class God_Ares : GodBehaviour
             attackAnimationIsPlaying = false;
             animator.Play(ultimateStartAnimTrigger);
             
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine()); 
+            StartCoroutine(UltimateDurationCoroutine()); 
         }
         
         if (ultimateCharge >= 100)
@@ -68,11 +68,11 @@ public class God_Ares : GodBehaviour
             attackAnimationIsPlaying = false;
             animator.Play(ultimateStartAnimTrigger);
             
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            StartCoroutine(UltimateDurationCoroutine());
         }
     }
     
-    public override void UltimateExitEffects()
+    public virtual void UltimateExitEffects()
     {
         thisCombatant.RemoveStatus(lastActivatedRageType);
         rageParticleEffects.SetActive(false);

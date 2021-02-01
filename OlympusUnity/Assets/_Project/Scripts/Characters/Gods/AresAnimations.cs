@@ -2,15 +2,15 @@
 
 public class AresAnimations : MonoBehaviour
 {
-    GodBehaviour godBehaviour;
-    Combatant godCombatant;
-    
-    AbilityManager[] abilities = new AbilityManager[2];
+    private GodBehaviour godBehaviour;
+    private Combatant godCombatant;
+
+    private AbilityManager[] abilities = new AbilityManager[2];
 
     public GameObject ultimateParticleEffects;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         godBehaviour = GetComponentInParent<GodBehaviour>();
         godCombatant = GetComponentInParent<Combatant>();

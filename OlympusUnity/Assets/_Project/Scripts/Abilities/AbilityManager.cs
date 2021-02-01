@@ -14,8 +14,8 @@ public class AbilityManager : MonoBehaviour
     [Header("Ability Info")]
     public SpecialAbility ability;
     public List<Combatant> targets = new List<Combatant>();
-    private bool targetSelectModeActive = false;
-    public bool isChanneled = false;
+    private bool targetSelectModeActive;
+    public bool isChanneled;
     public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
@@ -25,20 +25,16 @@ public class AbilityManager : MonoBehaviour
 
     [Header("Player Controls")]
     private PlayerControls playerControls;
-    private bool leftClick;
     private bool rightClick;
-    private Vector2 mousePosition;
     
     [Header("Components")]
     private Combatant thisCombatant;
     private GodBehaviour thisGod;
     private Camera mainCam;
     public Animator anim;
-    ConeAoE coneAoE;
+    private ConeAoE coneAoE;
 
-    [Header("Cooldown Info")]
-    private Coroutine cooldownCoroutine;
-    private bool onCooldown = false;
+    private bool onCooldown;
     public TextMeshProUGUI cooldownText;
 
     private void Awake()
@@ -48,16 +44,12 @@ public class AbilityManager : MonoBehaviour
         playerControls = new PlayerControls();
         playerControls.Enable();
 
-        playerControls.Mouse.LeftClick.started += ctx => leftClick = true;
         playerControls.Mouse.RightClick.started += ctx => rightClick = true;
 
-        playerControls.Mouse.MousePos.performed += ctx => mousePosition = ctx.ReadValue<Vector2>();
-
-        playerControls.Mouse.LeftClick.canceled += ctx => leftClick = false;
         playerControls.Mouse.RightClick.canceled += ctx => rightClick = false;
     }
 
-    void Start()
+    private void Start()
     {
         mainCam = Camera.main;
         thisCombatant = GetComponent<Combatant>();
@@ -68,7 +60,7 @@ public class AbilityManager : MonoBehaviour
         cooldownText.text = ability.abilityName;
     }
 
-    void Update()
+    private void Update()
     {
         if (targetSelectModeActive)
         {
@@ -125,7 +117,7 @@ public class AbilityManager : MonoBehaviour
     }
 
     // After target select mode
-    void StartAbility()
+    private void StartAbility()
     {
         targetSelectModeActive = false;
 
@@ -143,37 +135,37 @@ public class AbilityManager : MonoBehaviour
     {
         onCooldown = true;
         ability.remainingCooldownTime = ability.abilityCooldown;
-        cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+        StartCoroutine(CooldownCoroutine());
     }
 
-    void StartChannelling()
-    {
-        targetSelectModeActive = false;
-        
-        ability.targets = targets;
-        
-        // Trigger animation
-        
-        ability.StartAbility(); // CALLED BY ANIMATION EVENT
-        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-        
-        onCooldown = true;
-        ability.remainingCooldownTime = ability.abilityCooldown;
-        cooldownCoroutine = StartCoroutine(CooldownCoroutine());
-    }
+    // void StartChannelling()
+    // {
+    //     targetSelectModeActive = false;
+    //     
+    //     ability.targets = targets;
+    //     
+    //     // Trigger animation
+    //     
+    //     ability.StartAbility(); // CALLED BY ANIMATION EVENT
+    //     // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
+    //     
+    //     onCooldown = true;
+    //     ability.remainingCooldownTime = ability.abilityCooldown;
+    //     cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+    // }
 
-    IEnumerator ChannelTargetSelectCoroutine()
-    {
-        // Check targets on a cycle to keep list updated
-        targets = coneAoE.targetsInCone;
-        yield return null;
-    }
-    
-    IEnumerator CooldownCoroutine()
+    // IEnumerator ChannelTargetSelectCoroutine()
+    // {
+    //     // Check targets on a cycle to keep list updated
+    //     targets = coneAoE.targetsInCone;
+    //     yield return null;
+    // }
+
+    private IEnumerator CooldownCoroutine()
     {
         if (this.isActiveAndEnabled)
         {
-            cooldownText.text = ability.remainingCooldownTime.ToString();;
+            cooldownText.text = ability.remainingCooldownTime.ToString();
         }
         
         yield return new WaitForSecondsRealtime(1f);
@@ -181,7 +173,7 @@ public class AbilityManager : MonoBehaviour
         
         if (this.isActiveAndEnabled)
         {
-            cooldownText.text = ability.remainingCooldownTime.ToString();;
+            cooldownText.text = ability.remainingCooldownTime.ToString();
         }
         
 
@@ -189,8 +181,7 @@ public class AbilityManager : MonoBehaviour
         {
             ability.remainingCooldownTime = 0;
             onCooldown = false;
-            cooldownCoroutine = null;
-            
+
             if (this.isActiveAndEnabled)
             {
                 cooldownText.text = ability.abilityName;
@@ -200,28 +191,22 @@ public class AbilityManager : MonoBehaviour
         
         else
         {
-            cooldownCoroutine = StartCoroutine(CooldownCoroutine());
+            StartCoroutine(CooldownCoroutine());
         }
-    }
-
-    IEnumerator TickEffectCoroutine()
-    {
-        yield return null;
     }
 
 
     #region Target Selection
-    
-    void SingleTargetSelect()
+
+    private void SingleTargetSelect()
     {
         Combatant currentTarget;
 
         Ray ray = mainCam.ScreenPointToRay(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-        RaycastHit hit;
 
         if (rightClick)
         {
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
                 
@@ -238,20 +223,28 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    // POLISH - Allow flexibility to place the centre in the case of Artemis/Zeus
     private void AoECircleSelect()
     {
         Vector3 centre = thisCombatant.colliderHolder.transform.position;
 
-        Collider[] colliders = Physics.OverlapSphere(centre, ability.radius);
+        Collider[] colliders = new Collider[20];
+        int arraySize = Physics.OverlapSphereNonAlloc(centre, ability.radius, colliders);
 
+        int i = 0;
         foreach (Collider targetCollider in colliders)
-        {
+        {            
             Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
 
             if (isTargetValid(currentTarget))
             {
                 targets.Add(currentTarget);
+            }
+
+            i++;
+            
+            if (i > arraySize)
+            {
+                break;
             }
         }
         
