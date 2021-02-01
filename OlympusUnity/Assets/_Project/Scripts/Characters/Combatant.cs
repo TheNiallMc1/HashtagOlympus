@@ -29,6 +29,7 @@ public class Combatant : MonoBehaviour
     public GameObject targetIcon; // Shows when the combatant can be targeted during ability
     public GameObject circleMarker;
     private Vector3 circleStartingSize;
+    public GameObject coneMarker;
     
     [Header("Combat Stats")]
     public int maxHealth;
@@ -39,7 +40,11 @@ public class Combatant : MonoBehaviour
     public void Start()
     {
         currentHealth = maxHealth;
-        circleStartingSize = new Vector3(circleMarker.transform.localScale.x, circleMarker.transform.localScale.y, circleMarker.transform.localScale.z);
+        
+        if (circleMarker != null)
+        {
+            circleStartingSize = new Vector3(circleMarker.transform.localScale.x, circleMarker.transform.localScale.y, circleMarker.transform.localScale.z);
+        }
     }
     
     public void RestoreHealth(int healthRecovered)
@@ -88,6 +93,26 @@ public class Combatant : MonoBehaviour
         
         circleMarker.SetActive(false);
         circleMarker.transform.localScale = circleStartingSize;
+    }
+
+    public void ActivateConeAreaMarker()
+    {
+        if (coneMarker == null)
+        {
+            return;
+        }
+        
+        coneMarker.SetActive(true);
+    }
+    
+    public void DeactivateConeAreaMarker()
+    {
+        if (coneMarker == null)
+        {
+            return;
+        }
+        
+        coneMarker.SetActive(false);
     }
 
     #region Status Effects

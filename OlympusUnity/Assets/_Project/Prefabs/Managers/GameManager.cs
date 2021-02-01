@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case SpecialAbility.eSelectionType.ConeAoE:
-                    // Show cone 
+                    AreaConeSelect();
                     break;
 
                 case SpecialAbility.eSelectionType.Self:
@@ -256,10 +256,17 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        foreach (Combatant target in targetsInRange)
-        {
-            target.ActivateTargetIcon();
-        }
+        currentAbility.targetSelectModeActive = true;
+    }
+
+    private void AreaConeSelect()
+    {
+        combatantUsingAbility.ActivateConeAreaMarker();
+
+        Debug.Log("activated cone area");
+        
+        Time.timeScale = 0.15f;
+        Time.fixedDeltaTime = 0.15f;
 
         currentAbility.targetSelectModeActive = true;
     }

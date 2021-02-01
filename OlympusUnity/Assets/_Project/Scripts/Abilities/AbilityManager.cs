@@ -183,6 +183,11 @@ public class AbilityManager : MonoBehaviour
         {
             thisCombatant.DeactivateCircleAreaMarker();
         }
+
+        if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
+        {
+            thisCombatant.DeactivateConeAreaMarker();
+        }
         
         targetSelectModeActive = false;
         thisGod.currentState = GodState.idle;
@@ -235,29 +240,42 @@ public class AbilityManager : MonoBehaviour
 
     private void AoEConeSelect()
     {
-        if (!ability.coneAlreadyExists)
+        if (rightClick)
         {
-            ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
-            ability.coneAlreadyExists = true;
-
-            coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.colliderHolder.transform);
-            coneAoE.targetTypes = ability.abilityCanHit;
-            coneAoE.lifeTime = ability.coneLifetime;
-        }
-        else
-        {
-            // When cone buffer hits zero, start the ability with the cone's targets
-            ability.coneBuffer -= Time.deltaTime;
-
-            if (ability.coneBuffer <= 0)
+            if (!ability.coneAlreadyExists)
             {
-                ability.coneBuffer = 0;
-                targets = coneAoE.targetsInCone;
+                Debug.Log("Cone already exists");
+                ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
+                ability.coneAlreadyExists = true;
 
-                StartAbility();
-                ability.coneAlreadyExists = false;
+                coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.coneMarker.transform);
+                coneAoE.targetTypes = ability.abilityCanHit;
+                coneAoE.lifeTime = ability.coneLifetime;
+            }
+            else
+            {
+                Debug.Log("Cone does not already exist");
+                // When cone buffer hits zero, start the ability with the cone's targets
+                ability.coneBuffer -= Time.deltaTime;
+
+                if (ability.coneBuffer <= 0)
+                {
+                    ability.coneBuffer = 0;
+                    targets = coneAoE.targetsInCone;
+
+                    StartAbility();
+                    // Call tick method
+                    
+                    ability.coneAlreadyExists = false;
+                }
             }
         }
+
+        if (leftClick)
+        {
+            ExitTargetSelectMode();
+        }
+    
     }
 
     private void SelfSelect()
