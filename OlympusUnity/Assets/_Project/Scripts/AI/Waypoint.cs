@@ -12,18 +12,7 @@ public class Waypoint : MonoBehaviour
 	public List<Combatant>					touristsNearby;
 	public List<Combatant>				    godsNearby;
 
-	public enum EState						{ God, Tourist}
-
-	private EState _currentState = EState.God;
-
-    public EState CurrentState { get => _currentState;
-        set => _currentState = value;
-    }
-	public int Health { get => _health;
-        set => _health = value;
-    }
-
-	private void Awake()
+    private void Awake()
 	{
 		var rends = GetComponentsInChildren<Renderer>();
 		foreach (var rend in rends)

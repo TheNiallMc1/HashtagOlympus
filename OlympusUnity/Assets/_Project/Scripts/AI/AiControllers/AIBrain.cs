@@ -306,9 +306,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void TargetInRange()
         {
-            Transform targetPosition = currentAttackTarget.transform;
-
-            targetPosition = Priority == EPriority.Monument ? wayPoint.transform : currentAttackTarget.transform;
+            var targetPosition = Priority == EPriority.Monument ? wayPoint.transform : currentAttackTarget.transform;
 
             if (!isTargetNotNull) return;
             var position = transform.position;

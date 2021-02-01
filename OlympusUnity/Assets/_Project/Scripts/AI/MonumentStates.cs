@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Combatant))]
 public class MonumentStates : MonoBehaviour
 {
-    [FormerlySerializedAs("_defenders")] [SerializeField]
-    private List<GameObject> defenders;
-    [SerializeField]
-    private GameObject objectToPool;
+    //private List<GameObject> defenders;
+    //[SerializeField]
+    //private GameObject objectToPool;
 
     [SerializeField] private GameObject prefabGodMonument;
     [SerializeField] private GameObject prefabEnemyMonument;
@@ -27,14 +25,13 @@ public class MonumentStates : MonoBehaviour
         prefabEnemyMonument =  transform.GetChild(1).gameObject;
         prefabGodMonument = transform.GetChild(0).gameObject;
         _thisCombatant = GetComponent<Combatant>();
-        defenders = new List<GameObject>();
-        GameObject tmp;
-        for (var i = 0; i < amountToPool; i++)
-        {
-            tmp = Instantiate(objectToPool);
-            tmp.SetActive(false);
-            defenders.Add(tmp);
-        }
+        //defenders = new List<GameObject>();
+        //for (var i = 0; i < amountToPool; i++)
+        //{
+        //    var tmp = Instantiate(objectToPool);
+        //    tmp.SetActive(false);
+        //    defenders.Add(tmp);
+        //}
         PlayerMonument();
     }
 
@@ -60,7 +57,6 @@ public class MonumentStates : MonoBehaviour
         }
         if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
         {
-            int j = _touristStands.Count;
             foreach (var t in _touristStands)
             {
                 

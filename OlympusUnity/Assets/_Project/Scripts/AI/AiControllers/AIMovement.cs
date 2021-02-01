@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.AI.AiControllers
@@ -14,6 +15,8 @@ namespace _Project.Scripts.AI.AiControllers
 
         public List<Waypoint> wayPoints;
         public List<Waypoint> path;
+
+        public GameObject wP;
 
         public Waypoint spawn;
         public Waypoint closestWayPoint;
@@ -37,7 +40,7 @@ namespace _Project.Scripts.AI.AiControllers
             _aiBrain = GetComponent<AIBrain>();
             animator = GetComponentInChildren<Animator>();
             nav = GetComponent<NavMeshAgent>();
-            wayPoints = GameObject.FindGameObjectWithTag("Waypoint").GetComponent<Waypoint>().wayPoints;
+            //wayPoints = wP.GetComponent<Waypoint>().wayPoints;
             spawn = wayPoints[0];
             _isCurrentAttackTargetNull = _aiBrain.currentAttackTarget == null;
             wpNum = 0;
