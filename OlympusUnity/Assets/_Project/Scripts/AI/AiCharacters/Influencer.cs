@@ -12,7 +12,7 @@ public class Influencer : AIBrain
     private List<Transform> touristDrones;
 
     public int waveIndex = 3;
-    [SerializeField] Transform spawnLocation;
+    [SerializeField] private Transform spawnLocation;
 
     private static readonly int Spawn = Animator.StringToHash("SpawnSimps");
     private new readonly List<int> _autoAttackAnimations = new List<int>
@@ -65,7 +65,7 @@ public class Influencer : AIBrain
 
     private int RandomNumber()
     {
-        var randomNumber = UnityEngine.Random.Range(1, 2000);
+        var randomNumber = Random.Range(1, 2000);
         return randomNumber;
     }
 

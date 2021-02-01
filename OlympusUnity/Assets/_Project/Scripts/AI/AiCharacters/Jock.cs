@@ -24,7 +24,7 @@ public class Jock : AIBrain
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(Priority != EPriority.Monument)
         {

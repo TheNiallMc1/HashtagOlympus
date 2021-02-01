@@ -17,10 +17,6 @@ public class GodBehaviour : MonoBehaviour
     public int costToRespawn;
    
     [HideInInspector] public bool isKOed;
-    public bool attackingLocked;
-    [HideInInspector] public bool movementLocked;
-    
-    bool closeToTargetPosition;
 
     [Header("Attacking")]
     public List<Combatant> enemiesSeen;
@@ -33,18 +29,12 @@ public class GodBehaviour : MonoBehaviour
 
     [HideInInspector] public Vector3 lastClickedPosition;
 
-    [Header("Levelling and EXP")]
-    protected int currentLevel;
-    protected int currentExp;
-    protected int expToNextLevel;
-    protected int currentSkillPoints;
-
     [Header("Abilities")]
     public List<AbilityManager> specialAbilities;
 
     [Header("Ultimate")] 
     public string ultimateName;
-    protected Coroutine ultimateGainCoroutine;
+
     public float ultimateGainTickInterval; // How often Ultimate Charge is gained
     public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
@@ -53,11 +43,10 @@ public class GodBehaviour : MonoBehaviour
     protected string ultimateStartAnimTrigger;
     protected string ultimateFinishAnimTrigger;
 
-    protected Coroutine ultimateDecreaseCoroutine;
     public float ultimateDurationTickInterval; // How often Ultimate Charge is lost while Ultimate active
     public int ultimateDecreasePerTick; // How much Ultimate Charge is decreased per tick
 
-    protected NavMeshAgent navMeshAgent;
+    private NavMeshAgent navMeshAgent;
 
     [Header("Detection Colliders")]
     public GameObject mouseDetectorCollider;
@@ -74,6 +63,8 @@ public class GodBehaviour : MonoBehaviour
     private static readonly int AutoAttack02 = Animator.StringToHash("AutoAttack02");
     private static readonly int AutoAttack03 = Animator.StringToHash("AutoAttack03");
     private static readonly int AutoAttack04 = Animator.StringToHash("AutoAttack04");
+    
+    private static readonly int VerticalF = Animator.StringToHash("Vertical_f");
 
     private readonly List<int> autoAttackAnimations = new List<int>
     {
@@ -82,7 +73,9 @@ public class GodBehaviour : MonoBehaviour
         AutoAttack03,
         AutoAttack04
     };
+
     
+
 
     public virtual void Start()
     {
@@ -92,12 +85,12 @@ public class GodBehaviour : MonoBehaviour
         currentState = GodState.idle;
 
         // Initialise collider radius
-        //awarenessRadiusCollider.radius = awarenessRadius;
-        //attackRadiusCollider.radius = attackRadius;
+        awarenessRadiusCollider.radius = awarenessRadius;
+        attackRadiusCollider.radius = attackRadius;
 
         animator = GetComponentInChildren<Animator>();
 
-        ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+    StartCoroutine(GainUltimateChargeCoroutine());
 
     }
 
@@ -106,7 +99,7 @@ public class GodBehaviour : MonoBehaviour
         // Override if needed
     }
 
-    public virtual void OnDeathEvent()
+    public void OnDeathEvent()
     {
         // Call base and override if needed
         SwitchState(GodState.knockedOut);
@@ -115,14 +108,6 @@ public class GodBehaviour : MonoBehaviour
     
     public virtual void FixedUpdate()
     {
-        bool movingToEnemy = currentState == GodState.moveToEnemy;
-        bool movingToArea = currentState == GodState.moveToArea;
-
-        if (movingToArea || movingToEnemy)
-        {
-            closeToTargetPosition = navMeshAgent.remainingDistance < 1f;
-        }
-    
         if ( CanAttack() )
         {
             Attack();
@@ -135,7 +120,7 @@ public class GodBehaviour : MonoBehaviour
 
         float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
 
-        animator.SetFloat("Vertical_f", animSpeed);
+        animator.SetFloat(VerticalF, animSpeed);
     }
 
     public void ToggleSelection(bool isSelected)
@@ -199,7 +184,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
 
-    protected void Attack()
+    private void Attack()
     {        
         SwitchState(GodState.attacking);
         
@@ -298,11 +283,9 @@ public class GodBehaviour : MonoBehaviour
     {
         currentState = GodState.knockedOut;
         isKOed = true;
-        attackingLocked = true;
-        movementLocked = true;
     }
 
-    protected virtual void UsingAbilityState()
+    private void UsingAbilityState()
     {
         // Override in subclass
     }
@@ -335,7 +318,7 @@ public class GodBehaviour : MonoBehaviour
     
     // CHECKS FOR ENTERING STATES \\
 
-    protected bool CanAttack()
+    private bool CanAttack()
     {
         bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
@@ -349,7 +332,7 @@ public class GodBehaviour : MonoBehaviour
         return !knockedOut && !usingUltimate && !usingAbility && eitherListValid; 
     }
 
-    protected bool CanIdle()
+    private bool CanIdle()
     {
         bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
@@ -373,7 +356,6 @@ public class GodBehaviour : MonoBehaviour
 
     public void Revive()
     {
-        Debug.Log("Reviving " + godName);
         SwitchState(GodState.idle);
         thisCombatant.currentHealth = thisCombatant.maxHealth;
         isKOed = false;
@@ -396,24 +378,16 @@ public class GodBehaviour : MonoBehaviour
 
     protected virtual void EndUltimate()
     {
-        Debug.Log("Ending ultimate");
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();
 
         currentState = GodState.idle;
-        
-        ultimateDecreaseCoroutine = null;
-        
-        ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+
+        StartCoroutine(GainUltimateChargeCoroutine());
     }
 
-    public virtual void UltimateExitEffects()
-    {
-        // Override in subclass
-    }
-
-    public virtual IEnumerator GainUltimateChargeCoroutine()
+    private IEnumerator GainUltimateChargeCoroutine()
     {
         // Gain charge every tick
         yield return new WaitForSecondsRealtime(ultimateGainTickInterval);
@@ -423,15 +397,15 @@ public class GodBehaviour : MonoBehaviour
         // If less than 100, keep gaining. If 100 or over, stop.
         if (ultimateCharge < 100)
         {
-            ultimateGainCoroutine = StartCoroutine(GainUltimateChargeCoroutine());
+            StartCoroutine(GainUltimateChargeCoroutine());
         }
         else
         {
             ultimateChargeText.text = ultimateName;
         }
     }
-    
-    public virtual IEnumerator UltimateDurationCoroutine()
+
+    protected IEnumerator UltimateDurationCoroutine()
     {
         yield return new WaitForSecondsRealtime(ultimateDurationTickInterval);
         ultimateCharge -= ultimateDecreasePerTick;
@@ -444,7 +418,7 @@ public class GodBehaviour : MonoBehaviour
         }
         else
         {
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            StartCoroutine(UltimateDurationCoroutine());
         }
     }
 

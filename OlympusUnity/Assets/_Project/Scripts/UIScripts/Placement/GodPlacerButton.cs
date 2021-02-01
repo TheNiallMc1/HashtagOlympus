@@ -10,7 +10,7 @@ public class GodPlacerButton : MonoBehaviour
     private GameObject _godToPlace;
     public GameObject blueprint;
 
-    void Awake ()
+    private void Awake ()
     {
         //_godToPlace = selectedGod;
         _btn = GetComponent<Button>();

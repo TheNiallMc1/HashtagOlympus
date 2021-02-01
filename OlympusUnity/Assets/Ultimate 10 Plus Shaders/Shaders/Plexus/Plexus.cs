@@ -134,12 +134,12 @@ public class Plexus : MonoBehaviour
         return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y) + (p1.z - p2.z) * (p1.z - p2.z);
     }
 
-    Vector3 normal, side, p1, p2;
-    int startingVerticesIndex = 0;
-    List<int> lineTrigs = new List<int>();
-    List<Vector3> lineVerts = new List<Vector3>();
-    Vector3[] verts = new Vector3[4];
-    int[] trigs = new int[6];
+    private Vector3 normal, side, p1, p2;
+    private int startingVerticesIndex = 0;
+    private List<int> lineTrigs = new List<int>();
+    private List<Vector3> lineVerts = new List<Vector3>();
+    private Vector3[] verts = new Vector3[4];
+    private int[] trigs = new int[6];
     private void RenderLines()
     {
         lineMesh = new Mesh();
@@ -190,8 +190,9 @@ public class Plexus : MonoBehaviour
 
     [HideInInspector]
     public bool isEnabled = false;
-    List<KeyValuePair<int, int>> connected = new List<KeyValuePair<int, int>>();
-    HashSet<KeyValuePair<int, int>> connectedHashSet = new HashSet<KeyValuePair<int, int>>();
+
+    private List<KeyValuePair<int, int>> connected = new List<KeyValuePair<int, int>>();
+    private HashSet<KeyValuePair<int, int>> connectedHashSet = new HashSet<KeyValuePair<int, int>>();
 
     private IEnumerator ConnectDots()
     {

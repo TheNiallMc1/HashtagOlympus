@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class God_Dionysus : GodBehaviour
+public sealed class God_Dionysus : GodBehaviour
 {
     [Header("Dionysus")] 
     public PassiveAbilityManager partyTimePassiveManager;
-    private StatusEffect partyStatus;
     private PassiveAbility partyPassiveAbility;
 
     public List<Combatant> combatantsAffectedByPartyTime;
@@ -24,8 +23,6 @@ public class God_Dionysus : GodBehaviour
 
         ultimateStartAnimTrigger = "Dionysus_Ultimate";
         ultimateFinishAnimTrigger = "UltimateFinish";
-
-        partyStatus = partyTimePassiveManager.ability.statusEffect;
     }
 
     public override void ActivateUltimate()
@@ -54,7 +51,7 @@ public class God_Dionysus : GodBehaviour
             
             partyTimePassiveManager.Initialise();
             
-            ultimateDecreaseCoroutine = StartCoroutine(UltimateDurationCoroutine());
+            StartCoroutine(UltimateDurationCoroutine());
         }
     }
 
@@ -65,7 +62,7 @@ public class God_Dionysus : GodBehaviour
         animator.SetTrigger(ultimateFinishAnimTrigger);
     }
 
-    public override void UltimateExitEffects()
+    public void UltimateExitEffects()
     {
         if (inTestMode)
         {

@@ -9,9 +9,7 @@ public class PlacementManager : MonoBehaviour
     public int currentGodIndex;
 
     public GameObject continueUI;
-    public GameObject chosenGods;
 
-    public bool allGodsPlaced;
     public int placementCount;
 
     [SerializeField]
@@ -21,7 +19,7 @@ public class PlacementManager : MonoBehaviour
     
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // Creating singleton
         if (_instance != null && _instance != this)
@@ -37,12 +35,6 @@ public class PlacementManager : MonoBehaviour
         placementCount = 0;
 
         //chosenGods = GameObject.Find("ChosenGods");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ChangeCurrentGodIndex(int newIndex)
@@ -65,7 +57,8 @@ public class PlacementManager : MonoBehaviour
             CheckIfPlacementComplete();
         }
     }
-    public void CheckIfPlacementComplete()
+
+    private void CheckIfPlacementComplete()
     {
         placementCount = 0;
         continueUI.gameObject.SetActive(true);
@@ -88,10 +81,9 @@ public class PlacementManager : MonoBehaviour
 
     public void TryAgain()
     {
-        Debug.Log("trying again");
-        for (int i = 0; i < UberManager.Instance.selectedGods.Count;i++)
+        foreach (GodBehaviour t in UberManager.Instance.selectedGods)
         {
-            UberManager.Instance.selectedGods[i].gameObject.transform.position = (new Vector3(1000, 0, 0));
+            t.gameObject.transform.position = (new Vector3(1000, 0, 0));
             continueUI.gameObject.SetActive(false);
         }
     }

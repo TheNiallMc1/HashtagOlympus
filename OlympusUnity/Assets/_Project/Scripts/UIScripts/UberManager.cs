@@ -20,11 +20,7 @@ public class UberManager : MonoBehaviour
 
     public GameState currentGameState;
     
-    public int selectedLevel;
     public List<GodBehaviour> selectedGods;
-    public int totalRespect;
-    
-    //structs for god stats, upgrades?
     
     private void Awake()
     {
@@ -37,21 +33,13 @@ public class UberManager : MonoBehaviour
         {
             _instance = this;
         }
-        
-        //DontDestroyOnLoad(gameObject);
     }
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         currentGameState = GameState.MainMenu;
         SwitchGameState(currentGameState);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SwitchGameState(GameState state)
@@ -75,31 +63,18 @@ public class UberManager : MonoBehaviour
         }
     }
 
-    public void LoadMainMenu()
-    {
-        
-    }
-
-    public void LoadGodSelect()
+    private static void LoadGodSelect()
     {
         SceneManager.LoadScene("SelectionScene");
     }
-    
-    public void LoadGodPlacement()
+
+    private static void LoadGodPlacement()
     {
         SceneManager.LoadScene("PlacementScene");
-       // GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
-    public void LoadGamePlay()
+    private static void LoadGamePlay()
     {
-        Debug.Log("Loading game play");
         SceneManager.LoadScene("PlayScene");
-    }
-    public void AddSelectedGodList(List<GodBehaviour> finalGodSelections)
-    {
-        selectedGods = finalGodSelections;
-        currentGameState = GameState.GodPlacement;
-        SwitchGameState(currentGameState);
     }
 }

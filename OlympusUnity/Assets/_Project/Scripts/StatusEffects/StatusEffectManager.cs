@@ -6,10 +6,9 @@ public class StatusEffectManager : MonoBehaviour
 {
     public StatusEffect originalStatus;
     public StatusEffect instancedStatus;
-    public float remainingDuration;
     
-    private Coroutine tickCoroutine = null;
-    private Coroutine durationCoroutine = null;
+    private Coroutine tickCoroutine;
+    private Coroutine durationCoroutine;
     
     [HideInInspector]
     public Combatant thisCombatant;
@@ -45,7 +44,7 @@ public class StatusEffectManager : MonoBehaviour
         
     }
 
-    public void EndStatus()
+    private void EndStatus()
     {
         if (durationCoroutine != null)
         {
@@ -57,7 +56,6 @@ public class StatusEffectManager : MonoBehaviour
             StopCoroutine(tickCoroutine);
         }
         
-        Debug.Log("Ending status");
         Destroy(this);
     }
     
@@ -87,7 +85,6 @@ public class StatusEffectManager : MonoBehaviour
     
     private IEnumerator DurationCoroutine()
     {
-        Debug.Log("Begin duration coroutine");
         yield return new WaitForSecondsRealtime(instancedStatus.statusDuration);
         thisCombatant.RemoveStatus(originalStatus);
     }

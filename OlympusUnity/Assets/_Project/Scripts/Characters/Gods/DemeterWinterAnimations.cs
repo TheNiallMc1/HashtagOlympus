@@ -16,7 +16,7 @@ public class DemeterWinterAnimations : MonoBehaviour
     private GameObject icyWindCone;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         godBehaviour = GetComponentInParent<God_Demeter>();
         godCombatant = GetComponentInParent<Combatant>();
@@ -38,7 +38,7 @@ public class DemeterWinterAnimations : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log(godCombatant.name + " has died");
+        
     }
 
     public void AnimationIsPlaying()

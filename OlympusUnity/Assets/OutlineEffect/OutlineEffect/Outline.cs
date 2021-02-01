@@ -23,8 +23,6 @@
 */
 
 using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace cakeslice
 {
@@ -48,12 +46,12 @@ namespace cakeslice
 			MeshFilter = GetComponent<MeshFilter>();
 		}
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			OutlineEffect.Instance?.AddOutline(this);
 		}
 
-		void OnDisable()
+		private void OnDisable()
 		{
 			OutlineEffect.Instance?.RemoveOutline(this);
 		}

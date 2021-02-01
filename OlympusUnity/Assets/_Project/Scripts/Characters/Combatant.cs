@@ -30,7 +30,7 @@ public class Combatant : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public int attackDamage;
-    [Range(0, 100)] public int damageReduction = 0;
+    [Range(0, 100)] public int damageReduction;
 
     public void Start()
     {
@@ -48,8 +48,7 @@ public class Combatant : MonoBehaviour
     public void ApplyStatus(StatusEffect status, Combatant inflictedBy)
     {
         status.inflictedBy = inflictedBy;
-        
-        Debug.LogWarning("Begin applying status");
+
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))
         {
@@ -72,8 +71,6 @@ public class Combatant : MonoBehaviour
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
-            Debug.Log("Begin remove status");
-            
             // Get the value by its key (the status type) and then end the status
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {
@@ -93,6 +90,7 @@ public class Combatant : MonoBehaviour
         // If the status already exists on this entity, remove it
         if (activeStatusEffects.ContainsKey(status))
         {
+            // ReSharper disable once UnusedVariable
             if (activeStatusEffects.TryGetValue(status, out StatusEffectManager manager))
             {
                 activeStatusEffects.Remove(status);
@@ -135,7 +133,6 @@ public class Combatant : MonoBehaviour
                 break;
             
             case eTargetType.Enemy:
-                print(gameObject.name + " has been defeated");
                 GetComponent<AIBrain>().OnDeathEvent();
                 GameManager.Instance.AddRespect(respectOnKill);
                 break;

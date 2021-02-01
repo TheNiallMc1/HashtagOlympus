@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     private PlayerControls playerControls;
     private Camera cam;
     public Camera currentCam;
-    public Camera overViewCam; 
-    
+    public Camera overViewCam;
+
     // Gods and God Selection
     public List<GodBehaviour> allPlayerGods;
     public bool godSelected;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
-    
+
     private void Awake()
     {
         // Creating singleton
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
-        
+
         cam = Camera.main;
         currentCam = cam;
 
@@ -60,14 +60,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        respectText = respectDisplay.text+" ";
-        respectDisplay.text = respectText+currentRespect;
+        respectText = respectDisplay.text + " ";
+        respectDisplay.text = respectText + currentRespect;
         PopulateAllPlayerGods();
     }
 
     public void PopulateAllPlayerGods()
     {
-        Debug.Log("PopAllPGs count: " + UberManager.Instance.selectedGods.Count);
         if (UberManager.Instance.selectedGods.Count == 3)
         {
             allPlayerGods = UberManager.Instance.selectedGods;
@@ -77,34 +76,32 @@ public class GameManager : MonoBehaviour
 
     private void GodListToDictionary()
     {
-        Debug.Log("I am creating the dictionary");
         godDict = new Dictionary<int, GodBehaviour>();
 
         for (int i = 0; i < allPlayerGods.Count; i++)
-        { godDict.Add(i, allPlayerGods[i]);
+        {
+            godDict.Add(i, allPlayerGods[i]);
         }
 
-        Debug.Log("dictionary count is now: "+godDict.Count);
-        
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
     private void CycleSelect()
     {
         currentGodIndex += 1;
-        
+
         if (currentGodIndex > allPlayerGods.Count - 1)
         {
             currentGodIndex = 0; // Loop back to zero if the new index exceeds the list count
             SelectGod(allPlayerGods[currentGodIndex]); // Set new god
         }
-        
+
         else
         {
             SelectGod(allPlayerGods[currentGodIndex]);
         }
     }
-    
+
     private void ClickSelect()
     {
         //consideration for ortho camera here
@@ -112,13 +109,14 @@ public class GameManager : MonoBehaviour
         Ray ray;
 
         if (currentCam == cam)
-        { 
+        {
             ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         }
         else
         {
-            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x,Mouse.current.position.ReadValue().y, 0); 
-            ray = currentCam.ScreenPointToRay(scrPoint); 
+            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y,
+                0);
+            ray = currentCam.ScreenPointToRay(scrPoint);
         }
 
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
@@ -133,90 +131,46 @@ public class GameManager : MonoBehaviour
                 if (godHit != null)
                 {
                     SelectGod(godHit);
-                    Debug.Log("<color=green> Click Select: Selected god: </color>" + godHit.gameObject.name);
                 }
-
             }
         }
-
-        //if (currentlySelectedGod != null)
-
-            //{
-
-            //    Debug.Log("<color=green> Click to Move: Selected position for player </color>");
-
-            //    currentlySelectedGod.lastClickedPosition = hit.point;
-
-            //    // currentlySelectedGod.navMeshAgent.isStopped = false;
-
-            //    currentlySelectedGod.SwitchState(GodState.moveToArea);
-
-            //    lD.SetEndPos(hit.point);
-
-            //}
-
     }
-        //}
 
     private void MoveGod()
 
     {
-
-        if(currentlySelectedGod == null) { return; }
-
+        if (currentlySelectedGod == null)
+        {
+            return;
+        }
 
 
         Ray ray;
 
         if (currentCam == cam)
         {
-
             ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         }
         else
         {
-            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0);
+            Vector3 scrPoint = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y,
+                0);
 
             ray = currentCam.ScreenPointToRay(scrPoint);
-
         }
-
-
-
-        // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
-
-        // if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
-
-        // {
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f, moveRayMask))
 
         {
-
-            // Debug.Log("<color=yellow> Click Select: Raycast complete. Returning object: </color>" + hit.collider.gameObject);
-
-            Debug.DrawLine(currentlySelectedGod.transform.position, hit.point, Color.red, 20f);
-
-            // Debug.Log("<color=green> Click to Move: Selected position for player </color>");
-
             currentlySelectedGod.lastClickedPosition = new Vector3(hit.point.x, 0, hit.point.z);
-
-            // currentlySelectedGod.navMeshAgent.isStopped = false;
-
             currentlySelectedGod.SwitchState(GodState.moveToArea);
-
-            Debug.Log(hit.point);
-
             lD.SetEndPos(hit.point);
-
         }
-
     }
 
     public void SelectGod(GodBehaviour godToSelect)
     {
-
-        if(currentlySelectedGod != null)
+        if (currentlySelectedGod != null)
         {
             currentlySelectedGod.selectionCircle.SetActive(false);
             currentlySelectedGod.mouseDetectorCollider.SetActive(true);
@@ -228,23 +182,18 @@ public class GameManager : MonoBehaviour
         currentlySelectedGod.selectionCircle.SetActive(true);
         currentlySelectedGod.mouseDetectorCollider.SetActive(false);
 
-        Debug.Log("selected god : " + currentlySelectedGod.godName);
         currentlySelectedGod.ToggleSelection(true);
-        
-        //uiManager.UpdateCurrentGodText();
-        
-        
+
         InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
-        
     }
 
     public void DeselectGod()
     {
         if (currentlySelectedGod == null)
         {
-            return; 
+            return;
         }
-        
+
         currentlySelectedGod.selectionCircle.SetActive(false);
         currentlySelectedGod.mouseDetectorCollider.SetActive(true);
     }
@@ -252,15 +201,11 @@ public class GameManager : MonoBehaviour
     public void AddRespect(int valueToAdd)
     {
         currentRespect += valueToAdd;
-        respectDisplay.text = respectText+currentRespect;
-        
-        //uiManager.UpdateCurrentGodText();
-
-        //respectDisplay.text = respectText  + currentRespect;
+        respectDisplay.text = respectText + currentRespect;
 
         CheckForSummon();
     }
-    
+
     public void RemoveRespect(int valueToRemove)
     {
         int newValue = currentRespect - valueToRemove;
@@ -268,36 +213,21 @@ public class GameManager : MonoBehaviour
         if (newValue > 0)
         {
             currentRespect = newValue;
-            respectDisplay.text = respectText+currentRespect;
-           // uiManager.UpdateCurrentGodText();
+            respectDisplay.text = respectText + currentRespect;
         }
-        
+
         if (newValue <= 0)
         {
             currentRespect = 0;
-            respectDisplay.text = respectText+currentRespect;
-           // uiManager.UpdateCurrentGodText();
+            respectDisplay.text = respectText + currentRespect;
         }
+
         respectDisplay.text = respectText + currentRespect;
-        //CheckForSummon();
     }
 
-    public void CheckForSummon()
+    private void CheckForSummon()
     {
-        if (currentRespect >= summonRespectThreshold)
-        {
-            canSummon = true;
-        }
-        else
-        {
-            canSummon = false;
-        }
-
-        if (canSummon)
-        {
-            //turn on UI summon option
-        }
-        
+        canSummon = currentRespect >= summonRespectThreshold;
     }
 
     public void SwitchCam(Camera cameraToChangeTo)

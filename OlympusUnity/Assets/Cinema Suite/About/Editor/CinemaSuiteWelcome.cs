@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace CinemaSuite
         private GUISkin skin = null;
         private bool showOnStartup = true;
 
-		List<string> availableProductNames = new List<string>{
+        private List<string> availableProductNames = new List<string>{
             "CinemaFaceCap",
             "CinemaDirector",
 			"CinemaMocap",
@@ -27,8 +26,8 @@ namespace CinemaSuite
 			"CinemaThemes",
         };
 
-		List<ProductInfo> availableProducts = new List<ProductInfo>();
-		List<ProductInfo> installedProducts = new List<ProductInfo>();
+        private List<ProductInfo> availableProducts = new List<ProductInfo>();
+        private List<ProductInfo> installedProducts = new List<ProductInfo>();
 
         private AnimBool showInstalledProducts;
         private AnimBool showAvailableProducts;
@@ -52,36 +51,36 @@ namespace CinemaSuite
         private Vector2 scrollPosition = new Vector2();
 
 
-
-        bool legalStuff = true;
-        Vector2 legalScrollPosition = new Vector2();
+        private bool legalStuff = true;
+        private Vector2 legalScrollPosition = new Vector2();
         private bool ShowAboutFirst = false;
 
         #region Language
-        const string VISIT_WEBSITE = "Visit our website:";
-        const string WEBSITE = "www.cinema-suite.com";
 
-        const string SUPPORT = "Support:";
-        const string SUPPORT_WEBSITE = "www.cinema-suite.com/forum";
+        private const string VISIT_WEBSITE = "Visit our website:";
+        private const string WEBSITE = "www.cinema-suite.com";
 
-        const string EMAIL_SUPPORT = "Email Support:";
-        const string EMAIL = "support@cinema-suite.com";
+        private const string SUPPORT = "Support:";
+        private const string SUPPORT_WEBSITE = "www.cinema-suite.com/forum";
 
-        const string LIKE_US = "Like us on Facebook:";
-        const string CINEMA_SUITE_INC = "/CinemaSuiteInc";
+        private const string EMAIL_SUPPORT = "Email Support:";
+        private const string EMAIL = "support@cinema-suite.com";
 
-        const string FOLLOW_US = "Follow us on Twitter:";
+        private const string LIKE_US = "Like us on Facebook:";
+        private const string CINEMA_SUITE_INC = "/CinemaSuiteInc";
 
-        const string WATCH_US = "Watch us on YouTube:";
+        private const string FOLLOW_US = "Follow us on Twitter:";
 
-        const string DISCLAIMER1 = "Cinema Suite has been developed by Cinema Suite Inc. Any attempt to decompile and/or reverse engineer Cinema Suite source code is strictly prohibited under copyright laws applicable in the country of use. \n\n";
-        const string DISCLAIMER2 = "While Cinema Suite Inc. make every effort to deliver high quality products, we do not guarantee that our products are free from defects. Our software is provided 'as is' and you use the software at your own risk. \n\n";
-        const string DISCLAIMER3 = "We make no warranties as to performance, merchantability, fitness for a particular purpose, or any other warranties whether expressed or implied. \n\n";
-        const string DISCLAIMER4 = "No oral or written communication from or information provided by Cinema Suite Inc. shall create a warranty. \n\n";
-        const string DISCLAIMER5 = "Under no circumstances shall Cinema Suite Inc. be liable for direct, indirect, special, incidental, or consequential damages resulting from the use, misuse, or inability to use this software, even if Cinema Suite Inc. has been advised of the possibility of such damages. \n\n";
-        const string DISCLAIMER6 = "Microsoft® and the Microsoft Kinect® are registered trademarks of Microsoft Corporation. Cooke® is a registered trademark of Cooke Optics Limited. Cinema Mo Cap, Cinema Director, and Cinema Suite Copyright© 2013. All rights reserved.";
+        private const string WATCH_US = "Watch us on YouTube:";
 
-        const string CMF_THANKS = "Cinema Suite Inc. extends a special thank you to the Canada Media Fund (CMF) for assistance in making Cinema Suite possible.";
+        private const string DISCLAIMER1 = "Cinema Suite has been developed by Cinema Suite Inc. Any attempt to decompile and/or reverse engineer Cinema Suite source code is strictly prohibited under copyright laws applicable in the country of use. \n\n";
+        private const string DISCLAIMER2 = "While Cinema Suite Inc. make every effort to deliver high quality products, we do not guarantee that our products are free from defects. Our software is provided 'as is' and you use the software at your own risk. \n\n";
+        private const string DISCLAIMER3 = "We make no warranties as to performance, merchantability, fitness for a particular purpose, or any other warranties whether expressed or implied. \n\n";
+        private const string DISCLAIMER4 = "No oral or written communication from or information provided by Cinema Suite Inc. shall create a warranty. \n\n";
+        private const string DISCLAIMER5 = "Under no circumstances shall Cinema Suite Inc. be liable for direct, indirect, special, incidental, or consequential damages resulting from the use, misuse, or inability to use this software, even if Cinema Suite Inc. has been advised of the possibility of such damages. \n\n";
+        private const string DISCLAIMER6 = "Microsoft® and the Microsoft Kinect® are registered trademarks of Microsoft Corporation. Cooke® is a registered trademark of Cooke Optics Limited. Cinema Mo Cap, Cinema Director, and Cinema Suite Copyright© 2013. All rights reserved.";
+
+        private const string CMF_THANKS = "Cinema Suite Inc. extends a special thank you to the Canada Media Fund (CMF) for assistance in making Cinema Suite possible.";
 
         #endregion
 

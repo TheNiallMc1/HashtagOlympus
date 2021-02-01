@@ -4,13 +4,6 @@ public class CameraBounds : MonoBehaviour
 {
     public Camera cam;
     public Bounds terrainBounds;
-    
-    
-    // Start is called before the first frame update
-    void Update()
-    {
-        //CalculateLimits(cam, terrainBounds);
-    }
 
     public static void CalculateLimits(Camera aCam, Bounds aArea, out Rect aLimits, out float aMaxHeight)
     {

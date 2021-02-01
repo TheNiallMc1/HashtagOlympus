@@ -2,10 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode]
 public class Tooltip : MonoBehaviour
 {
-    public PlayerControls playerControls;
+    private PlayerControls playerControls;
     
     public TextMeshProUGUI headerField;
     public TextMeshProUGUI contentField;
@@ -48,7 +47,7 @@ public class Tooltip : MonoBehaviour
         layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit);
     }
 
-    public void FollowMouse()
+    private void FollowMouse()
     {
         Vector3 mousePosition = GUIUtility.ScreenToGUIPoint(playerControls.Mouse.MousePos.ReadValue<Vector2>());
         transform.position = new Vector3(mousePosition.x, mousePosition.y, mousePosition.z);

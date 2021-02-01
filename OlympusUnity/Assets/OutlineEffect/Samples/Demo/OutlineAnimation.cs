@@ -4,16 +4,16 @@ namespace cakeslice
 {
     public class OutlineAnimation : MonoBehaviour
     {
-        bool pingPong = false;
+        private bool pingPong = false;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
 
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Color c = GetComponent<OutlineEffect>().lineColor0;
 

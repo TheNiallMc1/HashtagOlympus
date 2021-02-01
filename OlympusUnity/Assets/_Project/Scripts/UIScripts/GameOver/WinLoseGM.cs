@@ -7,11 +7,9 @@ public class WinLoseGM : MonoBehaviour
     // Start is called before the first frame update
 
     public Text winLoseText;
-    
+
     public Text respectTotalText;
     public Text xpTotalText;
-
-    public Button continueButton;
 
     private int respectValue;
     private int xpValue;
@@ -25,11 +23,11 @@ public class WinLoseGM : MonoBehaviour
     private GameOverData _gameOverData;
     private bool scoreTransition;
     public int animationTime = 1;
-    private bool lastFrame = false;
-    
-    void Start()
+    private bool lastFrame;
+
+    private void Start()
     {
-        _gameOverData = GameObject.FindObjectOfType<GameOverData>();
+        _gameOverData = FindObjectOfType<GameOverData>();
         scoreTransition = false;
         respectOrigText = respectTotalText.text;
         xpOrigText = xpTotalText.text;
@@ -46,29 +44,27 @@ public class WinLoseGM : MonoBehaviour
             winLoseText.text = "DEFEATED";
         }
 
-        respectTotalText.text = respectOrigText + respectDisplayed.ToString();
-        xpTotalText.text = xpOrigText + xpDisplayed.ToString();
+        respectTotalText.text = respectOrigText + respectDisplayed;
+        xpTotalText.text = xpOrigText + xpDisplayed;
 
         StartCoroutine(PauseBeforeAnim());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        var display = (int)xpDisplayed;
-        xpTotalText.text = xpOrigText + ((int)xpDisplayed).ToString();
-        respectTotalText.text = respectOrigText + ((int)respectDisplayed).ToString();
-        Debug.Log("xpDisplayed value: "+(int)xpDisplayed);
+        xpTotalText.text = xpOrigText + (int) xpDisplayed;
+        respectTotalText.text = respectOrigText + (int) respectDisplayed;
+
         if (scoreTransition && !lastFrame)
-        {Debug.Log("Animating");
-            if ((int)xpDisplayed != respectValue)
-            {Debug.Log("Animating2");
+        {
+            if ((int) xpDisplayed != respectValue)
+            {
                 xpDisplayed += (animationTime * Time.deltaTime) * (respectValue - xpDisplayed);
-                respectDisplayed -=(animationTime * Time.deltaTime) * (respectDisplayed - 1);
+                respectDisplayed -= (animationTime * Time.deltaTime) * (respectDisplayed - 1);
 
                 if (xpDisplayed >= respectValue - 1)
                 {
-                    xpDisplayed = respectValue-1;
+                    xpDisplayed = respectValue - 1;
                     respectDisplayed = 1;
                     lastFrame = true;
                 }
@@ -77,8 +73,8 @@ public class WinLoseGM : MonoBehaviour
 
         if (lastFrame)
         {
-                xpDisplayed = respectValue;
-                respectDisplayed = 0;
+            xpDisplayed = respectValue;
+            respectDisplayed = 0;
         }
     }
 

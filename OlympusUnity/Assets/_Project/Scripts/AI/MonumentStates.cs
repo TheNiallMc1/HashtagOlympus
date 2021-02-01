@@ -16,11 +16,10 @@ public class MonumentStates : MonoBehaviour
     public int amountOfStands;
 
     private Combatant _thisCombatant;
-    private Combatant.eTargetType _currentTargetType;
 
-    [SerializeField] List<Combatant> _touristStands;
+    [SerializeField] private List<Combatant> _touristStands;
 
-    [SerializeField] bool _isGod = true;
+    [SerializeField] private bool _isGod = true;
 
     private void Start()
     {
@@ -28,7 +27,6 @@ public class MonumentStates : MonoBehaviour
         prefabEnemyMonument =  transform.GetChild(1).gameObject;
         prefabGodMonument = transform.GetChild(0).gameObject;
         _thisCombatant = GetComponent<Combatant>();
-        _currentTargetType = _thisCombatant.targetType;
         defenders = new List<GameObject>();
         GameObject tmp;
         for (var i = 0; i < amountToPool; i++)
@@ -63,7 +61,6 @@ public class MonumentStates : MonoBehaviour
         if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
         {
             int j = _touristStands.Count;
-            Debug.Log("initial j = " + j);
             foreach (var t in _touristStands)
             {
                 

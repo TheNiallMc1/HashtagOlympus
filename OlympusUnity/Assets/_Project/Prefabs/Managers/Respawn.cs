@@ -2,13 +2,11 @@
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] GameObject ares;
-    [SerializeField] Transform respawnPoint;
+    [SerializeField] private GameObject ares;
 
     public bool isDead;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isDead)
         {
@@ -21,22 +19,13 @@ public class Respawn : MonoBehaviour
         }
     }
 
-
-
-    void DisableGod()
+    private void DisableGod()
     {
         ares.SetActive(false);
     }
 
-    void EnableGod()
+    private void EnableGod()
     {
         ares.SetActive(true);
-    }
-
-    public void RespawnProcedure()
-    {
-        DisableGod();
-        ares.transform.position = respawnPoint.position;
-        EnableGod();
     }
 }

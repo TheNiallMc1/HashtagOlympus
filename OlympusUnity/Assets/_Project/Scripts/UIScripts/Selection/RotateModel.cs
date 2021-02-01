@@ -5,8 +5,8 @@ public class RotateModel : MonoBehaviour
     [SerializeField] private float rotationSpeed = 15f;
 
     public bool shouldRotate;
-    
-    void Update()
+
+    private void Update()
     {
         if (shouldRotate)
         {

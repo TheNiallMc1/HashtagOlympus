@@ -48,34 +48,33 @@ public class CameraController : MonoBehaviour
 
     public float followSpeed = 10f;
     
-    public GodBehaviour currentPlayer = null;
-    public GodBehaviour lastPlayer = null;
+    public GodBehaviour currentPlayer;
+    public GodBehaviour lastPlayer;
 
-    private static CameraController _instance = null; // the private static singleton instance variable
-    public static CameraController Instance { get { return _instance; } } // public getter property, anyone can access it!
-    
+    public static CameraController Instance { get; private set; } // public getter property, anyone can access it!
 
-    void OnDestroy()
+
+    private void OnDestroy()
     {
-        if (_instance == this)
+        if (Instance == this)
         {
             // if the this is the singleton instance that is being destroyed...
-            _instance = null; // set the instance to null
+            Instance = null; // set the instance to null
         }
     }
 
 
-    void Awake()
+    private void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
             // if the singleton instance has not yet been initialized
-            _instance = this;
+            Instance = this;
         }
         else
         {
             // the singleton instance has already been initialized
-            if (_instance != this)
+            if (Instance != this)
             {
                 // if this instance of GameManager is not the same as the initialized singleton instance, it is a second instance, so it must be destroyed!
                 Destroy(gameObject); // watch out, this can cause trouble!
@@ -165,7 +164,7 @@ public class CameraController : MonoBehaviour
     }
 
 
-    void MoveCamera()
+    private void MoveCamera()
     {
         if (movingCameraUp)
         {
@@ -196,7 +195,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void RotateCamera()
+    private void RotateCamera()
     {
         if (rotatingCameraLeft)
         {
@@ -209,7 +208,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void MouseScroll()
+    private void MouseScroll()
     {
         if(mouseScrollY > 0)
         {
@@ -252,11 +251,11 @@ public class CameraController : MonoBehaviour
         }
 
         lastPlayer = null;
-        StartCoroutine(FollowPlayerRoutine(player));
+        StartCoroutine(FollowPlayerRoutine());
 
     }
 
-    IEnumerator FollowPlayerRoutine(GodBehaviour player)
+    private IEnumerator FollowPlayerRoutine()
     {
         Vector3 originalPosition = transform.position;
         float timeElapsed = 0;
@@ -290,7 +289,7 @@ public class CameraController : MonoBehaviour
     }
 
     // To move back to free roam
-    public void ReleaseCamera()
+    private void ReleaseCamera()
     {
 
         if (currentPlayer != null)

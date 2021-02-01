@@ -107,8 +107,8 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     
     public void GenerateLockedTooltip()
     {
-        tooltipTrigger.header = String.Format("<color=#c23a3a> LOCKED: {0}", skillName);
-        tooltipTrigger.content = String.Format("<color=#c23a3a> Purchase the previous skill in this branch to unlock");
+        tooltipTrigger.header = $"<color=#c23a3a> LOCKED: {skillName}";
+        tooltipTrigger.content = "<color=#c23a3a> Purchase the previous skill in this branch to unlock";
     }
 
     public void GeneratePurchasedTooltip()

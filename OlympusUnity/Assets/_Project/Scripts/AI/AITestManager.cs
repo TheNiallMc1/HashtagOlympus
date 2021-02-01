@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AITestManager : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class AITestManager : MonoBehaviour
     [SerializeField]
     private List<Transform> touristList;
     
-    public int enemiesPerWave = 0;
+    public int enemiesPerWave;
     public int numberOfWaves = 3;
     public int currentWave = 1;
     public float incrementAmount = 1.3f;
@@ -65,30 +64,30 @@ public class AITestManager : MonoBehaviour
         {
             if (i % 5 == 0)
             {
-                SpawnJock(i);
+                SpawnJock();
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
 
             if (i % 6 == 0)
             {
-                SpawnInfluencer(i);
+                SpawnInfluencer();
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
             if (i % 3 == 0)
             {
-                SpawnNerd(i);
+                SpawnNerd();
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
-            SpawnTourist(i);
+            SpawnTourist();
             yield return new WaitForSeconds(0.5f);
         }
         enemiesPerWave = (int)(enemiesPerWave * incrementAmount);
     }
 
-    private void SpawnTourist(int nameTestInt)
+    private void SpawnTourist()
     {
         GameObject tourist = ObjectPools.SharedInstance.GetDronePoolObGameObject();
         if (tourist != null)
@@ -101,7 +100,7 @@ public class AITestManager : MonoBehaviour
 
     }
 
-    private void SpawnInfluencer(int nameTestInt)
+    private void SpawnInfluencer()
     {
         GameObject tourist = ObjectPools.SharedInstance.GetInfluencerPoolObGameObject();
         if (tourist != null)
@@ -114,7 +113,7 @@ public class AITestManager : MonoBehaviour
 
     }
 
-    private void SpawnJock(int nameTestInt)
+    private void SpawnJock()
     {
         GameObject tourist = ObjectPools.SharedInstance.GetJockPoolObGameObject();
         if (tourist != null)
@@ -127,7 +126,7 @@ public class AITestManager : MonoBehaviour
 
     }
 
-    private void SpawnNerd(int nameTestInt)
+    private void SpawnNerd()
     {
         GameObject tourist = ObjectPools.SharedInstance.GetNerdPoolObGameObject();
         if (tourist != null)

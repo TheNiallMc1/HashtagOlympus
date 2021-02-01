@@ -2,10 +2,10 @@
 
 public class DemeterSummerAnimations : MonoBehaviour
 {
-    God_Demeter godBehaviour;
-    Combatant godCombatant;
+    private God_Demeter godBehaviour;
+    private Combatant godCombatant;
 
-    readonly AbilityManager[] abilities = new AbilityManager[2];
+    private readonly AbilityManager[] abilities = new AbilityManager[2];
 
     [SerializeField] 
     private GameObject monumentHealParticles;
@@ -15,7 +15,7 @@ public class DemeterSummerAnimations : MonoBehaviour
     private GameObject cornHealParticles;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         godBehaviour = GetComponentInParent<God_Demeter>();
         godCombatant = GetComponentInParent<Combatant>();
@@ -38,7 +38,7 @@ public class DemeterSummerAnimations : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log(godCombatant.name + " has died");
+        
     }
 
     public void AnimationIsPlaying()

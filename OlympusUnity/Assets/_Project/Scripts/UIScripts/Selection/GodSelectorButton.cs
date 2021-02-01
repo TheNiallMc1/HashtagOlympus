@@ -3,18 +3,13 @@ using UnityEngine.UI;
 
 public class GodSelectorButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-   // public GodBehaviour selectedGod;
-    
-    private Button btn;
     private Text buttonText;
 
     private bool isSelected;
 
 
-    void Awake ( )
+    private void Awake()
     {
-        btn = GetComponent<Button> ( );
         buttonText = GetComponentInChildren<Text>();
         isSelected = false;
         buttonText.text = "SELECT";
@@ -37,23 +32,18 @@ public class GodSelectorButton : MonoBehaviour
 
     public void SendSelection()
     {
-        //selectDeselect = !selectDeselect;
-
         if (!isSelected)
         {
-            Debug.Log("selecting");
-            //buttonText.text = "DESELECT";
             ShowModelController.Instance.currentModel.isSelected = true;
             GodSelectManager.Instance.AddGodToList(ShowModelController.Instance.currentModel);
             UpdateButton();
-            
-        } else if (isSelected)
+        }
+        
+        else if (isSelected)
         {
-            Debug.Log("deselecting");
-            //buttonText.text = "SELECT";
             ShowModelController.Instance.currentModel.isSelected = false;
-           GodSelectManager.Instance.RemoveGodFromList(ShowModelController.Instance.currentModel);
-           UpdateButton();
+            GodSelectManager.Instance.RemoveGodFromList(ShowModelController.Instance.currentModel);
+            UpdateButton();
         }
     }
 }
