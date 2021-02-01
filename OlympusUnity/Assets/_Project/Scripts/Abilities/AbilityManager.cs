@@ -14,7 +14,7 @@ public class AbilityManager : MonoBehaviour
     [Header("Ability Info")]
     public SpecialAbility ability;
     public List<Combatant> targets = new List<Combatant>();
-    private bool targetSelectModeActive;
+    public bool targetSelectModeActive;
     public bool isChanneled;
     public Combatant lastSingleTarget;
 
@@ -105,35 +105,16 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void EnterTargetSelectMode()
-    {
-        thisGod.currentState = GodState.usingAbility;
-        
-        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
-        {
-            // ACTIVATE TARGET SELECT MODE SHADERS
-            targetSelectModeActive = true;
-        }
-        
-        else if (targetSelectModeActive)
-        {
-            targetSelectModeActive = false;
-        }
-    }
-
     // After target select mode
     private void StartAbility()
     {
         targetSelectModeActive = false;
+        GameManager.Instance.ExitTargetSelectMode();
 
         ability.targets = targets;
 
-        // Trigger animation
-        //anim.SetTrigger(animTrigger);
         anim.Play(abilityStateName);
         thisGod.attackAnimationIsPlaying = false;
-        //ability.StartAbility(); // CALLED BY ANIMATION EVENT
-        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
     }
 
     public void StartCooldown()
@@ -142,29 +123,6 @@ public class AbilityManager : MonoBehaviour
         ability.remainingCooldownTime = ability.abilityCooldown;
         StartCoroutine(CooldownCoroutine());
     }
-
-    // void StartChannelling()
-    // {
-    //     targetSelectModeActive = false;
-    //     
-    //     ability.targets = targets;
-    //     
-    //     // Trigger animation
-    //     
-    //     ability.StartAbility(); // CALLED BY ANIMATION EVENT
-    //     // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-    //     
-    //     onCooldown = true;
-    //     ability.remainingCooldownTime = ability.abilityCooldown;
-    //     cooldownCoroutine = StartCoroutine(CooldownCoroutine());
-    // }
-
-    // IEnumerator ChannelTargetSelectCoroutine()
-    // {
-    //     // Check targets on a cycle to keep list updated
-    //     targets = coneAoE.targetsInCone;
-    //     yield return null;
-    // }
 
     private IEnumerator CooldownCoroutine()
     {
@@ -199,26 +157,41 @@ public class AbilityManager : MonoBehaviour
             StartCoroutine(CooldownCoroutine());
         }
     }
-
-
+    
     #region Target Selection
+    
+    public void EnterTargetSelectMode()
+    {
+        thisGod.currentState = GodState.usingAbility;
+        
+        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
+        {
+            GameManager.Instance.EnterTargetSelectMode(this);
+        }
+        
+        else if (targetSelectModeActive)
+        {
+            targetSelectModeActive = false;
+        }
+    }
 
     private void SingleTargetSelect()
     {
-        Combatant currentTarget;
+        List<Combatant> targetsInRange = GameManager.Instance.targetsInRange;
 
         Ray ray = mainCam.ScreenPointToRay(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-
+        Combatant currentTarget;
+        
         if (rightClick)
         {
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
-                
-                if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
+
+                if (targetsInRange.Contains(currentTarget))
                 {
                     lastSingleTarget = currentTarget;
-
+                    
                     targets.Add(currentTarget);
                     StartAbility();
                 }
@@ -230,10 +203,8 @@ public class AbilityManager : MonoBehaviour
     {
         Vector3 centre = thisCombatant.colliderHolder.transform.position;
 
-        Collider[] colliders = new Collider[20];
-        int arraySize = Physics.OverlapSphereNonAlloc(centre, ability.radius, colliders);
+        Collider[] colliders = Physics.OverlapSphere(centre, ability.radius);
 
-        int i = 0;
         foreach (Collider targetCollider in colliders)
         {            
             Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
@@ -241,13 +212,6 @@ public class AbilityManager : MonoBehaviour
             if (isTargetValid(currentTarget))
             {
                 targets.Add(currentTarget);
-            }
-
-            i++;
-            
-            if (i > arraySize)
-            {
-                break;
             }
         }
         

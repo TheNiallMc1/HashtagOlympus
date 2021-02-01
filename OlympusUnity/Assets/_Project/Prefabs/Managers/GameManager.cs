@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Camera currentCam;
     public Camera overViewCam;
 
-    // Gods and God Selection
+    [Header("Gods and God Selection")]
     public List<GodBehaviour> allPlayerGods;
     public bool godSelected;
     public GodBehaviour currentlySelectedGod;
@@ -25,12 +26,19 @@ public class GameManager : MonoBehaviour
     public LayerMask moveRayMask;
     public LineDrawer lD;
 
-    // Respect
+    [Header("Respect")]
     public int currentRespect;
     public TMP_Text respectDisplay;
     public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
+
+    [Header("Target Selection")] 
+    public bool targetSelectModeActive;
+    public LayerMask combatantLayerMask;
+    public AbilityManager currentAbility;
+    public Combatant combatantUsingAbility;
+    public List<Combatant> targetsInRange = new List<Combatant>();
 
     private void Awake()
     {
@@ -136,10 +144,156 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MoveGod()
-
+    #region Target Selection
+    private void FixedUpdate()
     {
-        if (currentlySelectedGod == null)
+        if (targetSelectModeActive && currentAbility != null)
+        {
+            Debug.Log("<color=blue> Calling Target Select switch statement </color>");
+
+            switch (currentAbility.ability.selectionType)
+            {
+                case SpecialAbility.eSelectionType.Single:
+                    Debug.Log("<color=green> Resolved selection switch statement </color>");
+                    SingleTargetSelectMode();
+                    break;
+
+                case SpecialAbility.eSelectionType.CircleAoE:
+                    // Show circle the size of the ability radius
+                    break;
+
+                case SpecialAbility.eSelectionType.ConeAoE:
+                    // Show cone 
+                    break;
+
+                case SpecialAbility.eSelectionType.Self:
+                    // No special visuals
+                    break;
+            }
+        }
+    }
+
+    public void EnterTargetSelectMode(AbilityManager thisAbility)
+    {
+        // MOVE CAMERA TO GOD
+        
+        Debug.Log("<color=blue> Calling EnterTargetSelectMode() </color>");
+        currentAbility = thisAbility;
+        combatantUsingAbility = currentAbility.GetComponent<Combatant>();
+        
+        targetSelectModeActive = true;
+        Debug.Log("<color=green> Enter target select mode </color>");
+    }
+
+    public void ExitTargetSelectMode()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 1f;
+        
+        foreach (Combatant target in targetsInRange)
+        {
+            target.DeactivateTargetIcon();
+        }
+
+        targetsInRange.Clear();
+        combatantUsingAbility = null;
+        currentAbility = null;
+        targetSelectModeActive = false;
+        
+        Debug.Log("<color=green> Exited target select mode </color>");
+    }
+
+    private void SingleTargetSelectMode()
+    {
+        // Within ability.range, make an overlap sphere
+        // Get every target in the sphere
+        
+        // foreach target, if abilityCanHit = targetType
+            // Instantiate object to signal it is a valid target
+        
+        // If abilityCanHit = Player
+            // Activate god portraits if you can target gods
+
+        Debug.Log("<color=blue> Calling SingleTargetSelectMode() </color>");
+            
+        Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
+        float abilityRange = currentAbility.ability.abilityRange;
+        
+        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, combatantLayerMask); 
+
+        Time.timeScale = 0.5f;
+        Time.fixedDeltaTime = 0.5f;
+        
+        foreach (Collider targetCollider in colliders)
+        {        
+            Debug.Log("<color=blue> Running SingleTargetSelectMode() ForEach Loop </color>");
+
+            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+
+            Debug.Log("<color=green> " + targetCollider.gameObject.name + " WAS a Combatant </color>");
+
+            if (isTargetValid(currentTarget))
+            {
+                targetsInRange.Add(currentTarget);
+            }
+        }
+
+        if (!targetsInRange.Any())
+        {
+            ExitTargetSelectMode();
+            return;
+        }
+        
+        Debug.Log("<color=green> Resolved ForEach loop </color>");
+        
+        foreach (Combatant target in targetsInRange)
+        {
+            Debug.Log("<color=blue> Entered ForEach loop for target icons</color>");
+            target.ActivateTargetIcon();
+        }
+
+        currentAbility.targetSelectModeActive = true;
+    }
+
+    private bool isTargetValid(Combatant currentTarget)
+    {
+        if(currentTarget != null)
+        {
+            bool isInList = targetsInRange.Contains(currentTarget);
+            bool canBeHit = currentAbility.ability.abilityCanHit.Contains(currentTarget.targetType);
+
+            return !isInList && canBeHit;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    #endregion
+
+    public void SelectGod(GodBehaviour godToSelect)
+    {
+        if (currentlySelectedGod != null)
+        {
+            currentlySelectedGod.selectionCircle.SetActive(false);
+            currentlySelectedGod.mouseDetectorCollider.SetActive(true);
+        }
+
+        godSelected = true;
+        currentlySelectedGod = godToSelect;
+
+        currentlySelectedGod.selectionCircle.SetActive(true);
+        currentlySelectedGod.mouseDetectorCollider.SetActive(false);
+
+        currentlySelectedGod.ToggleSelection(true);
+
+        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
+    }
+
+    private void MoveGod()
+    {
+        if (currentlySelectedGod == null || targetSelectModeActive)
         {
             return;
         }
@@ -167,26 +321,7 @@ public class GameManager : MonoBehaviour
             lD.SetEndPos(hit.point);
         }
     }
-
-    public void SelectGod(GodBehaviour godToSelect)
-    {
-        if (currentlySelectedGod != null)
-        {
-            currentlySelectedGod.selectionCircle.SetActive(false);
-            currentlySelectedGod.mouseDetectorCollider.SetActive(true);
-        }
-
-        godSelected = true;
-        currentlySelectedGod = godToSelect;
-
-        currentlySelectedGod.selectionCircle.SetActive(true);
-        currentlySelectedGod.mouseDetectorCollider.SetActive(false);
-
-        currentlySelectedGod.ToggleSelection(true);
-
-        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
-    }
-
+    
     public void DeselectGod()
     {
         if (currentlySelectedGod == null)

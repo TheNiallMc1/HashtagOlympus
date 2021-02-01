@@ -23,8 +23,9 @@ public class Combatant : MonoBehaviour
 
     [Header("Character Info")] 
     public string characterName;
-
     public Sprite characterSprite;
+
+    public GameObject targetIcon; // Shows when the combatant can be targeted during ability
     
     [Header("Combat Stats")]
     public int maxHealth;
@@ -41,6 +42,29 @@ public class Combatant : MonoBehaviour
     {
         currentHealth += healthRecovered;
         currentHealth = Mathf.Min(currentHealth, maxHealth); 
+    }
+
+    public void ActivateTargetIcon()
+    {
+        if (targetIcon == null)
+        {
+            Debug.Log("<color=red> TargetIcon is null </color>");
+            return;
+        }
+        
+        Debug.Log("<color=green> TargetIcon is not null </color>");
+        targetIcon.SetActive(true);
+        Debug.Log("<color=green> TargetIcon was set active? </color>");
+    }
+    
+    public void DeactivateTargetIcon()
+    {
+        if (targetIcon == null)
+        {
+            return;
+        }
+        
+        targetIcon.SetActive(false);
     }
 
     #region Status Effects

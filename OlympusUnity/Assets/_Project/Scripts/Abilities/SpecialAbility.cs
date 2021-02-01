@@ -17,6 +17,7 @@ public abstract class SpecialAbility : ScriptableObject
     
     public int abilityDamage = 50;
     public int abilityHealAmount = 50;
+    public float abilityRange;
     public List<StatusEffect> statusEffects;
     
     [Header("Cooldown")]
