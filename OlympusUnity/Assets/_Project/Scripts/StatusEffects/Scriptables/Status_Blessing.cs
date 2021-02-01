@@ -16,11 +16,9 @@ public class Status_Blessing : StatusEffect
     public override void EntryEffect()
     {
         // Heal target
-        Debug.Log("Cast blessing");
     }
 
     public override void ExitEffect()
     {
-        Debug.Log("Removed blessing");
     }
 }

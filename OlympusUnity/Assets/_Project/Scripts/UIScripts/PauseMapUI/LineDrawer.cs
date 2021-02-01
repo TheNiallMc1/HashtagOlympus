@@ -40,7 +40,6 @@ public class LineDrawer : MonoBehaviour
     {
         if (GameManager.Instance.godSelected)
         {
-            Debug.Log("receiving coords");
             _lineR.SetPosition(0,
                 new Vector3(GameManager.Instance.currentlySelectedGod.gameObject.transform.position.x, 100f,
                     GameManager.Instance.currentlySelectedGod.gameObject.transform.position.z));

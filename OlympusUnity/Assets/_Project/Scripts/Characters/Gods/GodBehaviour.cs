@@ -356,7 +356,6 @@ public class GodBehaviour : MonoBehaviour
 
     public void Revive()
     {
-        Debug.Log("Reviving " + godName);
         SwitchState(GodState.idle);
         thisCombatant.currentHealth = thisCombatant.maxHealth;
         isKOed = false;
@@ -379,7 +378,6 @@ public class GodBehaviour : MonoBehaviour
 
     protected virtual void EndUltimate()
     {
-        Debug.Log("Ending ultimate");
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();

@@ -105,7 +105,6 @@ public class AbilityManager : MonoBehaviour
         
         if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
         {
-            Debug.Log("Enter target select mode");
             // ACTIVATE TARGET SELECT MODE SHADERS
             targetSelectModeActive = true;
         }
@@ -210,8 +209,6 @@ public class AbilityManager : MonoBehaviour
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
                 
-                Debug.Log(currentTarget.name);
-
                 if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
                 {
                     lastSingleTarget = currentTarget;

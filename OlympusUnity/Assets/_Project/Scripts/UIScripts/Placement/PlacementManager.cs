@@ -81,7 +81,6 @@ public class PlacementManager : MonoBehaviour
 
     public void TryAgain()
     {
-        Debug.Log("trying again");
         foreach (GodBehaviour t in UberManager.Instance.selectedGods)
         {
             t.gameObject.transform.position = (new Vector3(1000, 0, 0));

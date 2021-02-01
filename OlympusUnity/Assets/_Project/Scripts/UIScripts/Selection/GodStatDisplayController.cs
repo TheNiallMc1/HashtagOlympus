@@ -33,7 +33,6 @@ public class GodStatDisplayController : MonoBehaviour
 
         public void UpdateGodStatInfo(ModelBehaviour currentModel)
         {
-            Debug.Log("updating stats");
             gNameText.text = origGodName + currentModel.godName;
             gHealthText.text = origGodHealth + currentModel.godHealth;
             gDamageText.text = origGodDamage + currentModel.godDamage;

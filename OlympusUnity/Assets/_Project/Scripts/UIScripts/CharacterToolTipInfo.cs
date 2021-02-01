@@ -26,7 +26,7 @@ public class CharacterToolTipInfo : MonoBehaviour
     public string ultimateContent = "...";
 
     [SerializeField]
-    public List<String> allTooltips;
+    public List<string> allTooltips;
 
     private void Awake()
     {
@@ -44,7 +44,5 @@ public class CharacterToolTipInfo : MonoBehaviour
        
        allTooltips.Add(ultimateHeader);
        allTooltips.Add(ultimateContent);
-       
-       Debug.Log(gameObject.GetComponent<Combatant>().characterName+"'s tooltips count : "+allTooltips.Count);
     }
 }

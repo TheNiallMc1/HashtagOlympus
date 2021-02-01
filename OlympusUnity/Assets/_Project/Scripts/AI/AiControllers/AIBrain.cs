@@ -275,7 +275,6 @@ namespace _Project.Scripts.AI.AiControllers
                 }
                 _movementMotor.animator.ResetTrigger(_autoAttackAnimations[animNumber]);
                 animNumber = RandomNumber();
-                Debug.Log(animNumber);
                 attackAnimationIsPlaying = true;
                 _movementMotor.animator.ResetTrigger(_autoAttackAnimations[_lastNumber]);
                 _movementMotor.animator.SetTrigger(_autoAttackAnimations[animNumber]);

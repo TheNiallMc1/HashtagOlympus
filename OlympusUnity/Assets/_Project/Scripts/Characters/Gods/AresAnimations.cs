@@ -32,7 +32,6 @@ public class AresAnimations : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log(godCombatant.name + " has died");
     }
 
     public void AnimationIsPlaying()

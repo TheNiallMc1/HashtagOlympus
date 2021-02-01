@@ -40,7 +40,6 @@ public class GodSelectManager : MonoBehaviour
     {
         addedGodCounter++;
         addedModels.Add(modelToAdd);
-        Debug.Log("adding : " + modelToAdd.godName+", now: "+addedGodCounter);
 
         if (addedModels.Count ==3)
         {

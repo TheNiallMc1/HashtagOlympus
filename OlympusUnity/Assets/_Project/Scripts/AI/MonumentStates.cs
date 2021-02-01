@@ -61,7 +61,6 @@ public class MonumentStates : MonoBehaviour
         if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
         {
             int j = _touristStands.Count;
-            Debug.Log("initial j = " + j);
             foreach (var t in _touristStands)
             {
                 

@@ -33,8 +33,6 @@ public class UberManager : MonoBehaviour
         {
             _instance = this;
         }
-        
-        //DontDestroyOnLoad(gameObject);
     }
     
     // Start is called before the first frame update
@@ -73,12 +71,10 @@ public class UberManager : MonoBehaviour
     private static void LoadGodPlacement()
     {
         SceneManager.LoadScene("PlacementScene");
-       // GameManager.Instance.SetPlayerGods(selectedGods);
     }
 
     private static void LoadGamePlay()
     {
-        Debug.Log("Loading game play");
         SceneManager.LoadScene("PlayScene");
     }
 }

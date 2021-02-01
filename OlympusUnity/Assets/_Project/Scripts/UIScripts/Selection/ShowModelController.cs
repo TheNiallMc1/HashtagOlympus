@@ -5,16 +5,14 @@ public class ShowModelController : MonoBehaviour
 {
     private static ShowModelController _instance;
     public static ShowModelController Instance => _instance;
-    
-    [SerializeField]
-    public List<ModelBehaviour> models;
-    public ModelBehaviour currentModel;
-    
-    [SerializeField]
-     public List<Transform> positions;
 
-     private GodStatDisplayController godStats;
-     private GodSelectorButton selectButton;
+    [SerializeField] public List<ModelBehaviour> models;
+    public ModelBehaviour currentModel;
+
+    [SerializeField] public List<Transform> positions;
+
+    private GodStatDisplayController godStats;
+    private GodSelectorButton selectButton;
 
     private void Awake()
     {
@@ -27,35 +25,19 @@ public class ShowModelController : MonoBehaviour
         {
             _instance = this;
         }
-        
-        //models = new List<ModelBehaviour>();
-        godStats = GameObject.FindObjectOfType<GodStatDisplayController>();
-        selectButton = GameObject.FindObjectOfType<GodSelectorButton>();
-        //positions = new List<Transform>();
+
+        godStats = FindObjectOfType<GodStatDisplayController>();
+        selectButton = FindObjectOfType<GodSelectorButton>();
     }
 
     private void Start()
     {
-        
-       // Debug.Log("intialising models");
-       /* for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < models.Count; i++)
         {
-            Debug.Log("loop");
-            var model = transform.GetChild(i).GetComponent<ModelBehaviour>();
-            models.Add(model);
-
-            //put this one at the others at next 2
-            model.SetInitialPosition(i);
+            models[i].SetInitialPosition(i);
+            models[i].ToggleOutline(false);
         }
-        */
 
-       for (int i = 0; i < models.Count; i++)
-       {
-           models[i].SetInitialPosition(i);
-           models[i].ToggleOutline(false);
-       }
-       
-        Debug.Log("models count: "+models.Count);
         godStats.UpdateGodStatInfo(currentModel);
         currentModel.ToggleOutline(true);
         selectButton.UpdateButton();
@@ -63,11 +45,12 @@ public class ShowModelController : MonoBehaviour
 
     public void EnableModel()
     {
-        for(int i = 0; i<models.Count;i++)
+        for (int i = 0; i < models.Count; i++)
         {
             models[i].SetCurrentPosition();
             models[i].ToggleOutline(false);
         }
+
         godStats.UpdateGodStatInfo(currentModel);
         currentModel.ToggleOutline(true);
         selectButton.UpdateButton();

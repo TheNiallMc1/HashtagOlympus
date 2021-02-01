@@ -7,7 +7,7 @@ public class WinLoseGM : MonoBehaviour
     // Start is called before the first frame update
 
     public Text winLoseText;
-    
+
     public Text respectTotalText;
     public Text xpTotalText;
 
@@ -52,19 +52,19 @@ public class WinLoseGM : MonoBehaviour
 
     private void Update()
     {
-        xpTotalText.text = xpOrigText + ((int)xpDisplayed);
-        respectTotalText.text = respectOrigText + ((int)respectDisplayed);
-        Debug.Log("xpDisplayed value: "+(int)xpDisplayed);
+        xpTotalText.text = xpOrigText + (int) xpDisplayed;
+        respectTotalText.text = respectOrigText + (int) respectDisplayed;
+
         if (scoreTransition && !lastFrame)
-        {Debug.Log("Animating");
-            if ((int)xpDisplayed != respectValue)
-            {Debug.Log("Animating2");
+        {
+            if ((int) xpDisplayed != respectValue)
+            {
                 xpDisplayed += (animationTime * Time.deltaTime) * (respectValue - xpDisplayed);
-                respectDisplayed -=(animationTime * Time.deltaTime) * (respectDisplayed - 1);
+                respectDisplayed -= (animationTime * Time.deltaTime) * (respectDisplayed - 1);
 
                 if (xpDisplayed >= respectValue - 1)
                 {
-                    xpDisplayed = respectValue-1;
+                    xpDisplayed = respectValue - 1;
                     respectDisplayed = 1;
                     lastFrame = true;
                 }
@@ -73,8 +73,8 @@ public class WinLoseGM : MonoBehaviour
 
         if (lastFrame)
         {
-                xpDisplayed = respectValue;
-                respectDisplayed = 0;
+            xpDisplayed = respectValue;
+            respectDisplayed = 0;
         }
     }
 

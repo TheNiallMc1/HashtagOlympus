@@ -15,12 +15,10 @@ public class Status_Heal : StatusEffect
     public override void EntryEffect()
     {
         // Heal target
-        Debug.Log("Healed target on entry");
         affectedCombatant.RestoreHealth(healAmount);
     }
 
     public override void ExitEffect()
     {
-        Debug.Log("Removed status after heal");
     }
 }

@@ -39,7 +39,6 @@ public class DionysusAnimations : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log(godCombatant.name + " has died");
     }
 
     public void AnimationIsPlaying()
@@ -54,7 +53,6 @@ public class DionysusAnimations : MonoBehaviour
 
     public void Ability01Effect()
     {
-        Debug.Log("Executing ability from animation");
         abilities[0].ability.StartAbility();
     }
 
@@ -72,14 +70,11 @@ public class DionysusAnimations : MonoBehaviour
     public void EndAbility01()
     {
         godBehaviour.currentState = GodState.idle;
-        Debug.Log("set to idle");
         abilities[0].StartCooldown();
-        Debug.Log("Starting cooldown");
     }
 
     public void Ability02Effect()
     {
-        Debug.Log("Executing ability from animation");
         abilities[1].ability.StartAbility();
     }
 

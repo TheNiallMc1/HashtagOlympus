@@ -7,7 +7,6 @@ public class DockSwitcherButton : MonoBehaviour
     public TMP_Text godNameDisplay;
     private Button myButton;
     public int godKey;
-    public Sprite currentSprite;
 
     private void Start()
     {
@@ -19,14 +18,10 @@ public class DockSwitcherButton : MonoBehaviour
         godKey = key;
         godNameDisplay.text = godName;
         myButton.image.sprite = newSprite;
-        
-        Debug.Log("switch button: "+godName);
     }
 
     public void SendSwitchInfo()
-    {
-        Debug.Log("I am sending key: "+godKey);
-        
+    {        
         InterimUIManager.Instance.UpdateHUD(godKey);
     }
 }
