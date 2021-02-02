@@ -53,7 +53,7 @@ public class DionysusAnimations : MonoBehaviour
 
     public void Ability01Effect()
     {
-        abilities[0].ability.StartAbility();
+        abilities[0].ability.AbilityEffect();
     }
 
     public void ActivateWineParticles()
@@ -75,7 +75,7 @@ public class DionysusAnimations : MonoBehaviour
 
     public void Ability02Effect()
     {
-        abilities[1].ability.StartAbility();
+        abilities[1].ability.AbilityEffect();
     }
 
     public void ActivateHealParticles()

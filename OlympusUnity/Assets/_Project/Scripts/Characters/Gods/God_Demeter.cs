@@ -31,7 +31,7 @@ public sealed class God_Demeter : GodBehaviour
 
         winterAbilities[0].abilityStateName = "Demeter_W_Ability01";
         winterAbilities[1].abilityStateName = "Demeter_W_Ability02";
-        winterAbilities[1].channelAnimTrigger = "Ability02_End";
+        winterAbilities[1].channelFinishTrigger = "Ability02_End";
         
         ultimateStartAnimTrigger = "Ultimate";
     }

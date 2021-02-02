@@ -64,7 +64,7 @@ public class DemeterSummerAnimations : MonoBehaviour
     // Monument Heal Effects
     public void Ability01Effect()
     {
-        abilities[0].ability.StartAbility();
+        abilities[0].ability.AbilityEffect();
     }
 
 
@@ -90,7 +90,7 @@ public class DemeterSummerAnimations : MonoBehaviour
     // Corn Heal Effects
     public void Ability02Start()
     {
-        abilities[1].ability.StartAbility();
+        abilities[1].ability.AbilityEffect();
     }
     
 

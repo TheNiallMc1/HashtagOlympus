@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class DemeterWinterAnimations : MonoBehaviour
 {
@@ -51,10 +52,23 @@ public class DemeterWinterAnimations : MonoBehaviour
     }
     
 
+    public void LockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void UnlockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+    }
+
+
+
+
     public void Ability01Start()
     {
         // This needs to hold for the length of the ability lifetime, and then end the ability
-        abilities[0].ability.StartAbility();
+        abilities[0].ability.AbilityEffect();
     }
 
     public void ActivateIcicleMesh()
@@ -80,7 +94,8 @@ public class DemeterWinterAnimations : MonoBehaviour
     
     public void Ability02Effect()
     {
-        abilities[1].ability.StartAbility();
+        abilities[1].ChannelAbilityTick();
+        // abilities[1].ability.StartAbility();
     }
     
     public void ActivateIcyWindParticles()

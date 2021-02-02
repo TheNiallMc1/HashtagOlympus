@@ -38,7 +38,7 @@ public abstract class SpecialAbility : ScriptableObject
     [HideInInspector] public List<Combatant> targets;
     [HideInInspector] public GodBehaviour thisGod;
 
-    public abstract void StartAbility();
+    public abstract void AbilityEffect();
     public abstract void ExecuteAbility();
     public abstract void DealDamage(Combatant target);
     public abstract void RestoreHealth(Combatant target);

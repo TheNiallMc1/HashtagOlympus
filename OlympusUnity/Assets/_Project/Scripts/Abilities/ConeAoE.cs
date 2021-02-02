@@ -9,12 +9,13 @@ public class ConeAoE : MonoBehaviour
 
     public List<Combatant.eTargetType> targetTypes;
     public float lifeTime = 10;
+    public AbilityManager ability;
 
     private void Start()
     {
-        transform.rotation = Quaternion.Euler(90f, 0, 0);
+        // transform.rotation = Quaternion.Euler(90f, 0, 0);
         StartCoroutine(GetTargetsRoutine());
-        StartCoroutine(DestroyCone());
+        StartCoroutine(DestroyConeRoutine());
     }
 
     public void OnTriggerEnter(Collider other)
@@ -60,6 +61,11 @@ public class ConeAoE : MonoBehaviour
     }
 
 
+    public void DestroyImmediate()
+    {
+        Destroy(gameObject);
+    }
+
     private IEnumerator GetTargetsRoutine()
     {
         yield return new WaitForSeconds(0.1f);
@@ -67,10 +73,11 @@ public class ConeAoE : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator DestroyCone()
+    private IEnumerator DestroyConeRoutine()
     {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(lifeTime);
-        Destroy(gameObject);
+
+        ability.EndChannel();
     }
 }

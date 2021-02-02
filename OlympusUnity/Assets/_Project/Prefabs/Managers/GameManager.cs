@@ -269,6 +269,7 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 0.15f;
 
         currentAbility.targetSelectModeActive = true;
+        Debug.Log("AreaConeSelect from GameManager ran");
     }
 
     private bool isTargetValid(Combatant currentTarget)

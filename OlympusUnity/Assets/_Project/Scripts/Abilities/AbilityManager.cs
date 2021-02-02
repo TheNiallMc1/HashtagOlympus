@@ -15,13 +15,13 @@ public class AbilityManager : MonoBehaviour
     public SpecialAbility ability;
     public List<Combatant> targets = new List<Combatant>();
     public bool targetSelectModeActive;
-    public bool isChanneled;
+    public bool isChannelling;
     public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
     public string abilityStateName;
-    public string channelAnimTrigger;
+    public string channelFinishTrigger;
 
     [Header("Player Controls")]
     private PlayerControls playerControls;
@@ -90,6 +90,23 @@ public class AbilityManager : MonoBehaviour
                     break;
             }
         }
+        if (isChannelling)
+        {
+            if (leftClick)
+            {
+                EndChannel();
+            }
+        }
+    }
+
+    public void EndChannel()
+    {
+        isChannelling = false;
+        Debug.Log("<color=yellow> Cast cancelled prematurely </color>");
+
+        anim.SetTrigger(channelFinishTrigger);
+        coneAoE.DestroyImmediate();
+        thisCombatant.DeactivateConeAreaMarker();
     }
 
     private void OnEnable()
@@ -186,7 +203,7 @@ public class AbilityManager : MonoBehaviour
 
         if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
         {
-            thisCombatant.DeactivateConeAreaMarker();
+            // thisCombatant.DeactivateConeAreaMarker();
         }
         
         targetSelectModeActive = false;
@@ -240,43 +257,51 @@ public class AbilityManager : MonoBehaviour
 
     private void AoEConeSelect()
     {
-        if (rightClick)
+        if (rightClick && !ability.coneAlreadyExists)
         {
-            if (!ability.coneAlreadyExists)
+            Debug.Log("Cone does not already exist");
+            ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
+            ability.coneAlreadyExists = true;
+
+            coneAoE = Instantiate(ability.coneAoE, thisCombatant.coneMarker.transform.position, Quaternion.Euler(0, 0, 0), thisCombatant.transform);
+            coneAoE.targetTypes = ability.abilityCanHit;
+            coneAoE.lifeTime = ability.coneLifetime;
+            coneAoE.ability = this;
+        }
+
+        if(ability.coneAlreadyExists)
+        {
+            Debug.Log("Cone already exists");
+            // When cone buffer hits zero, start the ability with the cone's targets
+            ability.coneBuffer -= Time.deltaTime;
+
+            if (ability.coneBuffer <= 0)
             {
-                Debug.Log("Cone already exists");
-                ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
-                ability.coneAlreadyExists = true;
+                ability.coneBuffer = 0;
 
-                coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.coneMarker.transform);
-                coneAoE.targetTypes = ability.abilityCanHit;
-                coneAoE.lifeTime = ability.coneLifetime;
-            }
-            else
-            {
-                Debug.Log("Cone does not already exist");
-                // When cone buffer hits zero, start the ability with the cone's targets
-                ability.coneBuffer -= Time.deltaTime;
+                Debug.Log("<color=green> Start Ability called </color>");
+                StartAbility();
+                isChannelling = true;
 
-                if (ability.coneBuffer <= 0)
-                {
-                    ability.coneBuffer = 0;
-                    targets = coneAoE.targetsInCone;
-
-                    StartAbility();
-                    // Call tick method
-                    
-                    ability.coneAlreadyExists = false;
-                }
+                ability.coneAlreadyExists = false;
             }
         }
 
         if (leftClick)
         {
+            Debug.Log("<color=red> Cone cancelled before cast </color>");
             ExitTargetSelectMode();
         }
     
     }
+
+    public void ChannelAbilityTick()
+    {
+        Debug.Log("<color=blue> Tick effect called </color>");
+        ability.targets = coneAoE.targetsInCone;
+        ability.AbilityEffect();
+    }
+
 
     private void SelfSelect()
     {
