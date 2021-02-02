@@ -212,6 +212,8 @@ MonoBehaviour:
   characterName: 
   characterSprite: {fileID: 0}
   targetIcon: {fileID: 8589997563083523222}
+  circleMarker: {fileID: 0}
+  coneMarker: {fileID: 0}
   maxHealth: 70
   currentHealth: 70
   attackDamage: 20
@@ -237,6 +239,7 @@ MonoBehaviour:
   priority: 0
   state: 0
   wayPoint: {fileID: 0}
+  isFrozen: 0
   inRange: 0
   initMove: 1
   weightCheck: 0
@@ -246,6 +249,7 @@ MonoBehaviour:
   _isCombatantNotNull: 0
   _isDrunk: 0
   _isDead: 0
+  _drunkCoroutineRunning: 0
   _autoAttackAnimations: 52c56609e8946f90
   handheldObject: {fileID: 7161867809484377842}
   particleEffect: {fileID: 1852239880696333999}

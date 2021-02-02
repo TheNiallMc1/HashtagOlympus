@@ -9,13 +9,14 @@ public class DionysusAnimations : MonoBehaviour
     public GameObject wineParticlesObj;
 
     public GameObject healParticlesObj;
+    [HideInInspector] GameObject healEffectInstance;
     private ParticleSystem healParticleSystem;
 
     // Start is called before the first frame update
     private void Start()
     {
         wineParticlesObj.SetActive(false);
-        healParticlesObj.SetActive(false);
+        // healParticlesObj.SetActive(false);
         
         healParticleSystem = healParticlesObj.GetComponent<ParticleSystem>();
         
@@ -49,6 +50,17 @@ public class DionysusAnimations : MonoBehaviour
     public void AnimationIsFinished()
     {
         godBehaviour.attackAnimationIsPlaying = false;
+    }
+
+
+    public void SpawnHealEffect()
+    {
+        // Borrow this for Demeter?
+        //Combatant target = abilities[0].ability.targets[0];
+        //Instantiate(healParticlesObj, target.transform.position, Quaternion.identity, target.transform);
+
+        healEffectInstance = Instantiate(healParticlesObj, transform.position, Quaternion.identity, transform);
+        Destroy(healEffectInstance, 2f);
     }
 
     public void Ability01Effect()
