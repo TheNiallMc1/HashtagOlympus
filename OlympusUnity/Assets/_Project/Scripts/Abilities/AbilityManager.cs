@@ -296,7 +296,7 @@ public class AbilityManager : MonoBehaviour
     public void ChannelAbilityTick()
     {
         Debug.Log("<color=blue> Tick effect called </color>");
-        ability.targets = coneAoE.targetsInCone;
+        ability.targets = coneAoE.GetTargets();
         ability.AbilityEffect();
     }
 
