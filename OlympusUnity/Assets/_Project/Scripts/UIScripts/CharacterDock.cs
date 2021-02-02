@@ -34,8 +34,7 @@ public class CharacterDock : MonoBehaviour
 
     public void UpdateCharacterDock()
     {
-        Debug.Log("Updating docks");
-//        mainSprite.sprite = godCombatant.characterSprite;
+        mainSprite.sprite = godCombatant.characterSprite;
         tooltipInfo = godCombatant.gameObject.GetComponent<CharacterToolTipInfo>();
         godNameDisplay.text = godCombatant.characterName;
         godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
@@ -62,20 +61,23 @@ public class CharacterDock : MonoBehaviour
 
     public void DockSetUp(GodBehaviour assignedGod)
     {
+        //mainSprite.sprite = godCombatant.characterSprite;
         Debug.Log("setting up docks");
         godBehaviour = assignedGod;
         godCombatant = assignedGod.gameObject.GetComponent<Combatant>();
         godNameDisplay.text = godCombatant.characterName;
         godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
         healthBar.healthValue = godCombatant.currentHealth;
+        //UpdateTooltips();
 
         if (godBehaviour.isKOed)
         {
             ShowReviveButton();
         }
+        //adding correct ability buttons
     }
 
-    private void UpdateTooltips()
+    public void UpdateTooltips()
     {
         if (tooltipInfo.allTooltips.Count == 10)
         {
@@ -95,8 +97,8 @@ public class CharacterDock : MonoBehaviour
             abilityTooltips[4].content = tooltipInfo.allTooltips[9];
         }
     }
-
-    private void ShowReviveButton()
+    
+    void ShowReviveButton()
     {
         abilityButtons.gameObject.SetActive(false);
         reviveButton.gameObject.SetActive(true);
@@ -108,6 +110,7 @@ public class CharacterDock : MonoBehaviour
         abilityButtons.gameObject.SetActive(true);
         reviveButton.gameObject.SetActive(false);
         GameManager.Instance.RemoveRespect(godBehaviour.costToRespawn);
+        Debug.Log("revive pressed");
     }
 
     public void StrengthBuff()
@@ -115,8 +118,8 @@ public class CharacterDock : MonoBehaviour
         respectBuff.ApplyBuff(godCombatant, 30, ref godCombatant.attackDamage);
         StartCoroutine(StrengthBuffCoolDown());
     }
-
-    private IEnumerator StrengthBuffCoolDown()
+    
+    IEnumerator StrengthBuffCoolDown()
     {
         yield return new WaitForSeconds(2f);
         respectBuff.RemoveBuff(godCombatant, 0, ref godCombatant.attackDamage, 10);

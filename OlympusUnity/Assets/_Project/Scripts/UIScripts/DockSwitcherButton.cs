@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
@@ -6,38 +10,21 @@ public class DockSwitcherButton : MonoBehaviour
 {
     public TMP_Text godNameDisplay;
     private Button myButton;
-    
-    
-    private int godKey;
+    public int godKey;
     public Sprite currentSprite;
 
-    public void Start()
+    private void Start()
     {
         myButton = GetComponent<Button>();
     }
 
-    public void Update()
-    {
-        Debug.Log("godkey : "+godKey);
-    }
-
-    public int GetGodKey()
-    {
-        return godKey;
-    }
-
-    public void SetGodKey(int newValue)
-    {
-        godKey = newValue;
-    }
-
-    public void SetCurrentGod(int key, string godName)
+    public void SetCurrentGod(int key, string godName, Sprite newSprite)
     {
         godKey = key;
         godNameDisplay.text = godName;
-
+        myButton.image.sprite = newSprite;
+        
         Debug.Log("switch button: "+godName);
-        Debug.Log("SET UP CURRENT GOD: "+key+godKey+", "+godName);
     }
 
     public void SendSwitchInfo()
@@ -46,10 +33,4 @@ public class DockSwitcherButton : MonoBehaviour
         
         InterimUIManager.Instance.UpdateHUD(godKey);
     }
-
-    public void SnapToCurrentGod()
-    {
-        CameraController.Instance.FollowPlayer(GameManager.Instance.currentlySelectedGod);
-    }
 }
-
