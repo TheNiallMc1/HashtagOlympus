@@ -263,7 +263,8 @@ public class AbilityManager : MonoBehaviour
             ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
             ability.coneAlreadyExists = true;
 
-            coneAoE = Instantiate(ability.coneAoE, thisCombatant.coneMarker.transform.position, Quaternion.Euler(0, 0, 0), thisCombatant.transform);
+            coneAoE = Instantiate(ability.coneAoE, thisCombatant.coneMarker.transform.position, thisCombatant.coneMarker.transform.rotation, thisCombatant.coneMarker.transform);
+            
             coneAoE.targetTypes = ability.abilityCanHit;
             coneAoE.lifeTime = ability.coneLifetime;
             coneAoE.ability = this;
