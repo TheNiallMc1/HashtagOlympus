@@ -7,7 +7,7 @@ public class DockSwitcherButton : MonoBehaviour
     public TMP_Text godNameDisplay;
     private Button myButton;
     
-    [SerializeField]
+    
     private int godKey;
     public Sprite currentSprite;
 

@@ -35,7 +35,7 @@ public class CharacterDock : MonoBehaviour
     public void UpdateCharacterDock()
     {
         Debug.Log("Updating docks");
-        mainSprite.sprite = godCombatant.characterSprite;
+//        mainSprite.sprite = godCombatant.characterSprite;
         tooltipInfo = godCombatant.gameObject.GetComponent<CharacterToolTipInfo>();
         godNameDisplay.text = godCombatant.characterName;
         godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
