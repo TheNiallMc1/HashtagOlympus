@@ -26,6 +26,7 @@ public class InterimUIManager : MonoBehaviour
     private Dictionary<int, GodBehaviour> allGods;
     public GameObject[] characterDocks;
     public GameObject[] switchButtons;
+    public MainSwitchButton mainPortrait;
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class InterimUIManager : MonoBehaviour
 
     public void AssignCharacterDocks(Dictionary<int, GodBehaviour> activeGods)
     {
-        Debug.Log("assigning character docks");
+        Debug.Log("assigning character docks: "+activeGods[1].gameObject.GetComponent<Combatant>().characterName + activeGods[2].gameObject.GetComponent<Combatant>().characterName);
         allGods = activeGods;
 
         characterDocks[0].GetComponent<CharacterDock>().DockSetUp(activeGods[0]);
@@ -47,10 +48,14 @@ public class InterimUIManager : MonoBehaviour
 
         switchButtons[0].GetComponent<DockSwitcherButton>()
             .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName);
+        //activeGods[1].gameObject.GetComponent<Combatant>().characterSprite);
         
        // activeGods[1].gameObject.GetComponent<Combatant>().characterSprite)
         switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2,
             activeGods[2].gameObject.GetComponent<Combatant>().characterName);
+        //activeGods[2].gameObject.GetComponent<Combatant>().characterSprite
+        
+      // mainPortrait.UpdateMainSprite();
     }
 
 
@@ -69,6 +74,8 @@ public class InterimUIManager : MonoBehaviour
         characterDocks[myKey].gameObject.SetActive(true);
         characterDocks[myKey].GetComponent<CharacterDock>().UpdateCharacterDock();
         ReOrderButtons(myKey);
+        
+        //mainPortrait.UpdateMainSprite();
     }
 
     public void UpdateHUD(int key)
@@ -85,6 +92,8 @@ public class InterimUIManager : MonoBehaviour
 
 
         ReOrderButtons(key);
+        
+        //mainPortrait.UpdateMainSprite();
     }
 
     private void ReOrderButtons(int activeKey)
@@ -97,8 +106,8 @@ public class InterimUIManager : MonoBehaviour
 
         List<int> currentButtonOrder = new List<int>
         {
-            switchButtons[0].GetComponent<DockSwitcherButton>().godKey,
-            switchButtons[1].GetComponent<DockSwitcherButton>().godKey
+            switchButtons[0].GetComponent<DockSwitcherButton>().GetGodKey(),
+            switchButtons[1].GetComponent<DockSwitcherButton>().GetGodKey()
         };
         
         currentButtonOrder.Remove(activeKey);
@@ -107,9 +116,11 @@ public class InterimUIManager : MonoBehaviour
 
         switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0],
             GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
+        //GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterSprite
         
         //GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterSprite
         switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1],
             GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
+        //GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterSprite
     }
 }
