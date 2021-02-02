@@ -34,6 +34,7 @@ public class CharacterDock : MonoBehaviour
 
     public void UpdateCharacterDock()
     {
+        Debug.Log("Updating docks");
         mainSprite.sprite = godCombatant.characterSprite;
         tooltipInfo = godCombatant.gameObject.GetComponent<CharacterToolTipInfo>();
         godNameDisplay.text = godCombatant.characterName;
@@ -61,6 +62,7 @@ public class CharacterDock : MonoBehaviour
 
     public void DockSetUp(GodBehaviour assignedGod)
     {
+        Debug.Log("setting up docks");
         godBehaviour = assignedGod;
         godCombatant = assignedGod.gameObject.GetComponent<Combatant>();
         godNameDisplay.text = godCombatant.characterName;

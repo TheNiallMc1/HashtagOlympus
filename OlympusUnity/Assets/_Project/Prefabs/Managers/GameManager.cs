@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             godDict.Add(i, allPlayerGods[i]);
         }
-
+        Debug.Log("godDict = "+godDict.Count);
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 

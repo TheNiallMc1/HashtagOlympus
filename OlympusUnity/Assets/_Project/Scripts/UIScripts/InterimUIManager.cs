@@ -38,6 +38,7 @@ public class InterimUIManager : MonoBehaviour
 
     public void AssignCharacterDocks(Dictionary<int, GodBehaviour> activeGods)
     {
+        Debug.Log("assigning character docks");
         allGods = activeGods;
 
         characterDocks[0].GetComponent<CharacterDock>().DockSetUp(activeGods[0]);
@@ -45,11 +46,11 @@ public class InterimUIManager : MonoBehaviour
         characterDocks[2].GetComponent<CharacterDock>().DockSetUp(activeGods[2]);
 
         switchButtons[0].GetComponent<DockSwitcherButton>()
-            .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName,
-                activeGods[1].gameObject.GetComponent<Combatant>().characterSprite);
+            .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName);
+        
+       // activeGods[1].gameObject.GetComponent<Combatant>().characterSprite)
         switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2,
-            activeGods[2].gameObject.GetComponent<Combatant>().characterName,
-            activeGods[2].gameObject.GetComponent<Combatant>().characterSprite);
+            activeGods[2].gameObject.GetComponent<Combatant>().characterName);
     }
 
 
@@ -105,10 +106,10 @@ public class InterimUIManager : MonoBehaviour
         currentButtonOrder.Add(remainder[0]);
 
         switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0],
-            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName,
-            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterSprite);
+            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
+        
+        //GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterSprite
         switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1],
-            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName,
-            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterSprite);
+            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
     }
 }
