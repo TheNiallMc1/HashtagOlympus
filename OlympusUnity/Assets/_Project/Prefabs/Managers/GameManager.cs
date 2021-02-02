@@ -183,6 +183,13 @@ public class GameManager : MonoBehaviour
         currentlySelectedGod.mouseDetectorCollider.SetActive(false);
 
         currentlySelectedGod.ToggleSelection(true);
+        
+        //Toggle outine
+        foreach (var god in allPlayerGods)
+        {
+            god.ToggleOutlineOnOff(false);   
+        }
+        godToSelect.ToggleOutlineOnOff(true);
 
         InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
     }
