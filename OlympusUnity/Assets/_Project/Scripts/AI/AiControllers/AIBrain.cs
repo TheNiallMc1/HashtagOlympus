@@ -31,7 +31,8 @@ namespace _Project.Scripts.AI.AiControllers
         protected EState state = EState.Moving;
         public Waypoint wayPoint;
 
-        [Header("Dynamic Validation")]
+        [Header("Dynamic Validation")] 
+        public bool isFrozen;
         public bool inRange;
         public bool initMove = true;
         public bool weightCheck;
@@ -74,7 +75,14 @@ namespace _Project.Scripts.AI.AiControllers
         public EState State
         {
             get => state;
-            set => state = value;
+
+            set
+            {
+                if (!isFrozen)
+                {
+                    state = value;
+                }
+            }
         }
 
 
@@ -136,6 +144,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Moving:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         if (!initMove)
                         {
                             partyParticles.SetActive(false);
@@ -157,6 +166,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Attacking:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(false);
                         drunkParticles.SetActive(false);
                         isAttacking = true;
@@ -181,6 +191,7 @@ namespace _Project.Scripts.AI.AiControllers
                     {
                         if (!_isDrunk)
                         {
+                            _movementMotor.nav.isStopped = false;
                             partyParticles.SetActive(false);
                             drunkParticles.SetActive(true);
                             _movementMotor.currentPosition = transform.position;
@@ -198,6 +209,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Party:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(true);
                         drunkParticles.SetActive(false);
                         _isDrunk = false;
@@ -206,6 +218,9 @@ namespace _Project.Scripts.AI.AiControllers
                     break;
                 
                 case EState.Frozen:
+                    _movementMotor.nav.isStopped = true;
+                    _movementMotor.animator.SetBool(GodSeen, false);
+                    _movementMotor.animator.speed = 0;
                     break;
                 
                 default:

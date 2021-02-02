@@ -202,6 +202,11 @@ public class AbilityManager : MonoBehaviour
         {
             thisCombatant.DeactivateCircleAreaMarker();
         }
+                
+        if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
+        {
+            thisCombatant.DeactivateConeAreaMarker();
+        }
         
         targetSelectModeActive = false;
         
@@ -256,7 +261,6 @@ public class AbilityManager : MonoBehaviour
     {
         if (rightClick && !ability.coneAlreadyExists)
         {
-            Debug.Log("Cone does not already exist");
             ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
             ability.coneAlreadyExists = true;
 
@@ -267,7 +271,7 @@ public class AbilityManager : MonoBehaviour
             coneAoE.ability = this;
         }
 
-        if(ability.coneAlreadyExists)
+        if (ability.coneAlreadyExists)
         {
             Debug.Log("Cone already exists");
             // When cone buffer hits zero, start the ability with the cone's targets
@@ -276,12 +280,9 @@ public class AbilityManager : MonoBehaviour
             if (ability.coneBuffer <= 0)
             {
                 ability.coneBuffer = 0;
-
+                targets = coneAoE.targetsInCone;
                 Debug.Log("<color=green> Start Ability called </color>");
                 StartAbility();
-                isChannelling = true;
-
-                ability.coneAlreadyExists = false;
             }
         }
 
@@ -290,13 +291,6 @@ public class AbilityManager : MonoBehaviour
             Debug.Log("<color=green> Cone cancelled before cast </color>");
             ExitTargetSelectMode();
         }
-
-        if (leftClick && ability.coneAlreadyExists)
-        {
-            Debug.Log("<color=green> Cone cancelled during cast </color>");
-            EndChannel();
-        }
-    
     }
 
     public void ChannelAbilityTick()
