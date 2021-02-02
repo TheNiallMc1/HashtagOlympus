@@ -13,6 +13,12 @@ public class DemeterSummerAnimations : MonoBehaviour
     private GameObject cornMesh;
     [SerializeField]
     private GameObject cornHealParticles;
+    [SerializeField]
+    GameObject rightHand;
+
+    [HideInInspector]
+    Vector3 cornStartPosition;
+    Quaternion cornStartRotation;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,6 +28,9 @@ public class DemeterSummerAnimations : MonoBehaviour
 
         abilities[0] = godBehaviour.summerAbilities[0];
         abilities[1] = godBehaviour.summerAbilities[1];
+
+        cornStartPosition = cornMesh.transform.localPosition;
+        cornStartRotation = cornMesh.transform.rotation;
     }
 
 
@@ -51,10 +60,13 @@ public class DemeterSummerAnimations : MonoBehaviour
     }
     
     
+
+    // Monument Heal Effects
     public void Ability01Effect()
     {
         abilities[0].ability.StartAbility();
     }
+
 
     public void ActivateMonumentHealParticles()
     {
@@ -66,30 +78,60 @@ public class DemeterSummerAnimations : MonoBehaviour
         monumentHealParticles.SetActive(false);
     }
     
+
     public void EndAbility01()
     {
         abilities[0].StartCooldown();
         godBehaviour.currentState = GodState.idle;
     }
     
+
+
+    // Corn Heal Effects
     public void Ability02Start()
     {
         abilities[1].ability.StartAbility();
     }
     
+
+
     public void ActivateCornHealMesh()
     {
         cornMesh.SetActive(true);
     }
 
-    public void ActivateCornHealParticles()
+
+    public void UnparentCorn()
     {
-        cornHealParticles.SetActive(true);
+        cornMesh.transform.parent = godCombatant.transform;
+        Rigidbody rb = cornMesh.GetComponent<Rigidbody>();
+
+        // print(cornMesh.transform.position);
+        cornMesh.transform.position = rightHand.transform.position;
+
+        // print(cornMesh.transform.position);
+        // rb.isKinematic = true;
+        // rb.AddForce(0, 3f, 0);
+        // Debug.Break();
     }
-    
+
+
     public void DeactivateCornHealMesh()
     {
         cornMesh.SetActive(false);
+    }
+
+    public void ReparentCorn()
+    {
+        cornMesh.transform.parent = rightHand.transform;
+        cornMesh.transform.localPosition = cornStartPosition;
+        cornMesh.transform.rotation = cornStartRotation;
+    }
+
+
+    public void ActivateCornHealParticles()
+    {
+        cornHealParticles.SetActive(true);
     }
     
     public void DeactivateCornHealParticles()
@@ -97,6 +139,8 @@ public class DemeterSummerAnimations : MonoBehaviour
         cornHealParticles.SetActive(false);
     }
     
+
+
     public void EndAbility02()
     {
         abilities[1].StartCooldown();
