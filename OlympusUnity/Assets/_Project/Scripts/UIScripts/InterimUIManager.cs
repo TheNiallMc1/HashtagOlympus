@@ -75,8 +75,8 @@ public class InterimUIManager : MonoBehaviour
         Debug.Log("dock set up complete");
 
         switchButtons[0].GetComponent<DockSwitcherButton>()
-            .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName, activeGods[1].gameObject.GetComponent<Combatant>().characterSprite);
-        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2, activeGods[2].gameObject.GetComponent<Combatant>().characterName, activeGods[2].gameObject.GetComponent<Combatant>().characterSprite);
+            .SetCurrentGod(1, activeGods[1].gameObject.GetComponent<Combatant>().characterName);
+        switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(2, activeGods[2].gameObject.GetComponent<Combatant>().characterName);
     }
 
     
@@ -143,10 +143,8 @@ public class InterimUIManager : MonoBehaviour
         //switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1], allGods[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
 
         switchButtons[0].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[0],
-            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName,
-            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterSprite);
+            GameManager.Instance.godDict[currentButtonOrder[0]].gameObject.GetComponent<Combatant>().characterName);
         switchButtons[1].GetComponent<DockSwitcherButton>().SetCurrentGod(currentButtonOrder[1],
-            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName,
-            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterSprite);
+            GameManager.Instance.godDict[currentButtonOrder[1]].gameObject.GetComponent<Combatant>().characterName);
     }
 }

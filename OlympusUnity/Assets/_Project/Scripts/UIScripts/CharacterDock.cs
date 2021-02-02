@@ -51,7 +51,7 @@ public class CharacterDock : MonoBehaviour
             }
         }*/
 
-      UpdateTooltips();
+      //UpdateTooltips();
 
         if (godBehaviour.isKOed)
         {
@@ -77,7 +77,7 @@ public class CharacterDock : MonoBehaviour
         //adding correct ability buttons
     }
 
-    public void UpdateTooltips()
+    /*public void UpdateTooltips()
     {
         if (tooltipInfo.allTooltips.Count == 10)
         {
@@ -96,7 +96,7 @@ public class CharacterDock : MonoBehaviour
             abilityTooltips[4].header = tooltipInfo.allTooltips[8];
             abilityTooltips[4].content = tooltipInfo.allTooltips[9];
         }
-    }
+    }*/
     
     void ShowReviveButton()
     {
