@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bar: {fileID: 5876439928264446616}
   button: {fileID: 8026648391386750200}
-  healthValue: 0
+  healthValue: 100
 --- !u!1 &195384661457198138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Name
+  m_text: Demeter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
   m_sharedMaterial: {fileID: 8458152070050879342, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
@@ -3581,7 +3581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Health
+  m_text: 1000/1000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4313,7 +4313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Name
+  m_text: Dionysus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
   m_sharedMaterial: {fileID: 8458152070050879342, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
@@ -6349,7 +6349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Demeter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6656,8 +6656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godNameDisplay: {fileID: 7887862082250598854}
-  godKey: 0
-  currentSprite: {fileID: 0}
+  currentSprite: {fileID: 21300000, guid: 69c5d4a0a62104ee69efdef955ef7918, type: 3}
 --- !u!1 &7887862082731164169
 GameObject:
   m_ObjectHideFlags: 0
@@ -6954,8 +6953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godNameDisplay: {fileID: 7887862083379768970}
-  godKey: 0
-  currentSprite: {fileID: 0}
+  currentSprite: {fileID: 21300000, guid: 6a5d6361a54e943d784675a76cf4e2c9, type: 3}
 --- !u!1 &7887862083258422409
 GameObject:
   m_ObjectHideFlags: 0
@@ -7097,7 +7095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Dionysus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7343,7 +7341,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Health
+  m_text: 100/100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8100,10 +8098,54 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1414231435971966636, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: header
+      value: Ultimate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231435971966636, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: content
+      value: ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437159097401, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: header
+      value: Passive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437159097401, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: content
+      value: ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437764468672, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: header
+      value: Ability 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437764468672, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: content
+      value: ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437848588040, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: header
+      value: Ability 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414231437848588040, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: content
+      value: ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341625188180953500, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: content
+      value: ares
+      objectReference: {fileID: 0}
+    - target: {fileID: 5482209576211519610, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: m_text
+      value: 100/200
+      objectReference: {fileID: 0}
     - target: {fileID: 7348774371656695153, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
       propertyPath: m_Name
       value: Dock1.0
       objectReference: {fileID: 0}
+    - target: {fileID: 7354660313914943796, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bb2b64fa9645e4478b86e8b687b4bb15, type: 3}
     - target: {fileID: 9139786312783644739, guid: d793a8afb7c2d47dd89f4721e3983eda, type: 3}
       propertyPath: healthBar
       value: 
@@ -8151,6 +8193,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 11.79
       objectReference: {fileID: 0}
+    - target: {fileID: 5639146253521326826, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: m_text
+      value: xxxxxx
+      objectReference: {fileID: 0}
     - target: {fileID: 5639146253662037857, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_AnchorMin.y
       value: 1
@@ -8177,7 +8223,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5639146253662037858, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_text
-      value: Auto Attack
+      value: xxxxx
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639146253905471776, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5639146253905471779, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_Color.r

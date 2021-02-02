@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             godDict.Add(i, allPlayerGods[i]);
         }
-
+        Debug.Log("godDict = "+godDict.Count);
         InterimUIManager.Instance.AssignCharacterDocks(godDict);
     }
 
@@ -183,6 +183,13 @@ public class GameManager : MonoBehaviour
         currentlySelectedGod.mouseDetectorCollider.SetActive(false);
 
         currentlySelectedGod.ToggleSelection(true);
+        
+        //Toggle outine
+        foreach (var god in allPlayerGods)
+        {
+            god.ToggleOutlineOnOff(false);   
+        }
+        godToSelect.ToggleOutlineOnOff(true);
 
         InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
     }

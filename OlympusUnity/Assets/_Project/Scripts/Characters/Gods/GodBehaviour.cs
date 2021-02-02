@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using cakeslice;
 
 public class GodBehaviour : MonoBehaviour
 {
@@ -74,9 +75,7 @@ public class GodBehaviour : MonoBehaviour
         AutoAttack04
     };
 
-    
-
-
+        
     public virtual void Start()
     {
         thisCombatant = GetComponent<Combatant>();
@@ -92,6 +91,18 @@ public class GodBehaviour : MonoBehaviour
 
     StartCoroutine(GainUltimateChargeCoroutine());
 
+    }
+    
+    public void ToggleOutlineOnOff(bool shouldTurnOn)
+    {
+        var allObjects = gameObject.GetComponentsInChildren<Transform>();
+        foreach (var child in allObjects)
+        {
+            if (child.GetComponent<Outline>() !=null)
+            {
+                child.GetComponent<Outline>().enabled = shouldTurnOn;
+            }
+        }
     }
 
     public virtual void OnDamageEvent(int damageTaken)
@@ -440,6 +451,8 @@ public class GodBehaviour : MonoBehaviour
     }
 
 }
+
+
 
 public enum GodState
 {
