@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace _Project.Scripts.AI.AiControllers
@@ -238,13 +239,12 @@ namespace _Project.Scripts.AI.AiControllers
 
             var animNumber = 1;
 
-            foreach (Combatant targetCombatant in enemiesInAttackRange)
+            foreach (var targetCombatant in from targetCombatant in enemiesInAttackRange
+                let closest = transform.position - currentAttackTarget.transform.position
+                where (transform.position - targetCombatant.transform.position).magnitude < closest.magnitude
+                select targetCombatant)
             {
-                var closest = transform.position - currentAttackTarget.transform.position;
-                if ((transform.position - targetCombatant.transform.position).magnitude < closest.magnitude)
-                {
-                    currentAttackTarget = targetCombatant;
-                }
+                currentAttackTarget = targetCombatant;
             }
 
             if (isTargetNotNull)

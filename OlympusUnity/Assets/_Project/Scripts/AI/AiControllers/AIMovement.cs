@@ -41,14 +41,12 @@ namespace _Project.Scripts.AI.AiControllers
             animator = GetComponentInChildren<Animator>();
             nav = GetComponent<NavMeshAgent>();
             //wayPoints = wP.GetComponent<Waypoint>().wayPoints;
+
+            if (gameObject.name == "Tourist_Defender") return;
             spawn = wayPoints[0];
             _isCurrentAttackTargetNull = _aiBrain.currentAttackTarget == null;
             wpNum = 0;
-
-            if(gameObject.name != "Tourist_Defender")
-            {
-                FindNextWayPoint(spawn);
-            }
+            FindNextWayPoint(spawn);
         }
 
         protected void Update()
@@ -63,7 +61,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             animator.SetFloat(VerticalF, animSpeed);
 
-            if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk)
+            if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk && gameObject.name != "Tourist_Defender")
             {
                 transform.LookAt(destination.position);
             }

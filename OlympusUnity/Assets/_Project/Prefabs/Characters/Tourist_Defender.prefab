@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d50738993930b04f8f8451169d607fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBehaviour: {fileID: 370829212}
+  parentBehaviour: {fileID: 6770089837659538126}
   colliderType: 0
 --- !u!54 &6163831336364590729
 Rigidbody:
@@ -102,9 +102,9 @@ GameObject:
   - component: {fileID: 4489291371752168055}
   - component: {fileID: 4489291371752168049}
   - component: {fileID: 4489291371752168050}
+  - component: {fileID: 6770089837659538126}
   - component: {fileID: 1158538317233770418}
   - component: {fileID: 3803484578703537328}
-  - component: {fileID: 370829212}
   m_Layer: 9
   m_Name: Tourist_Defender
   m_TagString: Tourist
@@ -172,49 +172,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1158538317233770418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4489291371752168060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ca82d5bf2f7b146b374a5ff24b8455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  nav: {fileID: 0}
-  wayPoints: []
-  path: []
-  spawn: {fileID: 0}
-  closestWayPoint: {fileID: 0}
-  currentPosition: {x: 0, y: 0, z: 0}
-  wpIndex: 0
-  test: 0
---- !u!114 &3803484578703537328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4489291371752168060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respectOnKill: 5
-  _targetType: 1
-  colliderHolder: {fileID: 0}
-  characterName: 
-  characterSprite: {fileID: 0}
-  maxHealth: 70
-  currentHealth: 70
-  attackDamage: 20
-  damageReduction: 0
---- !u!114 &370829212
+--- !u!114 &6770089837659538126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,6 +204,49 @@ MonoBehaviour:
   _isDead: 0
   _autoAttackAnimations: 52c56609e8946f90
   _defencePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &1158538317233770418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489291371752168060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ca82d5bf2f7b146b374a5ff24b8455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  nav: {fileID: 0}
+  wayPoints: []
+  path: []
+  wP: {fileID: 0}
+  spawn: {fileID: 0}
+  closestWayPoint: {fileID: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  wpIndex: 0
+  test: 0
+--- !u!114 &3803484578703537328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489291371752168060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ec0472083a70e489bee37ba923f61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respectOnKill: 5
+  _targetType: 1
+  colliderHolder: {fileID: 0}
+  characterName: 
+  characterSprite: {fileID: 0}
+  maxHealth: 70
+  currentHealth: 70
+  attackDamage: 20
+  damageReduction: 0
 --- !u!1001 &4925267330016404292
 PrefabInstance:
   m_ObjectHideFlags: 0

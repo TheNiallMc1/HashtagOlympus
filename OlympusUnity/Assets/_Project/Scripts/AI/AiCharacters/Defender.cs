@@ -27,11 +27,15 @@ public class Defender : AIBrain
     //// Update is called once per frame
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
+        //base.FixedUpdate();
+        if(monumentsInAttackRange.Count > 0)
+            monumentsInAttackRange.Clear();
+       
 
-        if (!currentAttackTarget.gameObject.CompareTag("God"))
+        if (enemiesInAttackRange.Count == 0)
         {
             State = EState.Moving;
+            Priority = EPriority.Moving;
         }
 
         switch (priority)
