@@ -93,8 +93,9 @@ public class DemeterWinterAnimations : MonoBehaviour
     
     public void Ability02Effect()
     {
-        abilities[1].ChannelAbilityTick();
+        // abilities[1].ChannelAbilityTick();
         // abilities[1].ability.StartAbility();
+        abilities[1].ability.AbilityEffect();
     }
     
     public void ActivateIcyWindParticles()

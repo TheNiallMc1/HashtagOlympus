@@ -208,13 +208,15 @@ public class GodBehaviour : MonoBehaviour
         var targetPosition = currentAttackTarget.transform.position;
         
         MoveToTarget(targetPosition);
-        transform.LookAt(targetPosition);
+        
 
         if (attackAnimationIsPlaying)
         {
             return;
         }
-        
+
+        transform.LookAt(targetPosition);
+
         int animNumber = GetRandomNumber();
         
         attackAnimationIsPlaying = true;

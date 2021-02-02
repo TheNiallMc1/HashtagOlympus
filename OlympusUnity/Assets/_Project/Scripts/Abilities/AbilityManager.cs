@@ -206,6 +206,7 @@ public class AbilityManager : MonoBehaviour
         if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
         {
             thisCombatant.DeactivateConeAreaMarker();
+            ability.coneAlreadyExists = false;
         }
         
         targetSelectModeActive = false;
@@ -296,7 +297,7 @@ public class AbilityManager : MonoBehaviour
     public void ChannelAbilityTick()
     {
         Debug.Log("<color=blue> Tick effect called </color>");
-        ability.targets = coneAoE.GetTargets();
+        ability.targets = coneAoE.targetsInCone;
         ability.AbilityEffect();
     }
 
