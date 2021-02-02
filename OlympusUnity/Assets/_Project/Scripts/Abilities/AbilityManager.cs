@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -210,7 +211,7 @@ public class AbilityManager : MonoBehaviour
         }
         
         targetSelectModeActive = false;
-        
+
         GameManager.Instance.ExitTargetSelectMode();
     }
 
@@ -240,21 +241,48 @@ public class AbilityManager : MonoBehaviour
         if (leftClick)
         {
             ExitTargetSelectMode();
+            // thisGod.currentState = GodState.idle;
         }
     }
 
     private void AoECircleSelect()
     {
-        targets = GameManager.Instance.targetsInRange;
+        // targets = GameManager.Instance.targetsInRange;
 
         if (rightClick)
         {
+            Vector3 centre = thisCombatant.colliderHolder.transform.position;
+            float abilityRange = ability.radius;
+
+            Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, ability.targetLayerMask);
+
+
+
+            foreach (Collider targetCollider in colliders)
+            {
+                Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+
+                if (isTargetValid(currentTarget))
+                {
+                    targets.Add(currentTarget);
+                }
+            }
+
+            if (!targets.Any())
+            {
+                ExitTargetSelectMode();
+                thisGod.currentState = GodState.idle;
+
+                return;
+            }
+
             StartAbility(); 
         }
 
         if (leftClick)
         {
             ExitTargetSelectMode();
+            thisGod.currentState = GodState.idle;
         }
     }
 

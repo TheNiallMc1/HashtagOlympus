@@ -43,6 +43,7 @@ namespace _Project.Scripts.AI.AiControllers
         private bool _isMonumentsNotNull;
         public bool _isDrunk;
         public bool _isDead;
+        public bool _drunkCoroutineRunning;
 
         [Header("Animation")]
         protected bool _initialCoLoop = true;
@@ -69,7 +70,14 @@ namespace _Project.Scripts.AI.AiControllers
         public EPriority Priority
         {
             get => priority;
-            set => priority = value;
+
+            set
+            {
+                if (!isFrozen && !_isDrunk)
+                {
+                    priority = value;
+                }
+            }
         }
 
         public EState State
@@ -78,7 +86,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             set
             {
-                if (!isFrozen)
+                if (!isFrozen && !_isDrunk)
                 {
                     state = value;
                 }
@@ -189,21 +197,8 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Drunk:
                     if (State != EState.Frozen)
                     {
-                        if (!_isDrunk)
-                        {
-                            _movementMotor.nav.isStopped = false;
-                            partyParticles.SetActive(false);
-                            drunkParticles.SetActive(true);
-                            _movementMotor.currentPosition = transform.position;
-                            _isDrunk = true;
-                            attackAnimationIsPlaying = false;
-                            isAttacking = false;
-                            _movementMotor.animator.SetBool(GodSeen, false);
-                            _movementMotor.animator.Play(TouristStandardMovement);
-                            _movementMotor.nav.isStopped = false;
-                        }
-                    
-                        _movementMotor.Drunk(); 
+                        if (_drunkCoroutineRunning) return;
+                        StartCoroutine(_movementMotor.Drunk());
                     }
                     break;
                 case EState.Party:
@@ -226,6 +221,19 @@ namespace _Project.Scripts.AI.AiControllers
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void ActivateDrunk()
+        {
+            _movementMotor.nav.isStopped = false;
+            partyParticles.SetActive(false);
+            drunkParticles.SetActive(true);
+            _movementMotor.currentPosition = transform.position;
+
+            attackAnimationIsPlaying = false;
+            isAttacking = false;
+            _movementMotor.animator.SetBool(GodSeen, false);
+            _movementMotor.animator.Play("Drunk_movement");
         }
 
         #endregion

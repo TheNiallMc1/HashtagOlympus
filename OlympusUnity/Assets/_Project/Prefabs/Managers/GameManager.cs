@@ -232,30 +232,9 @@ public class GameManager : MonoBehaviour
     {
         combatantUsingAbility.ActivateCircleAreaMarker(currentAbility.ability.radius);
 
-        Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
-        float abilityRange = currentAbility.ability.radius;
-
-        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, currentAbility.ability.targetLayerMask);
-
         Time.timeScale = 0.15f;
         Time.fixedDeltaTime = 0.15f;
-
-        foreach (Collider targetCollider in colliders)
-        {
-            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
-
-            if (isTargetValid(currentTarget))
-            {
-                targetsInRange.Add(currentTarget);
-            }
-        }
-
-        if (!targetsInRange.Any())
-        {
-            ExitTargetSelectMode();
-            return;
-        }
-
+        
         currentAbility.targetSelectModeActive = true;
     }
 
@@ -353,7 +332,7 @@ public class GameManager : MonoBehaviour
     public void AddRespect(int valueToAdd)
     {
         currentRespect += valueToAdd;
-        respectDisplay.text = respectText + currentRespect;
+        // respectDisplay.text = respectText + currentRespect;
 
         CheckForSummon();
     }
