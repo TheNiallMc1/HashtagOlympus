@@ -15,6 +15,8 @@ public class PlacementManager : MonoBehaviour
     [SerializeField]
     public List<GameObject> blueprints;
     public GameObject currentBluePrint;
+
+    [SerializeField] public List<GameObject> godModels;
     
     
     
@@ -44,7 +46,8 @@ public class PlacementManager : MonoBehaviour
     }
     public GameObject ReturnCurrentGod()
     {
-        GameObject godToReturn = UberManager.Instance.selectedGods[currentGodIndex].gameObject;
+       // GameObject godToReturn = UberManager.Instance.selectedGods[currentGodIndex].gameObject;
+       GameObject godToReturn = godModels[currentGodIndex].gameObject;
         return godToReturn;
     }
 
@@ -68,20 +71,21 @@ public class PlacementManager : MonoBehaviour
     public void TimeToGo()
     {
         GodPlacementInfo.Instance.god1 = UberManager.Instance.selectedGods[0].gameObject;
-        GodPlacementInfo.Instance.god1Location = UberManager.Instance.selectedGods[0].gameObject.transform.position;
+        GodPlacementInfo.Instance.god1Location = godModels[0].gameObject.transform.position;
             
         GodPlacementInfo.Instance.god2 = UberManager.Instance.selectedGods[1].gameObject;
-        GodPlacementInfo.Instance.god2Location = UberManager.Instance.selectedGods[1].gameObject.transform.position;
+        GodPlacementInfo.Instance.god2Location = godModels[1].gameObject.transform.position;
             
         GodPlacementInfo.Instance.god3 = UberManager.Instance.selectedGods[2].gameObject;
-        GodPlacementInfo.Instance.god3Location = UberManager.Instance.selectedGods[2].gameObject.transform.position;
+        GodPlacementInfo.Instance.god3Location = godModels[2].gameObject.transform.position;
         
         UberManager.Instance.SwitchGameState(UberManager.GameState.GamePlay);
     }
 
     public void TryAgain()
     {
-        foreach (GodBehaviour t in UberManager.Instance.selectedGods)
+        //foreach (GodBehaviour t in UberManager.Instance.selectedGods)
+        foreach (GameObject t in godModels)
         {
             t.gameObject.transform.position = (new Vector3(1000, 0, 0));
             continueUI.gameObject.SetActive(false);
