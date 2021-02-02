@@ -60,8 +60,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        respectText = respectDisplay.text + " ";
-        respectDisplay.text = respectText + currentRespect;
+//        respectText = respectDisplay.text + " ";
+      //  respectDisplay.text = respectText + currentRespect;
         PopulateAllPlayerGods();
     }
 
