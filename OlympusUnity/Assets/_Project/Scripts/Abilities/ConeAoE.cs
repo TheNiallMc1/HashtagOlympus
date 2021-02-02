@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Xml;
 using UnityEngine;
 
 public class ConeAoE : MonoBehaviour
 {
-    private List<Combatant> combatantsInCone = new List<Combatant>();
     public List<Combatant> targetsInCone = new List<Combatant>();
 
     public List<Combatant.eTargetType> targetTypes;
@@ -14,63 +15,41 @@ public class ConeAoE : MonoBehaviour
     private void Start()
     {
         // transform.rotation = Quaternion.Euler(90f, 0, 0);
-        StartCoroutine(GetTargetsRoutine());
         StartCoroutine(DestroyConeRoutine());
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        Combatant combatant = other.gameObject.GetComponent<Combatant>();
-
-        if (combatant != null)
+        Debug.Log("<color=blue> ConeAOE: Trigger entered by " + other.name + " </color>");
+        
+        Combatant combatant = other.gameObject.GetComponentInParent<Combatant>();
+        Debug.Log("<color=blue> ConeAOE: Found combatant: " + combatant.name + " </color>");
+        
+        if (IsTargetValid(combatant))
         {
-            combatantsInCone.Add(combatant);
+            targetsInCone.Add(combatant);
+            Debug.Log("<color=green> ConeAOE: Added combatant to target list </color>");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Combatant combatant = other.gameObject.GetComponent<Combatant>();
-
-        if (combatant != null && targetsInCone.Contains(combatant))
-        {
-            combatantsInCone.Remove(combatant);
-        }
+        Combatant combatant = other.gameObject.GetComponentInParent<Combatant>();
+        Debug.Log("<color=red> ConeAOE: Trigger exited by " + other.name + " </color>");   
     }
 
-
-    public void IncludeType(Combatant.eTargetType tType)
+    private bool IsTargetValid(Combatant currentTarget)
     {
-        foreach (Combatant combatant in combatantsInCone)
-        {
-            if (combatant.targetType == tType)
-            {
-                targetsInCone.Add(combatant);
-            }
-        }
-    }
+        bool alreadyInList = targetsInCone.Contains(currentTarget);
+        bool correctTargetType = targetTypes.Contains(currentTarget.targetType);
 
-    private List<Combatant> GetTargets()
-    {
-        foreach (Combatant.eTargetType type in targetTypes)
-        {
-            IncludeType(type);
-        }
-
-        return targetsInCone;
+        return !alreadyInList && correctTargetType;
     }
 
 
     public void DestroyImmediate()
     {
         Destroy(gameObject);
-    }
-
-    private IEnumerator GetTargetsRoutine()
-    {
-        yield return new WaitForSeconds(0.1f);
-        GetTargets();
-        yield return null;
     }
 
     private IEnumerator DestroyConeRoutine()

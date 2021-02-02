@@ -102,7 +102,8 @@ public class AbilityManager : MonoBehaviour
     public void EndChannel()
     {
         isChannelling = false;
-        Debug.Log("<color=yellow> Cast cancelled prematurely </color>");
+        thisCombatant.DeactivateConeAreaMarker();
+        Debug.Log("<color=green> Channeling ended </color>");
 
         anim.SetTrigger(channelFinishTrigger);
         coneAoE.DestroyImmediate();
@@ -128,6 +129,7 @@ public class AbilityManager : MonoBehaviour
     public void StartCooldown()
     {
         onCooldown = true;
+        thisGod.currentState = GodState.idle;
         ability.remainingCooldownTime = ability.abilityCooldown;
         StartCoroutine(CooldownCoroutine());
     }
@@ -200,14 +202,9 @@ public class AbilityManager : MonoBehaviour
         {
             thisCombatant.DeactivateCircleAreaMarker();
         }
-
-        if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
-        {
-            // thisCombatant.DeactivateConeAreaMarker();
-        }
         
         targetSelectModeActive = false;
-        thisGod.currentState = GodState.idle;
+        
         GameManager.Instance.ExitTargetSelectMode();
     }
 
@@ -288,10 +285,16 @@ public class AbilityManager : MonoBehaviour
             }
         }
 
-        if (leftClick)
+        if (leftClick && !ability.coneAlreadyExists)
         {
-            Debug.Log("<color=red> Cone cancelled before cast </color>");
+            Debug.Log("<color=green> Cone cancelled before cast </color>");
             ExitTargetSelectMode();
+        }
+
+        if (leftClick && ability.coneAlreadyExists)
+        {
+            Debug.Log("<color=green> Cone cancelled during cast </color>");
+            EndChannel();
         }
     
     }

@@ -89,7 +89,6 @@ public class DemeterWinterAnimations : MonoBehaviour
     public void EndAbility01()
     {
         abilities[0].StartCooldown();
-        godBehaviour.currentState = GodState.idle;
     }
     
     public void Ability02Effect()
@@ -101,19 +100,18 @@ public class DemeterWinterAnimations : MonoBehaviour
     public void ActivateIcyWindParticles()
     {
         icyWindParticles.SetActive(true);
-        icyWindCone.SetActive(true);
+        // icyWindCone.SetActive(true);
     }
     
     public void DeactivateIcyWindParticles()
     {
         icyWindParticles.SetActive(false);
-        icyWindCone.SetActive(false);
+        // icyWindCone.SetActive(false);
     }
     
     public void EndAbility02()
     {
         abilities[1].StartCooldown();
-        godBehaviour.currentState = GodState.idle;
     }
 
 }
