@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Combatant : MonoBehaviour
 {
@@ -23,8 +24,12 @@ public class Combatant : MonoBehaviour
 
     [Header("Character Info")] 
     public string characterName;
-
     public Sprite characterSprite;
+
+    public GameObject targetIcon; // Shows when the combatant can be targeted during ability
+    public GameObject circleMarker;
+    private Vector3 circleStartingSize;
+    public GameObject coneMarker;
     
     [Header("Combat Stats")]
     public int maxHealth;
@@ -35,12 +40,79 @@ public class Combatant : MonoBehaviour
     public void Start()
     {
         currentHealth = maxHealth;
+        
+        if (circleMarker != null)
+        {
+            circleStartingSize = new Vector3(circleMarker.transform.localScale.x, circleMarker.transform.localScale.y, circleMarker.transform.localScale.z);
+        }
     }
     
     public void RestoreHealth(int healthRecovered)
     {
         currentHealth += healthRecovered;
         currentHealth = Mathf.Min(currentHealth, maxHealth); 
+    }
+
+    public void ActivateTargetIcon()
+    {
+        if (targetIcon == null)
+        {
+            return;
+        }
+        
+        targetIcon.SetActive(true);
+    }
+    
+    public void DeactivateTargetIcon()
+    {
+        if (targetIcon == null)
+        {
+            return;
+        }
+        
+        targetIcon.SetActive(false);
+    }
+    
+    public void ActivateCircleAreaMarker(float circleRange)
+    {
+        if (circleMarker == null)
+        {
+            return;
+        }
+        
+        circleMarker.transform.localScale = circleStartingSize * circleRange;
+        circleMarker.SetActive(true);
+    }
+    
+    public void DeactivateCircleAreaMarker()
+    {
+        if (circleMarker == null)
+        {
+            return;
+        }
+        
+        circleMarker.SetActive(false);
+        circleMarker.transform.localScale = circleStartingSize;
+    }
+
+    public void ActivateConeAreaMarker()
+    {
+        if (coneMarker == null)
+        {
+            return;
+        }
+        
+        coneMarker.SetActive(true);
+    }
+    
+    public void DeactivateConeAreaMarker()
+    {
+        if (coneMarker == null)
+        {
+            return;
+        }
+        
+        coneMarker.SetActive(false);
     }
 
     #region Status Effects

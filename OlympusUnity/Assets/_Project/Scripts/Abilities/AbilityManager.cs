@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -14,18 +15,19 @@ public class AbilityManager : MonoBehaviour
     [Header("Ability Info")]
     public SpecialAbility ability;
     public List<Combatant> targets = new List<Combatant>();
-    private bool targetSelectModeActive;
-    public bool isChanneled;
+    public bool targetSelectModeActive;
+    public bool isChannelling;
     public Combatant lastSingleTarget;
 
     [Header("Visuals")] 
     public GameObject particleEffects;
     public string abilityStateName;
-    public string channelAnimTrigger;
+    public string channelFinishTrigger;
 
     [Header("Player Controls")]
     private PlayerControls playerControls;
     private bool rightClick;
+    private bool leftClick;
     
     [Header("Components")]
     private Combatant thisCombatant;
@@ -45,8 +47,10 @@ public class AbilityManager : MonoBehaviour
         playerControls.Enable();
 
         playerControls.Mouse.RightClick.started += ctx => rightClick = true;
-
         playerControls.Mouse.RightClick.canceled += ctx => rightClick = false;
+        
+        playerControls.Mouse.LeftClick.started += ctx => leftClick = true;
+        playerControls.Mouse.LeftClick.canceled += ctx => leftClick = false;
     }
 
     private void Start()
@@ -87,6 +91,24 @@ public class AbilityManager : MonoBehaviour
                     break;
             }
         }
+        if (isChannelling)
+        {
+            if (leftClick)
+            {
+                EndChannel();
+            }
+        }
+    }
+
+    public void EndChannel()
+    {
+        isChannelling = false;
+        thisCombatant.DeactivateConeAreaMarker();
+        Debug.Log("<color=green> Channeling ended </color>");
+
+        anim.SetTrigger(channelFinishTrigger);
+        coneAoE.DestroyImmediate();
+        thisCombatant.DeactivateConeAreaMarker();
     }
 
     private void OnEnable()
@@ -105,66 +127,13 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void EnterTargetSelectMode()
-    {
-        thisGod.currentState = GodState.usingAbility;
-        
-        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
-        {
-            // ACTIVATE TARGET SELECT MODE SHADERS
-            targetSelectModeActive = true;
-        }
-        
-        else if (targetSelectModeActive)
-        {
-            targetSelectModeActive = false;
-        }
-    }
-
-    // After target select mode
-    private void StartAbility()
-    {
-        targetSelectModeActive = false;
-
-        ability.targets = targets;
-
-        // Trigger animation
-        //anim.SetTrigger(animTrigger);
-        anim.Play(abilityStateName);
-        thisGod.attackAnimationIsPlaying = false;
-        //ability.StartAbility(); // CALLED BY ANIMATION EVENT
-        // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-    }
-
     public void StartCooldown()
     {
         onCooldown = true;
+        thisGod.currentState = GodState.idle;
         ability.remainingCooldownTime = ability.abilityCooldown;
         StartCoroutine(CooldownCoroutine());
     }
-
-    // void StartChannelling()
-    // {
-    //     targetSelectModeActive = false;
-    //     
-    //     ability.targets = targets;
-    //     
-    //     // Trigger animation
-    //     
-    //     ability.StartAbility(); // CALLED BY ANIMATION EVENT
-    //     // particleEffects.SetActive(true); // CALLED BY ANIMATION EVENT
-    //     
-    //     onCooldown = true;
-    //     ability.remainingCooldownTime = ability.abilityCooldown;
-    //     cooldownCoroutine = StartCoroutine(CooldownCoroutine());
-    // }
-
-    // IEnumerator ChannelTargetSelectCoroutine()
-    // {
-    //     // Check targets on a cycle to keep list updated
-    //     targets = coneAoE.targetsInCone;
-    //     yield return null;
-    // }
 
     private IEnumerator CooldownCoroutine()
     {
@@ -199,74 +168,141 @@ public class AbilityManager : MonoBehaviour
             StartCoroutine(CooldownCoroutine());
         }
     }
+    
+    // After target select mode
+    private void StartAbility()
+    {
+        ExitTargetSelectMode();
 
+        ability.targets = targets;
 
+        anim.Play(abilityStateName);
+        thisGod.attackAnimationIsPlaying = false;
+    }
+    
     #region Target Selection
+    
+    public void EnterTargetSelectMode()
+    {
+        thisGod.currentState = GodState.usingAbility;
+        
+        if (!onCooldown && !targetSelectModeActive && thisGod.currentState != GodState.knockedOut)
+        {
+            GameManager.Instance.EnterTargetSelectMode(this);
+        }
+        
+        else if (targetSelectModeActive)
+        {
+            targetSelectModeActive = false;
+        }
+    }
+    
+    public void ExitTargetSelectMode()
+    {
+        if (ability.selectionType == SpecialAbility.eSelectionType.CircleAoE)
+        {
+            thisCombatant.DeactivateCircleAreaMarker();
+        }
+                
+        if (ability.selectionType == SpecialAbility.eSelectionType.ConeAoE)
+        {
+            thisCombatant.DeactivateConeAreaMarker();
+            ability.coneAlreadyExists = false;
+        }
+        
+        targetSelectModeActive = false;
+
+        GameManager.Instance.ExitTargetSelectMode();
+    }
 
     private void SingleTargetSelect()
     {
-        Combatant currentTarget;
+        List<Combatant> targetsInRange = GameManager.Instance.targetsInRange;
 
         Ray ray = mainCam.ScreenPointToRay(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-
+        Combatant currentTarget;
+        
         if (rightClick)
         {
-            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            if ( Physics.Raycast(ray, out RaycastHit hit, 100, ability.targetLayerMask) )
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
                 
-                if (currentTarget != null && ability.abilityCanHit.Contains(currentTarget.targetType))
+                if (targetsInRange.Contains(currentTarget))
                 {
                     lastSingleTarget = currentTarget;
-
+                    
                     targets.Add(currentTarget);
                     StartAbility();
                 }
             }
         }
+
+        if (leftClick)
+        {
+            ExitTargetSelectMode();
+            // thisGod.currentState = GodState.idle;
+        }
     }
 
     private void AoECircleSelect()
     {
-        Vector3 centre = thisCombatant.colliderHolder.transform.position;
+        // targets = GameManager.Instance.targetsInRange;
 
-        Collider[] colliders = new Collider[20];
-        int arraySize = Physics.OverlapSphereNonAlloc(centre, ability.radius, colliders);
+        if (rightClick)
+        {
+            Vector3 centre = thisCombatant.colliderHolder.transform.position;
+            float abilityRange = ability.radius;
 
-        int i = 0;
-        foreach (Collider targetCollider in colliders)
-        {            
-            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+            Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, ability.targetLayerMask);
 
-            if (isTargetValid(currentTarget))
+
+
+            foreach (Collider targetCollider in colliders)
             {
-                targets.Add(currentTarget);
+                Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+
+                if (isTargetValid(currentTarget))
+                {
+                    targets.Add(currentTarget);
+                }
             }
 
-            i++;
-            
-            if (i > arraySize)
+            if (!targets.Any())
             {
-                break;
+                ExitTargetSelectMode();
+                thisGod.currentState = GodState.idle;
+
+                return;
             }
+
+            StartAbility(); 
         }
-        
-        StartAbility();
+
+        if (leftClick)
+        {
+            ExitTargetSelectMode();
+            thisGod.currentState = GodState.idle;
+        }
     }
 
     private void AoEConeSelect()
     {
-        if (!ability.coneAlreadyExists)
+        if (rightClick && !ability.coneAlreadyExists)
         {
             ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate
             ability.coneAlreadyExists = true;
 
-            coneAoE = Instantiate(ability.coneAoE, transform.position, Quaternion.Euler(90f, 0, 0), thisCombatant.colliderHolder.transform);
+            coneAoE = Instantiate(ability.coneAoE, thisCombatant.coneMarker.transform.position, thisCombatant.coneMarker.transform.rotation, thisCombatant.coneMarker.transform);
+            
             coneAoE.targetTypes = ability.abilityCanHit;
             coneAoE.lifeTime = ability.coneLifetime;
+            coneAoE.ability = this;
         }
-        else
+
+        if (ability.coneAlreadyExists)
         {
+            Debug.Log("Cone already exists");
             // When cone buffer hits zero, start the ability with the cone's targets
             ability.coneBuffer -= Time.deltaTime;
 
@@ -274,12 +310,25 @@ public class AbilityManager : MonoBehaviour
             {
                 ability.coneBuffer = 0;
                 targets = coneAoE.targetsInCone;
-
+                Debug.Log("<color=green> Start Ability called </color>");
                 StartAbility();
-                ability.coneAlreadyExists = false;
             }
         }
+
+        if (leftClick && !ability.coneAlreadyExists)
+        {
+            Debug.Log("<color=green> Cone cancelled before cast </color>");
+            ExitTargetSelectMode();
+        }
     }
+
+    public void ChannelAbilityTick()
+    {
+        Debug.Log("<color=blue> Tick effect called </color>");
+        ability.targets = coneAoE.targetsInCone;
+        ability.AbilityEffect();
+    }
+
 
     private void SelfSelect()
     {

@@ -16,15 +16,19 @@ MonoBehaviour:
   abilityDescription: Freeze all enemies and monuments in a cone in front
   selectionType: 2
   abilityCanHit: 0100000004000000
-  abilityDamage: 0
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 1536
+  abilityDamage: 50
   abilityHealAmount: 0
+  abilityRange: 20
   statusEffects:
   - {fileID: 11400000, guid: 8cc4a2cd04a0d2a45baf08abb9af2e3b, type: 2}
   abilityCooldown: 10
   remainingCooldownTime: 0
   radius: 0
-  coneAoE: {fileID: 200404270140182027, guid: 61275b04778011c4ca9912a4c5d46c4b, type: 3}
-  coneLifetime: 0
+  coneAoE: {fileID: 4406653339492365883, guid: b296914ab9a75a54389e1f86bae419ff, type: 3}
+  coneLifetime: 10
   coneAlreadyExists: 0
   coneBuffer: 0
   targets: []

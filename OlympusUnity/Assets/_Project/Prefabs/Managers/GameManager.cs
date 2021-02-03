@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,8 +16,7 @@ public class GameManager : MonoBehaviour
     public Camera currentCam;
     public Camera overViewCam;
 
-    // Gods and God Selection
-    public List<GodBehaviour> allPlayerGods;
+    [Header("Gods and God Selection")] public List<GodBehaviour> allPlayerGods;
     public bool godSelected;
     public GodBehaviour currentlySelectedGod;
     private int currentGodIndex;
@@ -25,12 +25,17 @@ public class GameManager : MonoBehaviour
     public LayerMask moveRayMask;
     public LineDrawer lD;
 
-    // Respect
-    public int currentRespect;
+    [Header("Respect")] public int currentRespect;
     public TMP_Text respectDisplay;
     public String respectText;
     public int summonRespectThreshold;
     private bool canSummon;
+
+    [Header("Target Selection")] public bool targetSelectModeActive;
+    public LayerMask combatantLayerMask;
+    public AbilityManager currentAbility;
+    public Combatant combatantUsingAbility;
+    public List<Combatant> targetsInRange = new List<Combatant>();
 
     private void Awake()
     {
@@ -136,10 +141,162 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MoveGod()
+    #region Target Selection
 
+    private void FixedUpdate()
     {
-        if (currentlySelectedGod == null)
+        if (targetSelectModeActive && currentAbility != null)
+        {
+            switch (currentAbility.ability.selectionType)
+            {
+                case SpecialAbility.eSelectionType.Single:
+                    SingleTargetSelectMode();
+                    break;
+
+                case SpecialAbility.eSelectionType.CircleAoE:
+                    AreaCircleSelect();
+                    break;
+
+                case SpecialAbility.eSelectionType.ConeAoE:
+                    AreaConeSelect();
+                    break;
+
+                case SpecialAbility.eSelectionType.Self:
+                    // No special visuals
+                    break;
+            }
+        }
+    }
+
+    public void EnterTargetSelectMode(AbilityManager thisAbility)
+    {
+        // MOVE CAMERA TO GOD
+
+        currentAbility = thisAbility;
+        combatantUsingAbility = currentAbility.GetComponent<Combatant>();
+
+        targetSelectModeActive = true;
+    }
+
+    public void ExitTargetSelectMode()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 1f;
+
+        foreach (Combatant target in targetsInRange)
+        {
+            target.DeactivateTargetIcon();
+        }
+
+        targetsInRange.Clear();
+        combatantUsingAbility = null;
+        currentAbility = null;
+        targetSelectModeActive = false;
+    }
+
+    private void SingleTargetSelectMode()
+    {
+        Vector3 centre = combatantUsingAbility.colliderHolder.transform.position;
+        float abilityRange = currentAbility.ability.abilityRange;
+
+        Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, currentAbility.ability.targetLayerMask);
+
+        Time.timeScale = 0.5f;
+        Time.fixedDeltaTime = 0.5f;
+
+        foreach (Collider targetCollider in colliders)
+        {
+            Combatant currentTarget = targetCollider.gameObject.GetComponentInParent<Combatant>();
+
+            if (isTargetValid(currentTarget))
+            {
+                targetsInRange.Add(currentTarget);
+            }
+        }
+
+        if (!targetsInRange.Any())
+        {
+            ExitTargetSelectMode();
+            return;
+        }
+
+        foreach (Combatant target in targetsInRange)
+        {
+            target.ActivateTargetIcon();
+        }
+
+        currentAbility.targetSelectModeActive = true;
+    }
+
+    private void AreaCircleSelect()
+    {
+        combatantUsingAbility.ActivateCircleAreaMarker(currentAbility.ability.radius);
+
+        Time.timeScale = 0.15f;
+        Time.fixedDeltaTime = 0.15f;
+        
+        currentAbility.targetSelectModeActive = true;
+    }
+
+    private void AreaConeSelect()
+    {
+        combatantUsingAbility.ActivateConeAreaMarker();
+
+        Debug.Log("activated cone area");
+        
+        Time.timeScale = 0.15f;
+        Time.fixedDeltaTime = 0.15f;
+
+        currentAbility.targetSelectModeActive = true;
+        Debug.Log("AreaConeSelect from GameManager ran");
+    }
+
+    private bool isTargetValid(Combatant currentTarget)
+    {
+        if (currentTarget != null)
+        {
+            bool isInList = targetsInRange.Contains(currentTarget);
+            bool canBeHit = currentAbility.ability.abilityCanHit.Contains(currentTarget.targetType);
+
+            return !isInList && canBeHit;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    #endregion
+
+    public void SelectGod(GodBehaviour godToSelect)
+    {
+        if (currentlySelectedGod != null)
+        {
+            currentlySelectedGod.selectionCircle.SetActive(false);
+            currentlySelectedGod.mouseDetectorCollider.SetActive(true);
+        }
+
+        godSelected = true;
+        currentlySelectedGod = godToSelect;
+
+        currentlySelectedGod.selectionCircle.SetActive(true);
+        currentlySelectedGod.mouseDetectorCollider.SetActive(false);
+
+        currentlySelectedGod.ToggleSelection(true);
+        
+        //Toggle outine
+        foreach (var god in allPlayerGods)
+        {
+            god.ToggleOutlineOnOff(false);   
+        }
+        godToSelect.ToggleOutlineOnOff(true);
+
+        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
+    }
+
+    private void MoveGod()
+    {
+        if (currentlySelectedGod == null || targetSelectModeActive)
         {
             return;
         }
@@ -168,32 +325,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SelectGod(GodBehaviour godToSelect)
-    {
-        if (currentlySelectedGod != null)
-        {
-            currentlySelectedGod.selectionCircle.SetActive(false);
-            currentlySelectedGod.mouseDetectorCollider.SetActive(true);
-        }
-
-        godSelected = true;
-        currentlySelectedGod = godToSelect;
-
-        currentlySelectedGod.selectionCircle.SetActive(true);
-        currentlySelectedGod.mouseDetectorCollider.SetActive(false);
-
-        currentlySelectedGod.ToggleSelection(true);
-        
-        //Toggle outine
-        foreach (var god in allPlayerGods)
-        {
-            god.ToggleOutlineOnOff(false);   
-        }
-        godToSelect.ToggleOutlineOnOff(true);
-
-        InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
-    }
-
     public void DeselectGod()
     {
         if (currentlySelectedGod == null)
@@ -208,7 +339,7 @@ public class GameManager : MonoBehaviour
     public void AddRespect(int valueToAdd)
     {
         currentRespect += valueToAdd;
-        respectDisplay.text = respectText + currentRespect;
+        // respectDisplay.text = respectText + currentRespect;
 
         CheckForSummon();
     }

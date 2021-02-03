@@ -16,12 +16,16 @@ MonoBehaviour:
   abilityDescription: Attack the target with a massive icicle
   selectionType: 0
   abilityCanHit: 01000000
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   abilityDamage: 50
   abilityHealAmount: 0
+  abilityRange: 20
   statusEffects: []
   abilityCooldown: 10
   remainingCooldownTime: 0
-  radius: 0
+  radius: 20
   coneAoE: {fileID: 0}
   coneLifetime: 0
   coneAlreadyExists: 0

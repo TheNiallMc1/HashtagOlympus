@@ -32,7 +32,8 @@ namespace _Project.Scripts.AI.AiControllers
         protected EState state = EState.Moving;
         public Waypoint wayPoint;
 
-        [Header("Dynamic Validation")]
+        [Header("Dynamic Validation")] 
+        public bool isFrozen;
         public bool inRange;
         public bool initMove = true;
         public bool weightCheck;
@@ -43,6 +44,7 @@ namespace _Project.Scripts.AI.AiControllers
         private bool _isMonumentsNotNull;
         public bool _isDrunk;
         public bool _isDead;
+        public bool _drunkCoroutineRunning;
 
         [Header("Animation")]
         protected bool _initialCoLoop = true;
@@ -69,13 +71,27 @@ namespace _Project.Scripts.AI.AiControllers
         public EPriority Priority
         {
             get => priority;
-            set => priority = value;
+
+            set
+            {
+                if (!isFrozen && !_isDrunk)
+                {
+                    priority = value;
+                }
+            }
         }
 
         public EState State
         {
             get => state;
-            set => state = value;
+
+            set
+            {
+                if (!isFrozen && !_isDrunk)
+                {
+                    state = value;
+                }
+            }
         }
 
 
@@ -137,6 +153,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Moving:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         if (!initMove)
                         {
                             partyParticles.SetActive(false);
@@ -158,6 +175,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Attacking:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(false);
                         drunkParticles.SetActive(false);
                         isAttacking = true;
@@ -180,25 +198,14 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Drunk:
                     if (State != EState.Frozen)
                     {
-                        if (!_isDrunk)
-                        {
-                            partyParticles.SetActive(false);
-                            drunkParticles.SetActive(true);
-                            _movementMotor.currentPosition = transform.position;
-                            _isDrunk = true;
-                            attackAnimationIsPlaying = false;
-                            isAttacking = false;
-                            _movementMotor.animator.SetBool(GodSeen, false);
-                            _movementMotor.animator.Play(TouristStandardMovement);
-                            _movementMotor.nav.isStopped = false;
-                        }
-                    
-                        _movementMotor.Drunk(); 
+                        if (_drunkCoroutineRunning) return;
+                        StartCoroutine(_movementMotor.Drunk());
                     }
                     break;
                 case EState.Party:
                     if (State != EState.Frozen)
                     {
+                        _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(true);
                         drunkParticles.SetActive(false);
                         _isDrunk = false;
@@ -207,11 +214,27 @@ namespace _Project.Scripts.AI.AiControllers
                     break;
                 
                 case EState.Frozen:
+                    _movementMotor.nav.isStopped = true;
+                    _movementMotor.animator.SetBool(GodSeen, false);
+                    _movementMotor.animator.speed = 0;
                     break;
                 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void ActivateDrunk()
+        {
+            _movementMotor.nav.isStopped = false;
+            partyParticles.SetActive(false);
+            drunkParticles.SetActive(true);
+            _movementMotor.currentPosition = transform.position;
+
+            attackAnimationIsPlaying = false;
+            isAttacking = false;
+            _movementMotor.animator.SetBool(GodSeen, false);
+            _movementMotor.animator.Play("Drunk_movement");
         }
 
         #endregion

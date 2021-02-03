@@ -16,12 +16,16 @@ MonoBehaviour:
   abilityDescription: 
   selectionType: 1
   abilityCanHit: 0100000004000000
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 1536
   abilityDamage: 100
   abilityHealAmount: 0
+  abilityRange: 6
   statusEffects: []
-  abilityCooldown: 10
+  abilityCooldown: 4
   remainingCooldownTime: 0
-  radius: 5.26
+  radius: 6
   coneAoE: {fileID: 0}
   coneLifetime: 0
   coneAlreadyExists: 0
