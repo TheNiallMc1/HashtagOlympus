@@ -162,11 +162,12 @@ public class GameManager : MonoBehaviour
                     break;
 
                 case SpecialAbility.eSelectionType.Self:
-                    // No special visuals
+                    currentAbility.targetSelectModeActive = true;
                     break;
             }
         }
     }
+
 
     public void EnterTargetSelectMode(AbilityManager thisAbility)
     {

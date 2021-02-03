@@ -16,6 +16,13 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.SetText(content, header);
         current.tooltip.gameObject.SetActive(true);
     }
+    
+    public static void Show(Transform anchor, string content, string header = "")
+    {
+        current.tooltip.SetText(content, header);
+        current.tooltip.gameObject.SetActive(true);
+        current.tooltip.anchorPosition = anchor;
+    }
 
     public static void Hide()
     {

@@ -44,7 +44,7 @@ public class AITestManager : MonoBehaviour
 
     private IEnumerator Spawner()
     {
-        countDown = 10f;
+        countDown = 3f;
         while (countDown > 0)
         {
             countDown -= 1.0f;
