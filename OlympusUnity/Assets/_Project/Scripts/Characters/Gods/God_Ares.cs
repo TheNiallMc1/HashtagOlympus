@@ -14,7 +14,10 @@ public sealed class God_Ares : GodBehaviour
     private Coroutine ultimateCoroutine;
 
     private bool usingUltimate;
-    
+
+    public Renderer aresEyes;
+    public Material whiteEyesMat;
+
     public override void Start()
     {
         base.Start();
@@ -84,7 +87,10 @@ public sealed class God_Ares : GodBehaviour
     {
         usingUltimate = false;
         thisCombatant.RemoveStatus(lastActivatedRageType);
+
         rageParticleEffects.SetActive(false);
+        aresEyes.sharedMaterial = whiteEyesMat;
+
         base.EndUltimate();
     }
 }
