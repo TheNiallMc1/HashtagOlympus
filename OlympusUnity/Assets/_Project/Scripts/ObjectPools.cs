@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.AI.AiControllers;
 using UnityEngine;
 
@@ -63,46 +64,18 @@ public class ObjectPools : MonoBehaviour
 
     public GameObject GetDronePoolObGameObject()
     {
-        for (int i = 0; i < amountToPool; i++)
-        {
-            if(!pooledTouristDrones[i].activeInHierarchy)
-            {
-                return pooledTouristDrones[i];
-            }
-        }
-        return null;
+        return pooledTouristDrones.FirstOrDefault(t => !t.activeInHierarchy);
     }
     public GameObject GetInfluencerPoolObGameObject()
     {
-        for (int i = 0; i < amountToPool; i++)
-        {
-            if (!pooledTouristInfluencer[i].activeInHierarchy)
-            {
-                return pooledTouristInfluencer[i];
-            }
-        }
-        return null;
+        return pooledTouristInfluencer.FirstOrDefault(t => !t.activeInHierarchy);
     }
     public GameObject GetJockPoolObGameObject()
     {
-        for (int i = 0; i < amountToPool; i++)
-        {
-            if (!pooledTouristJock[i].activeInHierarchy)
-            {
-                return pooledTouristJock[i];
-            }
-        }
-        return null;
+        return pooledTouristJock.FirstOrDefault(t => !t.activeInHierarchy);
     }
     public GameObject GetNerdPoolObGameObject()
     {
-        for (int i = 0; i < amountToPool; i++)
-        {
-            if (!pooledTouristNerd[i].activeInHierarchy)
-            {
-                return pooledTouristNerd[i];
-            }
-        }
-        return null;
+        return pooledTouristNerd.FirstOrDefault(t => !t.activeInHierarchy);
     }
 }

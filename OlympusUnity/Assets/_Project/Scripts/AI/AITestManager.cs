@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AITestManager : MonoBehaviour
 {
@@ -12,8 +16,11 @@ public class AITestManager : MonoBehaviour
     public Transform prefab;
     public Transform left;
 
-    public float timeBetweenWaves = 5f;
-    public float countDown = 2f;
+    public TMP_Text countDownTxt;
+    public TMP_Text enemiesRemainingTxt;
+
+    public float timeBetweenWaves = 2f;
+    public float countDown = 5f;
 
     [SerializeField]
     private List<Transform> touristList;
@@ -29,10 +36,21 @@ public class AITestManager : MonoBehaviour
         StartCoroutine(Spawner());
     }
 
+    private void Update()
+    {
+        if(TouristsIsAlive() && state == SpawnState.Waiting)
+            enemiesRemainingTxt.text = "Enemies Left: " + touristList.Count;
+    }
+
     private IEnumerator Spawner()
     {
-        yield return new WaitForSeconds(countDown);
-
+        countDown = 10f;
+        while (countDown > 0)
+        {
+            countDown -= 1.0f;
+            countDownTxt.text = "Next Wave: " + countDown.ToString() + "s";
+            yield return new WaitForSeconds(1f);
+        }
         while (currentWave != numberOfWaves + 1)
         {
             state = SpawnState.Spawning;
