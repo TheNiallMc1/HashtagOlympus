@@ -40,11 +40,11 @@ public class Tooltip : MonoBehaviour
     private void MoveToAnchor()
     {
         transform.position = new Vector3(anchorPosition.position.x, anchorPosition.position.y, anchorPosition.position.z);
-        
-        float pivotX = transform.position.x / Screen.width;
-        float pivotY = transform.position.y / Screen.height;
-        
-        rectTransform.pivot = new Vector2(pivotX, pivotY);
+        //
+        // float pivotX = transform.position.x / Screen.width;
+        // float pivotY = transform.position.y / Screen.height;
+        //
+        rectTransform.pivot = new Vector2(0, 1);
     }
     
     private void FollowMouse()
