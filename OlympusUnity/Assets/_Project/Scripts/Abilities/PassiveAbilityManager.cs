@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,8 +45,8 @@ public class PassiveAbilityManager : MonoBehaviour
     {
         Vector3 centre = ability.thisCombatant.colliderHolder.transform.position;
         
-        Collider[] colliders = new Collider[20];
-        int arraySize = Physics.OverlapSphereNonAlloc(centre, ability.effectRadius, colliders);
+        
+        Collider[] colliders = Physics.OverlapSphere(centre, ability.effectRadius, ability.abilityLayerMask);
 
         int i = 0;
         foreach (Collider targetCollider in colliders)
@@ -56,12 +57,6 @@ public class PassiveAbilityManager : MonoBehaviour
             {
                 targets.Add(currentTarget);
                 ability.targets = targets;
-            }
-            
-            i++;
-            if (i > arraySize)
-            {
-                break;
             }
         }
     }
