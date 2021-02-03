@@ -92,6 +92,13 @@ public class GodBehaviour : MonoBehaviour
     StartCoroutine(GainUltimateChargeCoroutine());
 
     }
+
+    public void Update()
+    {
+        float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+        
+        animator.SetFloat(VerticalF, animSpeed);
+    }
     
     public void ToggleOutlineOnOff(bool shouldTurnOn)
     {
@@ -128,10 +135,6 @@ public class GodBehaviour : MonoBehaviour
         {
             SwitchState(GodState.idle);
         }
-
-        float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
-
-        animator.SetFloat(VerticalF, animSpeed);
     }
 
     public void ToggleSelection(bool isSelected)
@@ -334,13 +337,12 @@ public class GodBehaviour : MonoBehaviour
     
     // CHECKS FOR ENTERING STATES \\
 
-    public bool CanMoveToArea()
+    private bool CanMoveToArea()
     {
-        bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
 
-        return !usingAbility && !usingUltimate && !knockedOut;
+        return !usingAbility && !knockedOut;
     }
     
     private bool CanAttack()
