@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bar: {fileID: 5876439928264446616}
   button: {fileID: 8026648391386750200}
-  healthValue: 0
+  healthValue: 1000
 --- !u!1 &195384661457198138
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Health
+  m_text: 100/200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2438,7 +2438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Name
+  m_text: Demeter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
   m_sharedMaterial: {fileID: 8458152070050879342, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
@@ -4326,7 +4326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Health
+  m_text: 1000/1000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5058,7 +5058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Name
+  m_text: Dionysus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
   m_sharedMaterial: {fileID: 8458152070050879342, guid: 8d767cb5183fd4341af227acb1fe98b1, type: 2}
@@ -8788,7 +8788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godNameDisplay: {fileID: 7887862083379768970}
-  godKey: 0
+  godKey: 1
   currentSprite: {fileID: 0}
 --- !u!1 &7887862083258422409
 GameObject:
@@ -9006,7 +9006,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Dionysus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9712,7 +9712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: God Health
+  m_text: 100/100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10638,6 +10638,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 11.79
       objectReference: {fileID: 0}
+    - target: {fileID: 5639146253521326826, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: m_text
+      value: Automatically attack any enemies in range
+      objectReference: {fileID: 0}
     - target: {fileID: 5639146253662037857, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_AnchorMin.y
       value: 1
@@ -10664,7 +10668,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5639146253662037858, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_text
-      value: Auto Attack
+      value: Auto attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639146253905471776, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5639146253905471779, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_Color.r

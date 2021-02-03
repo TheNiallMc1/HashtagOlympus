@@ -4,7 +4,10 @@ using UnityEngine;
 public class ModelBehaviour : MonoBehaviour
 {
     public int currentPosition;
+    public int modelIndex;
     private Transform objectToShow;
+
+    public GameObject panelToUse;
 
     [SerializeField] [Header("Character Stats")]
     public string godName;
@@ -18,6 +21,8 @@ public class ModelBehaviour : MonoBehaviour
 
     public void SetInitialPosition(int pos)
     {
+
+        panelToUse = ShowModelController.Instance.currentPanel;
         currentPosition = pos;
         gameObject.transform.position = ShowModelController.Instance.positions[currentPosition].position;
 
