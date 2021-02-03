@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class AresAnimations : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class AresAnimations : MonoBehaviour
 
     private AbilityManager[] abilities = new AbilityManager[2];
 
+    public Renderer aresEyes;
+    public Material redEyesMat;
+    public Material whiteEyesMat;
     public GameObject ultimateParticleEffects;
     
     // Start is called before the first frame update
@@ -34,6 +38,19 @@ public class AresAnimations : MonoBehaviour
     {
     }
 
+
+    public void LockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void UnlockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+    }
+
+
+
     public void AnimationIsPlaying()
     {
         godBehaviour.attackAnimationIsPlaying = true;
@@ -42,6 +59,8 @@ public class AresAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }
+
+
 
     public void Ability01Effect()
     {
@@ -68,10 +87,14 @@ public class AresAnimations : MonoBehaviour
     public void ActivateUltimateParticles()
     {
         ultimateParticleEffects.SetActive(true);
+        aresEyes.sharedMaterial = redEyesMat;
     }
     
     public void DeactivateUltimateParticles()
     {
         ultimateParticleEffects.SetActive(false);
+        aresEyes.sharedMaterial = whiteEyesMat;
     }
+
+
 }
