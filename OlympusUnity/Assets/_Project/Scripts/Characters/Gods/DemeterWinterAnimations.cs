@@ -19,6 +19,8 @@ public class DemeterWinterAnimations : MonoBehaviour
     // Ability 02
     [SerializeField]
     private GameObject icyWindParticles;
+    ParticleSystem[] icyWindParticleSystems;
+
     [SerializeField]
     private GameObject icyWindCone;
 
@@ -38,6 +40,8 @@ public class DemeterWinterAnimations : MonoBehaviour
 
         abilities[0] = godBehaviour.winterAbilities[0];
         abilities[1] = godBehaviour.winterAbilities[1];
+
+        icyWindParticleSystems = icyWindParticles.GetComponentsInChildren<ParticleSystem>();
     }
 
 
@@ -117,16 +121,23 @@ public class DemeterWinterAnimations : MonoBehaviour
     
     public void ActivateIcyWindParticles()
     {
-        icyWindParticles.SetActive(true);
-        // icyWindCone.SetActive(true);
+
+        foreach (ParticleSystem particleSystem in icyWindParticleSystems)
+        {
+            particleSystem.Play();
+        }
     }
     
-    public void DeactivateIcyWindParticles()
+
+    public void StopIcyWindParticles()
     {
-        icyWindParticles.SetActive(false);
-        // icyWindCone.SetActive(false);
+        foreach(ParticleSystem particleSystem in icyWindParticleSystems)
+        {
+            particleSystem.Stop();
+        }
     }
-    
+
+
     public void EndAbility02()
     {
         abilities[1].StartCooldown();
