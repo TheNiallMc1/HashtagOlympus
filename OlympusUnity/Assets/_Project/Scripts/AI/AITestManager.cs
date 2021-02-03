@@ -18,6 +18,7 @@ public class AITestManager : MonoBehaviour
 
     public TMP_Text countDownTxt;
     public TMP_Text enemiesRemainingTxt;
+    public TMP_Text waveCounterTxt;
 
     public float timeBetweenWaves = 2f;
     public float countDown = 5f;
@@ -33,24 +34,32 @@ public class AITestManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        countDownTxt.gameObject.SetActive(false);
+        enemiesRemainingTxt.gameObject.SetActive(false);
         StartCoroutine(Spawner());
+        
     }
 
     private void Update()
     {
         if(TouristsIsAlive() && state == SpawnState.Waiting)
             enemiesRemainingTxt.text = "Enemies Left: " + touristList.Count;
+
+        waveCounterTxt.text = currentWave + " / " + numberOfWaves;
     }
 
     private IEnumerator Spawner()
     {
         countDown = 3f;
+        countDownTxt.gameObject.SetActive(true);
         while (countDown > 0)
         {
+            
             countDown -= 1.0f;
             countDownTxt.text = "Next Wave: " + countDown.ToString() + "s";
             yield return new WaitForSeconds(1f);
         }
+        countDownTxt.gameObject.SetActive(false);
         while (currentWave != numberOfWaves + 1)
         {
             state = SpawnState.Spawning;
@@ -58,13 +67,14 @@ public class AITestManager : MonoBehaviour
             yield return SpawnWave();
 
             state = SpawnState.Waiting;
+            enemiesRemainingTxt.gameObject.SetActive(true);
 
             yield return new WaitWhile(TouristsIsAlive);
 
             state = SpawnState.Counting;
 
             yield return new WaitForSeconds(timeBetweenWaves);
-
+            enemiesRemainingTxt.gameObject.SetActive(false);
             currentWave++;
         }
     }
