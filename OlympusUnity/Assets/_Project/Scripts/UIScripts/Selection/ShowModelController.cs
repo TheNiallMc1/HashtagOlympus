@@ -10,6 +10,12 @@ public class ShowModelController : MonoBehaviour
     public ModelBehaviour currentModel;
 
     [SerializeField] public List<Transform> positions;
+    
+    [SerializeField] public List<GameObject> godPanels;
+    public GameObject PanelAres;
+    public GameObject PanelDio;
+    public GameObject PanelDem;
+    public GameObject currentPanel;
 
     private GodStatDisplayController godStats;
     private GodSelectorButton selectButton;
@@ -28,6 +34,10 @@ public class ShowModelController : MonoBehaviour
 
         godStats = FindObjectOfType<GodStatDisplayController>();
         selectButton = FindObjectOfType<GodSelectorButton>();
+        
+        godPanels.Add(PanelAres);
+        godPanels.Add(PanelDio);
+        godPanels.Add(PanelDem);
     }
 
     private void Start()
@@ -37,6 +47,14 @@ public class ShowModelController : MonoBehaviour
             models[i].SetInitialPosition(i);
             models[i].ToggleOutline(false);
         }
+
+        foreach (var panel in godPanels)
+        {
+            panel.gameObject.SetActive(false);
+        }
+        
+        godPanels[currentModel.modelIndex].gameObject.SetActive(true);
+        currentPanel = godPanels[currentModel.modelIndex];
 
         godStats.UpdateGodStatInfo(currentModel);
         currentModel.ToggleOutline(true);
@@ -50,6 +68,14 @@ public class ShowModelController : MonoBehaviour
             models[i].SetCurrentPosition();
             models[i].ToggleOutline(false);
         }
+        
+        foreach (var panel in godPanels)
+        {
+            panel.gameObject.SetActive(false);
+        }
+        
+        godPanels[currentModel.modelIndex].gameObject.SetActive(true);
+        currentPanel = godPanels[currentModel.modelIndex];
 
         godStats.UpdateGodStatInfo(currentModel);
         currentModel.ToggleOutline(true);

@@ -3,42 +3,30 @@ using TMPro;
 
 public class GodStatDisplayController : MonoBehaviour
 {
-     [SerializeField] [Header("Original Field Text")]
-        public string origGodName;
-        public string origGodHealth;
-        public string origGodDamage;
-        public string origGodArmour;
-        public string origGodAbility1;
-        public string origGodAbility2;
-        public string origGodUltimate;
     
         [SerializeField] [Header("Components")]
-        public TMP_Text gNameText;
         public TMP_Text gHealthText;
         public TMP_Text gDamageText;
         public TMP_Text gArmourText;
-        public TMP_Text gAb1Text;
-        public TMP_Text gAb2Text;
-        public TMP_Text gUltText;
+
+        //identify active panel
+        public GameObject currentPanel;
 
         private void Awake()
         {
-            origGodHealth = gHealthText.text;
-            origGodDamage = gDamageText.text;
-            origGodArmour = gArmourText.text;
-            origGodAbility1 = gAb1Text.text;
-            origGodAbility2 = gAb2Text.text;
-            origGodUltimate = gUltText.text;
+            
         }
 
         public void UpdateGodStatInfo(ModelBehaviour currentModel)
         {
-            gNameText.text = origGodName + currentModel.godName;
-            gHealthText.text = origGodHealth + currentModel.godHealth;
-            gDamageText.text = origGodDamage + currentModel.godDamage;
-            gArmourText.text = origGodArmour + currentModel.godArmour;
-            gAb1Text.text = origGodAbility1 + currentModel.godAbility1;
-            gAb2Text.text = origGodAbility2 + currentModel.godAbility2;
-            gUltText.text = origGodUltimate + currentModel.godUltimate;
+            currentPanel = ShowModelController.Instance.currentPanel;
+
+            gHealthText = currentPanel.GetComponent<GodStatDisplayComponents>().gHealth;
+            gDamageText = currentPanel.GetComponent<GodStatDisplayComponents>().gDamage;
+            gArmourText = currentPanel.GetComponent<GodStatDisplayComponents>().gArmour;
+            
+            gHealthText.text = currentModel.godHealth;
+            gDamageText.text = currentModel.godDamage;
+            gArmourText.text = currentModel.godArmour;
         }
 }
