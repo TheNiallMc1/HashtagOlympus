@@ -20,6 +20,12 @@ public class DemeterSummerAnimations : MonoBehaviour
     Vector3 cornStartPosition;
     Quaternion cornStartRotation;
 
+    public GameObject ultimateParticlesBuildupPrefab;
+    [HideInInspector] GameObject ultimateParticlesBuildupInstance;
+
+    public GameObject ultimateParticlesExplodePrefab;
+    [HideInInspector] GameObject ultimateParticlesExplodeInstance;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -145,5 +151,26 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         abilities[1].StartCooldown();
         godBehaviour.currentState = GodState.idle;
+    }
+
+
+    public void UltimateParticleBuildUp()
+    {
+        ultimateParticlesBuildupInstance = Instantiate(ultimateParticlesBuildupPrefab, transform.position, Quaternion.identity, transform);
+        Destroy(ultimateParticlesBuildupInstance, 2f);
+    }
+
+    public void UltimateParticleExplode()
+    {
+        ultimateParticlesExplodeInstance = Instantiate(ultimateParticlesExplodePrefab, transform.position, Quaternion.identity, godBehaviour.transform);
+        Destroy(ultimateParticlesExplodeInstance, 2f);
+    }
+
+
+
+
+    public void SwitchFormsAnim()
+    {
+        godBehaviour.SwitchForms();
     }
 }

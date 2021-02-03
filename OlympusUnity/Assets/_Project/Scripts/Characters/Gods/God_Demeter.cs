@@ -37,7 +37,7 @@ public sealed class God_Demeter : GodBehaviour
     }
 
 
-    private void SwitchForms()
+    public void SwitchForms()
     {
         switch (currentForm)
         {
@@ -147,9 +147,10 @@ public sealed class God_Demeter : GodBehaviour
             currentState = GodState.usingUltimate;
             
             attackAnimationIsPlaying = false;
+
             animator.SetTrigger(ultimateStartAnimTrigger);
             
-            SwitchForms();
+            // SwitchForms();
             
             StartCoroutine(UltimateDurationCoroutine());
         }

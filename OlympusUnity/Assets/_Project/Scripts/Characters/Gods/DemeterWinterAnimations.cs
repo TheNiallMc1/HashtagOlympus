@@ -15,7 +15,13 @@ public class DemeterWinterAnimations : MonoBehaviour
     private GameObject icyWindParticles;
     [SerializeField]
     private GameObject icyWindCone;
-    
+
+    public GameObject ultimateParticlesBuildupPrefab;
+    [HideInInspector] GameObject ultimateParticlesBuildupInstance;
+
+    public GameObject ultimateParticlesExplodePrefab;
+    [HideInInspector] GameObject ultimateParticlesExplodeInstance;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -115,4 +121,22 @@ public class DemeterWinterAnimations : MonoBehaviour
         abilities[1].StartCooldown();
     }
 
+
+    public void UltimateParticleBuildUp()
+    {
+        ultimateParticlesBuildupInstance = Instantiate(ultimateParticlesBuildupPrefab, transform.position, Quaternion.identity, transform);
+        Destroy(ultimateParticlesBuildupInstance, 2.5f);
+    }
+
+    public void UltimateParticleExplode()
+    {
+        ultimateParticlesExplodeInstance = Instantiate(ultimateParticlesExplodePrefab, transform.position, Quaternion.identity, godBehaviour.transform);
+        Destroy(ultimateParticlesExplodeInstance, 1.2f);
+    }
+
+
+    public void SwitchFormsAnim()
+    {
+        godBehaviour.SwitchForms();
+    }
 }
