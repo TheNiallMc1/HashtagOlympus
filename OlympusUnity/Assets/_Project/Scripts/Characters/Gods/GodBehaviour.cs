@@ -126,6 +126,8 @@ public class GodBehaviour : MonoBehaviour
     
     public virtual void FixedUpdate()
     {
+
+
         if ( CanAttack() )
         {
             Attack();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class DionysusAnimations : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class DionysusAnimations : MonoBehaviour
 
     public GameObject healParticlesObj;
     [HideInInspector] GameObject healEffectInstance;
-    private ParticleSystem healParticleSystem;
+    private ParticleSystem[] healParticleSystems;
 
     // Start is called before the first frame update
     private void Start()
@@ -18,7 +19,7 @@ public class DionysusAnimations : MonoBehaviour
         wineParticlesObj.SetActive(false);
         // healParticlesObj.SetActive(false);
         
-        healParticleSystem = healParticlesObj.GetComponent<ParticleSystem>();
+        healParticleSystems = healParticlesObj.GetComponentsInChildren<ParticleSystem>();
         
         godBehaviour = GetComponentInParent<God_Dionysus>();
         godCombatant = GetComponentInParent<Combatant>();
@@ -42,6 +43,7 @@ public class DionysusAnimations : MonoBehaviour
     {
     }
 
+
     public void AnimationIsPlaying()
     {
         godBehaviour.attackAnimationIsPlaying = true;
@@ -50,6 +52,17 @@ public class DionysusAnimations : MonoBehaviour
     public void AnimationIsFinished()
     {
         godBehaviour.attackAnimationIsPlaying = false;
+    }
+
+
+    public void LockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void UnlockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
     }
 
 
@@ -90,18 +103,18 @@ public class DionysusAnimations : MonoBehaviour
         abilities[1].ability.AbilityEffect();
     }
 
-    public void ActivateHealParticles()
-    {
-        healParticlesObj.SetActive(true);
-        healParticleSystem.Play();
-    }
+    //public void ActivateHealParticles()
+    //{
+    //    healParticlesObj.SetActive(true);
+    //    healParticleSystems.Play();
+    //}
     
-    public void DeactivateHealParticles()
-    {
-        healParticleSystem.Clear();
-        healParticleSystem.Stop();
-        healParticlesObj.SetActive(false);
-    }
+    //public void DeactivateHealParticles()
+    //{
+    //    healParticleSystems.Clear();
+    //    healParticleSystems.Stop();
+    //    healParticlesObj.SetActive(false);
+    //}
     
     public void EndAbility02()
     {
