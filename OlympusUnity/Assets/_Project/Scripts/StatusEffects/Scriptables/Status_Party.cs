@@ -32,6 +32,7 @@ public class Status_Party : StatusEffect
             
             aiBrain.currentFollowTarget = inflictedBy;
             aiBrain.State = AIBrain.EState.Party;
+            aiBrain.ActivateParty();
         }
     }
 

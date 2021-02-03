@@ -23,7 +23,7 @@ namespace _Project.Scripts.AI.AiControllers
         [HideInInspector] public Combatant currentFollowTarget;
 
         public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability, Drunk, Party, Frozen }
+        public enum EState { Moving, Attacking, Ability, Drunk, Party, Frozen, Hangover }
 
         [Header("Dynamic States")]
         [SerializeField]
@@ -45,6 +45,7 @@ namespace _Project.Scripts.AI.AiControllers
         public bool _isDrunk;
         public bool _isDead;
         public bool _drunkCoroutineRunning;
+        public bool _isHungover;
 
         [Header("Animation")]
         protected bool _initialCoLoop = true;
@@ -74,7 +75,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             set
             {
-                if (!isFrozen && !_isDrunk)
+                if (!isFrozen && !_isDrunk && !_isHungover)
                 {
                     priority = value;
                 }
@@ -87,7 +88,7 @@ namespace _Project.Scripts.AI.AiControllers
 
             set
             {
-                if (!isFrozen && !_isDrunk)
+                if (!isFrozen && !_isDrunk && !_isHungover)
                 {
                     state = value;
                 }
@@ -218,6 +219,11 @@ namespace _Project.Scripts.AI.AiControllers
                     _movementMotor.animator.SetBool(GodSeen, false);
                     _movementMotor.animator.speed = 0;
                     break;
+
+                case EState.Hangover:
+                    _movementMotor.nav.isStopped = true;
+                    _movementMotor.animator.SetBool(GodSeen, false);
+                    break;
                 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -235,6 +241,16 @@ namespace _Project.Scripts.AI.AiControllers
             isAttacking = false;
             _movementMotor.animator.SetBool(GodSeen, false);
             _movementMotor.animator.Play("Drunk_movement");
+        }
+
+        public void ActivateParty()
+        {
+            _movementMotor.animator.Play("Party");
+        }
+
+        public void ActivateHangover()
+        {
+            _movementMotor.animator.SetTrigger("Hangover");
         }
 
         #endregion
