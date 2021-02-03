@@ -8,14 +8,22 @@ public class DemeterWinterAnimations : MonoBehaviour
 
     private readonly AbilityManager[] abilities = new AbilityManager[2];
 
+    // Ability 01
     [SerializeField] 
     private GameObject icicleMesh;
     private GameObject icicleInstance;
+
+    [SerializeField] GameObject groundIceEffect;
+    private GameObject groundIceEffectInstance;
+
+    // Ability 02
     [SerializeField]
     private GameObject icyWindParticles;
     [SerializeField]
     private GameObject icyWindCone;
 
+
+    // Ultimate
     public GameObject ultimateParticlesBuildupPrefab;
     [HideInInspector] GameObject ultimateParticlesBuildupInstance;
 
@@ -77,26 +85,29 @@ public class DemeterWinterAnimations : MonoBehaviour
         abilities[0].ability.AbilityEffect();
     }
 
+
     public void ActivateIcicleMesh()
     {
-        icicleInstance = Instantiate(icicleMesh);
+        Combatant target = abilities[0].ability.targets[0];
+        icicleInstance = Instantiate(icicleMesh, target.transform.position, Quaternion.identity);
+        groundIceEffectInstance = Instantiate(groundIceEffect, target.transform.position, Quaternion.identity);
 
-        Vector3 enemyPosition = abilities[0].lastSingleTarget.transform.position;
-        Vector3 newPosition = new Vector3(enemyPosition.x, 0, enemyPosition.z);
-        
-        icicleInstance.transform.position = newPosition;
+
+        Destroy(icicleInstance, 3f);
+        Destroy(groundIceEffectInstance, 4.5f);
+
     }
-    
-    public void DeactivateIcicleMesh()
-    {
-        Destroy(icicleInstance);
-    }
+
     
     public void EndAbility01()
     {
         abilities[0].StartCooldown();
     }
     
+
+
+
+
     public void Ability02Effect()
     {
         // abilities[1].ChannelAbilityTick();
@@ -120,6 +131,10 @@ public class DemeterWinterAnimations : MonoBehaviour
     {
         abilities[1].StartCooldown();
     }
+
+
+
+
 
 
     public void UltimateParticleBuildUp()

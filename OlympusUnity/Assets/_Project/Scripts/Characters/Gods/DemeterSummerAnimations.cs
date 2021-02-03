@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class DemeterSummerAnimations : MonoBehaviour
 {
@@ -64,8 +65,23 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }
-    
-    
+
+
+
+
+    public void LockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void UnlockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+    }
+
+
+
+
 
     // Monument Heal Effects
     public void Ability01Effect()
@@ -91,6 +107,10 @@ public class DemeterSummerAnimations : MonoBehaviour
         godBehaviour.currentState = GodState.idle;
     }
     
+
+
+
+
 
 
     // Corn Heal Effects
