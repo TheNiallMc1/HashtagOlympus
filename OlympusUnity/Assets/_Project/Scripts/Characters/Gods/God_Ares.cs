@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class God_Ares : GodBehaviour
+public sealed class God_Ares : GodBehaviour
 {
-    [Header("Ares")]
+    [Header("Ares")] 
+    [SerializeField] private int rageGainPerDamage;
     [SerializeField] private StatusEffect rageStatus;
     [SerializeField] private StatusEffect maxRageStatus;
 
@@ -11,6 +12,8 @@ public class God_Ares : GodBehaviour
     private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
     
     private Coroutine ultimateCoroutine;
+
+    private bool usingUltimate;
     
     public override void Start()
     {
@@ -25,13 +28,13 @@ public class God_Ares : GodBehaviour
 
     public override void OnDamageEvent(int damageTaken)
     {
-        RageUpdate(damageTaken);
+        RageUpdate(rageGainPerDamage);
     }
 
 
     private void RageUpdate(int amountToAdd)
     {
-        if (currentState != GodState.usingUltimate)
+        if (!usingUltimate)
         {
             ultimateCharge += amountToAdd;
             ultimateCharge = Mathf.Min(ultimateCharge, 100);
@@ -49,7 +52,7 @@ public class God_Ares : GodBehaviour
         
         if (ultimateCharge > 0 && ultimateCharge < 100)
         {
-            
+            usingUltimate = true;
             thisCombatant.ApplyStatus(rageStatus, thisCombatant);
             lastActivatedRageType = rageStatus;
 
@@ -61,7 +64,7 @@ public class God_Ares : GodBehaviour
         
         if (ultimateCharge >= 100)
         {
-            
+            usingUltimate = true;
             thisCombatant.ApplyStatus(maxRageStatus, thisCombatant);
             lastActivatedRageType = maxRageStatus;
             
@@ -71,9 +74,15 @@ public class God_Ares : GodBehaviour
             StartCoroutine(UltimateDurationCoroutine());
         }
     }
-    
-    public virtual void UltimateExitEffects()
+
+    protected override void EndUltimate()
     {
+        UltimateExitEffects();
+    }
+    
+    public void UltimateExitEffects()
+    {
+        usingUltimate = false;
         thisCombatant.RemoveStatus(lastActivatedRageType);
         rageParticleEffects.SetActive(false);
         base.EndUltimate();
