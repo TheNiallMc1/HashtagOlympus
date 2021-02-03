@@ -53,6 +53,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector2 heightLimit;
     [SerializeField] private Vector2 lenghtLimit;
     [SerializeField] private Vector2 widthLimit;
+    [SerializeField] private Vector2 lLimit;
+    [SerializeField] private Vector2 wLimit;
     [SerializeField] private bool regionBoundary;
 
     public static CameraController Instance { get; private set; } // public getter property, anyone can access it!
@@ -119,7 +121,18 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-       
+        if (transform.rotation.y > 45 && transform.rotation.y < 135 ||
+            transform.rotation.y < -45 && transform.rotation.y > -135)
+        {
+            wLimit = lenghtLimit;
+            lLimit = widthLimit;
+        }
+        else
+        {
+            wLimit = widthLimit;
+            lLimit = lenghtLimit;
+        }
+        
         if(currentPlayer != null && movingCameraActive)
         {
             camMode = cameraMode.Free;
@@ -165,13 +178,6 @@ public class CameraController : MonoBehaviour
                 break;
         }
 
-        if (regionBoundary != true) return;
-        var pos = transform.position;
-        pos.y = Mathf.Clamp(pos.y, heightLimit.x, heightLimit.y);
-        pos.z = Mathf.Clamp(pos.z, lenghtLimit.x, lenghtLimit.y);
-        pos.x = Mathf.Clamp(pos.x, widthLimit.x, widthLimit.y);
-        transform.position = pos;
-
     }
 
 
@@ -179,28 +185,40 @@ public class CameraController : MonoBehaviour
     {
         if (movingCameraUp)
         {
-            newPosition += (transform.forward * movementSpeed);
+            //newPosition += (transform.forward * movementSpeed);
+            var forward = transform.forward;
+            newPosition.x = Mathf.Clamp(newPosition.x + (forward.x * movementSpeed), wLimit.x, wLimit.y);
+            newPosition.z = Mathf.Clamp(newPosition.z + (forward.z * movementSpeed), lLimit.x, lLimit.y);
             ReleaseCamera();
             movingCameraActive = true;
         }
 
         if (movingCameraDown)
         {
-            newPosition += (transform.forward * -movementSpeed);
+            //newPosition += (transform.forward * -movementSpeed);
+            var forward = transform.forward;
+            newPosition.x = Mathf.Clamp(newPosition.x + (forward.x * -movementSpeed), wLimit.x, wLimit.y);
+            newPosition.z = Mathf.Clamp(newPosition.z + (forward.z * -movementSpeed), lLimit.x, lLimit.y);
             ReleaseCamera();
             movingCameraActive = true;
         }
 
         if (movingCameraLeft)
         {
-            newPosition += (transform.right * -movementSpeed);
+            //newPosition += (transform.right * -movementSpeed);
+            var right = transform.right;
+            newPosition.x = Mathf.Clamp(newPosition.x + (right.x * -movementSpeed), wLimit.x, wLimit.y);
+            newPosition.z = Mathf.Clamp(newPosition.z + (right.z * -movementSpeed), lLimit.x, lLimit.y);
             ReleaseCamera();
             movingCameraActive = true;
         }
 
         if (movingCameraRight)
         {
-            newPosition += (transform.right * movementSpeed);
+            //newPosition += (transform.right * movementSpeed);
+            var right = transform.right;
+            newPosition.x = Mathf.Clamp(newPosition.x + (right.x * movementSpeed), wLimit.x, wLimit.y);
+            newPosition.z = Mathf.Clamp(newPosition.z + (right.z * movementSpeed), lLimit.x, lLimit.y);
             ReleaseCamera();
             movingCameraActive = true;
         }
