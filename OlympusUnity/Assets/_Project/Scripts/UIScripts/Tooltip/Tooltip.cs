@@ -31,7 +31,7 @@ public class Tooltip : MonoBehaviour
         {
             FollowMouse();
         }
-        else
+        else if (anchorPosition != null)
         {
             MoveToAnchor();
         }

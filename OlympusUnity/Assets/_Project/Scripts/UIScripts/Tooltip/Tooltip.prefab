@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 5639146253905471776}
   - component: {fileID: 5639146253905471791}
   m_Layer: 5
-  m_Name: TooltipNew
+  m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc459be2eec9c4646bbd3f68277cbc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followMouse: 0
+  anchorPosition: {fileID: 0}
   headerField: {fileID: 5639146253662037858}
   contentField: {fileID: 5639146253521326826}
   layoutElement: {fileID: 5639146253905471776}

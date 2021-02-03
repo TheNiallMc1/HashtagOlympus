@@ -9,7 +9,7 @@ public class CharacterToolTipInfo : MonoBehaviour
     public string autoAttackHeader = "Auto Attack";
     public string autoAttackContent = "...";
     
-    [Header("Abiity 1")]
+    [Header("Ability 1")]
     public string ability1Header = "Ability 1";
     public string ability1Content = "...";
     
