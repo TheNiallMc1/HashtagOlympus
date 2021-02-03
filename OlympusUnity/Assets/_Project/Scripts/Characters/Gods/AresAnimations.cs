@@ -12,6 +12,8 @@ public class AresAnimations : MonoBehaviour
     public Material redEyesMat;
     public Material whiteEyesMat;
     public GameObject ultimateParticleEffects;
+
+    [SerializeField] GameObject swordVFX;
     
     // Start is called before the first frame update
     private void Start()
@@ -67,12 +69,31 @@ public class AresAnimations : MonoBehaviour
         abilities[0].ability.AbilityEffect();
     }
     
+    public void SwordEffectOn()
+    {
+        swordVFX.SetActive(true);
+    }
+
+    public void SwordEffectOff()
+    {
+        swordVFX.SetActive(false);
+    }
+
+
+
     public void EndAbility01()
     {
         abilities[0].StartCooldown();
         godBehaviour.currentState = GodState.idle;
     }
     
+
+
+
+
+
+
+
     public void Ability02Effect()
     {
         abilities[1].ability.AbilityEffect();
