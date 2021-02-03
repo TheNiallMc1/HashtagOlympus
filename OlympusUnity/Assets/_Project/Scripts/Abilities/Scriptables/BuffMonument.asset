@@ -16,13 +16,17 @@ MonoBehaviour:
   abilityDescription: Heal and increase the damage reduction of friendly monuments
   selectionType: 0
   abilityCanHit: 02000000
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   abilityDamage: 0
   abilityHealAmount: 100
+  abilityRange: 20.03
   statusEffects:
   - {fileID: 11400000, guid: 9732ead4ecf893945901556c7d17cefe, type: 2}
   abilityCooldown: 10
   remainingCooldownTime: 0
-  radius: 0
+  radius: 20.03
   coneAoE: {fileID: 0}
   coneLifetime: 0
   coneAlreadyExists: 0

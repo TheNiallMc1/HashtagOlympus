@@ -4,7 +4,7 @@
 [CreateAssetMenu(fileName = "AbilityExample", menuName = "Abilities/New Ability", order = 1)]
 public class Ability_SO : SpecialAbility
 {
-    public override void StartAbility()
+    public override void AbilityEffect()
     {
         ExecuteAbility();
     }

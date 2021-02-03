@@ -6,7 +6,8 @@ using UnityEngine;
 public class Status_Drunk : StatusEffect
 {
     private AIBrain aiBrain;
-    
+    private AIMovement movementMotor;
+
     public override void TickEffect()
     {
     }
@@ -18,6 +19,8 @@ public class Status_Drunk : StatusEffect
         {
             aiBrain = affectedCombatant.gameObject.GetComponent<AIBrain>();
             aiBrain.State = AIBrain.EState.Drunk;
+            aiBrain._isDrunk = true;
+            aiBrain.ActivateDrunk();
         }
     }
 
@@ -25,7 +28,10 @@ public class Status_Drunk : StatusEffect
     {
         if (affectedCombatant.targetType == Combatant.eTargetType.Enemy)
         {
+            aiBrain._isDrunk = false;
             aiBrain.State = AIBrain.EState.Moving;
+            movementMotor.animator.SetTrigger("soberedUp");
+            movementMotor.animator.ResetTrigger("soberedUp");
         }
     }
 }

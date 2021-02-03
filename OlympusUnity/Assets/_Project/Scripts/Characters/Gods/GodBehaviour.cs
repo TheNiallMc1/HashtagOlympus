@@ -219,13 +219,15 @@ public class GodBehaviour : MonoBehaviour
         var targetPosition = currentAttackTarget.transform.position;
         
         MoveToTarget(targetPosition);
-        transform.LookAt(targetPosition);
+        
 
         if (attackAnimationIsPlaying)
         {
             return;
         }
-        
+
+        transform.LookAt(targetPosition);
+
         int animNumber = GetRandomNumber();
         
         attackAnimationIsPlaying = true;
@@ -303,8 +305,11 @@ public class GodBehaviour : MonoBehaviour
     
     private void MoveToAreaState()
     {
-        currentState = GodState.moveToArea;
-        MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
+        if (CanMoveToArea())
+        {
+            currentState = GodState.moveToArea;
+            MoveToTarget(lastClickedPosition); // Move to the area the player last clicked
+        }
     }
 
     private void MoveToEnemyState()
@@ -329,18 +334,29 @@ public class GodBehaviour : MonoBehaviour
     
     // CHECKS FOR ENTERING STATES \\
 
+    public bool CanMoveToArea()
+    {
+        bool usingUltimate = currentState == GodState.usingUltimate;
+        bool usingAbility = currentState == GodState.usingAbility;
+        bool knockedOut = currentState == GodState.knockedOut;
+
+        return !usingAbility && !usingUltimate && !knockedOut;
+    }
+    
     private bool CanAttack()
     {
         bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
 
+        bool movingToArea = currentState == GodState.moveToArea;
+        
         bool attackListEmpty = !enemiesInAttackRange.Any();
         bool awarenessListEmpty = !enemiesSeen.Any();
 
         bool eitherListValid = !attackListEmpty || !awarenessListEmpty;
         
-        return !knockedOut && !usingUltimate && !usingAbility && eitherListValid; 
+        return !knockedOut && !usingUltimate && !usingAbility && eitherListValid && !movingToArea; 
     }
 
     private bool CanIdle()

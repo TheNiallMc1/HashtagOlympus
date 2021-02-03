@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -30,7 +31,7 @@ namespace _Project.Scripts.AI.AiControllers
         protected int wpIndex;
         public int test;
         private int _currentPath = 1;
-        private static readonly int VerticalF = Animator.StringToHash("Vertical_f");
+        public static readonly int VerticalF = Animator.StringToHash("Vertical_f");
         private bool _isCurrentAttackTargetNull;
 
 
@@ -46,7 +47,11 @@ namespace _Project.Scripts.AI.AiControllers
             spawn = wayPoints[0];
             _isCurrentAttackTargetNull = _aiBrain.currentAttackTarget == null;
             wpNum = 0;
-            FindNextWayPoint(spawn);
+
+            if(gameObject.name != "Tourist_Defender")
+            {
+                FindNextWayPoint(spawn);
+            }
         }
 
         protected void Update()
@@ -56,12 +61,18 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void FixedUpdate()
         {
-            var animSpeed = nav.velocity.magnitude / nav.speed;
+            if (!_aiBrain._isDrunk)
+            {
+                var animSpeed = nav.velocity.magnitude / nav.speed;
+                animator.SetFloat(VerticalF, animSpeed);
+            }
+            else
+            {
+                animator.SetFloat(VerticalF, nav.speed);
+            }
 
 
-            animator.SetFloat(VerticalF, animSpeed);
-
-            if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk && gameObject.name != "Tourist_Defender")
+            if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk)
             {
                 transform.LookAt(destination.position);
             }
@@ -140,9 +151,17 @@ namespace _Project.Scripts.AI.AiControllers
             nav.SetDestination(target.transform.position);
         }
 
-        public void Drunk()
+        public IEnumerator Drunk()
         {
+            _aiBrain._drunkCoroutineRunning = true;
+
             Vector3 drunkDestination;
+
+            _currentPath = Random.Range(1, 5);
+
+            float waitTime = Random.Range(1, 5);
+            yield return new WaitForSeconds(waitTime);
+
             switch (_currentPath)
             {
                 
@@ -151,37 +170,39 @@ namespace _Project.Scripts.AI.AiControllers
                     transform.LookAt(drunkDestination);
                     nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
-                        _currentPath++;
+                        _currentPath = Random.Range(1, 5);
                     break;
                 case 2:
                     drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
                     transform.LookAt(drunkDestination);
                     nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
-                        _currentPath++;
+                        _currentPath = Random.Range(1, 5);
                     break;
                 case 3:
                     drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z + 2);
                     transform.LookAt(drunkDestination);
                     nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
-                        _currentPath++;
+                        _currentPath = Random.Range(1, 5);
                     break;
                 case 4:
                     drunkDestination = new Vector3(currentPosition.x - 2, currentPosition.y, currentPosition.z);
                     transform.LookAt(drunkDestination);
                     nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
-                        _currentPath++;
+                        _currentPath = Random.Range(1, 5);
                     break;
                 case 5:
                     drunkDestination = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z - 2);
                     transform.LookAt(drunkDestination);
                     nav.SetDestination(drunkDestination);
                     if (!nav.pathPending && nav.remainingDistance < 0.05)
-                        _currentPath = 1;
+                        _currentPath = Random.Range(1, 5);
                     break;
             }
+
+            _aiBrain._drunkCoroutineRunning = false;
         }
     }
 

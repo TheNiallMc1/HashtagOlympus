@@ -8,6 +8,7 @@ public abstract class PassiveAbility : ScriptableObject
 
     [Header("Ability Effects")]
     public List<Combatant.eTargetType> abilityCanHit;
+    public LayerMask abilityLayerMask;
     public float effectRadius;
     public float tickInterval;
     public StatusEffect statusEffect;
