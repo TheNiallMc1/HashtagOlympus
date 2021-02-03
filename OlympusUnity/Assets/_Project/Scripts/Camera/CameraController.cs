@@ -50,6 +50,10 @@ public class CameraController : MonoBehaviour
     
     public GodBehaviour currentPlayer;
     public GodBehaviour lastPlayer;
+    [SerializeField] private Vector2 heightLimit;
+    [SerializeField] private Vector2 lenghtLimit;
+    [SerializeField] private Vector2 widthLimit;
+    [SerializeField] private bool regionBoundary;
 
     public static CameraController Instance { get; private set; } // public getter property, anyone can access it!
 
@@ -160,6 +164,13 @@ public class CameraController : MonoBehaviour
                 MoveCamera();
                 break;
         }
+
+        if (regionBoundary != true) return;
+        var pos = transform.position;
+        pos.y = Mathf.Clamp(pos.y, heightLimit.x, heightLimit.y);
+        pos.z = Mathf.Clamp(pos.z, lenghtLimit.x, lenghtLimit.y);
+        pos.x = Mathf.Clamp(pos.x, widthLimit.x, widthLimit.y);
+        transform.position = pos;
 
     }
 
