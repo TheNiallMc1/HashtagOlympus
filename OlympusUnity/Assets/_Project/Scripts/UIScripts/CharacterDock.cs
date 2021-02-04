@@ -54,10 +54,10 @@ public class CharacterDock : MonoBehaviour
 
       //UpdateTooltips();
 
-        if (godBehaviour.isKOed)
-        {
-            ShowReviveButton();
-        }
+//        if (godBehaviour.isKOed)
+       // {
+      //      ShowReviveButton();
+       // }
     }
 
     public void DockSetUp(GodBehaviour assignedGod)

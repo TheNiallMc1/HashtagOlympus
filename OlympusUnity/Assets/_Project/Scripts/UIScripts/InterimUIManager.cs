@@ -133,8 +133,8 @@ public class InterimUIManager : MonoBehaviour
         remainder.Remove(activeKey);
 
         List<int> currentButtonOrder = new List<int>();
-        currentButtonOrder.Add(switchButtons[0].GetComponent<DockSwitcherButton>().godKey);
-        currentButtonOrder.Add(switchButtons[1].GetComponent<DockSwitcherButton>().godKey);
+        currentButtonOrder.Add(switchButtons[0].GetComponent<DockSwitcherButton>().GetGodKey());
+        currentButtonOrder.Add(switchButtons[1].GetComponent<DockSwitcherButton>().GetGodKey());
         currentButtonOrder.Remove(activeKey);
         remainder.Remove(currentButtonOrder[0]);
         currentButtonOrder.Add(remainder[0]);
