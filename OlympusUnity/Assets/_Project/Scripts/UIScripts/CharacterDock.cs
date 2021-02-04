@@ -28,17 +28,18 @@ public class CharacterDock : MonoBehaviour
 
     private void Awake()
     {
-        reviveButton.gameObject.SetActive(false);
-       // UpdateCharacterDock();
+        godBehaviour = godCombatant.gameObject.GetComponent<GodBehaviour>();
+        // reviveButton.gameObject.SetActive(false);
+        // UpdateCharacterDock();
     }
 
     public void UpdateCharacterDock()
     {
-        mainSprite.sprite = godCombatant.characterSprite;
-        tooltipInfo = godCombatant.gameObject.GetComponent<CharacterToolTipInfo>();
-        godNameDisplay.text = godCombatant.characterName;
-        godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
-        healthBar.healthValue = godCombatant.currentHealth;
+        // mainSprite.sprite = godCombatant.characterSprite;
+        // tooltipInfo = godCombatant.gameObject.GetComponent<CharacterToolTipInfo>();
+        // godNameDisplay.text = godCombatant.characterName;
+        // //godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
+        // healthBar.healthValue = godCombatant.currentHealth;
 
         /*foreach (var tooltip in abilityTooltips)
         {
@@ -62,13 +63,13 @@ public class CharacterDock : MonoBehaviour
     public void DockSetUp(GodBehaviour assignedGod)
     {
         //mainSprite.sprite = godCombatant.characterSprite;
-        Debug.Log("setting up docks");
-        godBehaviour = assignedGod;
-        godCombatant = assignedGod.gameObject.GetComponent<Combatant>();
-        godNameDisplay.text = godCombatant.characterName;
-        godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
-        healthBar.healthValue = godCombatant.currentHealth;
-        //UpdateTooltips();
+        // Debug.Log("setting up docks");
+        // godBehaviour = assignedGod;
+        // godCombatant = assignedGod.gameObject.GetComponent<Combatant>();
+        // godNameDisplay.text = godCombatant.characterName;
+        // //godHealthDisplay.text = godCombatant.currentHealth + "/" + godCombatant.maxHealth;
+        // healthBar.healthValue = godCombatant.currentHealth;
+        // //UpdateTooltips();
 
         if (godBehaviour.isKOed)
         {
