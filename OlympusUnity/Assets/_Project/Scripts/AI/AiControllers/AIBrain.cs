@@ -151,7 +151,7 @@ namespace _Project.Scripts.AI.AiControllers
             switch (state)
             {
                 case EState.Moving:
-                    if (State != EState.Frozen)
+                    if (State != EState.Frozen || isActiveAndEnabled)
                     {
                         _movementMotor.nav.isStopped = false;
                         if (!initMove)
@@ -173,8 +173,9 @@ namespace _Project.Scripts.AI.AiControllers
                     }
                     break;
                 case EState.Attacking:
-                    if (State != EState.Frozen)
+                    if (State != EState.Frozen || isActiveAndEnabled)
                     {
+                        
                         _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(false);
                         drunkParticles.SetActive(false);
@@ -196,7 +197,7 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Ability:
                     break;
                 case EState.Drunk:
-                    if (State != EState.Frozen)
+                    if (State != EState.Frozen || isActiveAndEnabled)
                     {
                         if (_drunkCoroutineRunning) return;
                         StartCoroutine(_movementMotor.Drunk());
