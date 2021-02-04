@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.AI.AiControllers;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -38,7 +39,7 @@ public class Combatant : MonoBehaviour
     public float currentHealth;
     public HealthBar healthBar;
     public int attackDamage;
-    [Range(0, 100)] public int damageReduction;
+    [Range(0, 100)] public float damageReduction;
 
     public void Start()
     {
@@ -193,9 +194,10 @@ public class Combatant : MonoBehaviour
 
     #endregion
     
-    public void TakeDamage(int rawDamage)
+    public void TakeDamage(float rawDamage)
     {
-        currentHealth -= rawDamage * (1 - damageReduction/100);
+        float damageAfterReduction = rawDamage * (1 - damageReduction/100);
+        currentHealth -= damageAfterReduction;
         
         if (healthBar != null)
         {
@@ -221,7 +223,7 @@ public class Combatant : MonoBehaviour
 
         if (targetType == eTargetType.Player)
         {
-            GetComponent<GodBehaviour>().OnDamageEvent(rawDamage);
+            GetComponent<GodBehaviour>().OnDamageEvent(damageAfterReduction);
         }
     }
 
