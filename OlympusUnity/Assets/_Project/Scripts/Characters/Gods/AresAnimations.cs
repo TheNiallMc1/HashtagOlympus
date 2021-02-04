@@ -8,6 +8,7 @@ public class AresAnimations : MonoBehaviour
 
     private AbilityManager[] abilities = new AbilityManager[2];
 
+    public GameObject miniRageParticles;
     public Renderer aresEyes;
     public Material redEyesMat;
     public Material whiteEyesMat;
@@ -97,6 +98,16 @@ public class AresAnimations : MonoBehaviour
     public void Ability02Effect()
     {
         abilities[1].ability.AbilityEffect();
+    }
+
+    public void ActivateMiniRageParticles()
+    {
+        miniRageParticles.SetActive(true);
+    }
+    
+    public void DeactivateMiniRageParticles()
+    {
+        miniRageParticles.SetActive(false);
     }
     
     public void EndAbility02()
