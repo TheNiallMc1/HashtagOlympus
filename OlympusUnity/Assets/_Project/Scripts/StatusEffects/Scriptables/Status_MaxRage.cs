@@ -7,7 +7,7 @@ public class Status_MaxRage : StatusEffect
     [Header("Rage Variables")]
     [SerializeField] protected int attackDamageIncrease;
     [SerializeField] protected int damageReductionPercentage;
-    private int baseDamageReduction;
+    private float baseDamageReduction;
     private int baseDamage;
     
     public override void TickEffect()

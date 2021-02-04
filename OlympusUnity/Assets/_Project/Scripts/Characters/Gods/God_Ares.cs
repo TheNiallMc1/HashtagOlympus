@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public sealed class God_Ares : GodBehaviour
 {
@@ -27,17 +28,17 @@ public sealed class God_Ares : GodBehaviour
         ultimateFinishAnimTrigger = "UltimateFinish";
     }
 
-    public override void OnDamageEvent(int damageTaken)
+    public override void OnDamageEvent(float damageTaken)
     {
         RageUpdate(rageGainPerDamage);
     }
 
 
-    private void RageUpdate(int amountToAdd)
+    private void RageUpdate(float amountToAdd)
     {
         if (!inRageMode && ultimateCharge < 100)
         {
-            ultimateCharge += amountToAdd;
+            ultimateCharge += (int)amountToAdd;
             ultimateCharge = Mathf.Min(ultimateCharge, 100);
         }
     }

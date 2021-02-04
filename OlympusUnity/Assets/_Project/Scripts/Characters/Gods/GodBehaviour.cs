@@ -112,7 +112,7 @@ public class GodBehaviour : MonoBehaviour
         }
     }
 
-    public virtual void OnDamageEvent(int damageTaken)
+    public virtual void OnDamageEvent(float damageTaken)
     {
         // Override if needed
     }
