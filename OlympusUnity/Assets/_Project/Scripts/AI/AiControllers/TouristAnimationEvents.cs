@@ -21,6 +21,7 @@ namespace _Project.Scripts.AI.AiControllers
         // Animation Events
         public void TakeDamageAnimation()
         {
+            if(_aIBrain.currentAttackTarget == null) return;
             var target = _aIBrain.currentAttackTarget;
             if (target.isActiveAndEnabled)
             {
@@ -30,6 +31,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         public void TakeDamageAnimationHalf()
         {
+            if(_aIBrain.currentAttackTarget == null) return;
             var target = _aIBrain.currentAttackTarget;
             if (target.isActiveAndEnabled)
             {
