@@ -22,6 +22,8 @@ public class Combatant : MonoBehaviour
     
     public GameObject colliderHolder;
 
+    public float healthPercentage;
+    
     [Header("Character Info")] 
     public string characterName;
     public Sprite characterSprite;
@@ -32,8 +34,8 @@ public class Combatant : MonoBehaviour
     public GameObject coneMarker;
     
     [Header("Combat Stats")]
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
     public HealthBar healthBar;
     public int attackDamage;
     [Range(0, 100)] public int damageReduction;
@@ -58,10 +60,9 @@ public class Combatant : MonoBehaviour
     {
         currentHealth += healthRecovered;
         currentHealth = Mathf.Min(currentHealth, maxHealth); 
-        
         if (healthBar != null)
         {
-            int healthPercentage = (currentHealth / maxHealth) * 100;
+            healthPercentage = (currentHealth / maxHealth) * 100;
             healthBar.UpdateHealthBar(healthPercentage);
         }
 
@@ -198,10 +199,8 @@ public class Combatant : MonoBehaviour
         
         if (healthBar != null)
         {
-            float healthPercentage = (currentHealth / maxHealth ) * 100;
-            print("Max health is " + maxHealth);
-            print("current health is " + currentHealth);
-            healthBar.UpdateHealthBar(currentHealth);
+            healthPercentage = (currentHealth / maxHealth ) * 100;
+            healthBar.UpdateHealthBar(healthPercentage);
         }
         
         if (currentHealth <= 0)
@@ -210,7 +209,7 @@ public class Combatant : MonoBehaviour
             
             if (healthBar != null)
             {
-                float healthPercentage = (currentHealth / maxHealth ) * 100;
+                healthPercentage = (currentHealth / maxHealth ) * 100;
                 healthBar.UpdateHealthBar(healthPercentage); 
             }
             
