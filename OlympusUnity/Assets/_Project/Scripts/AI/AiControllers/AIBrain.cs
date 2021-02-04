@@ -329,9 +329,9 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected void TargetInRange()
         {
-            var targetPosition = Priority == EPriority.Monument ? wayPoint.transform : currentAttackTarget.transform;
-
-            if (!isTargetNotNull) return;
+           // var targetPosition = Priority == EPriority.Monument ? wayPoint.transform : currentAttackTarget.transform;
+           var targetPosition = currentAttackTarget.transform;
+           if (!isTargetNotNull) return;
             var position = transform.position;
             if (!((position - targetPosition.position).magnitude <= 6)) return;
             inRange = true;
