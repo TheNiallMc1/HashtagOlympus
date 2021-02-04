@@ -71,10 +71,10 @@ public class CharacterDock : MonoBehaviour
         // healthBar.healthValue = godCombatant.currentHealth;
         // //UpdateTooltips();
 
-        if (godBehaviour.isKOed)
-        {
-            ShowReviveButton();
-        }
+//        if (godBehaviour.isKOed)
+      //  {
+      //      ShowReviveButton();
+      //  }
         //adding correct ability buttons
     }
 
