@@ -67,6 +67,7 @@ public class AresAnimations : MonoBehaviour
 
     public void Ability01Effect()
     {
+        miniRageParticles.SetActive(false);
         abilities[0].ability.AbilityEffect();
     }
     
@@ -118,6 +119,7 @@ public class AresAnimations : MonoBehaviour
 
     public void ActivateUltimateParticles()
     {
+        miniRageParticles.SetActive(false);
         ultimateParticleEffects.SetActive(true);
         aresEyes.sharedMaterial = redEyesMat;
     }

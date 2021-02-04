@@ -206,6 +206,12 @@ public class GodBehaviour : MonoBehaviour
         
         // Determine and store current target
         currentAttackTarget = enemiesSeen[0];
+
+        if (currentAttackTarget.currentHealth <= 0)
+        {
+            enemiesSeen.Remove(currentAttackTarget);
+            currentAttackTarget = enemiesSeen[0];
+        }
         
         // If the current target is null (usually because it died) remove it from the lists
         if (!currentAttackTarget.gameObject.activeInHierarchy)

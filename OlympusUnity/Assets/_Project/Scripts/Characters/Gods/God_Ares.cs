@@ -12,7 +12,7 @@ public sealed class God_Ares : GodBehaviour
     private StatusEffect lastActivatedRageType; // Stores the last rage type Ares used - maximum or normal
     
     private Coroutine ultimateCoroutine;
-
+    private bool inRageMode;
     public Renderer aresEyes;
     public Material whiteEyesMat;
 
@@ -35,7 +35,7 @@ public sealed class God_Ares : GodBehaviour
 
     private void RageUpdate(int amountToAdd)
     {
-        if (!usingUltimate)
+        if (!inRageMode)
         {
             ultimateCharge += amountToAdd;
             ultimateCharge = Mathf.Min(ultimateCharge, 100);
@@ -53,7 +53,7 @@ public sealed class God_Ares : GodBehaviour
         
         if (ultimateCharge > 0 && ultimateCharge < 100)
         {
-            usingUltimate = true;
+            inRageMode = true;
             thisCombatant.ApplyStatus(rageStatus, thisCombatant);
             lastActivatedRageType = rageStatus;
 
@@ -65,7 +65,7 @@ public sealed class God_Ares : GodBehaviour
         
         if (ultimateCharge >= 100)
         {
-            usingUltimate = true;
+            inRageMode = true;
             thisCombatant.ApplyStatus(maxRageStatus, thisCombatant);
             lastActivatedRageType = maxRageStatus;
             
@@ -83,6 +83,7 @@ public sealed class God_Ares : GodBehaviour
     
     public void UltimateExitEffects()
     {
+        inRageMode = false;
         thisCombatant.RemoveStatus(lastActivatedRageType);
 
         rageParticleEffects.SetActive(false);
