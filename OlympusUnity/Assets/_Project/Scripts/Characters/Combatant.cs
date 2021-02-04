@@ -34,12 +34,14 @@ public class Combatant : MonoBehaviour
     [Header("Combat Stats")]
     public int maxHealth;
     public int currentHealth;
+    public HealthBar healthBar;
     public int attackDamage;
     [Range(0, 100)] public int damageReduction;
 
     public void Start()
     {
         currentHealth = maxHealth;
+        healthBar.healthValue = 100;
         
         if (circleMarker != null)
         {
@@ -51,6 +53,8 @@ public class Combatant : MonoBehaviour
     {
         currentHealth += healthRecovered;
         currentHealth = Mathf.Min(currentHealth, maxHealth); 
+        healthBar.healthValue = (currentHealth / maxHealth) * 100;
+
     }
 
     public void ActivateTargetIcon()
@@ -180,6 +184,7 @@ public class Combatant : MonoBehaviour
     public void TakeDamage(int rawDamage)
     {
         currentHealth -= (rawDamage * (1 - (damageReduction/100)));
+        healthBar.healthValue = (currentHealth / maxHealth) * 100;
         
         if (currentHealth <= 0)
         {

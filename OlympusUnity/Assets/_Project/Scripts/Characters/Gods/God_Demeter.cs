@@ -5,7 +5,6 @@ public sealed class God_Demeter : GodBehaviour
 {
     [Header("Demeter General")] 
     public DemeterForm currentForm;
-    
 
     [Header("Summer Demeter")] 
     public GameObject summerModel;
@@ -19,6 +18,7 @@ public sealed class God_Demeter : GodBehaviour
     [Header("Demeter Testing")]
     public bool inTestMode;
     public GameObject[] winterButtons;
+    public GameObject winterPassiveButton;
     public GameObject[] summerButtons;
 
     public override void Start()
@@ -74,6 +74,8 @@ public sealed class God_Demeter : GodBehaviour
 
         if (inTestMode)
         {
+            winterPassiveButton.SetActive(true);
+            
             foreach (GameObject b in summerButtons)
             {
                 b.SetActive(false);
@@ -114,6 +116,8 @@ public sealed class God_Demeter : GodBehaviour
         
         if (inTestMode)
         {
+            winterPassiveButton.SetActive(false);
+            
             foreach (GameObject b in summerButtons)
             {
                 b.SetActive(true);
