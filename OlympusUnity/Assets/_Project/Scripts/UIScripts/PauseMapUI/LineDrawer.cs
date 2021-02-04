@@ -38,7 +38,7 @@ public class LineDrawer : MonoBehaviour
 
     public void SetEndPos(Vector3 endPos)
     {
-        if (GameManager.Instance.godSelected)
+        if (GameManager.Instance.godSelected && _lineR != null)
         {
             _lineR.SetPosition(0,
                 new Vector3(GameManager.Instance.currentlySelectedGod.gameObject.transform.position.x, 100f,
