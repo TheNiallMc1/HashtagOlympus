@@ -8,6 +8,13 @@ public class DemeterWinterAnimations : MonoBehaviour
 
     private readonly AbilityManager[] abilities = new AbilityManager[2];
 
+    // Auto-Attacks
+    [SerializeField] ParticleSystem leftHandEffect;
+    [SerializeField] ParticleSystem rightHandEffect;
+    [SerializeField] GameObject autoAttackBlast;
+    private GameObject autoAttackBlastInstance;
+
+
     // Ability 01
     [SerializeField] 
     private GameObject icicleMesh;
@@ -45,7 +52,7 @@ public class DemeterWinterAnimations : MonoBehaviour
     }
 
 
-    // Animation Events
+    // General
     public void TakeDamageAnimation()
     {
         Combatant target = godBehaviour.currentAttackTarget;
@@ -80,9 +87,31 @@ public class DemeterWinterAnimations : MonoBehaviour
         godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
     }
 
+    // Auto-attacks
+
+    private void TurnOnHandsEffect()
+    {
+        leftHandEffect.Play();
+        rightHandEffect.Play();
+    }
+
+    private void TurnOffHandsEffect()
+    {
+        leftHandEffect.Stop();
+        rightHandEffect.Stop();
+    }
+
+
+    private void SpawnAutoBlast()
+    {
+        Combatant target = godBehaviour.currentAttackTarget;
+        autoAttackBlastInstance = Instantiate(autoAttackBlast, target.transform.position, Quaternion.identity);
+        Destroy(autoAttackBlastInstance, 1);
+    }
 
 
 
+    // Ability 1
     public void Ability01Start()
     {
         // This needs to hold for the length of the ability lifetime, and then end the ability
@@ -107,11 +136,11 @@ public class DemeterWinterAnimations : MonoBehaviour
     {
         abilities[0].StartCooldown();
     }
-    
 
 
 
 
+    // Ability 2
     public void Ability02Effect()
     {
         // abilities[1].ChannelAbilityTick();
@@ -147,7 +176,7 @@ public class DemeterWinterAnimations : MonoBehaviour
 
 
 
-
+    // Ultimate
     public void UltimateParticleBuildUp()
     {
         ultimateParticlesBuildupInstance = Instantiate(ultimateParticlesBuildupPrefab, transform.position, Quaternion.identity, transform);

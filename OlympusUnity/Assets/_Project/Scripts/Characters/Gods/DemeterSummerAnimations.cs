@@ -8,6 +8,12 @@ public class DemeterSummerAnimations : MonoBehaviour
 
     private readonly AbilityManager[] abilities = new AbilityManager[2];
 
+    // Auto-Attacks
+    [SerializeField] ParticleSystem leftHandEffect;
+    [SerializeField] ParticleSystem rightHandEffect;
+    [SerializeField] GameObject autoAttackBlast;
+    private GameObject autoAttackBlastInstance;
+
     [SerializeField] 
     private GameObject monumentHealParticles;
     [SerializeField]
@@ -80,7 +86,27 @@ public class DemeterSummerAnimations : MonoBehaviour
     }
 
 
+    // Auto-attacks
 
+    private void TurnOnHandsEffect()
+    {
+        leftHandEffect.Play();
+        rightHandEffect.Play();
+    }
+
+    private void TurnOffHandsEffect()
+    {
+        leftHandEffect.Stop();
+        rightHandEffect.Stop();
+    }
+
+
+    private void SpawnAutoBlast()
+    {
+        Combatant target = godBehaviour.currentAttackTarget;
+        autoAttackBlastInstance = Instantiate(autoAttackBlast, target.transform.position, Quaternion.identity);
+        Destroy(autoAttackBlastInstance, 1);
+    }
 
 
     // Monument Heal Effects
