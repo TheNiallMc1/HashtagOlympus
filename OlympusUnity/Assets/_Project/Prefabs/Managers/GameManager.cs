@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Camera cam;
     public Camera currentCam;
     public Camera overViewCam;
+    public MiniMapCameraSnap miniMap;
 
     [Header("Gods and God Selection")] public List<GodBehaviour> allPlayerGods;
     public bool godSelected;
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
         {
             SelectGod(allPlayerGods[currentGodIndex]);
         }
+        miniMap.SnapToActiveGodPos();
     }
 
     private void ClickSelect()
@@ -293,6 +295,7 @@ public class GameManager : MonoBehaviour
         godToSelect.ToggleOutlineOnOff(true);
 
         InterimUIManager.Instance.UpdateHUD(currentlySelectedGod);
+        miniMap.SnapToActiveGodPos();
     }
 
     private void MoveGod()
