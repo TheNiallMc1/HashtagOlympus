@@ -35,7 +35,7 @@ public sealed class God_Ares : GodBehaviour
 
     private void RageUpdate(int amountToAdd)
     {
-        if (!inRageMode)
+        if (!inRageMode && ultimateCharge < 100)
         {
             ultimateCharge += amountToAdd;
             ultimateCharge = Mathf.Min(ultimateCharge, 100);

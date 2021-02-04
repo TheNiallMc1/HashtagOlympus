@@ -6,21 +6,24 @@ public class HealthBar : MonoBehaviour
     public Image bar;
     public RectTransform button;
 
-    public float healthValue;
+    [SerializeField]
+    private float healthValue;
     
 
     // Update is called once per frame
     private void Update()
     {
-        UpdateHealthBar(healthValue);
-        
+         
     }
 
     public void UpdateHealthBar(float healthV)
     {
-        float amount = (healthValue / 100f) * 180f / 360;
+        print("1Health of " + this.gameObject.name + " is " + healthV);    
+        float amount = (healthV / 100f) * 180f / 360;
         bar.fillAmount = amount;
+        print("Amount of " + this.gameObject.name + " is " + amount);
         float buttonAngle = amount * 360;
+        print("ButtonAngle of " + this.gameObject.name + " is " + buttonAngle);
         button.localEulerAngles = new Vector3(0,0,-buttonAngle);
     }
 }

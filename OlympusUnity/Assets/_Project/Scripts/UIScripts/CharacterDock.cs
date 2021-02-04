@@ -19,7 +19,7 @@ public class CharacterDock : MonoBehaviour
 
     public Button reviveButton;
     public Button strButton;
-    public HealthBar healthBar;
+    //public HealthBar healthBar;
     public RespectBuff respectBuff;
 
     public List<TooltipTrigger> abilityTooltips;

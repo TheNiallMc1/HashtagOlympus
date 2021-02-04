@@ -80,7 +80,7 @@ public class GodBehaviour : MonoBehaviour
     {
         thisCombatant = GetComponent<Combatant>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        ultimateBar.healthValue = 0;
+        ultimateBar.UpdateHealthBar(1);
         currentState = GodState.idle;
 
         // Initialise collider radius
@@ -414,7 +414,7 @@ public class GodBehaviour : MonoBehaviour
     {
         // Override in sub class if needed
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
-        ultimateBar.healthValue = ultimateCharge;
+        ultimateBar.UpdateHealthBar(ultimateCharge);
             
         usingUltimate = false;
         currentState = GodState.idle;
@@ -427,7 +427,7 @@ public class GodBehaviour : MonoBehaviour
         // Gain charge every tick
         yield return new WaitForSecondsRealtime(ultimateGainTickInterval);
         ultimateCharge += ultimateGainPerTick;
-        ultimateBar.healthValue = ultimateCharge;
+        ultimateBar.UpdateHealthBar(ultimateCharge);
 
         // If less than 100, keep gaining. If 100 or over, stop.
         if (ultimateCharge < 100)
@@ -440,7 +440,7 @@ public class GodBehaviour : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(ultimateDurationTickInterval);
         ultimateCharge -= ultimateDecreasePerTick;
-        ultimateBar.healthValue = ultimateCharge;
+        ultimateBar.UpdateHealthBar(ultimateCharge);
         
         // When ultimate hits zero, end the Ultimate
         if (ultimateCharge <= 0)

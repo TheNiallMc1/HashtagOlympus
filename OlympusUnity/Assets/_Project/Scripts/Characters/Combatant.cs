@@ -41,7 +41,12 @@ public class Combatant : MonoBehaviour
     public void Start()
     {
         currentHealth = maxHealth;
-        healthBar.healthValue = 100;
+
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(100);
+        }
+        
         
         if (circleMarker != null)
         {
@@ -53,7 +58,13 @@ public class Combatant : MonoBehaviour
     {
         currentHealth += healthRecovered;
         currentHealth = Mathf.Min(currentHealth, maxHealth); 
-        healthBar.healthValue = (currentHealth / maxHealth) * 100;
+        
+        if (healthBar != null)
+        {
+            int healthPercentage = (currentHealth / maxHealth) * 100;
+            healthBar.UpdateHealthBar(healthPercentage);
+        }
+
 
     }
 
@@ -183,12 +194,26 @@ public class Combatant : MonoBehaviour
     
     public void TakeDamage(int rawDamage)
     {
-        currentHealth -= (rawDamage * (1 - (damageReduction/100)));
-        healthBar.healthValue = (currentHealth / maxHealth) * 100;
+        currentHealth -= rawDamage * (1 - damageReduction/100);
+        
+        if (healthBar != null)
+        {
+            float healthPercentage = (currentHealth / maxHealth ) * 100;
+            print("Max health is " + maxHealth);
+            print("current health is " + currentHealth);
+            healthBar.UpdateHealthBar(currentHealth);
+        }
         
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            
+            if (healthBar != null)
+            {
+                float healthPercentage = (currentHealth / maxHealth ) * 100;
+                healthBar.UpdateHealthBar(healthPercentage); 
+            }
+            
             if (targetType == eTargetType.Player || targetType == eTargetType.Enemy)
             {
                 Die();
