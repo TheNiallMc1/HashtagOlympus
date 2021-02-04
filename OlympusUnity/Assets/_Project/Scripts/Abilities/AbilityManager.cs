@@ -224,14 +224,15 @@ public class AbilityManager : MonoBehaviour
         
         if (rightClick)
         {
+
             if ( Physics.Raycast(ray, out RaycastHit hit, 100, ability.targetLayerMask) )
             {
                 currentTarget = hit.transform.gameObject.GetComponentInParent<Combatant>();
-                
+
                 if (targetsInRange.Contains(currentTarget))
                 {
                     lastSingleTarget = currentTarget;
-                    
+
                     targets.Add(currentTarget);
                     StartAbility();
                 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class DemeterSummerAnimations : MonoBehaviour
 {
@@ -7,18 +8,28 @@ public class DemeterSummerAnimations : MonoBehaviour
 
     private readonly AbilityManager[] abilities = new AbilityManager[2];
 
-    [SerializeField] 
-    private GameObject monumentHealParticles;
-    [SerializeField]
-    private GameObject cornMesh;
-    [SerializeField]
-    private GameObject cornHealParticles;
-    [SerializeField]
-    GameObject rightHand;
+    // Auto-Attacks
+    [SerializeField] ParticleSystem leftHandEffect;
+    [SerializeField] ParticleSystem rightHandEffect;
+    [SerializeField] GameObject autoAttackBlast;
+    private GameObject autoAttackBlastInstance;
 
-    [HideInInspector]
-    Vector3 cornStartPosition;
-    Quaternion cornStartRotation;
+    // Ability 1
+
+    [SerializeField] private GameObject monumentHealParticles;
+
+
+    // Ability 2
+    [SerializeField] GameObject cornMesh;
+    [SerializeField] GameObject cornHealParticles;
+    public GameObject healParticlesObj;
+    [HideInInspector] GameObject healEffectInstance;
+
+    public GameObject ultimateParticlesBuildupPrefab;
+    [HideInInspector] GameObject ultimateParticlesBuildupInstance;
+
+    public GameObject ultimateParticlesExplodePrefab;
+    [HideInInspector] GameObject ultimateParticlesExplodeInstance;
 
     // Start is called before the first frame update
     private void Start()
@@ -28,9 +39,7 @@ public class DemeterSummerAnimations : MonoBehaviour
 
         abilities[0] = godBehaviour.summerAbilities[0];
         abilities[1] = godBehaviour.summerAbilities[1];
-
-        cornStartPosition = cornMesh.transform.localPosition;
-        cornStartRotation = cornMesh.transform.rotation;
+        
     }
 
 
@@ -58,8 +67,43 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         godBehaviour.attackAnimationIsPlaying = false;
     }
-    
-    
+
+
+
+
+    public void LockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = true;
+    }
+
+    public void UnlockMovement()
+    {
+        godBehaviour.gameObject.GetComponent<NavMeshAgent>().isStopped = false;
+    }
+
+
+    // Auto-attacks
+
+    private void TurnOnHandsEffect()
+    {
+        leftHandEffect.Play();
+        rightHandEffect.Play();
+    }
+
+    private void TurnOffHandsEffect()
+    {
+        leftHandEffect.Stop();
+        rightHandEffect.Stop();
+    }
+
+
+    private void SpawnAutoBlast()
+    {
+        Combatant target = godBehaviour.currentAttackTarget;
+        autoAttackBlastInstance = Instantiate(autoAttackBlast, target.transform.position, Quaternion.identity);
+        Destroy(autoAttackBlastInstance, 1);
+    }
+
 
     // Monument Heal Effects
     public void Ability01Effect()
@@ -87,6 +131,10 @@ public class DemeterSummerAnimations : MonoBehaviour
     
 
 
+
+
+
+
     // Corn Heal Effects
     public void Ability02Start()
     {
@@ -101,18 +149,9 @@ public class DemeterSummerAnimations : MonoBehaviour
     }
 
 
-    public void UnparentCorn()
+    public void ActivateCornParticles()
     {
-        cornMesh.transform.parent = godCombatant.transform;
-        Rigidbody rb = cornMesh.GetComponent<Rigidbody>();
-
-        // print(cornMesh.transform.position);
-        cornMesh.transform.position = rightHand.transform.position;
-
-        // print(cornMesh.transform.position);
-        // rb.isKinematic = true;
-        // rb.AddForce(0, 3f, 0);
-        // Debug.Break();
+        cornHealParticles.SetActive(true);
     }
 
 
@@ -121,22 +160,23 @@ public class DemeterSummerAnimations : MonoBehaviour
         cornMesh.SetActive(false);
     }
 
-    public void ReparentCorn()
-    {
-        cornMesh.transform.parent = rightHand.transform;
-        cornMesh.transform.localPosition = cornStartPosition;
-        cornMesh.transform.rotation = cornStartRotation;
-    }
-
-
-    public void ActivateCornHealParticles()
-    {
-        cornHealParticles.SetActive(true);
-    }
-    
-    public void DeactivateCornHealParticles()
+    public void DeactivateCornParticles()
     {
         cornHealParticles.SetActive(false);
+    }
+
+
+    public void ActivateTargetHealParticles()
+    {
+        Combatant target = abilities[1].ability.targets[0];
+
+        GameObject healEffectInstance = Instantiate(healParticlesObj, target.transform.position, Quaternion.identity, target.transform);
+        Destroy(healEffectInstance, 2f);
+    }
+
+    public void DeactivateCornHealParticles()
+    {
+        // cornHealParticles.SetActive(false);
     }
     
 
@@ -145,5 +185,26 @@ public class DemeterSummerAnimations : MonoBehaviour
     {
         abilities[1].StartCooldown();
         godBehaviour.currentState = GodState.idle;
+    }
+
+
+    public void UltimateParticleBuildUp()
+    {
+        ultimateParticlesBuildupInstance = Instantiate(ultimateParticlesBuildupPrefab, transform.position, Quaternion.identity, transform);
+        Destroy(ultimateParticlesBuildupInstance, 2f);
+    }
+
+    public void UltimateParticleExplode()
+    {
+        ultimateParticlesExplodeInstance = Instantiate(ultimateParticlesExplodePrefab, transform.position, Quaternion.identity, godBehaviour.transform);
+        Destroy(ultimateParticlesExplodeInstance, 2f);
+    }
+
+
+
+
+    public void SwitchFormsAnim()
+    {
+        godBehaviour.SwitchForms();
     }
 }

@@ -35,7 +35,7 @@ public class GodBehaviour : MonoBehaviour
 
     [Header("Ultimate")] 
     public string ultimateName;
-
+    protected bool usingUltimate;
     public float ultimateGainTickInterval; // How often Ultimate Charge is gained
     public int ultimateGainPerTick; // How much Ultimate Charge is gained per tick
     protected int ultimateCharge;
@@ -206,6 +206,12 @@ public class GodBehaviour : MonoBehaviour
         
         // Determine and store current target
         currentAttackTarget = enemiesSeen[0];
+
+        if (currentAttackTarget.currentHealth <= 0)
+        {
+            enemiesSeen.Remove(currentAttackTarget);
+            currentAttackTarget = enemiesSeen[0];
+        }
         
         // If the current target is null (usually because it died) remove it from the lists
         if (!currentAttackTarget.gameObject.activeInHierarchy)
@@ -349,7 +355,6 @@ public class GodBehaviour : MonoBehaviour
     
     private bool CanAttack()
     {
-        bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
 
@@ -365,7 +370,6 @@ public class GodBehaviour : MonoBehaviour
 
     private bool CanIdle()
     {
-        bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
         bool attacking = currentState == GodState.attacking;
@@ -376,7 +380,6 @@ public class GodBehaviour : MonoBehaviour
     
     protected bool CanUseAbility()
     {
-        bool usingUltimate = currentState == GodState.usingUltimate;
         bool usingAbility = currentState == GodState.usingAbility;
         bool knockedOut = currentState == GodState.knockedOut;
         
@@ -413,6 +416,7 @@ public class GodBehaviour : MonoBehaviour
         ultimateCharge = 0; // Just adjusting in case it falls below zero somehow
         ultimateChargeText.text = ultimateCharge.ToString();
 
+        usingUltimate = false;
         currentState = GodState.idle;
 
         StartCoroutine(GainUltimateChargeCoroutine());

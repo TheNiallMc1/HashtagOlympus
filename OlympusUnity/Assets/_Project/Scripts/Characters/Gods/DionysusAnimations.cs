@@ -13,6 +13,8 @@ public class DionysusAnimations : MonoBehaviour
     [HideInInspector] GameObject healEffectInstance;
     private ParticleSystem[] healParticleSystems;
 
+    [SerializeField] GameObject partyOver;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -68,10 +70,6 @@ public class DionysusAnimations : MonoBehaviour
 
     public void SpawnHealEffect()
     {
-        // Borrow this for Demeter?
-        //Combatant target = abilities[0].ability.targets[0];
-        //Instantiate(healParticlesObj, target.transform.position, Quaternion.identity, target.transform);
-
         healEffectInstance = Instantiate(healParticlesObj, transform.position, Quaternion.identity, transform);
         Destroy(healEffectInstance, 2f);
     }
@@ -120,6 +118,16 @@ public class DionysusAnimations : MonoBehaviour
     {
         godBehaviour.currentState = GodState.idle;
         abilities[1].StartCooldown();
+    }
+
+    public void UltimateEndParticlesOn()
+    {
+        partyOver.SetActive(true);
+    }
+
+    public void UltimateEndParticlesOff()
+    {
+        partyOver.SetActive(false);
     }
 
     public void EndUltimateEffect()

@@ -191,6 +191,7 @@ public class GameManager : MonoBehaviour
             target.DeactivateTargetIcon();
         }
 
+        combatantUsingAbility.gameObject.GetComponent<GodBehaviour>().currentState = GodState.idle;
         targetsInRange.Clear();
         combatantUsingAbility = null;
         currentAbility = null;
@@ -204,8 +205,8 @@ public class GameManager : MonoBehaviour
 
         Collider[] colliders = Physics.OverlapSphere(centre, abilityRange, currentAbility.ability.targetLayerMask);
 
-        Time.timeScale = 0.5f;
-        Time.fixedDeltaTime = 0.5f;
+        Time.timeScale = 0.3f;
+        Time.fixedDeltaTime = 0.3f;
 
         foreach (Collider targetCollider in colliders)
         {
@@ -219,6 +220,7 @@ public class GameManager : MonoBehaviour
 
         if (!targetsInRange.Any())
         {
+            Debug.Log("no targets in range of single target ability ");
             ExitTargetSelectMode();
             return;
         }
