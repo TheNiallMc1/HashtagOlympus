@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6023499825508823574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666350940540804835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
+--- !u!114 &8098371143411049135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015793235444251751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 0
 --- !u!1 &1856571196780817903
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,6 +113,7 @@ MonoBehaviour:
   respectOnKill: 5
   _targetType: 0
   colliderHolder: {fileID: 0}
+  healthPercentage: 0
   characterName: Dionysus
   characterSprite: {fileID: 21300000, guid: 6a5d6361a54e943d784675a76cf4e2c9, type: 3}
   targetIcon: {fileID: 0}
@@ -92,6 +121,7 @@ MonoBehaviour:
   coneMarker: {fileID: 1210873495836583010}
   maxHealth: 100
   currentHealth: 100
+  healthBar: {fileID: 0}
   attackDamage: 0
   damageReduction: 0
 --- !u!114 &3213524915655957867
@@ -120,9 +150,9 @@ MonoBehaviour:
   - {fileID: 1192201351}
   - {fileID: 1192201352}
   ultimateName: Party Time
+  ultimateBar: {fileID: 0}
   ultimateGainTickInterval: 1
   ultimateGainPerTick: 100
-  ultimateChargeText: {fileID: 0}
   ultimateDurationTickInterval: 1
   ultimateDecreasePerTick: 20
   mouseDetectorCollider: {fileID: 1856571197521284019}
@@ -446,21 +476,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   eraseRenderer: 0
---- !u!114 &721049653
+--- !u!114 &1084714946883133706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4098450011116701808}
+  m_GameObject: {fileID: 7703057534207277222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98420adc59cbb4e47a5c617ef887638c, type: 3}
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wineParticlesObj: {fileID: 3904076251613846613}
-  healParticlesObj: {fileID: 5521640729172757640, guid: 6f1a27fb9bbeaea4993c5c82da83357a, type: 3}
-  partyOver: {fileID: 954185998540034424}
+  color: 0
+  eraseRenderer: 0
 --- !u!1 &8799405625295854605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,19 +1175,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4351670134951954272, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3723155547445187274 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 499944048445655881, guid: 3559b54723605c94a80250e38894d32c, type: 3}
-  m_PrefabInstance: {fileID: 3844779166848407939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2681352497028241996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1183731657072165839, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3723155547755387231 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 499944048135389404, guid: 3559b54723605c94a80250e38894d32c, type: 3}
+--- !u!1 &1015793235444251751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4270455714909283812, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7703057534207277222 stripped
@@ -1166,19 +1190,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6898850849804542245, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3723155547445187274 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 499944048445655881, guid: 3559b54723605c94a80250e38894d32c, type: 3}
+  m_PrefabInstance: {fileID: 3844779166848407939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3723155547755387231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 499944048135389404, guid: 3559b54723605c94a80250e38894d32c, type: 3}
-  m_PrefabInstance: {fileID: 3844779166848407939}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &666350940540804835 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4351670134951954272, guid: 3559b54723605c94a80250e38894d32c, type: 3}
-  m_PrefabInstance: {fileID: 3844779166848407939}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2710573272619862647 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1208796828560954356, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2977855616052252095 stripped
@@ -1186,6 +1205,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2019883879764071484, guid: 3559b54723605c94a80250e38894d32c, type: 3}
   m_PrefabInstance: {fileID: 3844779166848407939}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2710573272619862647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1208796828560954356, guid: 3559b54723605c94a80250e38894d32c, type: 3}
+  m_PrefabInstance: {fileID: 3844779166848407939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &721049653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98420adc59cbb4e47a5c617ef887638c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wineParticlesObj: {fileID: 3904076251613846613}
+  healParticlesObj: {fileID: 5521640729172757640, guid: 6f1a27fb9bbeaea4993c5c82da83357a, type: 3}
+  partyOver: {fileID: 954185998540034424}
 --- !u!114 &3458987883256187698
 MonoBehaviour:
   m_ObjectHideFlags: 0
