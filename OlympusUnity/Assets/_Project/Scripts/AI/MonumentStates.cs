@@ -7,7 +7,6 @@ public class MonumentStates : MonoBehaviour
     [SerializeField] private GameObject _defenders;
     [SerializeField] private GameObject prefabGodMonument;
     [SerializeField] private GameObject prefabEnemyMonument;
-    public int amountToPool;
     public int amountOfStands;
 
     private Combatant _thisCombatant;
@@ -25,7 +24,7 @@ public class MonumentStates : MonoBehaviour
         _defenders = transform.GetChild(2).gameObject;
         _thisCombatant = GetComponent<Combatant>();
 
-        
+        InitialiseEnemyMonuments();
         PlayerMonument();
     }
 
@@ -49,20 +48,19 @@ public class MonumentStates : MonoBehaviour
                     break;
             }
         }
-        if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
-        {
-            foreach (var t in _touristStands)
-            {
-                
-                if (t.currentHealth <= 0)
-                {
-                    _touristStands.Remove(t);
-                }
 
-                if (_touristStands.Count == 0)
-                {
-                    _isGod = true;
-                }
+        if (_thisCombatant.targetType != Combatant.eTargetType.DMonument) return;
+        foreach (var t in _touristStands)
+        {
+                
+            if (t.currentHealth <= 0)
+            {
+                _touristStands.Remove(t);
+            }
+
+            if (_touristStands.Count == 0)
+            {
+                _isGod = true;
             }
         }
     }
@@ -80,6 +78,14 @@ public class MonumentStates : MonoBehaviour
         prefabEnemyMonument.SetActive(true);
         prefabGodMonument.SetActive(false);
         _defenders.SetActive(true);
+        foreach (var stand in _touristStands)
+        {
+            stand.currentHealth = 100;
+        }
+    }
+
+    private void InitialiseEnemyMonuments()
+    {
         for (int i = 1; i < amountOfStands + 1; i++)
         {
             prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>().currentHealth = 100;
