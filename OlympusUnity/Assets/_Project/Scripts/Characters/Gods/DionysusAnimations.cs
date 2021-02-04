@@ -13,6 +13,8 @@ public class DionysusAnimations : MonoBehaviour
     [HideInInspector] GameObject healEffectInstance;
     private ParticleSystem[] healParticleSystems;
 
+    [SerializeField] GameObject partyOver;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -116,6 +118,16 @@ public class DionysusAnimations : MonoBehaviour
     {
         godBehaviour.currentState = GodState.idle;
         abilities[1].StartCooldown();
+    }
+
+    public void UltimateEndParticlesOn()
+    {
+        partyOver.SetActive(true);
+    }
+
+    public void UltimateEndParticlesOff()
+    {
+        partyOver.SetActive(false);
     }
 
     public void EndUltimateEffect()
