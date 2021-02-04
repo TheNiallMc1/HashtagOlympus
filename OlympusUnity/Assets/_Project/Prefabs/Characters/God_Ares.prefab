@@ -749,7 +749,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.44
+  m_Radius: 8.36
   m_Center: {x: 0, y: 1.77, z: 0}
 --- !u!114 &7196217160143836657
 MonoBehaviour:
@@ -869,7 +869,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.71
+  m_Radius: 3.07
   m_Center: {x: 0, y: 2.4, z: 0}
 --- !u!114 &7196217161070383288
 MonoBehaviour:
@@ -950,6 +950,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3704758696359266611}
     m_Modifications:
+    - target: {fileID: 2480280577581212917, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3960492250437262358, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -992,6 +996,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960492250437262358, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636249016781099086, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}
+      propertyPath: lengthInSec
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636249016781099086, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}
+      propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6327404153807937678, guid: 641dd2509878847f8914d46ac4b9c913, type: 3}

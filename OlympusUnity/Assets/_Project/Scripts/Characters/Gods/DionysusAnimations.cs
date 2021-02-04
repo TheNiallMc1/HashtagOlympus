@@ -68,10 +68,6 @@ public class DionysusAnimations : MonoBehaviour
 
     public void SpawnHealEffect()
     {
-        // Borrow this for Demeter?
-        //Combatant target = abilities[0].ability.targets[0];
-        //Instantiate(healParticlesObj, target.transform.position, Quaternion.identity, target.transform);
-
         healEffectInstance = Instantiate(healParticlesObj, transform.position, Quaternion.identity, transform);
         Destroy(healEffectInstance, 2f);
     }

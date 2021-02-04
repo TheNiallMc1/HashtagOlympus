@@ -14,18 +14,16 @@ public class DemeterSummerAnimations : MonoBehaviour
     [SerializeField] GameObject autoAttackBlast;
     private GameObject autoAttackBlastInstance;
 
-    [SerializeField] 
-    private GameObject monumentHealParticles;
-    [SerializeField]
-    private GameObject cornMesh;
-    [SerializeField]
-    private GameObject cornHealParticles;
-    [SerializeField]
-    GameObject rightHand;
+    // Ability 1
 
-    [HideInInspector]
-    Vector3 cornStartPosition;
-    Quaternion cornStartRotation;
+    [SerializeField] private GameObject monumentHealParticles;
+
+
+    // Ability 2
+    [SerializeField] GameObject cornMesh;
+    [SerializeField] GameObject cornHealParticles;
+    public GameObject healParticlesObj;
+    [HideInInspector] GameObject healEffectInstance;
 
     public GameObject ultimateParticlesBuildupPrefab;
     [HideInInspector] GameObject ultimateParticlesBuildupInstance;
@@ -41,9 +39,7 @@ public class DemeterSummerAnimations : MonoBehaviour
 
         abilities[0] = godBehaviour.summerAbilities[0];
         abilities[1] = godBehaviour.summerAbilities[1];
-
-        cornStartPosition = cornMesh.transform.localPosition;
-        cornStartRotation = cornMesh.transform.rotation;
+        
     }
 
 
@@ -153,18 +149,9 @@ public class DemeterSummerAnimations : MonoBehaviour
     }
 
 
-    public void UnparentCorn()
+    public void ActivateCornParticles()
     {
-        cornMesh.transform.parent = godCombatant.transform;
-        Rigidbody rb = cornMesh.GetComponent<Rigidbody>();
-
-        // print(cornMesh.transform.position);
-        cornMesh.transform.position = rightHand.transform.position;
-
-        // print(cornMesh.transform.position);
-        // rb.isKinematic = true;
-        // rb.AddForce(0, 3f, 0);
-        // Debug.Break();
+        cornHealParticles.SetActive(true);
     }
 
 
@@ -173,22 +160,23 @@ public class DemeterSummerAnimations : MonoBehaviour
         cornMesh.SetActive(false);
     }
 
-    public void ReparentCorn()
-    {
-        cornMesh.transform.parent = rightHand.transform;
-        cornMesh.transform.localPosition = cornStartPosition;
-        cornMesh.transform.rotation = cornStartRotation;
-    }
-
-
-    public void ActivateCornHealParticles()
-    {
-        cornHealParticles.SetActive(true);
-    }
-    
-    public void DeactivateCornHealParticles()
+    public void DeactivateCornParticles()
     {
         cornHealParticles.SetActive(false);
+    }
+
+
+    public void ActivateTargetHealParticles()
+    {
+        Combatant target = abilities[1].ability.targets[0];
+
+        GameObject healEffectInstance = Instantiate(healParticlesObj, target.transform.position, Quaternion.identity, target.transform);
+        Destroy(healEffectInstance, 2f);
+    }
+
+    public void DeactivateCornHealParticles()
+    {
+        // cornHealParticles.SetActive(false);
     }
     
 
