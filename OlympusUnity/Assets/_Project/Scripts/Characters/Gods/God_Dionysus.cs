@@ -39,8 +39,8 @@ public sealed class God_Dionysus : GodBehaviour
                 passiveIcon.SetActive(false);
             }
             
+            usingUltimate = true;
             ultimateCharge = 100; // Set to 100 in case it somehow went over
-            currentState = GodState.usingUltimate;
 
             attackAnimationIsPlaying = false;
             //animator.SetTrigger(ultimateStartAnimTrigger);
@@ -57,8 +57,6 @@ public sealed class God_Dionysus : GodBehaviour
 
     protected override void EndUltimate()
     {
-        partyTimePassiveManager.RemovePassiveAbility();
-        
         animator.SetTrigger(ultimateFinishAnimTrigger);
     }
 
@@ -68,6 +66,8 @@ public sealed class God_Dionysus : GodBehaviour
         {
             passiveIcon.SetActive(true);
         }
+        
+        partyTimePassiveManager.RemovePassiveAbility();
         
         // Take and store the list of targets affected by the status
         combatantsAffectedByPartyTime = partyPassiveAbility.targetsAffectedByStatus;

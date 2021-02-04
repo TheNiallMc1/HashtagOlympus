@@ -142,6 +142,8 @@ public sealed class God_Demeter : GodBehaviour
 
         if (ultimateCharge >= 100)
         {
+            usingUltimate = true;
+            
             ultimateCharge = 100; // Set to 100 in case it somehow went over
 
             currentState = GodState.usingUltimate;
