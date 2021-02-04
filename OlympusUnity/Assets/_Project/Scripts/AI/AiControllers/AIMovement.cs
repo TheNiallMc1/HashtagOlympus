@@ -72,6 +72,7 @@ namespace _Project.Scripts.AI.AiControllers
             }
 
 
+            if (gameObject.name == "Tourist_Defender") return;
             if(_isCurrentAttackTargetNull && !_aiBrain._isDrunk)
             {
                 transform.LookAt(destination.position);
