@@ -4,10 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Combatant))]
 public class MonumentStates : MonoBehaviour
 {
-    //private List<GameObject> defenders;
-    //[SerializeField]
-    //private GameObject objectToPool;
-
+    [SerializeField] private GameObject _defenders;
     [SerializeField] private GameObject prefabGodMonument;
     [SerializeField] private GameObject prefabEnemyMonument;
     public int amountToPool;
@@ -16,6 +13,7 @@ public class MonumentStates : MonoBehaviour
     private Combatant _thisCombatant;
 
     [SerializeField] private List<Combatant> _touristStands;
+    
 
     [SerializeField] private bool _isGod = true;
 
@@ -24,14 +22,10 @@ public class MonumentStates : MonoBehaviour
         
         prefabEnemyMonument =  transform.GetChild(1).gameObject;
         prefabGodMonument = transform.GetChild(0).gameObject;
+        _defenders = transform.GetChild(2).gameObject;
         _thisCombatant = GetComponent<Combatant>();
-        //defenders = new List<GameObject>();
-        //for (var i = 0; i < amountToPool; i++)
-        //{
-        //    var tmp = Instantiate(objectToPool);
-        //    tmp.SetActive(false);
-        //    defenders.Add(tmp);
-        //}
+
+        
         PlayerMonument();
     }
 
@@ -77,6 +71,7 @@ public class MonumentStates : MonoBehaviour
     {
         prefabGodMonument.SetActive(true);
         prefabEnemyMonument.SetActive(false);
+        _defenders.SetActive(false);
     }
 
     private void DamagedMonument()
@@ -84,6 +79,7 @@ public class MonumentStates : MonoBehaviour
 
         prefabEnemyMonument.SetActive(true);
         prefabGodMonument.SetActive(false);
+        _defenders.SetActive(true);
         for (int i = 1; i < amountOfStands + 1; i++)
         {
             prefabEnemyMonument.transform.GetChild(i).GetComponent<Combatant>().currentHealth = 100;
