@@ -14,10 +14,20 @@ public class Status_DamageReduction : StatusEffect
         public override void EntryEffect()
         {
             affectedCombatant.damageReduction += damageReductionPercentage;
+
+            if(affectedCombatant.GetComponent<MonumentStates>() != null)
+            {
+                affectedCombatant.GetComponent<MonumentStates>().ActivateDefenceParticles();
+            }
         }
     
         public override void ExitEffect()
         {
             affectedCombatant.damageReduction -= damageReductionPercentage;
-        }
+
+            if (affectedCombatant.GetComponent<MonumentStates>() != null)
+            {
+                affectedCombatant.GetComponent<MonumentStates>().DeactivateDefenceParticles();
+            }
+    }
 }

@@ -111,16 +111,6 @@ public class DemeterSummerAnimations : MonoBehaviour
         abilities[0].ability.AbilityEffect();
     }
 
-
-    public void ActivateMonumentHealParticles()
-    {
-        monumentHealParticles.SetActive(true);
-    }
-    
-    public void DeactivateMonumentHealParticles()
-    {
-        monumentHealParticles.SetActive(false);
-    }
     
 
     public void EndAbility01()
