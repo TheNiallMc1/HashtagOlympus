@@ -30,7 +30,7 @@ RectTransform:
   m_Children:
   - {fileID: 5651748089725628191}
   m_Father: {fileID: 7433334166568795884}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.124}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -414,6 +414,15 @@ MonoBehaviour:
   header: SWORD SPIN
   content: Deal damage to all enemies in a circle around Ares
   anchor: {fileID: 1185555428937997073}
+  backgroundColour:
+    serializedVersion: 2
+    rgba: 4278190080
+  headerColour:
+    serializedVersion: 2
+    rgba: 4294967295
+  contentColour:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &826826214854442787
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,11 +453,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 7433334166568795884}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -306.93335, y: 0.7999878}
+  m_AnchoredPosition: {x: -306.93262, y: 0.79992676}
   m_SizeDelta: {x: 275, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &826826214854442790
@@ -519,7 +528,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 7433334166568795884}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -701,6 +710,15 @@ MonoBehaviour:
   header: RAGE BOOST
   content: Deal damage to Ares, increasing his Rage in the process
   anchor: {fileID: 8311477678869138585}
+  backgroundColour:
+    serializedVersion: 2
+    rgba: 4278190080
+  headerColour:
+    serializedVersion: 2
+    rgba: 4294967295
+  contentColour:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &826826215317212434
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +931,15 @@ MonoBehaviour:
   content: When Ares takes damage, his rage increases. Use his Ultimate to enter
     Rage Mode, consuming Rage in order to deal increased damage
   anchor: {fileID: 2636741429095097443}
+  backgroundColour:
+    serializedVersion: 2
+    rgba: 4278190080
+  headerColour:
+    serializedVersion: 2
+    rgba: 4294967295
+  contentColour:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &826826215734339837
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,11 +1011,11 @@ RectTransform:
   m_Children:
   - {fileID: 7353862290141127346}
   - {fileID: 826826214078033801}
-  - {fileID: 826826214854442788}
   - {fileID: 826826214858804890}
   - {fileID: 5972718425556652435}
   - {fileID: 7446641262527200841}
   - {fileID: 8456760363345698122}
+  - {fileID: 826826214854442788}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1367,6 +1394,15 @@ MonoBehaviour:
   content: Slowly consume Rage to deal increased damage for a time. A larger buff
     is applied if activated at 100% Rage
   anchor: {fileID: 5719313996736594339}
+  backgroundColour:
+    serializedVersion: 2
+    rgba: 4278190080
+  headerColour:
+    serializedVersion: 2
+    rgba: 4294967295
+  contentColour:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &3656121145326142673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1678,7 @@ RectTransform:
   m_Children:
   - {fileID: 5629015204452577475}
   m_Father: {fileID: 7433334166568795884}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2051,7 +2087,7 @@ RectTransform:
   m_Children:
   - {fileID: 6702046158495970529}
   m_Father: {fileID: 7433334166568795884}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
