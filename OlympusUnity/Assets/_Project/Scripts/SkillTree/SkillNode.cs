@@ -131,7 +131,7 @@ public class SkillNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             string content = String.Format("<color=#6ba825>{0}", skillDescription);
             
             TooltipSystem.Hide();
-            TooltipSystem.Show(content, header);
+            //TooltipSystem.Show(content, header);
         }
     }
 

@@ -6,17 +6,21 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public string header;
     public string content;
     public Transform anchor;
+
+    public Color32 backgroundColour = Color.black;
+    public Color32 headerColour = Color.white;
+    public Color32 contentColour = Color.white;
     
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (anchor != null)
         {
-            TooltipSystem.Show(anchor, content, header);
+            TooltipSystem.Show(this, anchor, content, header);
         }
         
         else
         {
-            TooltipSystem.Show(content, header);
+            TooltipSystem.Show(this, content, header);
         }
     }
 
