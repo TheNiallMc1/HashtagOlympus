@@ -15,6 +15,7 @@ public class MonumentStates : MonoBehaviour
     [SerializeField] private List<Combatant> _touristStands;
 
     [SerializeField] GameObject[] healthGlowParticles;
+    [SerializeField] GameObject defenceBuffParticle;
 
     [SerializeField] private bool _isGod = true;
     [SerializeField] private bool _isFinal;
@@ -161,6 +162,18 @@ public class MonumentStates : MonoBehaviour
                 break;
         }
     }
+
+    public  void ActivateDefenceParticles()
+    {
+        defenceBuffParticle.SetActive(true);
+    }
+
+    public void DeactivateDefenceParticles()
+    {
+        defenceBuffParticle.SetActive(false);
+    }
+
+
 
     private void PlayerMonument()
     {
