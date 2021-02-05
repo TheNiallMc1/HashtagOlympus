@@ -273,6 +273,7 @@ Transform:
   - {fileID: 3766550915486521819}
   - {fileID: 5424181486071736608}
   - {fileID: 495282743324025570}
+  - {fileID: 5793380135010425204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -357,13 +358,15 @@ MonoBehaviour:
   respectOnKill: 5
   _targetType: 1
   colliderHolder: {fileID: 0}
+  healthPercentage: 0
   characterName: 
   characterSprite: {fileID: 0}
   targetIcon: {fileID: 495282743324025571}
   circleMarker: {fileID: 0}
   coneMarker: {fileID: 0}
-  maxHealth: 70
-  currentHealth: 70
+  maxHealth: 100
+  currentHealth: 100
+  healthBar: {fileID: 0}
   attackDamage: 0
   damageReduction: 0
 --- !u!114 &2102134805
@@ -671,14 +674,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff7007851e53cee4b9d8fb084593f1dd, type: 3}
---- !u!1 &8603320347651568179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5609145248127967260, guid: ff7007851e53cee4b9d8fb084593f1dd, type: 3}
-  m_PrefabInstance: {fileID: 4229598737222439471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8603320347997547573 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5609145247417056794, guid: ff7007851e53cee4b9d8fb084593f1dd, type: 3}
+  m_PrefabInstance: {fileID: 4229598737222439471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8603320347651568179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5609145248127967260, guid: ff7007851e53cee4b9d8fb084593f1dd, type: 3}
   m_PrefabInstance: {fileID: 4229598737222439471}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8909329078845251326 stripped

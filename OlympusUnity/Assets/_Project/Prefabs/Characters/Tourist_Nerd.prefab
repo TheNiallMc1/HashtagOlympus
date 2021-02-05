@@ -36,6 +36,7 @@ Transform:
   - {fileID: 8796201109544959546}
   - {fileID: 3524693006699463437}
   - {fileID: 2755540824863120651}
+  - {fileID: 2540608220019263445}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -120,13 +121,15 @@ MonoBehaviour:
   respectOnKill: 5
   _targetType: 1
   colliderHolder: {fileID: 0}
+  healthPercentage: 0
   characterName: 
   characterSprite: {fileID: 0}
   targetIcon: {fileID: 2755540824863120650}
   circleMarker: {fileID: 0}
   coneMarker: {fileID: 0}
-  maxHealth: 70
-  currentHealth: 70
+  maxHealth: 85
+  currentHealth: 85
+  healthBar: {fileID: 0}
   attackDamage: 8
   damageReduction: 0
 --- !u!114 &755377882709822769
