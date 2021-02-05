@@ -68,11 +68,25 @@ public class GameManager : MonoBehaviour
     {
 //        respectText = respectDisplay.text + " ";
       //  respectDisplay.text = respectText + currentRespect;
+      
+   
+      
         PopulateAllPlayerGods();
     }
 
     public void PopulateAllPlayerGods()
     {
+        //place gods
+        GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
+        if (placementInfo != null)
+        {
+            UberManager.Instance.selectedGods[0].gameObject.transform.root.position = new Vector3(placementInfo.god1Location.x, 0f, placementInfo.god1Location.y);
+            Debug.Log(UberManager.Instance.selectedGods[0].godName+" :"+placementInfo.god1Location);
+            UberManager.Instance.selectedGods[1].gameObject.transform.root.position = placementInfo.god2Location;
+            UberManager.Instance.selectedGods[2].gameObject.transform.root.position = placementInfo.god3Location;
+            Debug.Log("Gods have been placed");
+        }
+        
         if (UberManager.Instance.selectedGods.Count == 3)
         {
             allPlayerGods = UberManager.Instance.selectedGods;
@@ -174,7 +188,6 @@ public class GameManager : MonoBehaviour
     public void EnterTargetSelectMode(AbilityManager thisAbility)
     {
         // MOVE CAMERA TO GOD
-
         currentAbility = thisAbility;
         combatantUsingAbility = currentAbility.GetComponent<Combatant>();
 
@@ -289,7 +302,7 @@ public class GameManager : MonoBehaviour
 
         currentlySelectedGod.ToggleSelection(true);
         
-        //Toggle outine
+        //Toggle outline
         foreach (var god in allPlayerGods)
         {
             god.ToggleOutlineOnOff(false);   

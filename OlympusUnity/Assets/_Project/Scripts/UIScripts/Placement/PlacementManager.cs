@@ -70,13 +70,13 @@ public class PlacementManager : MonoBehaviour
 
     public void TimeToGo()
     {
-        GodPlacementInfo.Instance.god1 = UberManager.Instance.selectedGods[0].gameObject;
+        //GodPlacementInfo.Instance.god1 = UberManager.Instance.selectedGods[0].gameObject;
         GodPlacementInfo.Instance.god1Location = godModels[0].gameObject.transform.position;
             
-        GodPlacementInfo.Instance.god2 = UberManager.Instance.selectedGods[1].gameObject;
+        //GodPlacementInfo.Instance.god2 = UberManager.Instance.selectedGods[1].gameObject;
         GodPlacementInfo.Instance.god2Location = godModels[1].gameObject.transform.position;
             
-        GodPlacementInfo.Instance.god3 = UberManager.Instance.selectedGods[2].gameObject;
+       // GodPlacementInfo.Instance.god3 = UberManager.Instance.selectedGods[2].gameObject;
         GodPlacementInfo.Instance.god3Location = godModels[2].gameObject.transform.position;
         
         UberManager.Instance.SwitchGameState(UberManager.GameState.GamePlay);
