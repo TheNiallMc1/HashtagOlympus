@@ -66,6 +66,11 @@ public class PlacementManager : MonoBehaviour
 
     public void TimeToGo()
     {
+        foreach (GameObject t in godModels)
+        {
+            t.gameObject.transform.parent = null;
+        }
+        
         //GodPlacementInfo.Instance.god1 = UberManager.Instance.selectedGods[0].gameObject;
         GodPlacementInfo.Instance.god1Location = godModels[0].gameObject.transform.position;
             
