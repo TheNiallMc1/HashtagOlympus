@@ -19,6 +19,11 @@ public class ModelBehaviour : MonoBehaviour
     public string godUltimate;
     public bool isSelected;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+    
     public void SetInitialPosition(int pos)
     {
 

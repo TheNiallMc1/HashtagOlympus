@@ -7,14 +7,9 @@ public class GodDontDestroy : MonoBehaviour
 
     private void Awake()
     {
-       // if(isChosen) 
-            DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
  
-    // void OnLevelWasLoaded()
-    // {
-    //     //if(!isChosen) Destroy(gameObject);
-    // }
 
     public void ChooseUnchooseThisGod(bool choice)
     {
