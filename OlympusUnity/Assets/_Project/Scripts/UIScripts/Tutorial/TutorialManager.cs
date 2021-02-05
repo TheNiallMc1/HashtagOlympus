@@ -40,7 +40,8 @@ public class TutorialManager : MonoBehaviour
         {
             tutorial.gameObject.SetActive(false);
         }
-        allTutorials[tutorialIndex].SetActive(true);
+        
+        if (!mainTutorialComplete) allTutorials[tutorialIndex].SetActive(true);
     }
 
     public void IncrementTutorialIndex()
