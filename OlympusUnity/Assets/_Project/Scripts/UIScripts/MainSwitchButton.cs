@@ -22,7 +22,18 @@ public class MainSwitchButton : MonoBehaviour
     }
 
     public void SnapToCurrentGod()
-    {Debug.Log("main clciked!");
-        CameraController.Instance.FollowPlayer(GameManager.Instance.currentlySelectedGod);
+    {
+        Debug.Log("main clciked!");
+        if (GameManager.Instance.currentlySelectedGod != null)
+        {
+            CameraController.Instance.FollowPlayer(GameManager.Instance.currentlySelectedGod);
+        }
+        else
+        {
+            Debug.Log("i'm in the else please work");
+            GameManager.Instance.currentlySelectedGod = GameManager.Instance.allPlayerGods[0];
+            CameraController.Instance.FollowPlayer(GameManager.Instance.currentlySelectedGod);
+            InterimUIManager.Instance.UpdateHUD(0);
+        }
     }
 }
