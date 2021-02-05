@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void PopulateAllPlayerGods()
     {
-<<<<<<< Updated upstream
+
         //place gods
         /*GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
         if (placementInfo != null)
