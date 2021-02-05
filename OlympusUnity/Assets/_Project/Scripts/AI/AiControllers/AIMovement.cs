@@ -57,15 +57,10 @@ namespace _Project.Scripts.AI.AiControllers
         protected void Update()
         {
             _isCurrentAttackTargetNull = !_aiBrain.isTargetNotNull;
-            if (!_aiBrain._isDrunk)
-            {
-                var animSpeed = nav.velocity.magnitude / nav.speed;
-                animator.SetFloat(VerticalF, animSpeed);
-            }
-            else
-            {
-                animator.SetFloat(VerticalF, nav.speed);
-            }
+
+            var animSpeed = nav.velocity.magnitude / nav.speed;
+            animator.SetFloat(VerticalF, animSpeed);
+
         }
 
         protected void FixedUpdate()
