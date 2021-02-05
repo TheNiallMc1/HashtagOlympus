@@ -1378,7 +1378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: 
-  content: Ares damages himself, boosting his Rage in exchange
+  content: Ares can damage himself to increase his Rage Meter
   anchor: {fileID: 887494595}
   backgroundColour:
     serializedVersion: 2
@@ -8250,7 +8250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: 
-  content: Ares spins his sword around, dealing high damage to nearby enemies
+  content: Performs an area of effect attack against multiple targets in range
   anchor: {fileID: 167943719}
   backgroundColour:
     serializedVersion: 2
@@ -8508,6 +8508,62 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_Name
       value: TooltipCanvas
@@ -9940,8 +9996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: 
-  content: '[PASSIVE] When Ares takes damage, his Rage increases. Consume Rage to
-    use his Ultimate and receive stat boosts'
+  content: '[PASSIVE] When Ares takes damage, his Rage value increases - fueling
+    his Ultimate'
   anchor: {fileID: 542399160}
   backgroundColour:
     serializedVersion: 2
