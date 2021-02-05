@@ -28,7 +28,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         protected int wpNum;
         [SerializeField]
-        protected int wpIndex;
+        public int wpIndex;
         public int test;
         private int _currentPath = 1;
         public static readonly int VerticalF = Animator.StringToHash("Vertical_f");

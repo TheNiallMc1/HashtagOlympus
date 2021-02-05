@@ -68,6 +68,8 @@ namespace _Project.Scripts.AI.AiControllers
             AutoAttack02
         };
 
+        private static readonly int Hangover = Animator.StringToHash("Hangover");
+
 
         public EPriority Priority
         {
@@ -251,7 +253,7 @@ namespace _Project.Scripts.AI.AiControllers
 
         public void ActivateHangover()
         {
-            _movementMotor.animator.SetTrigger("Hangover");
+            _movementMotor.animator.SetTrigger(Hangover);
         }
 
         #endregion
@@ -350,7 +352,9 @@ namespace _Project.Scripts.AI.AiControllers
            var targetPosition = currentAttackTarget.transform;
            if (!isTargetNotNull) return;
             var position = transform.position;
-            if (!((position - targetPosition.position).magnitude <= 6)) return;
+            var i = 6;
+            if (_movementMotor.wpIndex == 9) i = 14;
+            if (!((position - targetPosition.position).magnitude <= i)) return;
             inRange = true;
             _movementMotor.nav.isStopped = true;
 
