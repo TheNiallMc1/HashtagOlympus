@@ -95,6 +95,8 @@ public class GodBehaviour : MonoBehaviour
 
     public void Update()
     {
+        if (isKOed) return;
+
         float animSpeed = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
         
         animator.SetFloat(VerticalF, animSpeed);
@@ -122,11 +124,12 @@ public class GodBehaviour : MonoBehaviour
         // Call base and override if needed
         SwitchState(GodState.knockedOut);
         animator.Play("Die");
+        navMeshAgent.enabled = false;
     }
     
     public virtual void FixedUpdate()
     {
-
+        if (isKOed) return;
 
         if ( CanAttack() )
         {
@@ -393,6 +396,7 @@ public class GodBehaviour : MonoBehaviour
         SwitchState(GodState.idle);
         thisCombatant.currentHealth = thisCombatant.maxHealth;
         isKOed = false;
+        navMeshAgent.enabled = true;
     }
 
     // may need to be public for ui implementation
