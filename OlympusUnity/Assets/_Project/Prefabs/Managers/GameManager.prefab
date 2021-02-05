@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 461555623904182935}
   - component: {fileID: 461555623904182934}
   - component: {fileID: 1350583989}
+  - component: {fileID: 1994512268}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,13 +47,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCam: {fileID: 0}
   overViewCam: {fileID: 0}
+  miniMap: {fileID: 0}
   allPlayerGods: []
   godSelected: 0
   currentlySelectedGod: {fileID: 0}
+  moveRayMask:
+    serializedVersion: 2
+    m_Bits: 4096
   lD: {fileID: 0}
   currentRespect: 25
   respectDisplay: {fileID: 0}
+  respectText: 
   summonRespectThreshold: 0
+  targetSelectModeActive: 0
+  combatantLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  currentAbility: {fileID: 0}
+  combatantUsingAbility: {fileID: 0}
+  targetsInRange: []
 --- !u!114 &1350583989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +81,36 @@ MonoBehaviour:
   state: 2
   prefab: {fileID: 137998977589943471, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
   left: {fileID: 0}
-  timeBetweenWaves: 5
+  countDownTxt: {fileID: 0}
+  enemiesRemainingTxt: {fileID: 0}
+  waveCounterTxt: {fileID: 0}
+  timeBetweenWaves: 2
   countDown: 2
-  touristDrones: []
-  waveIndex: 20
+  touristList: []
+  enemiesPerWave: 10
+  numberOfWaves: 1
+  currentWave: 1
+  incrementAmount: 1.3
+--- !u!114 &1994512268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461555623904182937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fddb5e38579b1947809f3c0330bec0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledTouristDrones: []
+  pooledTouristInfluencer: []
+  pooledTouristJock: []
+  pooledTouristNerd: []
+  droneObjectToPool: {fileID: 137998977589943456, guid: 4871b11c02c41574fb81ec9d32266367, type: 3}
+  influencerObjectToPool: {fileID: 7276881333199673116, guid: e5e752fc07da47a4697cd43c3a25701e, type: 3}
+  jockObjectToPool: {fileID: 2206406364322028486, guid: fecdbd17022f9d048b33a02412103c95, type: 3}
+  nerdObjectToPool: {fileID: 237205352113640137, guid: e401992baf76df54397a0cdf69185482, type: 3}
+  amountToPool: 50
+  wayPoints: {fileID: 0}
+  wpList: []
