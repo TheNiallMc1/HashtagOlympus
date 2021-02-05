@@ -60,7 +60,6 @@ public class Influencer : AIBrain
 
         touristDrone.SetActive(true);
         touristDrones.Add(transform);
-
     }
 
     private int RandomNumber()

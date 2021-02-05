@@ -12,8 +12,10 @@ public class DockSwitcherButton : MonoBehaviour
     private Button myButton;
     private int godKey;
     public Sprite currentSprite;
+    [SerializeField]
+    public List<Sprite> godSprites;
 
-    private void Start()
+    private void Awake()
     {
         myButton = GetComponent<Button>();
     }
@@ -25,16 +27,17 @@ public class DockSwitcherButton : MonoBehaviour
 
     public void SetCurrentGod(int key, string godName)
     {
-        Debug.Log("setting button to : "+godName+godKey);
+        Debug.Log("setting button to : " + godName + godKey);
         godKey = key;
-       // godNameDisplay.text = godName;
-       myButton.image.sprite = GameManager.Instance.godDict[key].gameObject.GetComponent<Combatant>().characterSprite;
+        // godNameDisplay.text = godName;
+        //myButton.image.sprite = GameManager.Instance.godDict[key].gameObject.GetComponent<Combatant>().characterSprite;
+        myButton.image.sprite = godSprites[key];
     }
 
     public void SendSwitchInfo()
     {
-        Debug.Log("I am sending key: "+godKey);
-        
+        Debug.Log("I am sending key: " + godKey);
+
         InterimUIManager.Instance.UpdateHUD(godKey);
     }
 }

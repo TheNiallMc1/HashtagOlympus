@@ -226,7 +226,11 @@ PrefabInstance:
       objectReference: {fileID: -3032340534806963141, guid: be345ab5b2b0281408672f431f9bad20, type: 2}
     - target: {fileID: 5639146253905471776, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_PreferredWidth
-      value: -1
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639146253905471776, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5639146253905471779, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: m_Color.r
@@ -342,7 +346,11 @@ PrefabInstance:
       objectReference: {fileID: 2894034946158066147}
     - target: {fileID: 5639146253905471791, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
       propertyPath: followMouse
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639146253905471791, guid: a1523fec36504b54591a972a95ad4f24, type: 3}
+      propertyPath: characterWrapLimit
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1523fec36504b54591a972a95ad4f24, type: 3}

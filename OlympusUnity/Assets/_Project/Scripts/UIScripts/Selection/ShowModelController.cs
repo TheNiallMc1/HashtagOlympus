@@ -58,7 +58,12 @@ public class ShowModelController : MonoBehaviour
 
         godStats.UpdateGodStatInfo(currentModel);
         currentModel.ToggleOutline(true);
-        selectButton.UpdateButton();
+        
+        if (selectButton != null)
+        {
+            selectButton.UpdateButton();
+        }
+        
     }
 
     public void EnableModel()

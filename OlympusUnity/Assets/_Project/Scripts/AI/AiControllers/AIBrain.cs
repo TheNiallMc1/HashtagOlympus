@@ -178,8 +178,11 @@ namespace _Project.Scripts.AI.AiControllers
                 case EState.Attacking:
                     if (State != EState.Frozen || isActiveAndEnabled)
                     {
+                        if (_movementMotor.nav != null)
+                        {
+                            _movementMotor.nav.isStopped = false;
+                        }
                         
-                        _movementMotor.nav.isStopped = false;
                         partyParticles.SetActive(false);
                         drunkParticles.SetActive(false);
                         isAttacking = true;
