@@ -37,8 +37,8 @@ public class Status_Hangover : StatusEffect
             if (affectedCombatant.targetType == Combatant.eTargetType.Enemy)
             {
                 movementMotor.animator.ResetTrigger("Hangover");
-                movementMotor.animator.SetTrigger("SoberedUp");
-                movementMotor.animator.ResetTrigger("SoberedUp");
+                movementMotor.animator.SetTrigger("HangoverEnd");
+                movementMotor.animator.ResetTrigger("HangoverEnd");
 
                 aiBrain._isHungover = false;
                 aiBrain.State = AIBrain.EState.Moving;

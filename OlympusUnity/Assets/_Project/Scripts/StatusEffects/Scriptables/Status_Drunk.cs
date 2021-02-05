@@ -30,8 +30,8 @@ public class Status_Drunk : StatusEffect
         {
             aiBrain._isDrunk = false;
             aiBrain.State = AIBrain.EState.Moving;
-            movementMotor.animator.SetTrigger("soberedUp");
-            movementMotor.animator.ResetTrigger("soberedUp");
+            movementMotor.animator.SetTrigger("SoberedUp");
+            movementMotor.animator.ResetTrigger("SoberedUp");
         }
     }
 }
