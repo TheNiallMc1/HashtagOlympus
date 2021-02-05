@@ -2,7 +2,7 @@
 
 public class TooltipSystem : MonoBehaviour
 {
-    private static TooltipSystem current;
+    public static TooltipSystem current;
 
     public Tooltip tooltip;
     
