@@ -34,19 +34,22 @@ public class MonumentStates : MonoBehaviour
 
     private void Start()
     {
+        _thisCombatant = GetComponent<Combatant>();
+        // SetNormalHealthParticles();
+        eMonumentState = monumentHealthState.VeryHigh;
+        healthGlowParticles[0].SetActive(true);
         
+        if(_isFinal) return;
         prefabEnemyMonument =  transform.GetChild(1).gameObject;
         prefabGodMonument = transform.GetChild(0).gameObject;
         _defenders = transform.GetChild(2).gameObject;
-        _thisCombatant = GetComponent<Combatant>();
+        
 
         eMonumentState = monumentHealthState.VeryHigh;
         InitialiseEnemyMonuments();
         PlayerMonument();
 
-        // SetNormalHealthParticles();
-        eMonumentState = monumentHealthState.VeryHigh;
-        healthGlowParticles[0].SetActive(true);
+        
 
     }
     
