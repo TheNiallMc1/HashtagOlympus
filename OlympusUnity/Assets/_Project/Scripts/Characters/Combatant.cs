@@ -140,6 +140,8 @@ public class Combatant : MonoBehaviour
 
     public void ApplyStatus(StatusEffect status, Combatant inflictedBy)
     {
+        if (currentHealth <= 0) return;
+
         status.inflictedBy = inflictedBy;
 
         if (currentHealth <= 0)

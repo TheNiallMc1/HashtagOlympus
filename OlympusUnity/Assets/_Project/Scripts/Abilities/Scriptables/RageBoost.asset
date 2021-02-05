@@ -16,10 +16,14 @@ MonoBehaviour:
   abilityDescription: 
   selectionType: 3
   abilityCanHit: 00000000
-  abilityDamage: 25
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  abilityDamage: 50
   abilityHealAmount: 0
+  abilityRange: 0
   statusEffects: []
-  abilityCooldown: 2
+  abilityCooldown: 10
   remainingCooldownTime: 0
   radius: 0
   coneAoE: {fileID: 0}

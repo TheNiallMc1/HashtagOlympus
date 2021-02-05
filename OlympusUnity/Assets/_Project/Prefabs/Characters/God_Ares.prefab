@@ -588,11 +588,11 @@ MonoBehaviour:
   targetIcon: {fileID: 0}
   circleMarker: {fileID: 1816694147034446483}
   coneMarker: {fileID: 1816694147034446483}
-  maxHealth: 200
-  currentHealth: 30
+  maxHealth: 400
+  currentHealth: 400
   healthBar: {fileID: 0}
-  attackDamage: 10
-  damageReduction: 72
+  attackDamage: 40
+  damageReduction: 20
 --- !u!114 &7196217159133631164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ MonoBehaviour:
   selectionCircle: {fileID: 1112500808}
   animator: {fileID: 0}
   attackAnimationIsPlaying: 0
-  rageGainPerDamage: 50
+  rageGainPerDamage: 3
   rageStatus: {fileID: 11400000, guid: 88e1e44554ce13042a47373a52a70604, type: 2}
   maxRageStatus: {fileID: 11400000, guid: ee2ef2960a10ced41a5109b9244d4071, type: 2}
   rageParticleEffects: {fileID: 4158807412208451748}
