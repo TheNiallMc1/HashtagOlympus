@@ -35,8 +35,6 @@ public class PlacementManager : MonoBehaviour
         
         continueUI.gameObject.SetActive(false);
         placementCount = 0;
-
-        //chosenGods = GameObject.Find("ChosenGods");
     }
 
     public void ChangeCurrentGodIndex(int newIndex)
@@ -46,7 +44,6 @@ public class PlacementManager : MonoBehaviour
     }
     public GameObject ReturnCurrentGod()
     {
-       // GameObject godToReturn = UberManager.Instance.selectedGods[currentGodIndex].gameObject;
        GameObject godToReturn = godModels[currentGodIndex].gameObject;
         return godToReturn;
     }
@@ -65,7 +62,6 @@ public class PlacementManager : MonoBehaviour
     {
         placementCount = 0;
         continueUI.gameObject.SetActive(true);
-        
     }
 
     public void TimeToGo()
@@ -84,7 +80,6 @@ public class PlacementManager : MonoBehaviour
 
     public void TryAgain()
     {
-        //foreach (GodBehaviour t in UberManager.Instance.selectedGods)
         foreach (GameObject t in godModels)
         {
             t.gameObject.transform.position = (new Vector3(1000, 0, 0));
