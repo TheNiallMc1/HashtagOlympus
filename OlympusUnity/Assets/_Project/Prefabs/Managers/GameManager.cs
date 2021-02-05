@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void PopulateAllPlayerGods()
     {
         //place gods
-        GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
+        /*GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
         if (placementInfo != null)
         {
             UberManager.Instance.selectedGods[0].gameObject.transform.root.position = new Vector3(placementInfo.god1Location.x, 0f, placementInfo.god1Location.y);
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
             UberManager.Instance.selectedGods[1].gameObject.transform.root.position = placementInfo.god2Location;
             UberManager.Instance.selectedGods[2].gameObject.transform.root.position = placementInfo.god3Location;
             Debug.Log("Gods have been placed");
-        }
+        */
         
         if (UberManager.Instance.selectedGods.Count == 3)
         {
