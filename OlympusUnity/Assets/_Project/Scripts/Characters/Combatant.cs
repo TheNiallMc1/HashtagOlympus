@@ -141,6 +141,11 @@ public class Combatant : MonoBehaviour
     {
         status.inflictedBy = inflictedBy;
 
+        if (currentHealth <= 0)
+        {
+            return;
+        }
+
         // If the status we are trying to apply already exists on this combatant, dont add it
         if (activeStatusEffects.ContainsKey(status))
         {
