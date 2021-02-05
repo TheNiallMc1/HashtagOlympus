@@ -11,7 +11,7 @@ public class GodColliders : MonoBehaviour
     {
         Combatant tourist = other.GetComponentInParent<Combatant>();
 
-        if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
+        if (tourist != null && (tourist.targetType == Combatant.eTargetType.Enemy || tourist.targetType == Combatant.eTargetType.EMonument))
         {
             switch (colliderType)
             {
@@ -31,7 +31,7 @@ public class GodColliders : MonoBehaviour
     {
         Combatant tourist = other.GetComponentInParent<Combatant>();
 
-        if (tourist != null && tourist.targetType == Combatant.eTargetType.Enemy)
+        if (tourist != null && (tourist.targetType == Combatant.eTargetType.Enemy || tourist.targetType == Combatant.eTargetType.EMonument))
         {
             switch (colliderType)
             {
