@@ -67,7 +67,10 @@ public class Combatant : MonoBehaviour
             healthBar.UpdateHealthBar(healthPercentage);
         }
 
-
+        if (targetType == eTargetType.PMonument)
+        {
+            GetComponent<MonumentStates>().UpdateStates();
+        }
     }
 
     public void ActivateTargetIcon()
@@ -219,11 +222,21 @@ public class Combatant : MonoBehaviour
             {
                 Die();
             }
+
+            if (targetType == eTargetType.PMonument)
+            {
+                GetComponent<MonumentStates>().UpdateStates();
+            }
         }
 
         if (targetType == eTargetType.Player)
         {
             GetComponent<GodBehaviour>().OnDamageEvent(damageAfterReduction);
+        }
+
+        if(targetType == eTargetType.PMonument)
+        {
+            GetComponent<MonumentStates>().UpdateStates();
         }
     }
 

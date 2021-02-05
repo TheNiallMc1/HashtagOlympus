@@ -12,9 +12,23 @@ public class MonumentStates : MonoBehaviour
     private Combatant _thisCombatant;
 
     [SerializeField] private List<Combatant> _touristStands;
-    
+
+    [SerializeField] GameObject[] healthGlowParticles;
 
     [SerializeField] private bool _isGod = true;
+
+    public enum monumentHealthState
+    {
+        VeryLow,
+        Low,
+        High,
+        VeryHigh,
+        Dead
+    }
+    [SerializeField] private monumentHealthState _eMonumentState;
+    public monumentHealthState eMonumentState { get { return _eMonumentState; } set { _eMonumentState = value; } }
+    
+
 
     private void Start()
     {
@@ -24,8 +38,14 @@ public class MonumentStates : MonoBehaviour
         _defenders = transform.GetChild(2).gameObject;
         _thisCombatant = GetComponent<Combatant>();
 
+        eMonumentState = monumentHealthState.VeryHigh;
         InitialiseEnemyMonuments();
         PlayerMonument();
+
+        // SetNormalHealthParticles();
+        eMonumentState = monumentHealthState.VeryHigh;
+        healthGlowParticles[0].SetActive(true);
+
     }
 
     private void LateUpdate()
@@ -61,7 +81,75 @@ public class MonumentStates : MonoBehaviour
             if (_touristStands.Count == 0)
             {
                 _isGod = true;
+                eMonumentState = monumentHealthState.VeryHigh;
+                healthGlowParticles[0].SetActive(true);
             }
+        }
+    }
+
+
+
+    public void UpdateStates()
+    {
+        monumentHealthState oldState = eMonumentState;
+
+        if (_thisCombatant.currentHealth > _thisCombatant.maxHealth * 0.75)
+        {
+            eMonumentState = monumentHealthState.VeryHigh;
+        }
+        else if (_thisCombatant.currentHealth > _thisCombatant.maxHealth * 0.50)
+        {
+            eMonumentState = monumentHealthState.High;
+        }
+        else if (_thisCombatant.currentHealth > _thisCombatant.maxHealth * 0.25)
+        {
+            eMonumentState = monumentHealthState.Low;
+        }
+        else if (_thisCombatant.currentHealth > 0)
+        {
+            eMonumentState = monumentHealthState.VeryLow;
+        }
+        else
+        {
+            eMonumentState = monumentHealthState.Dead;
+        }
+
+
+
+        if(oldState != eMonumentState)
+        {
+            SwapParticles(eMonumentState);
+        }
+        
+    }
+
+    private void SwapParticles(monumentHealthState newState)
+    {
+        foreach (GameObject healthEffect in healthGlowParticles)
+        {
+            healthEffect.SetActive(false);
+        }
+
+        switch (newState)
+        {
+            case monumentHealthState.VeryHigh:
+                healthGlowParticles[0].SetActive(true);
+                break;
+
+            case monumentHealthState.High:
+                healthGlowParticles[1].SetActive(true);
+                break;
+
+            case monumentHealthState.Low:
+                healthGlowParticles[2].SetActive(true);
+                break;
+
+            case monumentHealthState.VeryLow:
+                healthGlowParticles[3].SetActive(true);
+                break;
+
+            case monumentHealthState.Dead:
+                break;
         }
     }
 
