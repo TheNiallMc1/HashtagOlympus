@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Combatant))]
@@ -16,7 +17,8 @@ public class MonumentStates : MonoBehaviour
     [SerializeField] GameObject[] healthGlowParticles;
 
     [SerializeField] private bool _isGod = true;
-
+    [SerializeField] private bool _isFinal;
+ 
     public enum monumentHealthState
     {
         VeryLow,
@@ -47,13 +49,19 @@ public class MonumentStates : MonoBehaviour
         healthGlowParticles[0].SetActive(true);
 
     }
+    
 
     private void LateUpdate()
     {
-        if(_thisCombatant.currentHealth == _thisCombatant.maxHealth) return;
+        if((int)_thisCombatant.currentHealth == (int)_thisCombatant.maxHealth) return;
 
         if (_thisCombatant.currentHealth <= 0 && _isGod)
         {
+            if (_isFinal)
+            {
+                //  End Game
+                return;
+            }
             switch (_thisCombatant.targetType)
             {
                 case Combatant.eTargetType.PMonument:
@@ -78,12 +86,10 @@ public class MonumentStates : MonoBehaviour
                 _touristStands.Remove(t);
             }
 
-            if (_touristStands.Count == 0)
-            {
-                _isGod = true;
-                eMonumentState = monumentHealthState.VeryHigh;
-                healthGlowParticles[0].SetActive(true);
-            }
+            if (_touristStands.Count != 0) continue;
+            _isGod = true;
+            eMonumentState = monumentHealthState.VeryHigh;
+            healthGlowParticles[0].SetActive(true);
         }
     }
 
