@@ -78,16 +78,31 @@ public class GameManager : MonoBehaviour
     {
 
         //place gods
-        /*GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
+       /* GodPlacementInfo placementInfo = GameObject.Find("GodPlacementInfo").GetComponent<GodPlacementInfo>();
         if (placementInfo != null)
         {
-            UberManager.Instance.selectedGods[0].gameObject.transform.root.position = new Vector3(placementInfo.god1Location.x, 0f, placementInfo.god1Location.y);
-            Debug.Log(UberManager.Instance.selectedGods[0].godName+" :"+placementInfo.god1Location);
-            UberManager.Instance.selectedGods[1].gameObject.transform.root.position = placementInfo.god2Location;
-            UberManager.Instance.selectedGods[2].gameObject.transform.root.position = placementInfo.god3Location;
+            UberManager.Instance.selectedGods[0].gameObject.transform.root.position = transform.TransformPoint(placementInfo.god1Location);
+            Debug.Log(UberManager.Instance.selectedGods[0].godName + " :" + placementInfo.god1Location);
+            UberManager.Instance.selectedGods[1].gameObject.transform.root.position =
+                transform.TransformPoint(placementInfo.god2Location);
+            UberManager.Instance.selectedGods[2].gameObject.transform.root.position =
+                transform.TransformPoint(placementInfo.god3Location);
             Debug.Log("Gods have been placed");
+
         */
-        
+       var _aresModel = GameObject.Find("Ares_Model");
+       Debug.Log(_aresModel.transform.position + _aresModel.name);
+       UberManager.Instance.selectedGods[0].gameObject.transform.root.position = transform.InverseTransformPoint(_aresModel.transform.position);
+       UberManager.Instance.selectedGods[0].gameObject.transform.position = _aresModel.transform.position;
+       Debug.Log("checking ares: "+UberManager.Instance.selectedGods[0].godName+UberManager.Instance.selectedGods[0].name+UberManager.Instance.selectedGods[0].transform.position);
+           
+       
+       var _dioModel = GameObject.Find("Dionysus_Model");
+       UberManager.Instance.selectedGods[1].gameObject.transform.root.position = transform.TransformPoint(_dioModel.transform.position);
+       
+       var _demModel = GameObject.Find("Demeter_Model");
+       UberManager.Instance.selectedGods[2].gameObject.transform.root.position = _demModel.transform.position;
+
         if (UberManager.Instance.selectedGods.Count == 3)
         {
             allPlayerGods = UberManager.Instance.selectedGods;

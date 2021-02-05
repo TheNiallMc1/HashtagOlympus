@@ -21,7 +21,7 @@ public class GodPlacerButton : MonoBehaviour
     private void Start()
     {
         selectedGod = UberManager.Instance.selectedGods[godIndex];
-        _btn.GetComponentInChildren<TMP_Text>().text = selectedGod.godName;
+   //     _btn.GetComponentInChildren<TMP_Text>().text = selectedGod.godName;
     }
 
     public void SpawnBlueprint()
