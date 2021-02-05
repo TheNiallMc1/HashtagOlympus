@@ -92,16 +92,18 @@ public class GameManager : MonoBehaviour
         */
        var _aresModel = GameObject.Find("Ares_Model");
        Debug.Log(_aresModel.transform.position + _aresModel.name);
-       UberManager.Instance.selectedGods[0].gameObject.transform.root.position = transform.InverseTransformPoint(_aresModel.transform.position);
+      // UberManager.Instance.selectedGods[0].gameObject.transform.root.position = transform.InverseTransformPoint(_aresModel.transform.position);
        UberManager.Instance.selectedGods[0].gameObject.transform.position = _aresModel.transform.position;
        Debug.Log("checking ares: "+UberManager.Instance.selectedGods[0].godName+UberManager.Instance.selectedGods[0].name+UberManager.Instance.selectedGods[0].transform.position);
-           
+       UberManager.Instance.selectedGods[0].gameObject.transform.rotation = _aresModel.transform.rotation;
        
        var _dioModel = GameObject.Find("Dionysus_Model");
-       UberManager.Instance.selectedGods[1].gameObject.transform.root.position = transform.TransformPoint(_dioModel.transform.position);
+       UberManager.Instance.selectedGods[1].gameObject.transform.position = _dioModel.transform.position;
+       UberManager.Instance.selectedGods[1].gameObject.transform.rotation = _dioModel.transform.rotation;
        
        var _demModel = GameObject.Find("Demeter_Model");
-       UberManager.Instance.selectedGods[2].gameObject.transform.root.position = _demModel.transform.position;
+       UberManager.Instance.selectedGods[2].gameObject.transform.position = _demModel.transform.position;
+       UberManager.Instance.selectedGods[2].gameObject.transform.rotation = _demModel.transform.rotation;
 
         if (UberManager.Instance.selectedGods.Count == 3)
         {
