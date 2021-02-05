@@ -3,6 +3,7 @@ using _Project.Scripts.AI.AiControllers;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class Combatant : MonoBehaviour
 {
@@ -250,6 +251,12 @@ public class Combatant : MonoBehaviour
         switch (targetType)
         {
             case eTargetType.Player:
+                
+                if (GameManager.Instance.targetSelectModeActive)
+                {
+                    GameManager.Instance.ExitTargetSelectMode();
+                }
+                
                 GetComponent<GodBehaviour>().OnDeathEvent();
                 break;
             
