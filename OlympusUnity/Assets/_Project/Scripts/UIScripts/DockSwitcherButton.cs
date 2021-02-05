@@ -27,10 +27,8 @@ public class DockSwitcherButton : MonoBehaviour
     {
         Debug.Log("setting button to : "+godName+godKey);
         godKey = key;
-        godNameDisplay.text = godName;
-        myButton.image.sprite = GameManager.Instance.godDict[key].gameObject.GetComponent<Combatant>().characterSprite;
-        
-        Debug.Log("switch button: "+godName);
+       // godNameDisplay.text = godName;
+       myButton.image.sprite = GameManager.Instance.godDict[key].gameObject.GetComponent<Combatant>().characterSprite;
     }
 
     public void SendSwitchInfo()

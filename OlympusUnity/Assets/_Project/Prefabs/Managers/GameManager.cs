@@ -96,14 +96,20 @@ public class GameManager : MonoBehaviour
        UberManager.Instance.selectedGods[0].gameObject.transform.position = _aresModel.transform.position;
        Debug.Log("checking ares: "+UberManager.Instance.selectedGods[0].godName+UberManager.Instance.selectedGods[0].name+UberManager.Instance.selectedGods[0].transform.position);
        UberManager.Instance.selectedGods[0].gameObject.transform.rotation = _aresModel.transform.rotation;
+       _aresModel.gameObject.SetActive(false);
+       
        
        var _dioModel = GameObject.Find("Dionysus_Model");
+       Debug.Log(_dioModel.transform.position + _dioModel.name);
+       Debug.Log("checking dio: "+UberManager.Instance.selectedGods[1].godName+UberManager.Instance.selectedGods[1].name+UberManager.Instance.selectedGods[1].transform.position);
        UberManager.Instance.selectedGods[1].gameObject.transform.position = _dioModel.transform.position;
        UberManager.Instance.selectedGods[1].gameObject.transform.rotation = _dioModel.transform.rotation;
+       _dioModel.gameObject.SetActive(false);
        
        var _demModel = GameObject.Find("Demeter_Model");
        UberManager.Instance.selectedGods[2].gameObject.transform.position = _demModel.transform.position;
        UberManager.Instance.selectedGods[2].gameObject.transform.rotation = _demModel.transform.rotation;
+       _demModel.gameObject.SetActive(false);
 
         if (UberManager.Instance.selectedGods.Count == 3)
         {
