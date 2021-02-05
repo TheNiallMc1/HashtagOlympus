@@ -57,10 +57,6 @@ namespace _Project.Scripts.AI.AiControllers
         protected void Update()
         {
             _isCurrentAttackTargetNull = !_aiBrain.isTargetNotNull;
-        }
-
-        protected void FixedUpdate()
-        {
             if (!_aiBrain._isDrunk)
             {
                 var animSpeed = nav.velocity.magnitude / nav.speed;
@@ -70,6 +66,11 @@ namespace _Project.Scripts.AI.AiControllers
             {
                 animator.SetFloat(VerticalF, nav.speed);
             }
+        }
+
+        protected void FixedUpdate()
+        {
+
 
 
             if (gameObject.name == "Tourist_Defender") return;

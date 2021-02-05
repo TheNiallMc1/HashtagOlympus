@@ -284,8 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a568e6648364a849ab8075757e4fe8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drunkParticles: {fileID: 0}
-  partyParticles: {fileID: 0}
+  drunkParticles: {fileID: 2176839771319273181, guid: 38947108ab1209d4cb00fb74f1f54766, type: 3}
+  partyParticles: {fileID: 6139144152696551712, guid: 7fa2e254f433c6247add45f2c6ed7833, type: 3}
   enemiesInAttackRange: []
   monumentsInAttackRange: []
   currentAttackTarget: {fileID: 0}
@@ -304,6 +304,7 @@ MonoBehaviour:
   _isDrunk: 0
   _isDead: 0
   _drunkCoroutineRunning: 0
+  _isHungover: 0
   _autoAttackAnimations: 52c56609e8946f90
   _defencePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1158538317233770418
@@ -343,6 +344,7 @@ MonoBehaviour:
   respectOnKill: 5
   _targetType: 1
   colliderHolder: {fileID: 0}
+  healthPercentage: 0
   characterName: 
   characterSprite: {fileID: 0}
   targetIcon: {fileID: 0}
@@ -350,6 +352,7 @@ MonoBehaviour:
   coneMarker: {fileID: 0}
   maxHealth: 70
   currentHealth: 70
+  healthBar: {fileID: 0}
   attackDamage: 20
   damageReduction: 0
 --- !u!1 &8966311772290321839

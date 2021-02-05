@@ -89,30 +89,21 @@ public class Defender : AIBrain
             case EState.Drunk:
                 if (State != EState.Frozen)
                 {
-                    if (!_isDrunk)
-                    {
-                        partyParticles.SetActive(false);
-                        drunkParticles.SetActive(true);
-                        _movementMotor.currentPosition = transform.position;
-                        _isDrunk = true;
-                        attackAnimationIsPlaying = false;
-                        isAttacking = false;
-                        _movementMotor.animator.SetBool(GodSeen, false);
-                        _movementMotor.animator.Play(TouristStandardMovement);
-                        _movementMotor.nav.isStopped = false;
-                    }
-
-                    _movementMotor.Drunk();
-                }
-                break;
-            case EState.Party:
-                if (State != EState.Frozen)
-                {
+                    _movementMotor.nav.isStopped = false;
                     partyParticles.SetActive(true);
                     drunkParticles.SetActive(false);
                     _isDrunk = false;
                     _movementMotor.MoveToTarget(currentFollowTarget);
                 }
+                break;
+            case EState.Party:
+                _movementMotor.nav.isStopped = true;
+                _movementMotor.animator.SetBool(GodSeen, false);
+                _movementMotor.animator.speed = 0;
+                break;
+            case EState.Hangover:
+                _movementMotor.nav.isStopped = true;
+                _movementMotor.animator.SetBool(GodSeen, false);
                 break;
         }
     }
