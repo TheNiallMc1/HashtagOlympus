@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 
 public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -9,6 +8,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public string content;
 
     public bool followMouse;
+    public float mouseFollowOffset = 35f;
     public Transform anchor;
     
     public Color32 backgroundColour = Color.black;

@@ -21,6 +21,8 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.SetStyle();
 
         current.tooltip.FollowMouse();
+        current.tooltip.followMouse = true;
+        current.tooltip.mouseFollowOffset = trigger.mouseFollowOffset;
         current.tooltip.gameObject.SetActive(true);
     }
     
@@ -36,6 +38,7 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.anchorPosition = anchor;
         
         current.tooltip.MoveToAnchor();
+        current.tooltip.followMouse = false;
         current.tooltip.gameObject.SetActive(true);
     }
 

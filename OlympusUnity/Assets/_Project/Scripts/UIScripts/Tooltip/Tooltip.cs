@@ -4,9 +4,12 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour
 {
-    public bool followMouse;
+
     private PlayerControls playerControls;
 
+    [HideInInspector] public bool followMouse;
+    [HideInInspector] public float mouseFollowOffset = 35f;
+    
     [HideInInspector] public Transform anchorPosition;
 
     public Image tooltipBackground;
@@ -37,10 +40,6 @@ public class Tooltip : MonoBehaviour
         {
             FollowMouse();
         }
-        else if (anchorPosition != null)
-        {
-            MoveToAnchor();
-        }
     }
 
     public void MoveToAnchor()
@@ -50,16 +49,15 @@ public class Tooltip : MonoBehaviour
         float pivotX = transform.position.x / Screen.width;
         float pivotY = transform.position.y / Screen.height;
         
+        // Add enum that allows the user to choose the pivot position from the inspector - top left, bottom right, etc. then plug in the two related int values here
         rectTransform.pivot = new Vector2(pivotX, pivotY);
     }
     
     public void FollowMouse()
     {
         Vector3 mousePosition = GUIUtility.ScreenToGUIPoint(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-        transform.position = new Vector3(mousePosition.x, mousePosition.y + 2, mousePosition.z);
+        transform.position = new Vector3(mousePosition.x, mousePosition.y + mouseFollowOffset, mousePosition.z);
 
-        //transform.position = newPosition;
-        
         float pivotX = transform.position.x / Screen.width;
         float pivotY = transform.position.y / Screen.height;
         
