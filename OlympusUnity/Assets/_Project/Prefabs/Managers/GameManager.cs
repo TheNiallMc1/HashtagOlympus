@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
         // Return position of mouse click on screen. If it clicks a god, set that as currently selected god. otherwise, move current god
         if (!EventSystem.current.IsPointerOverGameObject()) // to ignore UI
         {
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, combatantLayerMask))
             {
                 GameObject objectHit = hit.collider.gameObject;
 
