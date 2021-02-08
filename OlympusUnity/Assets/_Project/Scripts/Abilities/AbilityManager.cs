@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Combatant))]
 [RequireComponent(typeof(GodBehaviour))]
@@ -38,6 +39,8 @@ public class AbilityManager : MonoBehaviour
 
     private bool onCooldown;
     public TextMeshProUGUI cooldownText;
+
+    public LayerMask ground;
 
     private void Awake()
     {
@@ -289,6 +292,16 @@ public class AbilityManager : MonoBehaviour
 
     private void AoEConeSelect()
     {
+        Ray ray;
+        ray = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, ground))
+
+        {
+            Vector3 lookingPoint = new Vector3(hit.point.x, 0, hit.point.z);
+            ability.thisGod.transform.LookAt(lookingPoint);
+        }
+
         if (rightClick && !ability.coneAlreadyExists)
         {
             ability.coneBuffer = 0.15f; // Offset time to let OnTriggerEnter activate

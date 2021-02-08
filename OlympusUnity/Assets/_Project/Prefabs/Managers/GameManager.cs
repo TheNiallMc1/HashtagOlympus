@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
 
     private PlayerControls playerControls;
-    private Camera cam;
+    public Camera cam;
     public Camera currentCam;
     public Camera overViewCam;
     public MiniMapCameraSnap miniMap;
