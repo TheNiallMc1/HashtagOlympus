@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,9 +18,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public float tooltipDelay = 0.5f;
     private Coroutine delayCoroutine;
-    
-    
-    
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (tooltipDelay > 0)

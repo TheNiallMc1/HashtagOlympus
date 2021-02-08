@@ -36,7 +36,7 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.SetStyle();
         
         current.tooltip.anchorPosition = anchor;
-        
+
         current.tooltip.MoveToAnchor();
         current.tooltip.followMouse = false;
         current.tooltip.gameObject.SetActive(true);

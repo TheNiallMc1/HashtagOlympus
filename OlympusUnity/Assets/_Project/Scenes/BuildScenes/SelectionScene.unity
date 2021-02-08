@@ -1118,7 +1118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0023498535, y: 0.0009765625}
+  m_AnchoredPosition: {x: 0.00390625, y: 0.0009765625}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &225723768
@@ -8275,7 +8275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Performs an area of effect attack against multiple targets in range
-  followMouse: 1
+  followMouse: 0
   mouseFollowOffset: 35
   anchor: {fileID: 167943719}
   backgroundColour:
@@ -8541,6 +8541,82 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2894034946158066145, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 638.26855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -203.56895
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_Name
       value: TooltipCanvas

@@ -11,6 +11,8 @@ public class Tooltip : MonoBehaviour
     [HideInInspector] public float mouseFollowOffset = 35f;
     
     [HideInInspector] public Transform anchorPosition;
+    [HideInInspector] public float pivotX;
+    [HideInInspector] public float pivotY;
 
     public Image tooltipBackground;
     public TextMeshProUGUI headerField;
@@ -46,10 +48,9 @@ public class Tooltip : MonoBehaviour
     {
         transform.position = new Vector3(anchorPosition.position.x, anchorPosition.position.y, anchorPosition.position.z);
         
-        float pivotX = transform.position.x / Screen.width;
-        float pivotY = transform.position.y / Screen.height;
+        pivotX = transform.position.x / Screen.width;
+        pivotY = transform.position.y / Screen.height;
         
-        // Add enum that allows the user to choose the pivot position from the inspector - top left, bottom right, etc. then plug in the two related int values here
         rectTransform.pivot = new Vector2(pivotX, pivotY);
     }
     
@@ -58,8 +59,8 @@ public class Tooltip : MonoBehaviour
         Vector3 mousePosition = GUIUtility.ScreenToGUIPoint(playerControls.Mouse.MousePos.ReadValue<Vector2>());
         transform.position = new Vector3(mousePosition.x, mousePosition.y + mouseFollowOffset, mousePosition.z);
 
-        float pivotX = transform.position.x / Screen.width;
-        float pivotY = transform.position.y / Screen.height;
+        pivotX = transform.position.x / Screen.width;
+        pivotY = transform.position.y / Screen.height;
         
         rectTransform.pivot = new Vector2(pivotX, pivotY);
     }
