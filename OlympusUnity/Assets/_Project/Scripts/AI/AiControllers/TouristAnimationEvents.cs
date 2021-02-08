@@ -15,6 +15,7 @@ namespace _Project.Scripts.AI.AiControllers
         {
             _touristCombatant = GetComponentInParent<Combatant>();
             _aIBrain = GetComponentInParent<AIBrain>();
+            
         }
 
     
@@ -78,7 +79,6 @@ namespace _Project.Scripts.AI.AiControllers
         {
             particleEffect.SetActive(false);
         }
-
 
     }
 }
