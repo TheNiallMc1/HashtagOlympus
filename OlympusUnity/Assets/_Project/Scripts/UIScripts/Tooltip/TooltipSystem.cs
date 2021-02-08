@@ -2,7 +2,7 @@
 
 public class TooltipSystem : MonoBehaviour
 {
-    private static TooltipSystem current;
+    public static TooltipSystem current;
 
     public Tooltip tooltip;
     
@@ -21,6 +21,8 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.SetStyle();
 
         current.tooltip.FollowMouse();
+        current.tooltip.followMouse = true;
+        current.tooltip.mouseFollowOffset = trigger.mouseFollowOffset;
         current.tooltip.gameObject.SetActive(true);
     }
     
@@ -34,8 +36,9 @@ public class TooltipSystem : MonoBehaviour
         current.tooltip.SetStyle();
         
         current.tooltip.anchorPosition = anchor;
-        
+
         current.tooltip.MoveToAnchor();
+        current.tooltip.followMouse = false;
         current.tooltip.gameObject.SetActive(true);
     }
 

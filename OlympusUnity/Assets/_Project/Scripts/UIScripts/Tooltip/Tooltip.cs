@@ -4,10 +4,15 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour
 {
-    public bool followMouse;
+
     private PlayerControls playerControls;
 
+    [HideInInspector] public bool followMouse;
+    [HideInInspector] public float mouseFollowOffset = 35f;
+    
     [HideInInspector] public Transform anchorPosition;
+    [HideInInspector] public float pivotX;
+    [HideInInspector] public float pivotY;
 
     public Image tooltipBackground;
     public TextMeshProUGUI headerField;
@@ -37,18 +42,14 @@ public class Tooltip : MonoBehaviour
         {
             FollowMouse();
         }
-        else if (anchorPosition != null)
-        {
-            MoveToAnchor();
-        }
     }
 
     public void MoveToAnchor()
     {
         transform.position = new Vector3(anchorPosition.position.x, anchorPosition.position.y, anchorPosition.position.z);
         
-        float pivotX = transform.position.x / Screen.width;
-        float pivotY = transform.position.y / Screen.height;
+        pivotX = transform.position.x / Screen.width;
+        pivotY = transform.position.y / Screen.height;
         
         rectTransform.pivot = new Vector2(pivotX, pivotY);
     }
@@ -56,12 +57,10 @@ public class Tooltip : MonoBehaviour
     public void FollowMouse()
     {
         Vector3 mousePosition = GUIUtility.ScreenToGUIPoint(playerControls.Mouse.MousePos.ReadValue<Vector2>());
-        transform.position = new Vector3(mousePosition.x, mousePosition.y + 2, mousePosition.z);
+        transform.position = new Vector3(mousePosition.x, mousePosition.y + mouseFollowOffset, mousePosition.z);
 
-        //transform.position = newPosition;
-        
-        float pivotX = transform.position.x / Screen.width;
-        float pivotY = transform.position.y / Screen.height;
+        pivotX = transform.position.x / Screen.width;
+        pivotY = transform.position.y / Screen.height;
         
         rectTransform.pivot = new Vector2(pivotX, pivotY);
     }

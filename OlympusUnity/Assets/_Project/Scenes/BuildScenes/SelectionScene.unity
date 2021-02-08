@@ -777,8 +777,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2090.9, y: -1029.2}
-  m_SizeDelta: {x: 1441.9673, y: 2058.454}
+  m_AnchoredPosition: {x: -2090.9, y: -749.7}
+  m_SizeDelta: {x: 1441.9673, y: 1351.7827}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &147615773
 MonoBehaviour:
@@ -794,6 +794,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: 'Heals Demeter or another god '
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 1090929348}
   backgroundColour:
     serializedVersion: 2
@@ -804,6 +806,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &147615774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,8 +881,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2086, y: -3258}
-  m_SizeDelta: {x: 1540.98, y: 1984.9092}
+  m_AnchoredPosition: {x: -2086, y: -3010.1}
+  m_SizeDelta: {x: 1540.98, y: 1489.0754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154268438
 MonoBehaviour:
@@ -895,6 +898,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Blow a gust of cold wind, freezing enemies in front of Demeter
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 804756593}
   backgroundColour:
     serializedVersion: 2
@@ -905,6 +910,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &154268439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,7 +1118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0023498535, y: 0.0009765625}
+  m_AnchoredPosition: {x: 0.00390625, y: 0.0009765625}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &225723768
@@ -1362,8 +1368,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4, y: -495.2}
-  m_SizeDelta: {x: 1882.5242, y: 2845.1611}
+  m_AnchoredPosition: {x: -4, y: -360.5}
+  m_SizeDelta: {x: 1882.5242, y: 1928.1772}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &322182977
 MonoBehaviour:
@@ -1379,6 +1385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Ares can damage himself to increase his Rage Meter
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 887494595}
   backgroundColour:
     serializedVersion: 2
@@ -1389,6 +1397,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &322182978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2581,7 +2590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &563897975
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3893,8 +3902,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2, y: -495.2}
-  m_SizeDelta: {x: 1882.5242, y: 2845.1611}
+  m_AnchoredPosition: {x: 2, y: -351.6}
+  m_SizeDelta: {x: 1882.5242, y: 1786.4346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &975294293
 MonoBehaviour:
@@ -3910,6 +3919,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Heal Dionysus for a little bit of health
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 1920666943}
   backgroundColour:
     serializedVersion: 2
@@ -3920,6 +3931,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &975294294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4568,8 +4580,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4, y: -1029.2}
-  m_SizeDelta: {x: 1540.98, y: 2058.454}
+  m_AnchoredPosition: {x: 4, y: -760.2}
+  m_SizeDelta: {x: 1540.98, y: 1520.5396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053476604
 MonoBehaviour:
@@ -4585,6 +4597,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: '[ULTIMATE] Switch between Summer and Winter form'
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 1201984865}
   backgroundColour:
     serializedVersion: 2
@@ -4595,6 +4609,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1053476605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5198,8 +5213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 527.6, y: -1563.3}
-  m_SizeDelta: {x: 1900.4817, y: 2521.9673}
+  m_AnchoredPosition: {x: 520.2, y: -1448.2}
+  m_SizeDelta: {x: 1939.6677, y: 1910.6807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217353212
 MonoBehaviour:
@@ -5216,6 +5231,8 @@ MonoBehaviour:
   header: 
   content: '[ULTIMATE] Consume Rage to enter Ultimate Rage. Take less damage and
     deal more damage for a while. Use this at 100% Rage for an even greater buff'
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 241284459}
   backgroundColour:
     serializedVersion: 2
@@ -5226,6 +5243,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1217353213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5449,7 +5467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1257375648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6105,8 +6123,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1066, y: -495.2}
-  m_SizeDelta: {x: 1882.5242, y: 2845.1611}
+  m_AnchoredPosition: {x: -1066, y: -350.3}
+  m_SizeDelta: {x: 1882.5242, y: 1934.656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1353547229
 MonoBehaviour:
@@ -6122,6 +6140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Splash wine around Dionysus, making nearby enemies drunk
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 410342914}
   backgroundColour:
     serializedVersion: 2
@@ -6132,6 +6152,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1353547230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6521,8 +6542,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1057, y: -495.2}
-  m_SizeDelta: {x: 1951.2517, y: 2845.1611}
+  m_AnchoredPosition: {x: 1057, y: -352}
+  m_SizeDelta: {x: 1951.2517, y: 1939.0437}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381235374
 MonoBehaviour:
@@ -6540,6 +6561,8 @@ MonoBehaviour:
   content: '[ULTIMATE] Dionysus begins dancing, and brings all the tourists in on
     the fun.  Tourists follow Dionysus for a short while, then suffer Hangovers when
     the Ultimate ends'
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 623524934}
   backgroundColour:
     serializedVersion: 2
@@ -6550,6 +6573,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1381235375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8234,8 +8258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1004, y: -495.2}
-  m_SizeDelta: {x: 1882.5242, y: 2845.1611}
+  m_AnchoredPosition: {x: 999.9, y: -360.5}
+  m_SizeDelta: {x: 1904.1853, y: 1957.0576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793217984
 MonoBehaviour:
@@ -8251,6 +8275,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Performs an area of effect attack against multiple targets in range
+  followMouse: 0
+  mouseFollowOffset: 35
   anchor: {fileID: 167943719}
   backgroundColour:
     serializedVersion: 2
@@ -8261,6 +8287,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1793217985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8335,8 +8362,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2079, y: -1029.2}
-  m_SizeDelta: {x: 1441.9673, y: 2058.454}
+  m_AnchoredPosition: {x: 2079, y: -760.22}
+  m_SizeDelta: {x: 1441.9673, y: 1520.4966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819881014
 MonoBehaviour:
@@ -8352,6 +8379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Cover a monument in vines. making it take less damage for a while
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 561654653}
   backgroundColour:
     serializedVersion: 2
@@ -8362,6 +8391,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1819881015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8436,8 +8466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4, y: -3258}
-  m_SizeDelta: {x: 1540.98, y: 1984.9092}
+  m_AnchoredPosition: {x: 4, y: -2996.9}
+  m_SizeDelta: {x: 1540.98, y: 1388.8538}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845537354
 MonoBehaviour:
@@ -8453,6 +8483,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: '[PASSIVE] All enemies near Winter Demeter move at a slower speed'
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 83005282}
   backgroundColour:
     serializedVersion: 2
@@ -8463,6 +8495,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &1845537355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8508,62 +8541,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946158066158, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946468607905, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2894034946812199465, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5926525850767918562, guid: 7ca2025a6c0a32b4ea4de571c19fdc7c, type: 3}
       propertyPath: m_Name
       value: TooltipCanvas
@@ -9345,8 +9322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2095, y: -3258}
-  m_SizeDelta: {x: 1540.98, y: 1984.9092}
+  m_AnchoredPosition: {x: 2095, y: -3010.1}
+  m_SizeDelta: {x: 1540.98, y: 1489.1008}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005852922
 MonoBehaviour:
@@ -9362,6 +9339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: 
   content: Pull an icicle out of the ground, dealing high damage to a single target
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 1600697990}
   backgroundColour:
     serializedVersion: 2
@@ -9372,6 +9351,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &2005852923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9980,8 +9960,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -565, y: -1576.8}
-  m_SizeDelta: {x: 1882.5242, y: 2450.146}
+  m_AnchoredPosition: {x: -565, y: -1445.4}
+  m_SizeDelta: {x: 1882.5242, y: 1752.6533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2117751792
 MonoBehaviour:
@@ -9998,6 +9978,8 @@ MonoBehaviour:
   header: 
   content: '[PASSIVE] When Ares takes damage, his Rage value increases - fueling
     his Ultimate'
+  followMouse: 0
+  mouseFollowOffset: 0
   anchor: {fileID: 542399160}
   backgroundColour:
     serializedVersion: 2
@@ -10008,6 +9990,7 @@ MonoBehaviour:
   contentColour:
     serializedVersion: 2
     rgba: 4281577671
+  tooltipDelay: 0.5
 --- !u!114 &2117751793
 MonoBehaviour:
   m_ObjectHideFlags: 0
