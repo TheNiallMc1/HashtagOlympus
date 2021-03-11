@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class AITestManager : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     public enum SpawnState { Spawning, Waiting, Counting}
 
@@ -56,7 +53,7 @@ public class AITestManager : MonoBehaviour
         {
             
             countDown -= 1.0f;
-            countDownTxt.text = "Next Wave: " + countDown.ToString() + "s";
+            countDownTxt.text = "Next Wave: " + countDown + "s";
             yield return new WaitForSeconds(1f);
         }
         countDownTxt.gameObject.SetActive(false);

@@ -29,20 +29,10 @@ public class MonumentCollider : MonoBehaviour
         var target = other.GetComponentInParent<Combatant>();
 
         if(target is null) return;
-        switch (target.targetType)
-        {
-            case Combatant.eTargetType.Player:
-                parentBehaviour.UpdateGodsNearby(false, target);
-                break;
-            case Combatant.eTargetType.PMonument:
-                parentBehaviour.UpdateTouristsNearby(false, target);
-                break;
-            case Combatant.eTargetType.Enemy:
-                break;
-            case Combatant.eTargetType.EMonument:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        
+        if (target.targetType == Combatant.eTargetType.Player)
+            parentBehaviour.UpdateGodsNearby(false, target);
+        else if (target.targetType == Combatant.eTargetType.PMonument) 
+            parentBehaviour.UpdateTouristsNearby(false, target);
     }
 }

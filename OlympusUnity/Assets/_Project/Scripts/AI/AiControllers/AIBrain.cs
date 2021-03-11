@@ -12,28 +12,41 @@ namespace _Project.Scripts.AI.AiControllers
         protected AIMovement _movementMotor;
         public GameObject drunkParticles;
         public GameObject partyParticles;
-        
-        [Header("Target Lists")]
-        [SerializeField] protected internal List<Combatant> enemiesInAttackRange;
+
+        [Header("Target Lists")] [SerializeField]
+        protected internal List<Combatant> enemiesInAttackRange;
+
         [SerializeField] protected internal List<Combatant> monumentsInAttackRange;
 
-        [Header("Combatants")]
-        protected Combatant thisCombatant;
+        [Header("Combatants")] protected Combatant thisCombatant;
         public Combatant currentAttackTarget;
         [HideInInspector] public Combatant currentFollowTarget;
 
-        public enum EPriority { Moving, Monument, God }
-        public enum EState { Moving, Attacking, Ability, Drunk, Party, Frozen, Hangover }
+        public enum EPriority
+        {
+            Moving,
+            Monument,
+            God
+        }
 
-        [Header("Dynamic States")]
-        [SerializeField]
+        public enum EState
+        {
+            Moving,
+            Attacking,
+            Ability,
+            Drunk,
+            Party,
+            Frozen,
+            Hangover
+        }
+
+        [Header("Dynamic States")] [SerializeField]
         protected EPriority priority = EPriority.Moving;
-        [SerializeField]
-        protected EState state = EState.Moving;
+
+        [SerializeField] protected EState state = EState.Moving;
         public Waypoint wayPoint;
 
-        [Header("Dynamic Validation")] 
-        public bool isFrozen;
+        [Header("Dynamic Validation")] public bool isFrozen;
         public bool inRange;
         public bool initMove = true;
         public bool weightCheck;
@@ -47,9 +60,10 @@ namespace _Project.Scripts.AI.AiControllers
         public bool _drunkCoroutineRunning;
         public bool _isHungover;
 
-        [Header("Animation")]
+        [Header("Animation")] 
         protected bool _initialCoLoop = true;
         private int _lastNumber = 1;
+        private int animNumber;
         protected static readonly int GodSeen = Animator.StringToHash("GodSeen");
         protected static readonly int MonumentAttack = Animator.StringToHash("MonumentAttack");
         protected static readonly int MonumentDestroyed = Animator.StringToHash("MonumentDestroyed");
@@ -121,119 +135,139 @@ namespace _Project.Scripts.AI.AiControllers
             }
 
             wayPoint = _movementMotor.GetPath();
+
+            PriorityUpdate();
+            StateUpdate();
+
+
+        }
+
+        protected virtual void PriorityUpdate()
+        {
+            _isCombatantNotNull = enemiesInAttackRange.Count != 0;
+            _isMonumentsNotNull = monumentsInAttackRange.Count != 0;
+
             switch (priority)
             {
-                case EPriority.God:
-                    _isCombatantNotNull = enemiesInAttackRange.Count != 0;
-                    if (_isCombatantNotNull)
-                    {
-                        currentAttackTarget = null;
-                        currentAttackTarget = enemiesInAttackRange[0];
-                        isTargetNotNull = true;
-                    }
-
+                case EPriority.God when _isCombatantNotNull:
+                    currentAttackTarget = null;
+                    currentAttackTarget = enemiesInAttackRange[0];
+                    isTargetNotNull = true;
                     break;
-                case EPriority.Monument:
-                    _isMonumentsNotNull = monumentsInAttackRange.Count != 0;
-                    if (_isMonumentsNotNull)
-                    {
-                        initMove = false;
-                        currentAttackTarget = monumentsInAttackRange[0];
-                        isTargetNotNull = true;
-                    }
+                case EPriority.Monument when _isMonumentsNotNull:
+                    initMove = false;
+                    currentAttackTarget = monumentsInAttackRange[0];
+                    isTargetNotNull = true;
                     break;
-                case EPriority.Moving:
-                    if(State == EState.Drunk) break;
+                case EPriority.Moving when State != EState.Drunk:
                     currentAttackTarget = null;
                     isTargetNotNull = false;
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
+        }
 
+        protected virtual void StateUpdate()
+        {
             switch (state)
             {
                 case EState.Moving:
-                    if (State != EState.Frozen || isActiveAndEnabled)
-                    {
-                        _movementMotor.nav.isStopped = false;
-                        if (!initMove)
-                        {
-                            partyParticles.SetActive(false);
-                            drunkParticles.SetActive(false);
-                            _isDrunk = false;
-                            attackAnimationIsPlaying = false;
-                            _movementMotor.animator.SetBool(GodSeen, false);
-                            isTargetNotNull = false;
-                            inRange = false;
-                            isAttacking = false;
-                            _movementMotor.animator.Play(TouristStandardMovement);
-                            _movementMotor.nav.isStopped = false;
-                            _initialCoLoop = true;
-                            _movementMotor.Moving();
-
-                        }
-                    }
+                    Moving();
                     break;
                 case EState.Attacking:
-                    if (State != EState.Frozen || isActiveAndEnabled)
-                    {
-                        if (_movementMotor.nav != null)
-                        {
-                            _movementMotor.nav.isStopped = false;
-                        }
-                        
-                        partyParticles.SetActive(false);
-                        drunkParticles.SetActive(false);
-                        isAttacking = true;
-                        _isDrunk = false;
-
-                        if (Priority == EPriority.God)
-                        {
-                            Attack(currentAttackTarget);
-                        }
-
-                        if (Priority == EPriority.Monument)
-                        {
-
-                            Attack(currentAttackTarget);
-                        }
-                    }
-                    break;
-                case EState.Ability:
+                    Attacking();
                     break;
                 case EState.Drunk:
-                    if (State != EState.Frozen || isActiveAndEnabled)
-                    {
-                        if (_drunkCoroutineRunning) return;
-                        StartCoroutine(_movementMotor.Drunk());
-                    }
+                    Drunk();
                     break;
-                case EState.Party:
-                    if (State != EState.Frozen)
-                    {
-                        _movementMotor.nav.isStopped = false;
-                        partyParticles.SetActive(true);
-                        drunkParticles.SetActive(false);
-                        _isDrunk = false;
-                        _movementMotor.MoveToTarget(currentFollowTarget);
-                    }
+                case EState.Party when State != EState.Frozen:
+                    Party();
                     break;
-                
                 case EState.Frozen:
-                    _movementMotor.nav.isStopped = true;
-                    _movementMotor.animator.SetBool(GodSeen, false);
-                    _movementMotor.animator.speed = 0;
+                    Frozen();
                     break;
-
                 case EState.Hangover:
-                    _movementMotor.nav.isStopped = true;
-                    _movementMotor.animator.SetBool(GodSeen, false);
+                    Hungover();
                     break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
+        }
+
+        protected virtual void Moving()
+        {
+            if (State == EState.Frozen && !isActiveAndEnabled) return;
+            
+            _movementMotor.nav.isStopped = false;
+            
+            if (initMove) return;
+            
+            partyParticles.SetActive(false);
+            drunkParticles.SetActive(false);
+            _isDrunk = false;
+            attackAnimationIsPlaying = false;
+            _movementMotor.animator.SetBool(GodSeen, false);
+            isTargetNotNull = false;
+            inRange = false;
+            isAttacking = false;
+            _movementMotor.animator.Play(TouristStandardMovement);
+            _movementMotor.nav.isStopped = false;
+            _initialCoLoop = true;
+            _movementMotor.Moving();
+        }
+
+        protected virtual void Attacking()
+        {
+            if (State == EState.Frozen && !isActiveAndEnabled) return;
+            
+            if (_movementMotor.nav != null)
+            {
+                _movementMotor.nav.isStopped = false;
+            }
+
+            partyParticles.SetActive(false);
+            drunkParticles.SetActive(false);
+            isAttacking = true;
+            _isDrunk = false;
+
+            if (Priority == EPriority.God)
+            {
+                Attack(currentAttackTarget);
+            }
+
+            if (Priority == EPriority.Monument)
+            {
+
+                Attack(currentAttackTarget);
+            }
+        }
+
+        protected virtual void Party()
+        {
+            _movementMotor.nav.isStopped = false;
+            partyParticles.SetActive(true);
+            drunkParticles.SetActive(false);
+            _isDrunk = false;
+            _movementMotor.MoveToTarget(currentFollowTarget);
+        }
+
+        protected virtual void Drunk()
+        {
+            if (State != EState.Frozen || isActiveAndEnabled)
+            {
+                if (_drunkCoroutineRunning) return;
+                StartCoroutine(_movementMotor.Drunk());
+            }
+        }
+
+        private void Frozen()
+        {
+            _movementMotor.nav.isStopped = true;
+            _movementMotor.animator.SetBool(GodSeen, false);
+            _movementMotor.animator.speed = 0;
+        }
+        
+        protected virtual void Hungover()
+        {
+            _movementMotor.nav.isStopped = true;
+            _movementMotor.animator.SetBool(GodSeen, false);
         }
 
         public void ActivateDrunk()
@@ -269,20 +303,39 @@ namespace _Project.Scripts.AI.AiControllers
             if (target.currentHealth <= 0 || target.targetType == Combatant.eTargetType.EMonument)
             {
 
-                if (Priority == EPriority.God)
-                {
-                    UpdateAttackList(false, currentAttackTarget);
-                }
-                if (Priority == EPriority.Monument)
-                {
-                    _movementMotor.animator.SetBool(MonumentDestroyed, true);
-                    UpdateMonumentList(false, currentAttackTarget);
-                }
+                UpdateLists(true);
             }
+            
+            SelectTargets();
 
+            if (currentAttackTarget != null) return;
+             _movementMotor.animator.SetBool(MonumentDestroyed, true);
+
+            _movementMotor.animator.ResetTrigger(_autoAttackAnimations[animNumber]);
+             _movementMotor.animator.SetBool(GodInRange, false);
+             
+            UpdateLists(false);
+        }
+
+        private void UpdateLists(bool isDestroyed)
+        {
+            if (Priority == EPriority.God)
+                UpdateAttackList(false, currentAttackTarget);
+            
+            if (Priority != EPriority.Monument) return;
+            
+            if(isDestroyed) 
+                _movementMotor.animator.SetBool(MonumentDestroyed, true);
+            
+            UpdateMonumentList(false, currentAttackTarget);
+        }
+
+        private void SelectTargets()
+        {
+            
             transform.LookAt(currentAttackTarget.transform.position);
 
-            var animNumber = 1;
+            animNumber = 1;
 
             foreach (var targetCombatant in from targetCombatant in enemiesInAttackRange
                 let closest = transform.position - currentAttackTarget.transform.position
@@ -291,23 +344,29 @@ namespace _Project.Scripts.AI.AiControllers
             {
                 currentAttackTarget = targetCombatant;
             }
-
             if (isTargetNotNull)
             {
-                _movementMotor.MoveToTarget(target);
-                TargetInRange();
-
-                if (Priority == EPriority.God && inRange)
-                {
-                    
-                    _movementMotor.animator.SetBool(GodSeen, true);
-                }
-
-                if (Priority == EPriority.Monument && inRange)
-                {
-                    _movementMotor.animator.SetTrigger(MonumentAttack);
-                }
+                MoveToTarget();
             }
+            
+        }
+
+        private void MoveToTarget()
+        {
+            _movementMotor.MoveToTarget(currentAttackTarget);
+            TargetInRange();
+
+            if (Priority == EPriority.God && inRange)
+            {
+                    
+                _movementMotor.animator.SetBool(GodSeen, true);
+            }
+
+            if (Priority == EPriority.Monument && inRange)
+            {
+                _movementMotor.animator.SetTrigger(MonumentAttack);
+            }
+            
             transform.LookAt(currentAttackTarget.transform.position);
 
             if (Priority == EPriority.God && inRange)
@@ -327,25 +386,6 @@ namespace _Project.Scripts.AI.AiControllers
                 _lastNumber = animNumber;
 
 
-            }
-
-          
-
-            if (currentAttackTarget != null) return;
-             _movementMotor.animator.SetBool(MonumentDestroyed, true);
-
-            _movementMotor.animator.ResetTrigger(_autoAttackAnimations[animNumber]);
-             _movementMotor.animator.SetBool(GodInRange, false);
-
-
-
-            if (Priority == EPriority.God)
-            {
-                UpdateAttackList(false, currentAttackTarget);
-            }
-            if (Priority == EPriority.Monument)
-            {
-                UpdateMonumentList(false, currentAttackTarget);
             }
         }
 

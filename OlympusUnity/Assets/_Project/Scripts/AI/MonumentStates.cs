@@ -61,27 +61,37 @@ public class MonumentStates : MonoBehaviour
 
         if (_thisCombatant.currentHealth <= 0 && _isGod)
         {
-            if (_isFinal)
-            {
-                //  End Game
-                return;
-            }
-            switch (_thisCombatant.targetType)
-            {
-                case Combatant.eTargetType.PMonument:
-                    _thisCombatant.targetType = Combatant.eTargetType.DMonument;
-                        _isGod = false;
-                    DamagedMonument();
-                    break;
-                case Combatant.eTargetType.DMonument:
-                    _thisCombatant.targetType = Combatant.eTargetType.PMonument;
-                        _thisCombatant.currentHealth = 100;
-                    PlayerMonument();
-                    break;
-            }
+           MonumentsUpdate();
         }
 
         if (_thisCombatant.targetType != Combatant.eTargetType.DMonument) return;
+        ResetMonuments();
+    }
+
+    private void MonumentsUpdate()
+    {
+        if (_isFinal)
+        {
+            //  End Game
+            return;
+        }
+
+        if (_thisCombatant.targetType == Combatant.eTargetType.PMonument)
+        {
+            _thisCombatant.targetType = Combatant.eTargetType.DMonument;
+            _isGod = false;
+            DamagedMonument();
+        }
+        else if (_thisCombatant.targetType == Combatant.eTargetType.DMonument)
+        {
+            _thisCombatant.targetType = Combatant.eTargetType.PMonument;
+            _thisCombatant.currentHealth = 100;
+            PlayerMonument();
+        }
+    }
+
+    private void ResetMonuments()
+    {
         foreach (var t in _touristStands)
         {
                 

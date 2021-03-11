@@ -16,19 +16,11 @@ namespace _Project.Scripts.AI.AiControllers
 
             if (target == null) return;
             var targetType = target.targetType;
-            switch (targetType)
-            {
-                case Combatant.eTargetType.Player:
-                    parentBehaviour.UpdateAttackList(true, target);
-                    break;
-                case Combatant.eTargetType.PMonument:
-                    parentBehaviour.UpdateMonumentList(true, target);
-                    break;
-                case Combatant.eTargetType.Enemy:
-                    break;
-                case Combatant.eTargetType.EMonument:
-                    break;
-            }
+            
+            if (targetType == Combatant.eTargetType.Player)
+                parentBehaviour.UpdateAttackList(true, target);
+            else if (targetType == Combatant.eTargetType.PMonument) 
+                parentBehaviour.UpdateMonumentList(true, target);
         }
 
         // When a tourist exits the trigger, call the method in the parent behaviour
@@ -40,19 +32,11 @@ namespace _Project.Scripts.AI.AiControllers
 
             if (target == null) return;
             var targetType = target.targetType;
-            switch (targetType)
-            {
-                case Combatant.eTargetType.Player:
-                    parentBehaviour.UpdateAttackList(false, target);
-                    break;
-                case Combatant.eTargetType.PMonument:
-                    parentBehaviour.UpdateMonumentList(false, target);
-                    break;
-                case Combatant.eTargetType.Enemy:
-                    break;
-                case Combatant.eTargetType.EMonument:
-                    break;
-            }
+            
+            if (targetType == Combatant.eTargetType.Player)
+                parentBehaviour.UpdateAttackList(false, target);
+            else if (targetType == Combatant.eTargetType.PMonument) 
+                parentBehaviour.UpdateMonumentList(false, target);
         }
     }
 }
